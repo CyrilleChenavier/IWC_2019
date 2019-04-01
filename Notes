@@ -21,7 +21,7 @@ Prop : Si propriété de standardisation alors pour r\in R^{tot} (relation d'éq
 
 Pour cela : il faut montrer que les gens qui vérifient la propriété de standardisation sont clos par les opérations de R^{tot} (somme, composition et inverse).
 
-Thm 2 : R est muni d'un ordre bien-fondé tel que pour tout r\in R (OPS r\neq h_x), r et h_x confluent avec des chemins de R^{tot} engendrés par des éléments inférieurs à r.
+Theorem 2 : R est muni d'un ordre bien-fondé tel que pour tout r\in R (OPS r\neq h_x), r et h_x confluent avec des chemins de R^{tot} engendrés par des éléments inférieurs à r.
 
 prv : reprendre le cas ensembliste.
 
