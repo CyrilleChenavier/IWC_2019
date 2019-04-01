@@ -1,0 +1,40 @@
+* Cadre :
+  V=kX un espace vectoriel et R une extension cellulaire telle que s(R) est inclus dans X.
+  < : ordre bien-fondé sur X que l'on étend en un ordre multiset sur les vecteurs.
+  Hyp : pour tout monôme x non minimal, il existe un h_x\in R tel que t(h_x) < x.
+
+* Candidat pour les étapes de réécriture : v -> g en réécrivant (complètement) un ou plusieurs monômes figurant dans v.
+
+* On étend h par linéarite à V et on définit H par terminaison de h.
+  Proposition (à montrer) : H est linéaire.
+
+=== Critère de confluence ===
+
+Propriété de standardisation : pour tout r\in R (OPS r \neq h_x), on a H(s(r))=H(t(r)).
+
+Thm 1 : si la propriété de standardisation est vraie alors, on a
+\overline{v} = 0 ssi v\in ker(H) (où \overline{v} est la classe de v modulo R).
+
+Résultats intermédiaires :
+
+Prop : Si propriété de standardisation alors pour r\in R^{tot} (relation d'équivalence engendrée par R), H(s(r))=H(t(r)).
+
+Pour cela : il faut montrer que les gens qui vérifient la propriété de standardisation sont clos par les opérations de R^{tot} (somme, composition et inverse).
+
+Thm 2 : R est muni d'un ordre bien-fondé tel que pour tout r\in R (OPS r\neq h_x), r et h_x confluent avec des chemins de R^{tot} engendrés par des éléments inférieurs à r.
+
+prv : reprendre le cas ensembliste.
+
+=== A regarder ===
+
+* Relier la réécriture en parallèle aux suites de pas de réécriture bien formées (i.e. tels que définis pour les bases de G).
+
+* Regarder ce qui se passe lorsque l'ordre sur X est induit par h.
+
+* Voir si on une façon naturelle de choisir l'ordre sur r (par exemple, les réductions standards sont inférieures aux autres).
+
+* Montrer que un vecteur v est une décomposition linéaire de mônomes minimaux ssi v\in im(H).
+
+* Voir les liens avec les bases de Janet et relier algèbres.
+
+* Trouver des exemples (regarder l'exemple dans l'article de Yves et Philippe avec branchement additif non confluent).
