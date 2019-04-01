@@ -1,0 +1,330 @@
+\documentclass[10pt]{easychair}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb,mathrsfs}
+\pagestyle{plain}
+\usepackage{enumitem} 
+\usepackage{amsthm}
+\usepackage{titlesec}
+\usepackage[all]{xy}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+
+\setcounter{tocdepth}{2}
+\bibliographystyle{plain}
+
+\def\l@paragraph{\@tocline{3}{0pt}{1pc}{9pc}{}}
+
+
+\newcommand\Z{\mathbb{Z}}
+\newcommand\K{\mathbb{K}}
+\newcommand\supp[1]{\text{supp}\left(#1\right)}
+\newcommand\I[1]{\item[\textbf{#1.}]}
+\newcommand\syz[1]{\textbf{syz}\left(#1\right)}
+\newcommand\G{Gr\"obner}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+
+\titleformat{\subsection}[runin]
+{\normalfont\bfseries}
+{\thesubsection.}{.5em}{}[.]
+\titlespacing{\subparagraph}
+{\parindent}{1.5ex plus .1ex minus .2ex}{1.5pt}
+
+\begin{document}
+
+\title{The diamond lemma for free modules}
+\author{Cyrille Chenavier}
+\institute{Universit\'{e} Paris-Est Marne-la-Vall\'{e}e}
+\date{}
+
+\maketitle
+
+\begin{abstract}
+
+  We study rewriting systems over free modules, that is linear combinations of free generators with noninvertible coefficients. We provide a sufficient condition in terms of local confluence restricted to generators for the global rewrite relation to be confluent: this condition is formulated in terms of syzygies. When the coefficients belong to a domain, we equip the set of syzygies with a module structure, which provides a finer criterion: the local confluence has to be checked over a subset of syzygies, namely a generating set for the module structure.
+  
+\end{abstract}
+
+\section{Introduction}
+
+The diamond lemma for noncommutative polynomials was introduced by Bergman~\cite{MR506890} for computing normal forms in noncommutative algebras using rewriting theory. The diamond lemma together with the works of Bokut~\cite{MR0506423} gave birth the theory of noncommutative \G\ bases~\cite{MR1299371}. The latter provides applications in various areas of noncommutative algebra: study of embedding problems, this was the motivation of Bokut and Bergman, homological algebra~\cite{MR846601, MR2110434} or Koszul duality~\cite{MR1608711, MR1832913}, for instance.
+
+The diamond lemma is based on the observation that the set of noncommutative polynomials admitting a unique normal form is a vector space. Hence, the set of noncommutative monomials being a linear basis of noncommutative polynomials, it is sufficient to check the local confluence property over these monomials. The diamond lemma asserts that when the so called overlapping/inclusion ambiguities (which correspond to critical pairs for term rewriting) are joinable, then every monomial admits a unique normal form, so that the global rewrite relation is confluent.
+
+In this work, we are interested in the study of linear combinations of monomials where the coefficients in these combinations do not form a field. In this framework, elements with a unique normal form do not form a subspace anymore: consider for instance a rewrite rule $2y\ \longrightarrow\ x$, where the coefficients belong to the ring of integers $\Z$. Since $2$ is not inverible in $\Z$, the monomial $y$ is a normal form but $y+y\ =\ 2y$ is not a normal form! This observation has the following consequence: a rewrite relation such that every monomial admits a unique normal form has no reason to be confluent. For instance, consider the two rewrite rules $2y\ \longrightarrow\ -x$ and $2x\ \longrightarrow\ -y$. Then, one can show that for every $n\ \in\ \Z$, $nx$ and $ny$ admit a unique normal form, but $2x+2y$ rewrites both in $x$ and $y$ which are not joinable!
+
+In Theorem~\ref{Diamond lemma}, we present an analogous version of the diamond lemma for rewriting systems over linear combinations with noninveritble coefficients. This work does not concern noncommutative polynomials but the more general case of \emph{free left module} (formal definitions are given at the beginning of the next section): we do not take into account the structure of monomials. The adaptation of the criterion of Theorem~\ref{Diamond lemma} to noncommutative polynomials with noninvertible coefficients is a further work. Two other further works should be mentionned there: when the coefficients are $\Z$, the underlying module structure is the one of abelian groups, so that we wish to develop rewriting theory in this context. Another perspective is the study of the case where monomials are terms of the $\lambda$-calculus, which is the framework of \emph{algebraic} $\lambda$-\emph{calculus}~\cite{MR2545510}.
+
+\section{Rewrite systems over free left modules}
+
+Throughout the paper, we fix a not necessarily commutative ring \textbf{R} and a set $X$. We denote by $\textbf{R}X$ the free left module over $X$, that is the set of finite formal linear combinations of elements of $X$ with coefficients in \textbf{R}. Given such two elements $f\ =\ \sum r_xx$ and $g\ =\sum s_xx$, the sum $f+g$ is equal to $\sum\left(r_x+s_x\right)x$ and the left product of $r\ \in\ \textbf{R}$ with $f$ is equal to $\sum\left(rr_x\right)x$, where $rr_x$ is the product of $r$ and $r_x$ in \textbf{R}.
+
+A set $\mathscr{R}$ of rewrite rules over $\textbf{R}X$ is said to be \emph{left-monomial} if its elements are of the form $rx\ \longrightarrow\ f$, where $r$, $x$ and $f$ belong to \textbf{R}, $X$ and $\textbf{R}X$, respectively. Our first objective is to extend $\mathscr{R}$ into a rewrite relation on $\textbf{R}X$, still written $\longrightarrow$, in such a way that the congruence relation induced by $\longrightarrow$ is the left ideal generated by $\mathscr{R}$. In other words, we want to have the following equivalence:
+\begin{equation}\label{Congruence}
+        f\ \overset{*}{\longleftrightarrow}\ g\ \Longleftrightarrow\ f-g\ =\ \sum s\left(rx-f\right),
+\end{equation}
+with the sum over a finite set of indexes $\left(s,\ rx\ \longrightarrow\ f\right)\ \in\ \textbf{R}\times\mathscr{R}$. For that, we choose representatives for every left class modulo $r$, so that every element $s\ \in\ \textbf{R}$ admits a decomposition $r_1r+r_2$ where $r_2$ is the chosen representative of the left class of $s$. The rewrite relation induced by $\mathscr{R}$ is defined by
+\begin{equation}\label{Rewrite relation}
+\left(r_1r+r_2\right)x\ +\ g\ \longrightarrow\ r_1f\ +\ r_2x\ +\ g,
+\end{equation}
+where $x$ belongs with a zero coefficient in the decomposition of $g$. The rewrite relation (\ref{Rewrite relation}) satisfies the equivalence (\ref{Congruence}).
+
+
+\begin{example}
+When the ring \textbf{R} is left euclidean, we choose the representatives of left classes as the set of remainders for the euclidean division. Here, we present the explicit description of the rewrite relation for two examples of euclidean rings: the ring of integers $\Z$ and a commutative field $\K$. Consider a rewrite rule $nx\ \longrightarrow\ f$ over $\Z X$ and an integer $m$. By euclidean division, $m$ is equal to $qn+r$. Then,  $mx\ +\ g$ rewrites into $qf\ +\ rx\ +\ g$. A commutative field $\K$ is an euclidean ring where the euclidean division of $\mu$ by $\lambda$ is $\mu\ =\ \left(\mu/\lambda\right)\lambda$. Then, the rewrite rule $\lambda x\ \longrightarrow\ f$ induces the rewrite step $\mu x\ +\ g\ \longrightarrow\ \left(\mu/\lambda\right) f\ +\ g$.
+  \end{example}
+
+\section{Compatible termination order}
+
+In the next section, we formulate the diamond lemma for rewrite relations over $\textbf{R}X$ induced by a left-monomial set of rewrite rules $\mathscr{R}$. For that, we assume that the rewrite relation induced by $\mathscr{R}$ satisfies the following hypothesis:
+\begin{equation}\label{Compatibility with addition}
+ \forall\ \left(rx\ \longrightarrow\ f,\ h\right)\ \in\ \mathscr{R}\times\textbf{R}X,\ rx+h\ \downarrow\ f+h,
+\end{equation}
+where $f\ \downarrow\ g$ means that $f$ and $g$ are joinable. Moreover, we also need that the rewrite relation is equipped with a \emph{compatible termination order} defined in Definition~\ref{termination order of congruence}. In this definition we use the following notation: given $f\ \in\ \textbf{R}X$, we denote by $\supp{f}$ the set of elements of $X$ which belong to the decomposition of $f$ with nonzero coefficient.
+
+\begin{definition}\label{termination order of congruence}
+  A \emph{termination order compatible} with $\mathscr{R}$ is a is a well-founded order $\preceq$ over $\textbf{R}X$ such that for every $f,\ g,\ h\ \in\ \textbf{R}X$ and every $a,\ b\ \in\ \textbf{R}$ the following conditions are satisfied:
+  \begin{itemize}
+  \item[\textbf{i.}] if $f\ \longrightarrow\ g$, then $g\ \preceq\ f$,
+  \item[\textbf{ii.}] if $g\ \preceq\ f$ and $\supp{h}\cap\supp{f}\ =\ \emptyset$, then $g+h\ \preceq\ f+h$,
+  \item[\textbf{iii.}] if $f\ \preceq\ ax$, $g\ \preceq\ by$ and $ax+by\ \neq\ 0$, then $f+g\ \preceq\ ax+by$,
+  \item[\textbf{iv.}] if $f\ \preceq\ ax$ and $ab\ \neq\ 0$, then $bf\ \preceq\ (ba)x$.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+Assume that that for every $rx\ \longrightarrow\ f\ \in\ \mathscr{R}$, $x$ does not belong to $\supp{f}$. Then, one can show that $\mathscr{R}$ satisfies (\ref{Compatibility with addition}). Moreover, assume that $X$ is equipped with a well-founded order $\preceq$. Then, we define the order on $\textbf{R}X$, still written $\preceq$, as the restriction of the multi-set order to finite subsets of $X$: we have $g\ \prec\ h$ if $\supp{g}\cap\supp{h}\ \neq\ \emptyset$ and for every $x\ \in\ \supp{g}$ such that $x\ \notin\ \supp{h}$, there exists $y\ \in\ \supp{h}$ such that $y\ \notin\ \supp{g}$ and $x\ \prec\ y$. Then, we can show that $\preceq$ is compatible with $\mathscr{R}$. 
+  \end{example}
+
+The diamond lemma presented in the next section concerns rewrite systems satisfying the hypothesis (\ref{Compatibility with addition}) and equipped with a compatible termination order. In the sketch of proof of the diamond lemma, we we use Lemma~\ref{Intermediate lemma}. We need the following definition: given $f\ \in\ \textbf{R}X$, we say that the rewrite relation $\longrightarrow$ is \emph{locally confluent at f} if for every $g,\ h,\ k\ \in\ \textbf{R}X$ such that $g\ \prec\ f$, $h\ \prec\ f$, $k\ \prec\ f$, $g\ \longrightarrow\ h$ and $g\ \longrightarrow\ k$, we have $h\ \downarrow\ k$.
+
+\begin{lemma}\label{Intermediate lemma}
+  Assume that $\mathscr{R}$ is equipped with a compatible termination order and satisfies the hypothesis (\ref{Compatibility with addition}) and that $\longrightarrow$ is locally confluent at f. For every $f_1,\ f_2,\ g_1,\ g_2\ \preceq\ f$ such that $f_1\ \downarrow\ g_1$ and $f_2\ \downarrow\ g_2$, and for every $r\ \in\ \emph{\textbf{R}}$, we have $f_1+f_2\ \downarrow\ g_1+g_2$ and $rf_1\ \downarrow\ rg_1$.
+  
+\end{lemma}
+
+\section{The diamond lemma}
+
+The diamond lemma~\cite{MR506890} gives a criterion for testing local confluence over so called \emph{critical pairs}. In Corollary~\ref{Diamond lemma}, we formulate the diamond lemma for rewriting systems over free modules, which consists in testing local confluence for generating sets of \emph{syzygies}. These generating sets are analogous to critical pairs in our framework.
+
+\begin{definition}
+  Let $p\ =\ \left(rx\ \longrightarrow\ f,\ sx\ \longrightarrow\ g \right)$ be a pair rewrite rules whose left-hand side are multiple of a common element $x$. A \emph{syzygy} of $p$ is a tuple $(r_1,\ r_2,\ s_1,\ s_2)$ of elements of \textbf{R} such that $r_2$ and $s_2$ are the chosen representatives of their left classes modulo $r$ ans $s$, respectively, and $r_1r+r_2\ =\ s_1s + s_2$. The set of syzygies of $p$ is written $\syz{p}$. Moreover, a syzygy $\left(r_1,\ r_2,\ s_1,\ s_2\right)$ is said to be \emph{confluent} if we have $r_1f+r_2x\ \downarrow\ s_1g+s_2x$.
+\end{definition}
+
+
+\begin{theorem}\label{Confluence and syzygies}
+  Let $\mathscr{R}$ be a left-monomial set of rewrite rules satisfying hypothesis (\ref{Compatibility with addition}) and let $\preceq$ be a termination order compatible with $\longrightarrow$. The rewrite relation $\longrightarrow$ is confluent if and only if for every pair of rewrite rules $p\ =\ \left(rx\ \longrightarrow\ f,\ sx\ \longrightarrow\ g \right)$, every syzygy of $p$ is confluent.
+\end{theorem}
+
+\begin{proof}[Sketch of proof]
+
+  Let $(r_1,\ r_2,\ s_1,\ s_2)\ \in\ \syz{p}$. Letting $h\ =\ \left(r_1r+r_2\right)x\ =\ \left(s_1s+s_2\right)x$, we observe that $h$ rewrites into $r_1f+r_2x$ and $s_1g+s_2x$, which shows the direct implication.
+  
+  Assume that for every $p\ =\ \left(rx\ \longrightarrow\ f,\ sx\ \longrightarrow\ g\right)$ and for every $(r_1,\ r_2,\ s_1,\ s_2)\ \in\ \syz{p}$, we have $r_1f+r_2x\ \downarrow\ s_1g+s_2x$ and let us show that $\longrightarrow$ is confluent. The rewrite relation $\longrightarrow$ is terminating by definition of compatibility with a termination order, so that it is sufficient to show that it is locally confluent, or equivalently that is locally confluent at $u$ for every $u$. We show the latter by induction on $u$: assume that $\longrightarrow$ is confluent at every $v\ \preceq\ u$ and that two rewrite rules $rx\ \longrightarrow\ f$ and $sy\ \longrightarrow\ g$ apply to $u$. Two cases have to be investigated according to $x\ \neq\ y$ or $x\ =\ y$ for proving that these two rewrite rules provide joinable terms.
+
+  First, if $x\ \neq\ y$, we let $u\ =\ \left(r_1r+r_2\right)x+\left(s_1s+s_2\right)y+h$ and we have the following confluence diagram:
+\[
+\xymatrix @C = 4em @R = 1em{
+&
+r_1f+r_2x+\left(s_1s+s_2\right)y+h
+\ar@/^1.2ex/ [rd] ^{\hspace{1cm}*}
+&
+&
+\\
+&
+&
+f'
+\ar@/^/ [rd] ^{*}
+&
+\\
+\left(r_1r+r_2\right)x+\left(s_1s+s_2\right)y+h
+\ar@/^3ex/ [ruu] 
+\ar@/_3ex/ [rdd] 
+&
+r_1f+r_2x+s_1g+s_2x+h
+\ar@/^2ex/ [ru] ^{*}
+\ar@/_2ex/ [rd] _{*}
+&
+&
+h'
+\\
+&
+&
+g'
+\ar@/_/  [ru] _{*}
+&
+\\
+&
+\left(r_1r+r_2\right)x+s_1g+s_2y+h
+\ar@/_1.2ex/  [ru] _{\hspace{1cm}*}
+&
+&
+}
+\]
+The term $f'$ (respectively $g'$) and the two arrows coming to $f'$ (respectively $g'$) exist by hypothesis (\ref{Compatibility with addition}). By definition of a compatible rewrite order, we have $r_1f+r_2x+s_1g+s_2x+h\ \preceq\ \left(r_1r+r_2\right)x+\left(s_1s+s_2\right)y+h$, so that $\longrightarrow$ is confluent at $r_1f+r_2x+s_1g+s_2x+h$ by induction hypothesis, which gives $h'$ and the two arrows coming to $h'$.
+
+ If $x\ =\ y$, we let $u\ =\ \left(r_1r+r_2\right)x+h\ =\ \left(s_1s+s_2\right)x+h$ and we have the following confluence diagram:
+\[
+\xymatrix @C = 4em @R = 1em{
+&
+r_1f+r_2x+h
+\ar@/^1.2ex/ [rd] ^{\hspace{1cm}*}
+&
+&
+\\
+&
+&
+f'
+\ar@/^/ [rd] ^{*}
+&
+\\
+\left(r_1r+r_2\right)x+h\ =\ \left(s_1s+s_2\right)x+h
+\ar@/^3ex/ [ruu] 
+\ar@/_3ex/ [rdd] 
+&
+h'+h
+\ar@/^2ex/ [ru] ^{*}
+\ar@/_2ex/ [rd] _{*}
+&
+&
+h''
+\\
+&
+&
+g'
+\ar@/_/  [ru] _{*}
+&
+\\
+&
+s_1g+s_2y+h
+\ar@/_1.2ex/  [ru] _{\hspace{1cm}*}
+&
+&
+}
+\]
+The tuple $\left(r_1,\ r_2,\ s_1,\ s_2\right)$ is a syzygy, so that there exists $h'$ such that $r_1f+r_2x\ \overset{*}{\longrightarrow}\ h'\ \overset{*}{\longleftarrow}\ s_1g+s_2x$. By definition of a compatible termination order, $h'+h'$, $r_1f+r_2x$ and $s_1g+s_2x$ are smaller than $u$. The existence of $f'$ and $g'$ together with their coming arrows are consequences of Lemma~\ref{Intermediate lemma}. The existence of $h''$ and its coming arrows are due to the induction hypothesis.
+\vspace{-0.2cm}
+
+\end{proof}
+\vspace{-0.2cm}
+
+Our diamond lemma asserts that the confluence property has to be checked over subsets of syzygies instead of all the syzygies in the case where the ring \textbf{R} is a domain, that is $rs\ =\ 0$ if and only if $r\ =\ 0$ or $s\ =\ 0$. These subsets are generating set for an \textbf{R}-module structure over syzygies given by the following operations:
+
+\begin{itemize}
+  \I{i} let $\textbf{syz}_1\ =\ (r_1,\ r_2,\ s_1,\ s_2)$ and $\textbf{syz}_2\ =\ (r'_1,\ r'_2,\ s'_1,\ s'_2)$ be two syzygies of $p$. We write $r_2+r'_2\ =\ r_3r+r_4$ and $s_2+s'_2\ =\ s_3s+s_4$. Then, we get a new syzygy $\textbf{syz}_1+\textbf{syz}_2\ =\ \left(r_1+r'_1+r_3,\ r_4,\ s_1+s'_1+s_3,\ s_4\right)$ since we have $\left(r_1+r'_1+r_3\right)r\ +\ r_4\ =\ \left(r_1+r'_1\right)r\ +\ \left(r_2+r'_2\right)\ =\ \left(s_1+s'_1\right)s\ +\ \left(s_2+s'_2\right)\ =\ \left(s_1+s'_1+s_3\right)s\ +\ s_4$.
+  
+  \I{ii} Let $\textbf{syz}\ =\ \left(r_1,\ r_2,\ s_1,\ s_2\right)$ be a syzygy of $p$ and let $t\ \in\ \textbf{R}$. We write $tr_2\ =\ r_3r\ +\ r_4$ and $ts_2\ =\ s_3s\ +\ s_4$. Then, we get a new syzygy $t\textbf{syz}\ =\ \left(tr_1+r_3,\ r_4,\ ts_1+s_3,\ s_4\right)$ since we have $\left(tr_1+r_3\right)r+r_4\ =\ t\left(r_1r+r_2\right)\ =\ t\left(s_1s+s_2\right)\ =\ \left(ts_1+s_3\right)s+s_4$.
+\end{itemize}
+
+\begin{remark}
+  If \textbf{R} is not a domain, then the element $r_3$ in \textbf{i.} and \textbf{ii.} is not unique, so that the sum of two syzygies and the product of a syzygy by an element of \textbf{R} is not well-defined.
+  \end{remark}
+
+\begin{lemma}\label{Module structure of confluent syzygies}
+Assume that $\emph{\textbf{R}}$ is a domain. Let $p\ =\ \left(rx\ \longrightarrow\ f,\ sx\ \longrightarrow\ g\right)$, let $\emph{\textbf{syz}}_1\ =\ \left(r_1,\ r_2,\ s_1,\ s_2\right)$ and $\emph{\textbf{syz}}_2\ =\ \left(r'_1,\ r'_2,\ s'_1,\ s'_2\right)$ be two confluent syzygies of $p$ and let $t\ \in\ \emph{\textbf{R}}$. If $\longrightarrow$ is confluent at $\left(r_1+r'_1+r_3\right)r+r_4\ =\ \left(s_1+s'_1+s_3\right)s+s_4$ (respectively $\left(tr_1+r_3\right)r+r_4)\ =\ \left(ts_1+s_3\right)s+s_4$), then $\emph{\textbf{syz}}_1\ +\ \emph{\textbf{syz}}_2$ (respectively $t\emph{\textbf{syz}}_1$) is confluent.
+  \end{lemma}
+
+\begin{proof}[Sketch of proof]
+We only show that the sum of two confluent syzygies $\textbf{syz}_1\ +\ \textbf{syz}_2$ is confluent. Let $h,\ h'\ \in\ \textbf{R}X$ such that $r_1f+r_2x\ \overset{*}{\longrightarrow}\ h\ \overset{*}{\longleftarrow}\ s_1g+s_2x$ and $r'_1f+r'_2x\ \overset{*}{\longrightarrow}\ h'\ \overset{*}{\longleftarrow}\ s'_1g+s'_2x$. Letting $t\ =\ \left(r_1+r'_1+r_3\right)r+r_4\ =\ \left(s_1+s'_1+s_3\right)s+s_4$, we have the following diagram:
+
+\[
+\xymatrix @C = 4em @R = 1em{
+&
+&
+\left(r_1+r'_1+r_3\right)f+r_4x
+\ar@/^1.2ex/ [rrd] ^{\hspace{1cm}*}
+&
+&
+\\
+&
+&
+&
+&
+h_1
+\\
+&
+&
+\left(r_1+r'_1\right)f+\left(r_3r+r_4\right)x
+\ar@/_1.2ex/ [rru] _{\hspace{1cm}*}
+\ar@/^1.2ex/ [rrd] _{*}
+&
+\\
+&
+&
+&
+&
+h_3
+\\
+tx
+\ar@/^3ex/ [rruuuu] 
+\ar@/_3ex/ [rrdddd] 
+&
+&
+h+h'
+\ar@/_1.2ex/ [rru] _{\hspace{1cm}*}
+\ar@/^1.2ex/ [rrd] _{*}
+&
+&
+\\
+&
+&
+&
+&
+h_4
+\\
+&
+&
+\left(s_1+s'_1\right)g+\left(s_3s+s_4\right)x
+\ar@/^1.2ex/ [rrd] ^{\hspace{1cm}*}
+\ar@/_1.2ex/ [rru] _{\hspace{1cm}*}
+&
+&
+\\
+&
+&
+&
+&
+h_2
+\\
+&
+&
+\left(s_1+s'_1+s_3\right)g+s_4x
+\ar@/_1.2ex/  [rru] _{\hspace{1cm}*}
+&
+&
+}\]  
+
+The elements $h_1$, $h_2$ and their coming arrows are constructed using hypothesis (\ref{Compatibility with addition}). The elements $h_3$ and $h_4$ and their coming arrows are constructed using that $\longrightarrow$ is confluent at $tx$ and Lemma~\ref{Intermediate lemma}. Finally, using again an inductive argument of confluence, we close the diagram and deduce that $\textbf{syz}_1+\textbf{syz}_2$ is confluent.
+
+Using similar arguments, we show that $t\textbf{syz}_1$ is confluent, which concludes the proof.
+\end{proof}
+
+An adaptation of the proof of Theorem~\ref{Confluence and syzygies} using Lemma~\ref{Module structure of confluent syzygies} provides our diamond lemma, formulated as follows:
+
+\begin{theorem}\label{Diamond lemma}  
+ Assume that \emph{\textbf{R}} is a domain and that for every $p\ =\ \left(rx\ \longrightarrow\ f,\ sx\ \longrightarrow\ g\right)$, every element of a generating set of $\emph{\textbf{syz}}(p)$ is confluent. The rewrite relation $\longrightarrow$ is confluent.
+\end{theorem}
+
+\begin{example}\label{Illustration of the main theorem}
+ 
+   Assume that \textbf{R} is a commutative field $\K$. For every $p\ =\ \left(\lambda x\ \longrightarrow\ f,\ \mu x\ \longrightarrow\ g\right)$, $\syz{p}$ is the vector space spanned by $\left(1/\lambda,\ 0,\ 1/\mu,\ 0\right)$. From Corollary~\ref{Diamond lemma}, $\longrightarrow$ is confluent if and only if for every pair of rewrite rules $\left(\lambda x\ \longrightarrow\ f,\ \mu x\ \longrightarrow\ g\right)$, we have $f/\lambda\ \downarrow\ g/\mu$, which is equivalent to each $x\ \in\ X$ admits a unique normal form.
+
+\end{example}
+
+\bibliography{Biblio}
+
+\end{document}
+

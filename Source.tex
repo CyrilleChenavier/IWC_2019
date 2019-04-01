@@ -1,0 +1,182 @@
+\documentclass[10pt]{easychair}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb,mathrsfs}
+\pagestyle{plain}
+\usepackage{enumitem} 
+\usepackage{amsthm}
+\usepackage{titlesec}
+\usepackage[all]{xy}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+
+\newcommand\K{\mathbb{K}}
+\newcommand\KX{\K X}
+\newcommand\rewR{\underset{R}{\longrightarrow}}
+\newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
+
+
+\newcommand\todo[1]{\textcolor{red}{#1.}}
+
+\begin{document}
+
+\title{Title}
+
+\author{
+Cyrille Chenavier\inst{1}
+\and
+Maxime Lucas\inst{2}
+}
+
+\institute{
+  Inria Lille - Nord Europe, équipe Valse\\
+  \email{cyrille.chenavier@inria.fr}
+\and
+Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
+\email{maxime.lucas@inria.fr}
+}
+
+\authorrunning{Chenavier and Lucas}
+\titlerunning{Running title}
+
+\maketitle
+
+\begin{abstract}
+
+  
+\end{abstract}
+ 
+\section{Introduction}
+
+\section{Well-formed rewriting steps}
+
+We fix a commutative field $\K$ as well as a well-founded ordered set
+$(X,<)$. We denote by $\KX$ the vector space spanned by~$X$: an element
+$v\in\KX$ is a finite formal linear combination of elements of $X$ with
+coefficients in $\K$. The sum of $u=\sum\lambda_xx$ and $v=\sum\mu_xx$ is
+equal to $\sum(\lambda_x+\mu_x)x$ and the product of $\lambda\in\K$ by
+$v$ is equal to $\sum(\lambda\lambda_x)x$. We extend the order $<$ into
+the multiset order, still written $<$, on $\KX$: we have $u<v$ if for
+every element $x\in X$ which occures in the decomposition of $u$ but not
+in the one of $v$, there exists $y>x$ occuring in the decomposition of
+$v$ but not in the one of $u$.
+
+\medskip
+
+We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
+the form $x\rewR v$. The set $R$ induces the rewriting relation on $\KX$,
+still written $\rewR$, defined as follows:
+\begin{equation}\label{equ:rewrite_step}
+  \sum\lambda_xx+u'\rewR\sum\lambda_xr_x+u',
+\end{equation}
+whenever $\lambda_x\neq 0$ and $x\rewR r_x$ are rewrite rules. We assume
+that for every $x\in X$, not minimal for $<$, there exists a rewrite rule
+in $R$ with left-hand side $x$. We choose such a rule $h_x$ for every
+non-minimal $x$.
+
+\begin{definition}
+  A rewriting step as in \eqref{equ:rewrite_step} is said to be
+  \emph{well-formed} if each rewrite rule $x\rewR r_x$ is equal to $h_x$
+  and if there does not exist any minimal $y$ in the decomposition of
+  $u'$. A vector $v\in\KX$ is a \emph{well-formed normal form} if there
+  is no well-formed rewriting step with left-hand side $v$.
+\end{definition}
+
+\begin{example}
+\todo{Donner un exemple et un contre-exemple}
+\end{example}
+
+For each $v\in\KX$, there exists at most one well-formed rewriting step
+with left-hand side $v$. Moreover, the well-formed rewriting steps are
+compatible with the termination order, so that we have a well-defined map
+$H:\KX\to\KX$, such that $v$ rewrites into the unique well-formed normal
+form $H(v)$ using only well-formed rewriting steps.
+
+\begin{proposition}\label{prop:linearity_of_H}
+  The map $H$ is linear.
+\end{proposition}
+
+\begin{proof}[Sketch of proof]
+  \todo{TODO}
+\end{proof}
+
+\section{A confluence criterion}
+
+In this section, we assume that $R$ satisfies the following property:
+\begin{property}\label{proper;standardisation_property}
+  For every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
+\end{property}
+
+\begin{example}
+\todo{Donner un exemple et un contre-exemple}
+\end{example}
+
+\begin{proposition}\label{prop:equationnal_theory}
+  Assume that Property~\ref{proper;standardisation_property} holds, then
+  $u\equivR v$ if and only if $u-v\in\ker(H)$.
+\end{proposition}
+
+\begin{proof}[Sketch of proof]
+  \todo{Il faut montrer que les gens qui vérifient la propriété de
+    standardisation sont clos par les opérations somme, composition et
+    inverse}
+\end{proof}
+
+In Theorem~\ref{thm:confluence_criterion}, we introduce a confluence
+criterion when $R$ satisfies~\ref{proper;standardisation_property}. For
+that, we assume that $R$ is equipped with a well-founded order $\prec$
+satisfying the following decreasingness property:
+
+\begin{property}\label{proper:decreasingness_property}
+  For every $x\in X$ and $r=x\to v$, if $x$ is not minimal for $<$, then
+  letting $h_x=x\rewR r_x$, we have the confluence diagram
+  
+  \[
+    \xymatrix @C = 4em @R = 1.5em{
+      &
+      r_x
+      \ar@{.>}@/^/ [rd] ^{*}
+      & \\
+      x
+      \ar@/^/ [ru] ^{h_x}
+      \ar@/_/ [rd] _{r}
+      &
+      &
+      v'
+      \\
+      &
+      v
+      \ar@{.>}@/_/  [ru] _{*}
+      &
+    }
+  \]
+  where each rewriting step occuring in the dotted arrows are strictly
+  smaller than $r$ for $\prec$.
+\end{property}
+
+\begin{theorem}\label{thm:confluence_criterion}
+  Assume that $R$ satisfies Properties
+  \ref{proper;standardisation_property} and
+  \ref{proper:decreasingness_property}. Then $\rewR$ is confluent.
+\end{theorem}
+
+\begin{proof}
+  \todo{Adapter le cas ensembliste}
+\end{proof}
+
+\end{document}
+
