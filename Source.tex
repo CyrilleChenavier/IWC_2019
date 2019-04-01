@@ -27,7 +27,9 @@
 \newcommand\K{\mathbb{K}}
 \newcommand\KX{\K X}
 \newcommand\rewR{\underset{R}{\longrightarrow}}
+\newcommand\rewh{\underset{h}{\longrightarrow}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
+\newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
 
 
 \newcommand\todo[1]{\textcolor{red}{#1.}}
@@ -71,8 +73,8 @@ coefficients in $\K$. The sum of $u=\sum\lambda_xx$ and $v=\sum\mu_xx$ is
 equal to $\sum(\lambda_x+\mu_x)x$ and the product of $\lambda\in\K$ by
 $v$ is equal to $\sum(\lambda\lambda_x)x$. We extend the order $<$ into
 the multiset order, still written $<$, on $\KX$: we have $u<v$ if for
-every element $x\in X$ which occures in the decomposition of $u$ but not
-in the one of $v$, there exists $y>x$ occuring in the decomposition of
+every element $x\in X$ which occurs in the decomposition of $u$ but not
+in the one of $v$, there exists $y>x$ occurring in the decomposition of
 $v$ but not in the one of $u$.
 
 \medskip
@@ -85,26 +87,32 @@ still written $\rewR$, defined as follows:
 \end{equation}
 whenever $\lambda_x\neq 0$ and $x\rewR r_x$ are rewrite rules. We assume
 that for every $x\in X$, not minimal for $<$, there exists a rewrite rule
-in $R$ with left-hand side $x$. We choose such a rule $h_x$ for every
+in $R$ with left-hand side $x$, and with right-hand side smaller than $x$. We choose such a rule $h_x$ for every
 non-minimal $x$.
-
 \begin{definition}
-  A rewriting step as in \eqref{equ:rewrite_step} is said to be
-  \emph{well-formed} if each rewrite rule $x\rewR r_x$ is equal to $h_x$
-  and if there does not exist any minimal $y$ in the decomposition of
-  $u'$. A vector $v\in\KX$ is a \emph{well-formed normal form} if there
-  is no well-formed rewriting step with left-hand side $v$.
+An vector $u \in \KX$ can be decomposed in a unique way as $u = \sum \lambda_xx+\sum \lambda_yy$, where all the $y$'s are minimal for $>$ and the $x$'s are not. We define a rewriting relation $\rewh$ as follows:
+\[
+  \sum\lambda_xx+\sum\lambda_yy\rewh\sum\lambda_xr_x+\sum\lambda_yy,
+\]
+where for all $x$, the rule $x \to r_x$ equals $h_x$.
+This defines a sub-rewriting relation $\rewh \subseteq \rewR$.
+
+A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal form for this rewriting relation.
 \end{definition}
+
 
 \begin{example}
 \todo{Donner un exemple et un contre-exemple}
 \end{example}
 
-For each $v\in\KX$, there exists at most one well-formed rewriting step
-with left-hand side $v$. Moreover, the well-formed rewriting steps are
-compatible with the termination order, so that we have a well-defined map
-$H:\KX\to\KX$, such that $v$ rewrites into the unique well-formed normal
-form $H(v)$ using only well-formed rewriting steps.
+
+\begin{lemma}\label{lemma:h_normal_forms}
+Let $u$ be a vector in $\KX$, and suppose $u \rewh u'$. Then either $u$ is minimal for $>$, or $u' > u$. 
+
+In particular, the $h$-normal forms are precisely the minimal elements of $\KX$ for $>$.
+\end{lemma}
+
+For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$, and $\rewh$ is compatible with the termination order $>$. As a consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$ to a unique $h$-normal form that we denote by $H(v)$. This defines a map $H : \KX \to \KX$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
   The map $H$ is linear.
