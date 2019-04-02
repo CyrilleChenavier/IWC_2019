@@ -26,6 +26,7 @@
 
 \newcommand\K{\mathbb{K}}
 \newcommand\KX{\K X}
+\newcommand\supp{\text{supp}}
 \newcommand\rewR{\underset{R}{\longrightarrow}}
 \newcommand\rewh{\underset{h}{\longrightarrow}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
@@ -69,35 +70,48 @@ Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
 We fix a commutative field $\K$ as well as a well-founded ordered set
 $(X,<)$. We denote by $\KX$ the vector space spanned by~$X$: an element
 $v\in\KX$ is a finite formal linear combination of elements of $X$ with
-coefficients in $\K$. The sum of $u=\sum\lambda_xx$ and $v=\sum\mu_xx$ is
-equal to $\sum(\lambda_x+\mu_x)x$ and the product of $\lambda\in\K$ by
-$v$ is equal to $\sum(\lambda\lambda_x)x$. We extend the order $<$ into
-the multiset order, still written $<$, on $\KX$: we have $u<v$ if for
-every element $x\in X$ which occurs in the decomposition of $u$ but not
-in the one of $v$, there exists $y>x$ occurring in the decomposition of
-$v$ but not in the one of $u$.
+coefficients in $\K$. In particular, for every $v\in\KX$, there exists a
+unique finite set $\supp(v)\subset X$, called the \emph{support} of $v$,
+such that
+\begin{equation}\label{equ:support}
+  v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in X\Rightarrow\lambda_x
+  \neq 0.
+\end{equation}
+
+\smallskip
+\noindent
+We denote by $\supp(v)^c=X\setminus\supp(v)$. The sum of
+$u=\sum\lambda_xx$ and $v=\sum\mu_xx$ equals $\sum(\lambda_x+\mu_x)x$ and
+the product of $\lambda\in\K$ by $v$ equals $\sum(\lambda\lambda_x)x$. We
+extend the order $<$ into the multiset order, still written $<$, on
+$\KX$: we have $u<v$ if for every $x\in\supp(u)\cap\supp(v)^c$, there
+exists $y\in\supp(v)\cap\supp(u)^c$ such that $y>x$.
 
 \medskip
 
 We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
-the form $x\rewR v$. The set $R$ induces the rewriting relation on $\KX$,
+the form $x\rewR r$. The set $R$ induces the rewriting relation on $\KX$,
 still written $\rewR$, defined as follows:
-\begin{equation}\label{equ:rewrite_step}
-  \sum\lambda_xx+u'\rewR\sum\lambda_xr_x+u',
+\begin{equation}\label{equ:rewriting_step}
+  \sum\lambda_xx+v\rewR\sum\lambda_xr_x+v,
 \end{equation}
-whenever $\lambda_x\neq 0$ and $x\rewR r_x$ are rewrite rules. We assume
-that for every $x\in X$, not minimal for $<$, there exists a rewrite rule
-in $R$ with left-hand side $x$, and with right-hand side smaller than $x$. We choose such a rule $h_x$ for every
-non-minimal $x$.
-\begin{definition}
-An vector $u \in \KX$ can be decomposed in a unique way as $u = \sum \lambda_xx+\sum \lambda_yy$, where all the $y$'s are minimal for $>$ and the $x$'s are not. We define a rewriting relation $\rewh$ as follows:
-\[
-  \sum\lambda_xx+\sum\lambda_yy\rewh\sum\lambda_xr_x+\sum\lambda_yy,
-\]
-where for all $x$, the rule $x \to r_x$ equals $h_x$.
-This defines a sub-rewriting relation $\rewh \subseteq \rewR$.
+whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. We
+assume that for every $x\in X$, not minimal for $<$, there exists
+$x\rewR r\in R$ such that $r<x$. We choose such a rule $h_x$ for every
+non-minimal~$x$. Any vector $v$ can be decomposed in a unique way as
+$\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
+for $<$, and $x\in\supp(v)$ is not. We define a rewriting relation
+$\rewh$ as follows:
+\begin{equation}\label{equ:well-formed_rewriting_step}
+  \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
+\end{equation}
+where for every $x$, $h_x=x \rewR r_x$.
 
-A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal form for this rewriting relation.
+\medskip
+
+\begin{definition}
+  A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal
+  form for $\rewh$.
 \end{definition}
 
 
@@ -106,13 +120,17 @@ A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal form for 
 \end{example}
 
 
-\begin{lemma}\label{lemma:h_normal_forms}
-Let $u$ be a vector in $\KX$, and suppose $u \rewh u'$. Then either $u$ is minimal for $>$, or $u' > u$. 
-
-In particular, the $h$-normal forms are precisely the minimal elements of $\KX$ for $>$.
+\begin{lemma}\label{lem:h_normal_forms}
+  Let $v$ be a vector in $\KX$, and suppose $v\rewh v'$. Then, either $v$
+  is minimal for $<$, or $v' > v$. In particular, $h$-normal forms are
+  precisely the minimal elements of $\KX$ for $<$.
 \end{lemma}
 
-For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$, and $\rewh$ is compatible with the termination order $>$. As a consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$ to a unique $h$-normal form that we denote by $H(v)$. This defines a map $H : \KX \to \KX$.  
+For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$,
+and $\rewh$ is compatible with the termination order $<$. As a
+consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$
+to a unique $h$-normal form that we denote by $H(v)$. This defines a map
+$H : \KX \to \KX$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
   The map $H$ is linear.
