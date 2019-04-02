@@ -121,8 +121,9 @@ where for every $x$, $h_x=x \rewR r_x$.
 
 
 \begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $\KX$, and suppose $v\rewh v'$. Then, either $v$
-  is minimal for $<$, or $v' > v$. In particular, $h$-normal forms are
+  Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. 
+  
+In particular, $h$-normal forms are
   precisely the minimal elements of $\KX$ for $<$.
 \end{lemma}
 
@@ -137,38 +138,47 @@ $H : \KX \to \KX$.
 \end{proposition}
 
 \begin{proof}[Sketch of proof]
-  \todo{TODO}
+If $u \rewh u'$ and $v \rewh v'$ then one can check that $u + v \rewh u' + v'$. Iterating $\rewh$ we get that $H(u + v) = H (H(u)+H(v))$. Additionnally, $h$-normal forms are closed under sums and so $H(H(u) + H(v)) = H(u) + H(v)$, which proves the Proposition.
 \end{proof}
 
 \section{A confluence criterion}
 
+
+
 In this section, we assume that $R$ satisfies the following property:
-\begin{property}\label{proper;standardisation_property}
-  For every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
-\end{property}
+\begin{definition}\label{def:standardisation_property}
+  We say that $R$ is $h$-confluent if for every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
+\end{definition}
 
 \begin{example}
 \todo{Donner un exemple et un contre-exemple}
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
-  Assume that Property~\ref{proper;standardisation_property} holds, then
-  $u\equivR v$ if and only if $u-v\in\ker(H)$.
+  If $R$ is $h$-confluent, then
+  $u \equivR v$ if and only if $u-v\in\ker(H)$.
 \end{proposition}
 
 \begin{proof}[Sketch of proof]
-  \todo{Il faut montrer que les gens qui vérifient la propriété de
-    standardisation sont clos par les opérations somme, composition et
-    inverse}
+The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $u - v \in \ker(H)$ is closed under these operations, we get one implication.
+
+Reciprocally, if $u - v \in \ker(H)$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
+\end{proof}
+
+\begin{proposition}
+If $R$ is $h$-confluent, then $\rewR$ is confluent.
+\end{proposition}
+\begin{proof}[Sketch of proof]
+\todo{insérer $\rewh$ au milieu du diagramme de confluence}
 \end{proof}
 
 In Theorem~\ref{thm:confluence_criterion}, we introduce a confluence
-criterion when $R$ satisfies~\ref{proper;standardisation_property}. For
+criterion when $R$ satisfies~\ref{def:standardisation_property}. For
 that, we assume that $R$ is equipped with a well-founded order $\prec$
 satisfying the following decreasingness property:
 
-\begin{property}\label{proper:decreasingness_property}
-  For every $x\in X$ and $r=x\to v$, if $x$ is not minimal for $<$, then
+\begin{definition}\label{proper:decreasingness_property}
+  We say that $R$ is \emph{locally $h$-confluent} if for every $x\in X$ and $r=x\to v$, then
   letting $h_x=x\rewR r_x$, we have the confluence diagram
   
   \[
@@ -190,14 +200,12 @@ satisfying the following decreasingness property:
       &
     }
   \]
-  where each rewriting step occuring in the dotted arrows are strictly
+  where each rewriting step occurring in the dotted arrows are strictly
   smaller than $r$ for $\prec$.
-\end{property}
+\end{definition}
 
 \begin{theorem}\label{thm:confluence_criterion}
-  Assume that $R$ satisfies Properties
-  \ref{proper;standardisation_property} and
-  \ref{proper:decreasingness_property}. Then $\rewR$ is confluent.
+  If $R$ is locally $h$-confluent, then $R$ is $h$-confluent. In particular, $\rewR$ is confluent.
 \end{theorem}
 
 \begin{proof}
