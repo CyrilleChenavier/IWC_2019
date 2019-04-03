@@ -29,6 +29,8 @@
 \newcommand\supp{\text{supp}}
 \newcommand\rewR{\underset{R}{\longrightarrow}}
 \newcommand\rewh{\underset{h}{\longrightarrow}}
+\newcommand\transR{\overset{*}{\rewR}}
+\newcommand\transh{\overset{*}{\rewh}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
 
@@ -74,7 +76,7 @@ coefficients in $\K$. In particular, for every $v\in\KX$, there exists a
 unique finite set $\supp(v)\subset X$, called the \emph{support} of $v$,
 such that
 \begin{equation}\label{equ:support}
-  v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in X\Rightarrow\lambda_x
+  v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in\supp(v)\Rightarrow\lambda_x
   \neq 0.
 \end{equation}
 
@@ -100,8 +102,8 @@ assume that for every $x\in X$, not minimal for $<$, there exists
 $x\rewR r\in R$ such that $r<x$. We choose such a rule $h_x$ for every
 non-minimal~$x$. Any vector $v$ can be decomposed in a unique way as
 $\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
-for $<$, and $x\in\supp(v)$ is not. We define a rewriting relation
-$\rewh$ as follows:
+for $<$, and $x\in\supp(v)\cap\supp(v')^c$ is not. We define a rewriting
+relation $\rewh$ as follows:
 \begin{equation}\label{equ:well-formed_rewriting_step}
   \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
 \end{equation}
@@ -134,11 +136,14 @@ to a unique $h$-normal form that we denote by $H(v)$. This defines a map
 $H : \KX \to \KX$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $H$ is linear.
+  The map $H$ is a linear projector.
 \end{proposition}
 
-\begin{proof}[Sketch of proof]
-If $u \rewh u'$ and $v \rewh v'$ then one can check that $u + v \rewh u' + v'$. Iterating $\rewh$ we get that $H(u + v) = H (H(u)+H(v))$. Additionnally, $h$-normal forms are closed under sums and so $H(H(u) + H(v)) = H(u) + H(v)$, which proves the Proposition.
+\begin{proof}
+  The $h$-normal forms are closed under sums, so that $H(H(v))=H(v)$ for
+  every $v$, that is $H$ is a projector. Moreover, if $u \rewh u'$ and
+  $v \rewh v'$, then we have $u + v \rewh u' + v'$. Iterating~$\rewh$, we
+  get $H(u + v) = H (H(u)+H(v))=H(u)+H(v)$. 
 \end{proof}
 
 \section{A confluence criterion}
@@ -159,7 +164,7 @@ In this section, we assume that $R$ satisfies the following property:
   $u \equivR v$ if and only if $u-v\in\ker(H)$.
 \end{proposition}
 
-\begin{proof}[Sketch of proof]
+\begin{proof}
 The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $u - v \in \ker(H)$ is closed under these operations, we get one implication.
 
 Reciprocally, if $u - v \in \ker(H)$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
@@ -168,8 +173,30 @@ Reciprocally, if $u - v \in \ker(H)$ then by definition of $H$ we have $u \equiv
 \begin{proposition}
 If $R$ is $h$-confluent, then $\rewR$ is confluent.
 \end{proposition}
-\begin{proof}[Sketch of proof]
-\todo{insérer $\rewh$ au milieu du diagramme de confluence}
+\begin{proof}
+  Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
+  From Proposition~\ref{prop:equationnal_theory}, $v_1-v_2$ belongs to
+  $\ker(H)$, that is $H(v_1)=H(v_2)$. Hence, we get
+  \[
+    \xymatrix @C = 4em @R = 1.5em{
+      &
+      v_1
+      \ar@/^/ [rd] ^{*}
+      & \\
+      v
+      \ar@/^/ [ru] ^{*}
+      \ar@/_/ [rd] _{*}
+      &
+      &
+      H(v_i)
+      \\
+      &
+      v_2
+      \ar@/_/  [ru] _{*}
+      &
+    }
+  \]
+  
 \end{proof}
 
 In Theorem~\ref{thm:confluence_criterion}, we introduce a confluence
@@ -178,8 +205,9 @@ that, we assume that $R$ is equipped with a well-founded order $\prec$
 satisfying the following decreasingness property:
 
 \begin{definition}\label{proper:decreasingness_property}
-  We say that $R$ is \emph{locally $h$-confluent} if for every $x\in X$ and $r=x\to v$, then
-  letting $h_x=x\rewR r_x$, we have the confluence diagram
+  We say that $R$ is \emph{locally $h$-confluent} if for every non
+  minimal $x\in X$ and $r=x\rewR v$, then letting $h_x=x\rewh r_x$, we
+  have the confluence diagram:
   
   \[
     \xymatrix @C = 4em @R = 1.5em{
