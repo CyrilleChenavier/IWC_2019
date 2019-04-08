@@ -112,22 +112,24 @@ where for every $x$, $h_x=x \rewR r_x$.
 \medskip
 
 \begin{definition}
-  A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal
+  A vector $v$ is said to be a \emph{$h$-normal form} if it is a normal
   form for $\rewh$.
 \end{definition}
 
 
-\begin{example}
-\todo{Donner un exemple et un contre-exemple}
+\begin{example}\label{ex:h_norma_form}
+  We let $X=\{x,y,z,t\}$, $x\rewR z$, $x\rewR y$, $y\rewR z$ and
+  $z\rewR t$. We choose the order $x>z$ $y>z$, $h_x=x\rewh z$ and
+  $h_y=y\rewh z$. Then $z$ is a $h$-normal form but is not a normal form
+  for $\rewR$.
 \end{example}
 
 
 \begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. 
-  
-In particular, $h$-normal forms are
-  precisely the minimal elements of $\KX$ for $<$.
+  Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
+  precisely the minimal elements of $\KX$ for $<$. 
 \end{lemma}
+\medskip
 
 For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$,
 and $\rewh$ is compatible with the termination order $<$. As a
@@ -156,7 +158,12 @@ In this section, we assume that $R$ satisfies the following property:
 \end{definition}
 
 \begin{example}
-\todo{Donner un exemple et un contre-exemple}
+  We let $X=\{x,y,z,t\}$, $x\rewR z$, $x\rewR y$ and $y\rewR z$. We
+  choose the order $x>z$ $y>z$, $h_x=x\rewh z$ and $h_y=y\rewh z$. We
+  have $H(x)=H(y)=H(z)=z$, so that $R$ is $h$-confluent.
+  However, if we had the rewrite rule $z\rewR t$ as in
+  Example~\ref{ex:h_norma_form}, we have $H(z)=z$ and $H(t)=t$, so that
+  $R$ is not $h$-confluent.
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
