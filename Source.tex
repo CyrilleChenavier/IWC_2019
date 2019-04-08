@@ -97,10 +97,14 @@ still written $\rewR$, defined as follows:
 \begin{equation}\label{equ:rewriting_step}
   \sum\lambda_xx+v\rewR\sum\lambda_xr_x+v,
 \end{equation}
-whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. We
-assume that for every $x\in X$, not minimal for $<$, there exists
-$x\rewR r\in R$ such that $r<x$. We choose such a rule $h_x$ for every
-non-minimal~$x$. Any vector $v$ can be decomposed in a unique way as
+whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. 
+
+\begin{definition}
+A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x : x \to r_x$ such that $r_x < x$.
+\end{definition}
+
+Suppose chosen such a local strategy $h$. 
+Any vector $v$ can be decomposed in a unique way as
 $\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
 for $<$, and $x\in\supp(v)\cap\supp(v')^c$ is not. We define a rewriting
 relation $\rewh$ as follows:
@@ -118,10 +122,9 @@ where for every $x$, $h_x=x \rewR r_x$.
 
 
 \begin{example}\label{ex:h_norma_form}
-  We let $X=\{x,y,z,t\}$, $x\rewR z$, $x\rewR y$, $y\rewR z$ and
-  $z\rewR t$. We choose the order $x>z$ $y>z$, $h_x=x\rewh z$ and
-  $h_y=y\rewh z$. Then $z$ is a $h$-normal form but is not a normal form
-  for $\rewR$.
+Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$.
+
+We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewR z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
 \end{example}
 
 
@@ -129,6 +132,7 @@ where for every $x$, $h_x=x \rewR r_x$.
   Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
   precisely the minimal elements of $\KX$ for $<$. 
 \end{lemma}
+
 \medskip
 
 For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$,
@@ -152,18 +156,15 @@ $H : \KX \to \KX$.
 
 
 
-In this section, we assume that $R$ satisfies the following property:
+
 \begin{definition}\label{def:standardisation_property}
   We say that $R$ is $h$-confluent if for every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
 \end{definition}
 
 \begin{example}
-  We let $X=\{x,y,z,t\}$, $x\rewR z$, $x\rewR y$ and $y\rewR z$. We
-  choose the order $x>z$ $y>z$, $h_x=x\rewh z$ and $h_y=y\rewh z$. We
-  have $H(x)=H(y)=H(z)=z$, so that $R$ is $h$-confluent.
-  However, if we had the rewrite rule $z\rewR t$ as in
-  Example~\ref{ex:h_norma_form}, we have $H(z)=z$ and $H(t)=t$, so that
-  $R$ is not $h$-confluent.
+Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent.
+
+Replacing the rule $z \rewR y - t$ by $z \rewR y$ however we get $H(z) = z$ and $H(y) = z + t$ so $R$ is not $h$-confluent anymore. 
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
@@ -244,8 +245,35 @@ satisfying the following decreasingness property:
 \end{theorem}
 
 \begin{proof}
-  \todo{Adapter le cas ensembliste}
+ We reason by induction on $r$. Looking at the square corresponding to $r$:
+    \[
+    \xymatrix @C = 4em @R = 1.5em{
+      &
+      r_x
+      \ar@{.>}@/^/ [rd] ^{*}
+      & \\
+      x
+      \ar@/^/ [ru] ^{h_x}
+      \ar@/_/ [rd] _{r}
+      &
+      &
+      v'
+      \\
+      &
+      v
+      \ar@{.>}@/_/  [ru] _{*}
+      &
+    }
+  \]
+  We have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
+
+\begin{remark}
+Let us show how Newman's Lemma fits as a particular case of our set up. 
+Suppose that $R$ is locally confluent and terminating. We define the relation $x > y$ on $X$ as the transitive closure of the relation $x \rewR u$ and $y$ appears in $u$: this is a well-founded relation. 
+
+By definition if $x \in X$ is not minimal for $>$ then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x: x \to r_x$.  By definition of $>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their sources makes $R$ locally $h$-confluent, and Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+\end{remark}
 
 \end{document}
 
