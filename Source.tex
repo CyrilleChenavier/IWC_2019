@@ -34,6 +34,7 @@
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
 
+\bibliographystyle{plain}
 
 \newcommand\todo[1]{\textcolor{red}{#1.}}
 
@@ -100,7 +101,7 @@ still written $\rewR$, defined as follows:
 whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. 
 
 \begin{definition}
-A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x : x \to r_x$ such that $r_x < x$.
+A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x=x \rewR r_x$ such that $r_x < x$.
 \end{definition}
 
 Suppose chosen such a local strategy $h$. 
@@ -122,9 +123,7 @@ where for every $x$, $h_x=x \rewR r_x$.
 
 
 \begin{example}\label{ex:h_norma_form}
-Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$.
-
-We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewR z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
+Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
 \end{example}
 
 
@@ -154,17 +153,12 @@ $H : \KX \to \KX$.
 
 \section{A confluence criterion}
 
-
-
-
 \begin{definition}\label{def:standardisation_property}
-  We say that $R$ is $h$-confluent if for every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
+  We say that $R$ is \emph{h-confluent} if for every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
 \end{definition}
 
 \begin{example}
-Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent.
-
-Replacing the rule $z \rewR y - t$ by $z \rewR y$ however we get $H(z) = z$ and $H(y) = z + t$ so $R$ is not $h$-confluent anymore. 
+Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
@@ -312,14 +306,21 @@ The following diagrams show that $R$ is locally $h$-confluent:
   \]
   We have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
+\medskip
 
 
-\begin{remark}
-Let us show how Newman's Lemma fits as a particular case of our set up. 
-Suppose that $R$ is locally confluent and terminating. We define the relation $x > y$ on $X$ as the transitive closure of the relation $x \rewR u$ and $y$ appears in $u$: this is a well-founded relation. 
+Let us show how the diamond Lemma fits as a particular case of our set up.
+\smallskip
 
-By definition if $x \in X$ is not minimal for $>$ then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x: x \to r_x$.  By definition of $>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their sources makes $R$ locally $h$-confluent, and Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
-\end{remark}
+\begin{theorem}[\cite{MR506890}]
+  Assume that $\rewR$ is terminating and that for every $x\in X$, $x\rewR r$ and $x\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is confluent.
+\end{theorem}
+
+\begin{proof}
+  We define the relation $x > y$ on $X$ whenever $x \rewR v$ exists such that $y\in\supp(v)$. The induced order relation is well-founded. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+\end{proof}
+
+\bibliography{Biblio}
 
 \end{document}
 
