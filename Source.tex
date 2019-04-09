@@ -210,24 +210,19 @@ satisfying the following decreasingness property:
   We say that $R$ is \emph{locally $h$-confluent} if for every non
   minimal $x\in X$ and $r=x\rewR v$, then letting $h_x=x\rewh r_x$, we
   have the confluence diagram:
-  
   \[
-    \xymatrix @C = 4em @R = 1.5em{
-      &
-      r_x
-      \ar@{.>}@/^/ [rd] ^{*}
-      & \\
-      x
-      \ar@/^/ [ru] ^{h_x}
-      \ar@/_/ [rd] _{r}
-      &
-      &
-      v'
-      \\
-      &
+    \xymatrix @C = 2.5em @R = 2.5em{
+    x 
+    \ar [r] ^{r}
+    \ar[d] _{h_x}
+     &
       v
-      \ar@{.>}@/_/  [ru] _{*}
-      &
+      \ar@{.>} [d] ^{*}
+      \\
+      r_x
+      \ar@{.>} [r] ^{*}
+      & 
+      v',
     }
   \]
   where each rewriting step occurring in the dotted arrows are strictly
@@ -285,26 +280,22 @@ The following diagrams show that $R$ is locally $h$-confluent:
 
 \begin{proof}
  We reason by induction on $r$. Looking at the square corresponding to $r$:
-    \[
-    \xymatrix @C = 4em @R = 1.5em{
-      &
-      r_x
-      \ar@{.>}@/^/ [rd] ^{*}
-      & \\
-      x
-      \ar@/^/ [ru] ^{h_x}
-      \ar@/_/ [rd] _{r}
-      &
-      &
-      v'
-      \\
-      &
+  \[
+    \xymatrix @C = 2.5em @R = 2.5em{
+    x 
+    \ar [r] ^{r}
+    \ar[d] _{h_x}
+     &
       v
-      \ar@{.>}@/_/  [ru] _{*}
-      &
+      \ar@{.>} [d] ^{*}
+      \\
+      r_x
+      \ar@{.>} [r] ^{*}
+      & 
+      v',
     }
   \]
-  We have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
+ we have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
 \medskip
 
