@@ -100,7 +100,7 @@ still written $\rewR$, defined as follows:
 whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. 
 
 \begin{definition}
-A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x : x \to r_x$ such that $r_x < x$.
+A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x=x \rewR r_x$ such that $r_x < x$.
 \end{definition}
 
 Suppose chosen such a local strategy $h$. 
@@ -122,9 +122,7 @@ where for every $x$, $h_x=x \rewR r_x$.
 
 
 \begin{example}\label{ex:h_norma_form}
-Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$.
-
-We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewR z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
+Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
 \end{example}
 
 
@@ -162,9 +160,7 @@ $H : \KX \to \KX$.
 \end{definition}
 
 \begin{example}
-Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent.
-
-Replacing the rule $z \rewR y - t$ by $z \rewR y$ however we get $H(z) = z$ and $H(y) = z + t$ so $R$ is not $h$-confluent anymore. 
+Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
@@ -270,9 +266,7 @@ satisfying the following decreasingness property:
 
 \begin{remark}
 Let us show how Newman's Lemma fits as a particular case of our set up. 
-Suppose that $R$ is locally confluent and terminating. We define the relation $x > y$ on $X$ as the transitive closure of the relation $x \rewR u$ and $y$ appears in $u$: this is a well-founded relation. 
-
-By definition if $x \in X$ is not minimal for $>$ then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x: x \to r_x$.  By definition of $>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their sources makes $R$ locally $h$-confluent, and Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+Suppose that $R$ is locally confluent and terminating. We define the relation $x > y$ on $X$ as the transitive closure of the relation $x \rewR u$ and $y$ appears in $u$: this is a well-founded relation. By definition if $x \in X$ is not minimal for $>$ then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of $>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their sources makes $R$ locally $h$-confluent, and Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{remark}
 
 \end{document}
