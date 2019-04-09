@@ -240,6 +240,51 @@ satisfying the following decreasingness property:
   smaller than $r$ for $\prec$.
 \end{definition}
 
+\begin{example}
+Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on $R$ as follows:
+\[
+(x \rewR y), (y \rewR z + t) \prec (z \rewR y - t).
+\]
+This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$.
+
+The following diagrams show that $R$ is locally $h$-confluent:
+\[
+   \xymatrix @C = 2.5em @R = 2.5em{
+   x \ar [r] _{R}  
+    \ar [d] _{h_x}   
+   & y 
+   \ar@{=} [d]
+   \\
+    y
+    \ar@{=} [r]
+    & y
+    }
+    \qquad
+   \xymatrix @C = 2.5em @R = 2.5em{
+   y \ar [r] _{R}  
+    \ar [d] _{h_y}   
+   & z + t
+   \ar@{=} [d]
+   \\
+    z + t
+    \ar@{=} [r]
+    & z + t
+    }
+     \qquad
+   \xymatrix @C = 2.5em @R = 2.5em{
+   z \ar [r] _{R}  
+    \ar@{=} [d] _{h_z}   
+   & y - t
+   \ar [d] _{R}
+   \\
+    z
+    \ar@{=} [r]
+    & z
+    }
+\]    
+\end{example}
+
+
 \begin{theorem}\label{thm:confluence_criterion}
   If $R$ is locally $h$-confluent, then $R$ is $h$-confluent. In particular, $\rewR$ is confluent.
 \end{theorem}
@@ -267,6 +312,7 @@ satisfying the following decreasingness property:
   \]
   We have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
+
 
 \begin{remark}
 Let us show how Newman's Lemma fits as a particular case of our set up. 
