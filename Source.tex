@@ -33,6 +33,7 @@
 \newcommand\transh{\overset{*}{\rewh}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
+\newcommand\G{Gröbner}
 
 \bibliographystyle{plain}
 
@@ -40,7 +41,7 @@
 
 \begin{document}
 
-\title{Title}
+\title{The Diamond Lemma for non-terminating rewriting systems using deterministic reductions}
 
 \author{
 Cyrille Chenavier\inst{1}
@@ -62,13 +63,21 @@ Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
 \maketitle
 
 \begin{abstract}
-
-  
+  We study the confluence property for rewriting systems over vector spaces using deterministic reduction strategies. These strategies are based on the choice of standard reductions applied to basis elements. We show that the confluence property is interpreted in terms of tke kernel of the operator which computes standard normal forms. We present a local criterion which enables us to check the confluence property in this framework. We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
 \end{abstract}
  
 \section{Introduction}
 
-\section{Well-formed rewriting steps}
+
+The Diamond lemma for noncommutative polynomials was introduced by Bergman~\cite{MR506890} for computing normal forms in noncommutative algebras using rewriting theory. It asserts that for terminating rewriting systems, the local confluence property can be checked on monomials. The Diamond lemma together with the works of Bokut~\cite{MR0506423} gave birth the theory of noncommutative \G\ bases~\cite{MR1299371}. The latter provide applications to various areas of noncommutative algebra: study of embedding problems, which appears in the works of Bokut and Bergman, homological algebra~\cite{MR1072284, MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}, for instance.
+
+Computation of normal forms in noncommutative algebra is also used to provide formal solutions to partial differential equations. In this framework, a confluence criterion analogous to the Diamond Lemma is given by Janet bases~\cite{MR2394773}. Tha latter specify a determinitic way to reduce each polynomial into normal form using standard reductions~\cite{Mell}. Then, the confluence criterion maybe asserted as follows: for each monomial $m$ and each non-standard reduction $m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is obtained from $m$ using only standard reductions.
+
+In the presented paper, we propose an extension of the Diamond Lemma, where we do not assume termination of the underlying rewriting relation. For that, we use methods based on standard reductions. Indeed, for every monomial $m$, we select exactly one reduction with left-hand side $m$. Such choices induce a determinitic way to reduce each polynomial: it is done by applying simultenaously standard reductions on the monomials appearing in its decomposition.
+
+When these deterministic reductions terminate, one define an operator which maps every polynomial to its unique standard normal form. From this operator, we deduce in Proposition~\ref{prop:h-conf_implies_conf} a theoritical criterion for confluence. In Theorem~\ref{thm:confluence_criterion}, we provide an effective method for checking this criterion. This method is based on a local analysis corresponding to checking local confluence on monomials. In particular, in the case where the rewriting system is terminating, we show in Theorem~\ref{thm:diamond_lemma} that the Diamond Lemma is a consequence of the criterion presented in Theorem~\ref{thm:confluence_criterion}.
+
+\section{Local strategies and $h$-normal forms}
 
 We fix a commutative field $\K$ as well as a well-founded ordered set
 $(X,<)$. We denote by $\KX$ the vector space spanned by~$X$: an element
@@ -172,33 +181,28 @@ The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry an
 Reciprocally, if $u - v \in \ker(H)$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop:h-conf_implies_conf}
 If $R$ is $h$-confluent, then $\rewR$ is confluent.
 \end{proposition}
 \begin{proof}
   Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
   From Proposition~\ref{prop:equationnal_theory}, $v_1-v_2$ belongs to
-  $\ker(H)$, that is $H(v_1)=H(v_2)$. Hence, we get
+  $\ker(H)$, that is $H(v_1)=H(v_2)$. Denoting by $u$ the common value, we get
   \[
-    \xymatrix @C = 4em @R = 1.5em{
-      &
+    \xymatrix @C = 2.5em @R = 2.5em{
+    v 
+    \ar [r] ^{*}
+    \ar[d] _{*}
+     &
       v_1
-      \ar@/^/ [rd] ^{*}
-      & \\
-      v
-      \ar@/^/ [ru] ^{*}
-      \ar@/_/ [rd] _{*}
-      &
-      &
-      H(v_i)
+      \ar@{>} [d] ^{*}
       \\
-      &
       v_2
-      \ar@/_/  [ru] _{*}
-      &
+      \ar@{>} [r] _{*}
+      & 
+      u.
     }
   \]
-  
 \end{proof}
 
 In Theorem~\ref{thm:confluence_criterion}, we introduce a confluence
@@ -234,9 +238,7 @@ Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on
 \[
 (x \rewR y), (y \rewR z + t) \prec (z \rewR y - t).
 \]
-This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$.
-
-The following diagrams show that $R$ is locally $h$-confluent:
+This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$. The following diagrams show that $R$ is locally $h$-confluent:
 \[
    \xymatrix @C = 2.5em @R = 2.5em{
    x \ar [r] _{R}  
@@ -272,7 +274,10 @@ The following diagrams show that $R$ is locally $h$-confluent:
     }
 \]    
 \end{example}
+\medskip
 
+Our main result is the following.
+\smallskip
 
 \begin{theorem}\label{thm:confluence_criterion}
   If $R$ is locally $h$-confluent, then $R$ is $h$-confluent. In particular, $\rewR$ is confluent.
@@ -300,10 +305,10 @@ The following diagrams show that $R$ is locally $h$-confluent:
 \medskip
 
 
-Let us show how the diamond Lemma fits as a particular case of our set up.
+Let us show how the Diamond Lemma fits as a particular case of our set up.
 \smallskip
 
-\begin{theorem}[\cite{MR506890}]
+\begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
   Assume that $\rewR$ is terminating and that for every $x\in X$, $x\rewR r$ and $x\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is confluent.
 \end{theorem}
 
