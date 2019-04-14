@@ -41,7 +41,7 @@
 
 \begin{document}
 
-\title{The Diamond Lemma for non-terminating rewriting systems using deterministic reductions}
+\title{The Diamond Lemma for non-terminating rewriting systems using deterministic reduction strategies}
 
 \author{
 Cyrille Chenavier\inst{1}
@@ -68,14 +68,20 @@ Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
  
 \section{Introduction}
 
+The fact that local confluence together with termination implies confluence has been known for abstract rewriting systems since Newman's work [XX]. For rewriting noncommutative polynomials, a similar resut known as the Diamond lemma  was introduced by Bergman~\cite{MR506890} nearly 30 years later, in order to compute normal forms in noncommutative algebras using rewriting theory. It asserts that for terminating rewriting systems, the local confluence property can be checked on monomials. 
 
-The Diamond lemma for noncommutative polynomials was introduced by Bergman~\cite{MR506890} for computing normal forms in noncommutative algebras using rewriting theory. It asserts that for terminating rewriting systems, the local confluence property can be checked on monomials. The Diamond lemma together with the works of Bokut~\cite{MR0506423} gave birth the theory of noncommutative \G\ bases~\cite{MR1299371}. The latter provide applications to various areas of noncommutative algebra: study of embedding problems, which appears in the works of Bokut and Bergman, homological algebra~\cite{MR1072284, MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}, for instance.
+One difficulty of rewriting polynomials is that the naive notion of rewriting path (obtained as the closure of the genrating rewriting relations under reflexivity, transitivity, sum and product by a scalar) does not terminate. Instead, one needs to first consider well-formed rewriting steps before forming the reflexivie transitive closure.
 
-Computation of normal forms in noncommutative algebra is also used to provide formal solutions to partial differential equations. In this framework, a confluence criterion analogous to the Diamond Lemma is given by Janet bases~\cite{MR2394773}. Tha latter specify a determinitic way to reduce each polynomial into normal form using standard reductions~\cite{Mell}. Then, the confluence criterion maybe asserted as follows: for each monomial $m$ and each non-standard reduction $m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is obtained from $m$ using only standard reductions.
+Nevertheless the Diamond lemma has proved to be very useful : together with the works of Bokut~\cite{MR0506423}, it has given birth the theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have provided applications to various areas of noncommutative algebra such as the study of embedding problems (which appear in the works of Bokut and Bergman), homological algebra~\cite{MR1072284, MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}.
 
-In the presented paper, we propose an extension of the Diamond Lemma, where we do not assume termination of the underlying rewriting relation. For that, we use methods based on standard reductions. Indeed, for every monomial $m$, we select exactly one reduction with left-hand side $m$. Such choices induce a determinitic way to reduce each polynomial: it is done by applying simultenaously standard reductions on the monomials appearing in its decomposition.
+Computation of normal forms in noncommutative algebra is also used to provide formal solutions to partial differential equations. In this framework, a confluence criterion analogous to the Diamond Lemma is given by Janet bases~\cite{MR2394773}, which specify a determinitic way to reduce each polynomial into normal form using standard reductions~\cite{Mell}. The confluence criterion may then be asserted as follows: for each monomial $m$ and each non-standard reduction $m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is obtained from $m$ using only standard reductions.
 
-When these deterministic reductions terminate, one define an operator which maps every polynomial to its unique standard normal form. From this operator, we deduce in Proposition~\ref{prop:h-conf_implies_conf} a theoritical criterion for confluence. In Theorem~\ref{thm:confluence_criterion}, we provide an effective method for checking this criterion. This method is based on a local analysis corresponding to checking local confluence on monomials. In particular, in the case where the rewriting system is terminating, we show in Theorem~\ref{thm:diamond_lemma} that the Diamond Lemma is a consequence of the criterion presented in Theorem~\ref{thm:confluence_criterion}.
+In the presented paper, we propose an extension of the Diamond Lemma, which offers two improvements over the one from Bergman: first it allows the treatment of non-terminating rewriting relations, and second it does not presuppose a notion of well-formed rewriting steps. This last property seems particularly promising in order to extend the Diamond Lemma to other structures.
+
+Instead of supposing that the rewriting relation studied is terminating, we suppose given an ordering of the monomials, independent of the rewriting relation.
+We then use methods based on standard reductions: for every monomial $m$, we select exactly one reduction with left-hand side $m$, which is decreasing for the ordering chosen. Such choices induce a deterministic way to reduce each polynomial, obtained by applying simultenaously standard reductions on every monomial appearing in its decomposition. When these deterministic reductions terminate, one defines an operator which maps every polynomial to its unique standard normal form.
+
+From this operator, we define a suitable notions of both confluence in our setting, and show in Proposition~\ref{prop:h-conf_implies_conf} that it implies the usual notion of confluence for the rewriting system studied. We then provide an effective method for checking this criterion in  Theorem~\ref{thm:confluence_criterion}. This method is based on a local analysis corresponding to checking local confluence on monomials. In particular, when the rewriting system is terminating, we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
 
 \section{Local strategies and $h$-normal forms}
 
