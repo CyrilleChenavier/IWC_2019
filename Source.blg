@@ -4,45 +4,45 @@ The top-level auxiliary file: Source.aux
 The style file: plain.bst
 Database file #1: Biblio.bib
 Warning--can't use both author and editor fields in Mell
-You've used 9 entries,
+You've used 10 entries,
             2118 wiz_defined-function locations,
-            570 strings with 5344 characters,
-and the built_in function-call counts, 3005 in all, are:
-= -- 323
-> -- 63
+            578 strings with 5477 characters,
+and the built_in function-call counts, 3299 in all, are:
+= -- 355
+> -- 70
 < -- 3
-+ -- 29
-- -- 18
-* -- 209
-:= -- 473
-add.period$ -- 28
-call.type$ -- 9
-change.case$ -- 35
++ -- 32
+- -- 20
+* -- 228
+:= -- 524
+add.period$ -- 31
+call.type$ -- 10
+change.case$ -- 39
 chr.to.int$ -- 0
-cite$ -- 10
-duplicate$ -- 124
-empty$ -- 274
-format.name$ -- 18
-if$ -- 641
+cite$ -- 11
+duplicate$ -- 135
+empty$ -- 300
+format.name$ -- 20
+if$ -- 701
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 10
-newline$ -- 49
-num.names$ -- 18
-pop$ -- 27
+int.to.str$ -- 10
+missing$ -- 11
+newline$ -- 54
+num.names$ -- 20
+pop$ -- 29
 preamble$ -- 2
-purify$ -- 27
+purify$ -- 30
 quote$ -- 0
-skip$ -- 84
+skip$ -- 90
 stack$ -- 0
-substring$ -- 301
-swap$ -- 30
+substring$ -- 331
+swap$ -- 31
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 34
+type$ -- 38
 warning$ -- 1
-while$ -- 38
-width$ -- 10
-write$ -- 105
+while$ -- 42
+width$ -- 12
+write$ -- 116
 (There was 1 warning)
