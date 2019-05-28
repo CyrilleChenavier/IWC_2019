@@ -50,10 +50,10 @@ Maxime Lucas\inst{2}
 }
 
 \institute{
-  Inria Lille - Nord Europe, équipe Valse\\
+  Inria Lille - Nord Europe, \'Equipe Valse\\
   \email{cyrille.chenavier@inria.fr}
 \and
-Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
+Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
 \email{maxime.lucas@inria.fr}
 }
 
@@ -68,27 +68,77 @@ Inria Rennes - Bretagne Atlantique, équipe Gallinette\\
  
 \section{Introduction}
 
-The fact that local confluence together with termination implies confluence has been known for abstract rewriting systems since Newman's work~\cite{MR0007372}. For rewriting on noncommutative polynomials, a similar result known as the Diamond lemma  was introduced by Bergman~\cite{MR506890} nearly 30 years later, in order to compute normal forms in noncommutative algebras using rewriting theory. It asserts that for terminating rewriting systems, the local confluence property can be checked on monomials. 
+The fact that local confluence together with termination implies
+confluence has been known for abstract rewriting systems since
+Newman's work~\cite{MR0007372}. For rewriting on noncommutative
+polynomials, a similar result known as the Diamond lemma was
+introduced by Bergman~\cite{MR506890} nearly 30 years later, in order
+to compute normal forms in noncommutative algebras using rewriting
+theory. It asserts that for terminating rewriting systems, the local
+confluence property can be checked on monomials.
 
-One difficulty of rewriting polynomials is that the naive notion of rewriting path (obtained as the closure of the generating rewriting relations under reflexivity, transitivity, sum and product by a scalar) does not terminate. Instead, one needs to first consider well-formed rewriting steps before forming the reflexive transitive closure.
+One difficulty of rewriting polynomials is that the naive notion of
+rewriting path (obtained as the closure of the generating rewriting
+relations under reflexivity, transitivity, sum and product by a
+scalar) does not terminate. Instead, one needs to first consider
+well-formed rewriting steps before forming the reflexive transitive
+closure.
 
-Nevertheless the Diamond lemma has proved to be very useful : together with the works of Bokut~\cite{MR0506423}, it has given birth the theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have provided applications to various areas of noncommutative algebra such as the study of embedding problems (which appear in the works of Bokut and Bergman), homological algebra~\cite{MR1072284, MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}.
+Nevertheless the Diamond lemma has proved to be very useful : together
+with the works of Bokut~\cite{MR0506423}, it has given birth the
+theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have
+provided applications to various areas of noncommutative algebra such
+as the study of embedding problems (which appear in the works of Bokut
+and Bergman), homological algebra~\cite{MR1072284, MR2110434} or
+Koszul duality~\cite{MR1832913, MR0265437}.
 
-Computation of normal forms in noncommutative algebra is also used to provide formal solutions to partial differential equations. In this framework, a confluence criterion analogous to the Diamond Lemma is given by Janet bases~\cite{MR2394773}, which specify a deterministic way to reduce each polynomial into normal form using standard reductions~\cite{Mell}. The confluence criterion may then be asserted as follows: for each monomial $m$ and each non-standard reduction $m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is obtained from $m$ using only standard reductions.
+Computation of normal forms in noncommutative algebra is also used to
+provide formal solutions to partial differential equations. In this
+framework, a confluence criterion analogous to the Diamond Lemma is
+given by Janet bases~\cite{MR2394773}, which specify a deterministic
+way to reduce each polynomial into normal form using standard
+reductions~\cite{Mell}. The confluence criterion may then be asserted
+as follows: for each monomial $m$ and each non-standard reduction
+$m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is
+obtained from $m$ using only standard reductions.
 
-In the presented paper, we propose an extension of the Diamond Lemma, which offers two improvements over the one from Bergman: first it allows the treatment of non-terminating rewriting relations, and second it does not presuppose a notion of well-formed rewriting steps. This last property seems particularly promising in order to extend the Diamond Lemma to other structures.
+In the presented paper, we propose an extension of the Diamond Lemma
+which offers two improvements over the one from Bergman: first it
+allows the treatment of non-terminating rewriting relations, and
+second it does not presuppose a notion of well-formed rewriting
+steps. This last property seems particularly promising in order to
+extend the Diamond Lemma to other structures.
 
-Instead of supposing that the rewriting relation studied is terminating, we suppose given an ordering of the monomials, independent of the rewriting relation.
-We then use methods based on standard reductions: for every monomial $m$, we select exactly one reduction with left-hand side $m$, which is decreasing for the ordering chosen. Such choices induce a deterministic way to reduce each polynomial, obtained by applying simultaneously standard reductions on every monomial appearing in its decomposition. When these deterministic reductions terminate, one defines an operator which maps every polynomial to its unique standard normal form.
+Instead of supposing that the rewriting relation studied is
+terminating, we suppose given an ordering on the monomials,
+independent of the rewriting relation.  We then use methods based on
+standard reductions: for every monomial $m$, we select exactly one
+reduction with left-hand side $m$, which is decreasing for the
+ordering chosen. Such choices induce a deterministic way to reduce
+each polynomial, obtained by applying simultaneously standard
+reductions on every monomial appearing in its decomposition. When
+these deterministic reductions terminate, one defines an operator
+which maps every polynomial to its unique standard normal form.
 
-From this operator, we define a suitable notions of both confluence in our setting, and show in Proposition~\ref{prop:h-conf_implies_conf} that it implies the usual notion of confluence for the rewriting system studied. We then provide an effective method for checking this criterion in  Theorem~\ref{thm:confluence_criterion}. This method is based on a local analysis corresponding to checking local confluence on monomials. In particular, when the rewriting system is terminating, we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
+From this operator, we define a suitable notion of confluence in
+our setting, and show in Proposition~\ref{prop:h-conf_implies_conf}
+that it implies the usual notion of confluence for the rewriting
+system studied. We then provide an effective method for checking this
+criterion in Theorem~\ref{thm:confluence_criterion}. This method is
+based on a local analysis corresponding to checking local confluence
+on monomials. In particular, when the rewriting system is terminating,
+we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond
+Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
 
 \section{Local strategies and $h$-normal forms}
 
-We fix a commutative field $\K$ as well as a well-founded ordered set
-$(X,<)$. We denote by $\KX$ the vector space spanned by~$X$: an element
+We fix a commutative field $\K$ as well as a well-founded partially ordered set
+$(X,<_X)$. We denote by $\KX$ the vector space spanned by~$X$: an element
 $v\in\KX$ is a finite formal linear combination of elements of $X$ with
-coefficients in $\K$. In particular, for every $v\in\KX$, there exists a
+coefficients in $\K$.  The sum of
+$u=\sum\lambda_xx$ and $v=\sum\mu_xx$ equals $\sum(\lambda_x+\mu_x)x$ and
+the product of $\lambda\in\K$ by $v$ equals $\sum(\lambda\lambda_x)x$.
+For every $v\in\KX$, there exists a
 unique finite set $\supp(v)\subset X$, called the \emph{support} of $v$,
 such that
 \begin{equation}\label{equ:support}
@@ -98,47 +148,49 @@ such that
 
 \smallskip
 \noindent
-We denote by $\supp(v)^c=X\setminus\supp(v)$. The sum of
-$u=\sum\lambda_xx$ and $v=\sum\mu_xx$ equals $\sum(\lambda_x+\mu_x)x$ and
-the product of $\lambda\in\K$ by $v$ equals $\sum(\lambda\lambda_x)x$. We
-extend the order $<$ into the multiset order, still written $<$, on
-$\KX$: we have $u<v$ if for every $x\in\supp(u)\cap\supp(v)^c$, there
-exists $y\in\supp(v)\cap\supp(u)^c$ such that $y>x$.
+We
+extend the order $<_X$ into the multiset order on $\KX$, denoted $<_{\KX}$:
+for any $u,v \in \KX$, $u<_{\KX}v$ if $\supp(u) \neq \supp(v)$ and for any $x\in\supp(u)\setminus\supp(v)$, there
+exists $y\in\supp(v)\setminus\supp(u)$ such that $y>_Xx$. Note that $<_{\KX}$ and $<_X$ coincide when restricted to $X$,
+so we simply denote this order by $<$ in the rest of this paper.
 
 \medskip
 
 We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
-the form $x\rewR r$. The set $R$ induces the rewriting relation on $\KX$,
-still written $\rewR$, defined as follows:
+the form $x\rewR r$. The set $R$ induces the following rewriting relation on $\KX$,
+still written $\rewR$, defined as:
 \begin{equation}\label{equ:rewriting_step}
-  \sum\lambda_xx+v\rewR\sum\lambda_xr_x+v,
+  \sum_x\lambda_xx+v\rewR\sum_x\lambda_xr_x+v,
 \end{equation}
-whenever $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$. 
+where $v$ is any element of $\KX$, and for any $x \in X$ appearing in the sum,  $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$.
+Finally we denote by $\equivR$ the closure of $\rewR$ under transitivity, symmetry and sum.
 
 \begin{definition}
-A \emph{local strategy} for $R$ is the choice, for every $x\in X$ not minimal for $<$, of a rewriting rule $h_x=x \rewR r_x$ such that $r_x < x$.
+  A \emph{local strategy} $h$ for $R$ is the choice, for every $x \in X$ not minimal for $<$, of a rewriting rule $h_x=x \rewR r_x$ such that $r_x < x$. 
 \end{definition}
 
-Suppose chosen such a local strategy $h$. 
+In the rest of this paper, we suppose chosen such a local strategy $h$ (note that such an $h$ may not exist). 
 Any vector $v$ can be decomposed in a unique way as
 $\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
-for $<$, and $x\in\supp(v)\cap\supp(v')^c$ is not. We define a rewriting
+for $<$, and $x\in\supp(v)\setminus\supp(v')$ is not. We define a rewriting
 relation $\rewh$ as follows:
 \begin{equation}\label{equ:well-formed_rewriting_step}
-  \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
+  h_v = \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
 \end{equation}
-where for every $x$, $h_x=x \rewR r_x$.
+where for every $x$, $h_x=x \rewR r_x$. Note in particular that if $x$ is minimal for $<$, then $h_x = x \to x$ is the identity on $x$.
 
 \medskip
 
 \begin{definition}
-  A vector $v$ is said to be a \emph{$h$-normal form} if it is a normal
+  A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal
   form for $\rewh$.
 \end{definition}
 
 
 \begin{example}\label{ex:h_norma_form}
-Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z$, and the following distinguished rewrite rules: $h_x = x \rewh y$, $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal form are all the $\lambda_t t + \lambda_z z$.
+  Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z,t$, and the following distinguished rewrite rules:
+  \[ h_x = x \rewh y, \qquad h_y = y \rewh z + t.\]
+  Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal forms are all the expressions of the form $\lambda_t t + \lambda_z z$.
 \end{example}
 
 
@@ -149,14 +201,15 @@ Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that thi
 
 \medskip
 
-For each $v\in\KX$, there exists at most one $v'$ such that $v \rewh v'$,
+For each $v\in\KX$ and strategy local strategy $h$, there exists at most one $v'$ such that $v \rewh v'$,
 and $\rewh$ is compatible with the termination order $<$. As a
 consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$
 to a unique $h$-normal form that we denote by $H(v)$. This defines a map
 $H : \KX \to \KX$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $H$ is a linear projector.
+  The map $H$ is a linear projector, in the sense that for all $u,v \in \KX$ and $\lambda \in \K$, $H(u+v) = H(u) + H(v)$, $H(\lambda u) = \lambda H(u)$ and
+  $H(H(u)) = H(u)$.
 \end{proposition}
 
 \begin{proof}
@@ -167,28 +220,41 @@ $H : \KX \to \KX$.
 \end{proof}
 
 \section{A confluence criterion}
+In this section we investigate the confluence properties of $R$.
+The main idea behind this section is that under suitable hypothesis $\rewh$ should form a terminating, confluent subrelation of $\rewR$.
+
+We start in Definition \ref{def:standardisation_property} and the following propositions by relating the confluence of $\rewR$ to properties on $h$.
+Then Theorem~\ref{thm:confluence_criterion}, we prove a confluence
+criterion to check whether $R$ satisfies Definition~\ref{def:standardisation_property}.
 
 \begin{definition}\label{def:standardisation_property}
-  We say that $R$ is \emph{h-confluent} if for every rewrite rule $x\rewR v\in R$, we have $\ x-v\in\ker(H)$.
+  We say that $R$ is \emph{h-confluent} if for every rewrite rule $x\rewR v\in R$, we have $H(x-v) = 0$.
 \end{definition}
 
 \begin{example}
-Let us take the same example as in \ref{ex:h_norma_form}. Then $H(x) = H(y) = z + t$, with $H(z) = z = H(y - t)$, and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
+  Let us take the same example as in Example \ref{ex:h_norma_form}. We have three equations to check:
+  \[
+    \begin{split}
+      H(x) & = z + t = H(y)\\
+      H(y) & = z + t = H(z + t) \\
+      H(z) & = z = H(y - t),
+    \end{split}
+  \] and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
   If $R$ is $h$-confluent, then
-  $u \equivR v$ if and only if $u-v\in\ker(H)$.
+  $u \equivR v$ if and only if $H(u-v)$.
 \end{proposition}
 
 \begin{proof}
-The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $u - v \in \ker(H)$ is closed under these operations, we get one implication.
+The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $H(u - v) = 0$ is closed under these operations, we get one implication.
 
-Reciprocally, if $u - v \in \ker(H)$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
+Reciprocally, if $H(u - v) = 0$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
 \end{proof}
 
 \begin{proposition}\label{prop:h-conf_implies_conf}
-If $R$ is $h$-confluent, then $\rewR$ is confluent.
+If $R$ is $h$-confluent then $\rewR$ is confluent.
 \end{proposition}
 \begin{proof}
   Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
@@ -210,33 +276,31 @@ If $R$ is $h$-confluent, then $\rewR$ is confluent.
     }
   \]
 \end{proof}
+Note that the previous proposition is a sufficient but not a necessary condition: taking $X$ to be the integers, with the relations $n \rewR n+1$ is confluent, but there exist no local strategy $h$ making $R$ $h$-confluent. 
 
-In Theorem~\ref{thm:confluence_criterion}, we introduce a confluence
-criterion when $R$ satisfies~\ref{def:standardisation_property}. For
-that, we assume that $R$ is equipped with a well-founded order $\prec$
-satisfying the following decreasingness property:
+We now introduce our criterion to show that $R$ is $h$-confluent. For that, we assume that the set of relations $R$ is equipped with a well-founded order $\prec$ satisfying the following decreasingness property:
 
 \begin{definition}\label{proper:decreasingness_property}
-  We say that $R$ is \emph{locally $h$-confluent} if for every non
-  minimal $x\in X$ and $r=x\rewR v$, then letting $h_x=x\rewh r_x$, we
+  We say that $R$ is \emph{locally $h$-confluent} if for every
+  $x \in X$ and $f=x\rewR v$, then letting $h_x=x\rewh r_x$, we
   have the confluence diagram:
   \[
     \xymatrix @C = 2.5em @R = 2.5em{
     x 
-    \ar [r] ^{r}
+    \ar [r] ^{f}
     \ar[d] _{h_x}
      &
       v
-      \ar@{.>} [d] ^{*}
+      \ar@{<.>} [d] ^{*}
       \\
       r_x
-      \ar@{.>} [r] ^{*}
+      \ar@{<.>} [r] ^{*}
       & 
       v',
     }
   \]
-  where each rewriting step occurring in the dotted arrows are strictly
-  smaller than $r$ for $\prec$.
+  where each rewriting step occurring in the dotted arrows is strictly
+  smaller than $f$ with respect to  $\prec$.
 \end{definition}
 
 \begin{example}
@@ -272,7 +336,7 @@ This is guided by the heuristic that rules advancing towards an $h$-normal form 
    z \ar [r] _{R}  
     \ar@{=} [d] _{h_z}   
    & y - t
-   \ar [d] _{R}
+   \ar [d] ^{R}
    \\
     z
     \ar@{=} [r]
@@ -290,7 +354,7 @@ Our main result is the following.
 \end{theorem}
 
 \begin{proof}
- We reason by induction on $r$. Looking at the square corresponding to $r$:
+ We reason by induction on $r$ according to the order $\prec$. Looking at the square corresponding to $r$:
   \[
     \xymatrix @C = 2.5em @R = 2.5em{
     x 
@@ -298,20 +362,26 @@ Our main result is the following.
     \ar[d] _{h_x}
      &
       v
-      \ar@{.>} [d] ^{*}
+      \ar@{<.>} [d] ^{*}
       \\
       r_x
-      \ar@{.>} [r] ^{*}
+      \ar@{<.>} [r] ^{*}
       & 
       v',
     }
   \]
  we have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
+
+\begin{remark}
+  Local $h$-confluence implies that the pair of rewriting relations $(\rewh,\rewR)$ is decreasing with respect to conversions (see \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$ and the discrete ordering on $\rewh$. 
+  By \cite[Theorem 3]{van2008confluence}, this implies that $(\rewh,\rewR)$ commute. Using the fact that $\rewh \subseteq \rewR$, one can then recover that $\rewR$ is confluent.
+\end{remark}
+
 \medskip
 
 
-Let us show how the Diamond Lemma fits as a particular case of our set up.
+Let us show how the Diamond Lemma fits as a particular case of our setup.
 \smallskip
 
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
@@ -319,10 +389,16 @@ Let us show how the Diamond Lemma fits as a particular case of our set up.
 \end{theorem}
 
 \begin{proof}
-  We define the relation $x > y$ on $X$ whenever $x \rewR v$ exists such that $y\in\supp(v)$. The induced order relation is well-founded. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, $r_x < x$ so that $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+  We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{proof}
 
 \bibliography{Biblio}
 
 \end{document}
 
+ 	
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

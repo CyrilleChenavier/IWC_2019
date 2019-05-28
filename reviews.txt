@@ -1,0 +1,33 @@
+Review 1
+
+- Abstract: the first sentence can be read as "we study ... over (vector
+  spaces using deterministic reduction strategies)", which is not the
+  intent.
+
+- The papers ends quite abruptly, a small conclusion would be nice.
+  Perhaps with a comment about the applicability of the criterion.
+
+Review 2
+Detailed comments:
+abstract, line 3: I found the word "interpreted" a bit strange here:
+       in my understanding h-confluence (the notion related to kernels)
+       is shown to be a sufficient criterion for confluence, but
+       "interpreted" sounds like an equivalence to me. Can you be more
+       precise here?
+
+Review 3
+In the proof of Theorem 3.8, you define a relation > based on a criterion that
+relates minimality with the rewriting relation R, but in Section 2 you just fix
+a well-founded ordered set (X,<) with no criterion. My doubt is that I cannot
+see how you can prove Lemma 2.4 without that criterion. For example, if we
+consider the order x > y > z and the rules and the rules x ->R y and z ->R y - t
+only, we have the term y which is not minimal (because z < y), but there is no
+v' < v such that v ->h v'.
+Response: In Lemma 2.4 we suppose given the existence of a local strategy.
+Your example indeed proves that such a strategy may not exist.
+
+In Definition 3.5, if it is possible to have a non minimal x, a rule r = x ->R v
+and no h_x (you can get it by adding z > w in the Example), why is in the
+diagram x ->h_x r_x instead of x ->*h_x r_x?
+Response: the idea is that we only need a path whose first step is an h_x to check for h-confluence.
+Asking for the whole path to be a succesions of h-rewriting steos would also work, but would be more restrictive.
