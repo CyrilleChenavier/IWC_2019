@@ -63,9 +63,9 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
 \maketitle
 
 \begin{abstract}
-  We study the confluence property for rewriting systems over vector spaces using deterministic reduction strategies.
+  We study the confluence property for rewriting systems whose underlying set of terms admits a vector space structure. For that, we use deterministic reduction strategies.
   These strategies are based on the choice of standard reductions applied to basis elements.
-  We show that the confluence property is interpreted in terms of the kernel of the operator which computes standard normal forms.
+  We provide a sufficient condition of confluence in terms of the kernel of the operator which computes standard normal forms.
   We present a local criterion which enables us to check the confluence property in this framework.
   We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
 \end{abstract}
@@ -145,11 +145,12 @@ the product of $\lambda\in\K$ by $v$ equals $\sum(\lambda\lambda_x)x$.
 For every $v\in\KX$, there exists a
 unique finite set $\supp(v)\subset X$, called the \emph{support} of $v$,
 such that
-\begin{equation}\label{equ:support}
-  v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in\supp(v)\Rightarrow\lambda_x
-  \neq 0.
-\end{equation}
-
+\begin{small}
+  \begin{equation}\label{equ:support}
+    v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in\supp(v)\Rightarrow\lambda_x
+    \neq 0.
+  \end{equation}
+\end{small}
 \smallskip
 \noindent
 We
@@ -161,11 +162,12 @@ so we simply denote this order by $<$ in the rest of this paper.
 \medskip
 
 We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
-the form $x\rewR r$. The set $R$ induces the following rewriting relation on $\KX$,
-still written $\rewR$, defined as:
-\begin{equation}\label{equ:rewriting_step}
-  \sum_x\lambda_xx+v\rewR\sum_x\lambda_xr_x+v,
-\end{equation}
+the form $x\rewR r$. The set $R$ induces a rewriting relation on $\KX$ which reduced many $x$'s at once and defined as follows:
+\begin{small}
+  \begin{equation}\label{equ:rewriting_step}
+    \sum_x\lambda_xx+v\rewR\sum_x\lambda_xr_x+v,
+  \end{equation}
+\end{small}
 where $v$ is any element of $\KX$, and for any $x \in X$ appearing in the sum,  $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$.
 Finally we denote by $\equivR$ the closure of $\rewR$ under transitivity, symmetry and sum.
 
@@ -178,9 +180,11 @@ Any vector $v$ can be decomposed in a unique way as
 $\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
 for $<$, and $x\in\supp(v)\setminus\supp(v')$ is not. We define a rewriting
 relation $\rewh$ as follows:
-\begin{equation}\label{equ:well-formed_rewriting_step}
-  h_v = \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
-\end{equation}
+\begin{small}
+  \begin{equation}\label{equ:well-formed_rewriting_step}
+    h_v = \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
+  \end{equation}
+\end{small}
 where for every $x$, $h_x=x \rewR r_x$. Note in particular that if $x$ is minimal for $<$, then $h_x = x \to x$ is the identity on $x$.
 
 \medskip
@@ -192,9 +196,7 @@ where for every $x$, $h_x=x \rewR r_x$. Note in particular that if $x$ is minima
 
 
 \begin{example}\label{ex:h_norma_form}
-  Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z,t$, and the following distinguished rewrite rules:
-  \[ h_x = x \rewh y, \qquad h_y = y \rewh z + t.\]
-  Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal forms are all the expressions of the form $\lambda_t t + \lambda_z z$.
+  Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z,t$, and the following distinguished rewrite rules: $h_x = x \rewh y$ and $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal forms are all the expressions of the form $\lambda_t t + \lambda_z z$.
 \end{example}
 
 
@@ -237,18 +239,17 @@ criterion to check whether $R$ satisfies Definition~\ref{def:standardisation_pro
 
 \begin{example}
   Let us take the same example as in Example \ref{ex:h_norma_form}. We have three equations to check:
-  \[
-    \begin{split}
-      H(x) & = z + t = H(y)\\
-      H(y) & = z + t = H(z + t) \\
-      H(z) & = z = H(y - t),
-    \end{split}
-  \] and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
+  \begin{small}
+    \[
+    H(x) = z + t = H(y),\ H(y) = z + t = H(z + t),\ H(z) = z = H(y - t),
+    \]
+  \end{small}
+    and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
 \end{example}
 
 \begin{proposition}\label{prop:equationnal_theory}
   If $R$ is $h$-confluent, then
-  $u \equivR v$ if and only if $H(u-v)$.
+  $u \equivR v$ if and only if $H(u-v)=0$.
 \end{proposition}
 
 \begin{proof}
@@ -264,22 +265,9 @@ If $R$ is $h$-confluent then $\rewR$ is confluent.
   Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
   From Proposition~\ref{prop:equationnal_theory}, $v_1-v_2$ belongs to
   $\ker(H)$, that is $H(v_1)=H(v_2)$. Denoting by $u$ the common value, we get
-  \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-    v 
-    \ar [r] ^{*}
-    \ar[d] _{*}
-     &
-      v_1
-      \ar@{>} [d] ^{*}
-      \\
-      v_2
-      \ar@{>} [r] _{*}
-      & 
-      u.
-    }
-  \]
+  $v_i\transR u$, which proves the proposition.
 \end{proof}
+
 Note that the previous proposition is a sufficient but not a necessary condition: taking $X$ to be the integers, with the relations $n \rewR n+1$ is confluent, but there exist no local strategy $h$ making $R$ $h$-confluent. 
 
 We now introduce our criterion to show that $R$ is $h$-confluent. For that, we assume that the set of relations $R$ is equipped with a well-founded order $\prec$ satisfying the following decreasingness property:
@@ -288,12 +276,13 @@ We now introduce our criterion to show that $R$ is $h$-confluent. For that, we a
   We say that $R$ is \emph{locally $h$-confluent} if for every
   $x \in X$ and $f=x\rewR v$, then letting $h_x=x\rewh r_x$, we
   have the confluence diagram:
-  \[
+  \begin{small}
+    \[
     \xymatrix @C = 2.5em @R = 2.5em{
-    x 
-    \ar [r] ^{f}
-    \ar[d] _{h_x}
-     &
+      x 
+      \ar [r] ^{f}
+      \ar[d] _{h_x}
+      &
       v
       \ar@{<.>} [d] ^{*}
       \\
@@ -302,51 +291,50 @@ We now introduce our criterion to show that $R$ is $h$-confluent. For that, we a
       & 
       v',
     }
-  \]
+    \]
+  \end{small}
   where each rewriting step occurring in the dotted arrows is strictly
   smaller than $f$ with respect to  $\prec$.
 \end{definition}
 
 \begin{example}
-Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on $R$ as follows:
-\[
-(x \rewR y), (y \rewR z + t) \prec (z \rewR y - t).
-\]
-This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$. The following diagrams show that $R$ is locally $h$-confluent:
-\[
-   \xymatrix @C = 2.5em @R = 2.5em{
-   x \ar [r] _{R}  
-    \ar [d] _{h_x}   
-   & y 
-   \ar@{=} [d]
-   \\
-    y
-    \ar@{=} [r]
-    & y
+  Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on $R$ by the following ordering: $(x \rewR y), (y \rewR z + t) \prec (z \rewR y - t)$. This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$. The following diagrams show that $R$ is locally $h$-confluent:
+  \begin{small}
+    \[
+    \xymatrix @C = 2.5em @R = 2.5em{
+      x \ar [r] _{R}  
+      \ar [d] _{h_x}   
+      & y 
+      \ar@{=} [d]
+      \\
+      y
+      \ar@{=} [r]
+      & y
     }
     \qquad
-   \xymatrix @C = 2.5em @R = 2.5em{
-   y \ar [r] _{R}  
-    \ar [d] _{h_y}   
-   & z + t
-   \ar@{=} [d]
-   \\
-    z + t
-    \ar@{=} [r]
-    & z + t
+    \xymatrix @C = 2.5em @R = 2.5em{
+      y \ar [r] _{R}  
+      \ar [d] _{h_y}   
+      & z + t
+      \ar@{=} [d]
+      \\
+      z + t
+      \ar@{=} [r]
+      & z + t
     }
-     \qquad
-   \xymatrix @C = 2.5em @R = 2.5em{
-   z \ar [r] _{R}  
-    \ar@{=} [d] _{h_z}   
-   & y - t
-   \ar [d] ^{R}
-   \\
-    z
-    \ar@{=} [r]
-    & z
+    \qquad
+    \xymatrix @C = 2.5em @R = 2.5em{
+      z \ar [r] _{R}  
+      \ar@{=} [d] _{h_z}   
+      & y - t
+      \ar [d] ^{R}
+      \\
+      z
+      \ar@{=} [r]
+      & z
     }
-\]    
+    \]
+  \end{small}
 \end{example}
 \medskip
 
@@ -358,13 +346,14 @@ Our main result is the following.
 \end{theorem}
 
 \begin{proof}
- We reason by induction on $r$ according to the order $\prec$. Looking at the square corresponding to $r$:
-  \[
+  We reason by induction on $r$ according to the order $\prec$. Looking at the square corresponding to $r$:
+  \begin{small}
+    \[
     \xymatrix @C = 2.5em @R = 2.5em{
-    x 
-    \ar [r] ^{r}
-    \ar[d] _{h_x}
-     &
+      x 
+      \ar [r] ^{r}
+      \ar[d] _{h_x}
+      &
       v
       \ar@{<.>} [d] ^{*}
       \\
@@ -373,7 +362,8 @@ Our main result is the following.
       & 
       v',
     }
-  \]
+    \]
+  \end{small}
  we have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
 \end{proof}
 
@@ -395,6 +385,8 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
 \begin{proof}
   We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{proof}
+
+\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
 
 \bibliography{Biblio}
 
