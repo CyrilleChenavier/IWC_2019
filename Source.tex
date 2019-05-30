@@ -162,7 +162,7 @@ so we simply denote this order by $<$ in the rest of this paper.
 \medskip
 
 We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
-the form $x\rewR r$. The set $R$ induces a rewriting relation on $\KX$ which reduced many $x$'s at once and defined as follows:
+the form $x\rewR r$. The set $R$ induces a rewriting relation on $\KX$ which reduces many $x$'s at once and defined as follows:
 \begin{small}
   \begin{equation}\label{equ:rewriting_step}
     \sum_x\lambda_xx+v\rewR\sum_x\lambda_xr_x+v,
@@ -241,7 +241,7 @@ criterion to check whether $R$ satisfies Definition~\ref{def:standardisation_pro
   Let us take the same example as in Example \ref{ex:h_norma_form}. We have three equations to check:
   \begin{small}
     \[
-    H(x) = z + t = H(y),\ H(y) = z + t = H(z + t),\ H(z) = z = H(y - t),
+    H(x) = z + t = H(y),\qquad H(y) = z + t = H(z + t),\qquad H(z) = z = H(y - t),
     \]
   \end{small}
     and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
@@ -386,7 +386,7 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
   We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{proof}
 
-\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
+\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on the set $\K$ of coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
 
 \bibliography{Biblio}
 
