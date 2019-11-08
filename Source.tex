@@ -27,6 +27,7 @@
 \newcommand\K{\mathbb{K}}
 \newcommand\KX{\K X}
 \newcommand\supp{\text{supp}}
+\newcommand\Span[1]{\langle#1\rangle}
 \newcommand\rewR{\underset{R}{\longrightarrow}}
 \newcommand\rewh{\underset{h}{\longrightarrow}}
 \newcommand\transR{\overset{*}{\rewR}}
@@ -37,7 +38,7 @@
 
 \bibliographystyle{plain}
 
-\newcommand\todo[1]{\textcolor{red}{#1.}}
+\newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
 
 \begin{document}
 
@@ -69,7 +70,25 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   We present a local criterion which enables us to check the confluence property in this framework.
   We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
 \end{abstract}
- 
+
+\todo{plan:
+  \begin{itemize}
+  \item Section I: IWC theorem
+  \item Section 2: rew on rationnal Weyl algebras
+    \begin{itemize}
+    \item definition of rew. rules and rew. steps
+    \item proposition: convergent implies general form of solution to PDE
+    \item Janet bases: Janet complete implies existence of a strategy, passivity implies $h$-confluence criterion, as a consequence we recover formal solutions to PDE
+    \item $y'=xy$ and Janet example
+    \end{itemize}
+  \end{itemize}
+  Example $y'=xy$, main steps:
+  \begin{itemize}
+  \item general solution is given by $\Span{u\mid x^{2n+1}}=0$ and $\Span{u\mid x^{2n}}=u(0)/(2^nn!)$
+  \item we recover this by rew: we need $(\partial_x)^nx=x(\partial_x)^n+n(\partial_x)^{n-1}$ (using Leibniz identity and induction) and $\Span{u\mid x^n}=1/(n!)(\partial_x)^n(u)_{\mid 0}$ and we prove the previous two formulas by induction (use this example as a running example?)
+  \end{itemize}
+}
+
 \section{Introduction}
 
 The fact that local confluence together with termination implies
