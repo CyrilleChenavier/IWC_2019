@@ -25,9 +25,11 @@
 
 
 \newcommand\K{\mathbb{K}}
+\newcommand\F{\mathscr{F}}
 \newcommand\Q{\mathbb{Q}}
 \newcommand\N{\mathbb{N}}
-\newcommand\QX{\mathbb{Q}(x_1,\cdots,x_n)}
+\newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
+\newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\KX{\K X}
 \newcommand\supp{\text{supp}}
 \newcommand\Span[1]{\langle#1\rangle}
@@ -39,7 +41,7 @@
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
 \newcommand\G{Gröbner}
 \newcommand\diff[1]{\partial_{x_{#1}}}
-
+\newcommand\eg{\emph{e.g.}}
 
 \bibliographystyle{plain}
 
@@ -418,31 +420,21 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
 
 \subsection{Rewriting systems on rationnal Weyl algebras}
 
-In this section, we recall the notions of {\em rationnal Weyl algebras},
-and inestigate rewriting systems on these algebras.
-\medskip
-
-Denote by $\Q$ the ring of rationnal number and let us fix a set
-$X:=\{x_1,\cdots,x_n\}$. In the following definition, $[-,-]$ denotes the
-Lie bracket in associative algebras and $\delta_{ij}$ denotes the
-Kronecker delta function, that is, $[u,v]=uv-vu$ and $\delta_{ij}(k)=1$
-if $i=k$ and $0$, otherwise.
+We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and let $\QXX$ be the
+field of fractions of the polynomial algebra $\QX$ over $\Q$.
 
 \begin{definition}
-  The {\em rational Weyl algebra} over $\QX$ is the associative
-  $\Q$-algebra generated the symbols $x_i,\diff{i}$, $1\leq i\leq n$,
-  subject to the following commutation rules: 
-  \[[x_i,x_j]=[\diff{i},\diff{j}]=0,\quad [\diff{i},x_j]=\delta_{i,j},
-  \quad 1\leq i,j\leq n.\]
-  The rational Weyl algebra over $\QX$ is denoted as follows:
-  \[B_n(\Q)=\QX[\diff{1},\cdots,\diff{n}].\]
+  The {\it rational Weyl algebra} over $\QXX$ is the set of polynomials
+  over the inderminates $\diff{i}$ and coefficients in $\QXX$, subject to
+  the following commutation rule:   
+  \begin{equation}\label{equ:comm_rule}
+    \diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\QXX,\quad
+    1\leq i\leq n,
+  \end{equation}
+  where $d/dx_i:\QXX\to\QXX$ is the partial derivative operator with
+  respect to the indeterminate $x_i$. This algebra is denoted by
+  $B_n(\Q)$ .
 \end{definition}
-
-\begin{remark}
-  Notice that $B_n(\Q)$ admits a $\QX$-vector space structure and admits
-  a basis the set of differential operators
-  $\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$, $\alpha_i\in\N$.
-\end{remark}
 
 \subsection{Janet bases and $h$-confluence}
 
