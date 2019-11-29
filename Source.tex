@@ -25,6 +25,11 @@
 
 
 \newcommand\K{\mathbb{K}}
+\newcommand\F{\mathscr{F}}
+\newcommand\Q{\mathbb{Q}}
+\newcommand\N{\mathbb{N}}
+\newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
+\newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\KX{\K X}
 \newcommand\supp{\text{supp}}
 \newcommand\Span[1]{\langle#1\rangle}
@@ -35,6 +40,8 @@
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
 \newcommand\G{Gröbner}
+\newcommand\diff[1]{\partial_{x_{#1}}}
+\newcommand\eg{\emph{e.g.}}
 
 \bibliographystyle{plain}
 
@@ -408,11 +415,26 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
   We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{proof}
 
-\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on the set $\K$ of coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
 
 \section{Rewriting and partial derivative equations}
 
 \subsection{Rewriting systems on rationnal Weyl algebras}
+
+We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and let $\QXX$ be the
+field of fractions of the polynomial algebra $\QX$ over $\Q$.
+
+\begin{definition}
+  The {\it rational Weyl algebra} over $\QXX$ is the set of polynomials
+  over the inderminates $\diff{i}$ and coefficients in $\QXX$, subject to
+  the following commutation rule:   
+  \begin{equation}\label{equ:comm_rule}
+    \diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\QXX,\quad
+    1\leq i\leq n,
+  \end{equation}
+  where $d/dx_i:\QXX\to\QXX$ is the partial derivative operator with
+  respect to the indeterminate $x_i$. This algebra is denoted by
+  $B_n(\Q)$ .
+\end{definition}
 
 \subsection{Janet bases and $h$-confluence}
 
@@ -485,11 +507,10 @@ Let $M \subset Mon$ and $m,m' \in M$. If $m \neq m'$, then $(m,\mu(m))^* \cap (m
 
 
 
- 
+
+\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on the set $\K$ of coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
 
 \bibliography{Biblio}
-
-
 
 \end{document}
 
