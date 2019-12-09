@@ -23,6 +23,20 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
 
+% Newcommand
+
+% Texte
+\newcommand\eg{\emph{e.g.}}
+\newcommand\ie{\emph{i.e.}}
+\newcommand\G{Gröbner}
+
+% Raccourcis mathématiques
+
+\newcommand\supp{\text{supp}}
+\newcommand\Span[1]{\langle#1\rangle}
+\newcommand\diff[1]{\partial_{#1}}
+
+% Structures algébriques
 
 \newcommand\K{\mathbb{K}}
 \newcommand\F{\mathscr{F}}
@@ -31,17 +45,18 @@
 \newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\KX{\K X}
-\newcommand\supp{\text{supp}}
-\newcommand\Span[1]{\langle#1\rangle}
+\newcommand\Weyl{B_n(\Q)}
+
+% Réécriture
+
 \newcommand\rewR{\underset{R}{\longrightarrow}}
 \newcommand\rewh{\underset{h}{\longrightarrow}}
 \newcommand\transR{\overset{*}{\rewR}}
 \newcommand\transh{\overset{*}{\rewh}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
-\newcommand\G{Gröbner}
-\newcommand\diff[1]{\partial_{x_{#1}}}
-\newcommand\eg{\emph{e.g.}}
+
+
 
 \bibliographystyle{plain}
 
@@ -420,12 +435,22 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
 
 \subsection{Rewriting systems on rationnal Weyl algebras}
 
-We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and let $\QXX$ be the
-field of fractions of the polynomial algebra $\QX$ over $\Q$.
+\todo{Dire qu'on commence par rappeler des notions classiques sur les
+  algèbres rationnelles de Weyl et les ordres monomiaux}
+
+We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
+$\QXX$ the field of fractions of the polynomial algebra $\QX$ over
+$\Q$. Let us introduce another set of variable
+$\Delta:=\{\diff{1},\cdots,\diff{n}\}$, and let us denote by $\Delta^c$
+the free commutative monoid over $\Delta$, \ie,
+\[\Delta^c=\left\{\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}\mid
+\alpha_i\in\N\right\}.\]
+Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by
+$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$.
 
 \begin{definition}
   The {\it rational Weyl algebra} over $\QXX$ is the set of polynomials
-  over the inderminates $\diff{i}$ and coefficients in $\QXX$, subject to
+  over the inderminates $\Delta$ and coefficients in $\QXX$, subject to
   the following commutation rule:   
   \begin{equation}\label{equ:comm_rule}
     \diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\QXX,\quad
@@ -433,8 +458,17 @@ field of fractions of the polynomial algebra $\QX$ over $\Q$.
   \end{equation}
   where $d/dx_i:\QXX\to\QXX$ is the partial derivative operator with
   respect to the indeterminate $x_i$. This algebra is denoted by
-  $B_n(\Q)$ .
+  $\Weyl$.
 \end{definition}
+
+A {\em monomial order} $\preceq$ on $\Delta^c$ is a well-founded total
+order on $\Delta^c$ that is compatible with multiplication of monomials,
+\ie, $\partial^{\alpha}\preceq\partial^{\beta}$ implies
+$\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
+$\alpha,\beta,\gamma\in\N^n$. 
+\medskip
+
+Given a set $F:=\{P_1,\cdots,P_k\}\subseteq\Weyl$
 
 \subsection{Janet bases and $h$-confluence}
 
