@@ -35,6 +35,9 @@
 \newcommand\supp{\text{supp}}
 \newcommand\Span[1]{\langle#1\rangle}
 \newcommand\diff[1]{\partial_{#1}}
+\newcommand\D{\mathcal{D}}
+\newcommand\lm{\text{lm}}
+\newcommand\lc{\text{lc}}
 
 % Structures algébriques
 
@@ -55,8 +58,7 @@
 \newcommand\transh{\overset{*}{\rewh}}
 \newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
-
-
+\newcommand\rewTheta{\to_{\Theta}}
 
 \bibliographystyle{plain}
 
@@ -440,13 +442,9 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
 
 We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
 $\QXX$ the field of fractions of the polynomial algebra $\QX$ over
-$\Q$. Let us introduce another set of variable
-$\Delta:=\{\diff{1},\cdots,\diff{n}\}$, and let us denote by $\Delta^c$
-the free commutative monoid over $\Delta$, \ie,
-\[\Delta^c=\left\{\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}\mid
-\alpha_i\in\N\right\}.\]
-Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by
-$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$.
+$\Q$. Let us introduce another set of variables
+\[\Delta:=\{\diff{1},\cdots,\diff{n}\}.
+\smallskip\]
 
 \begin{definition}
   The {\it rational Weyl algebra} over $\QXX$ is the set of polynomials
@@ -460,15 +458,37 @@ $\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$.
   respect to the indeterminate $x_i$. This algebra is denoted by
   $\Weyl$.
 \end{definition}
+\medskip
+
+Notice that $\Weyl$ is a $\QXX$ vector space, and admits as a basis the
+free commutative monoid $\Delta^c$ over $\Delta$, \ie,
+\[\Delta^c=\left\{\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}\mid
+\alpha_i\in\N\right\}.\]
+Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by
+$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$.
+\medskip
 
 A {\em monomial order} $\preceq$ on $\Delta^c$ is a well-founded total
 order on $\Delta^c$ that is compatible with multiplication of monomials,
 \ie, $\partial^{\alpha}\preceq\partial^{\beta}$ implies
 $\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
-$\alpha,\beta,\gamma\in\N^n$. 
+$\alpha,\beta,\gamma\in\N^n$. For every differential operator
+$\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
+monomial and the leading coefficient of $\D$ with respect to $\preceq$,
+respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. Hence, $\D$
+defines the rewrite rule $\lm(\D)\to r(\D)/\lc(\D)$.
 \medskip
 
-Given a set $F:=\{P_1,\cdots,P_k\}\subseteq\Weyl$
+Given an operator $\D\in\Weyl$, consider the rewriting relation on
+$\Weyl$ defined as follows. Letting $\lm(\D)=\partial^{\alpha}$, we first
+have the rewriting steps on monomials defined by
+\begin{equation}\label{equ:rew_monomials}
+  \forall\beta\in\N^n,\quad\partial^{\alpha+\beta}
+  \to_{\D}\partial^{\beta}r(\D),\end{equation}
+and then extend \eqref{equ:rew_monomials} by linearity. More generally,
+for every set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, we
+consider the rewriting system $(\Weyl,\rewTheta)$ defined by
+$\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
 
 \subsection{Janet bases and $h$-confluence}
 
