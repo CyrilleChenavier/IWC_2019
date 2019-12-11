@@ -25,22 +25,31 @@
 
 % Newcommand
 
+% Titre des sections
+\newcommand\secUn{Introduction}
+\newcommand\secDeux{A weak version of diamond lemma}
+\newcommand\secDeuxUn{Local strategies and $h$-normal forms}
+\newcommand\secDeuxDeux{A confluence criterion}
+\newcommand\secTrois{Rewriting and partial derivative equations}
+\newcommand\secTroisUn{Rewriting systems on rational Weyl algebras}
+\newcommand\secTroisDeux{Janet bases and $h$-confluence}
+
 % Texte
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
+\newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
 
 % Raccourcis mathématiques
-
 \newcommand\supp{\text{supp}}
 \newcommand\Span[1]{\langle#1\rangle}
 \newcommand\diff[1]{\partial_{#1}}
 \newcommand\D{\mathcal{D}}
 \newcommand\lm{\text{lm}}
 \newcommand\lc{\text{lc}}
+\newcommand\basis{\mathscr{B}}
 
 % Structures algébriques
-
 \newcommand\K{\mathbb{K}}
 \newcommand\F{\mathscr{F}}
 \newcommand\Q{\mathbb{Q}}
@@ -51,7 +60,6 @@
 \newcommand\Weyl{B_n(\Q)}
 
 % Réécriture
-
 \newcommand\rewR{\underset{R}{\longrightarrow}}
 \newcommand\rewh{\underset{h}{\longrightarrow}}
 \newcommand\transR{\overset{*}{\rewR}}
@@ -62,7 +70,7 @@
 
 \bibliographystyle{plain}
 
-\newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
+
 
 \begin{document}
 
@@ -113,7 +121,7 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   \end{itemize}
 }
 
-\section{Introduction}
+\section{\secUn}
 
 The fact that local confluence together with termination implies
 confluence has been known for abstract rewriting systems since
@@ -177,9 +185,9 @@ on monomials. In particular, when the rewriting system is terminating,
 we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond
 Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
 
-\section{A weak version of diamond lemma}
+\section{\secDeux}\label{sec:deux}
 
-\subsection{Local strategies and $h$-normal forms}
+\subsection{\secDeuxUn}\label{sec:deuxUn}
 
 We fix a commutative field $\K$ as well as a well-founded partially ordered set
 $(X,<_X)$. We denote by $\KX$ the vector space spanned by~$X$: an element
@@ -270,7 +278,7 @@ $H : \KX \to \KX$.
   get $H(u + v) = H (H(u)+H(v))=H(u)+H(v)$. 
 \end{proof}
 
-\subsection{A confluence criterion}
+\subsection{\secDeuxDeux}\label{sec:deuxDeux}
 
 In this section we investigate the confluence properties of $R$.
 The main idea behind this section is that under suitable hypothesis $\rewh$ should form a terminating, confluent subrelation of $\rewR$.
@@ -432,42 +440,47 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
   We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
 \end{proof}
 
+\section{\secTrois}\label{sec:trois}
 
-\section{Rewriting and partial derivative equations}
+\subsection{\secTroisUn}\label{sec:troisUn}
 
-\subsection{Rewriting systems on rationnal Weyl algebras}
+In this section, we introduce rewriting systems in rational Weyl algebras
+and relate them to the framework introduced in Section~\ref{sec:deux}.
+Before that, we first recall the definitions of Weyl algebras and of
+monomial orders.
+\medskip
 
-\todo{Dire qu'on commence par rappeler des notions classiques sur les
-  algèbres rationnelles de Weyl et les ordres monomiaux}
-
-We fix a set $\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
-$\QXX$ the field of fractions of the polynomial algebra $\QX$ over
+We fix a set $X:=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
+$Q(X):=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
 $\Q$. Let us introduce another set of variables
-\[\Delta:=\{\diff{1},\cdots,\diff{n}\}.
-\smallskip\]
+$\Delta:=\{\diff{1},\cdots,\diff{n}\}$. 
 
 \begin{definition}
-  The {\it rational Weyl algebra} over $\QXX$ is the set of polynomials
-  over the inderminates $\Delta$ and coefficients in $\QXX$, subject to
-  the following commutation rule:   
-  \begin{equation}\label{equ:comm_rule}
-    \diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\QXX,\quad
-    1\leq i\leq n,
-  \end{equation}
-  where $d/dx_i:\QXX\to\QXX$ is the partial derivative operator with
-  respect to the indeterminate $x_i$. This algebra is denoted by
-  $\Weyl$.
+  The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
+  over the inderminates $\Delta$ and coefficients in $\Q(X)$, subject to
+  the following commutation rule:
+  \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
+  1\leq i\leq n,\]
+  where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
+  respect to the indeterminate~$x_i$. This algebra is denoted by $\Weyl$.
 \end{definition}
-\medskip
 
-Notice that $\Weyl$ is a $\QXX$ vector space, and admits as a basis the
-free commutative monoid $\Delta^c$ over $\Delta$, \ie,
-\[\Delta^c=\left\{\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}\mid
-\alpha_i\in\N\right\}.\]
-Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by
-$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$.
-\medskip
+Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by 
+$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
+that $\Weyl$ is a vector space on $\Q(X)$ and admits as a basis the set
+$\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. Hence, elements of
+$\Weyl$ should be thought as differential operators with rational
+functions coefficients, and for this reason, a generic element of this
+algebra is denoted by $\D$ and is called a differential operator. The
+framework developed in Section~\ref{sec:deux} can be applied to rational
+Weyl algebras by taking $\K:=\Q(X)$ and
+$\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
+the support of a differential operator $\D$ is the product of partial
+derivative operators which occur in $\D$. It remains to introduce a
+well-founded order on $\basis$, and for that, we consider monomial
+orders.
 
+\begin{definition}
 A {\em monomial order} $\preceq$ on $\Delta^c$ is a well-founded total
 order on $\Delta^c$ that is compatible with multiplication of monomials,
 \ie, $\partial^{\alpha}\preceq\partial^{\beta}$ implies
@@ -477,7 +490,7 @@ $\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
 monomial and the leading coefficient of $\D$ with respect to $\preceq$,
 respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. Hence, $\D$
 defines the rewrite rule $\lm(\D)\to r(\D)/\lc(\D)$.
-\medskip
+\end{definition}
 
 Given an operator $\D\in\Weyl$, consider the rewriting relation on
 $\Weyl$ defined as follows. Letting $\lm(\D)=\partial^{\alpha}$, we first
@@ -490,7 +503,7 @@ for every set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, we
 consider the rewriting system $(\Weyl,\rewTheta)$ defined by
 $\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
 
-\subsection{Janet bases and $h$-confluence}
+\subsection{\secTroisDeux}\label{sec:troisDeux}
 
 In this section, we take $\K = \mathbb R(x_1,x_2,\ldots,x_n)$ the field of real rational functions in $n$ variables, and look at the $\K$-algebra $A = \K[\partial_1,\ldots,\partial_n]$. We suppose given an ordering $\partial_n > \partial_{n-1} > \ldots > \partial_1$. By monomial, we mean unitary monomial.
 
