@@ -481,15 +481,14 @@ well-founded order on $\basis$, and for that, we consider monomial
 orders.
 
 \begin{definition}
-A {\em monomial order} $\preceq$ on $\Delta^c$ is a well-founded total
-order on $\Delta^c$ that is compatible with multiplication of monomials,
-\ie, $\partial^{\alpha}\preceq\partial^{\beta}$ implies
-$\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
-$\alpha,\beta,\gamma\in\N^n$. For every differential operator
-$\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
-monomial and the leading coefficient of $\D$ with respect to $\preceq$,
-respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. Hence, $\D$
-defines the rewrite rule $\lm(\D)\to r(\D)/\lc(\D)$.
+  A {\em monomial order} $\preceq$ on $\basis$ is a well-founded total
+  order that is compatible with multiplication of monomials, \ie,
+  $\partial^{\alpha}\preceq\partial^{\beta}$ implies 
+  $\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
+  $\alpha,\beta,\gamma\in\N^n$. For every differential operator
+  $\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
+  monomial and the leading coefficient of $\D$ with respect to $\preceq$,
+  respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. 
 \end{definition}
 
 Given an operator $\D\in\Weyl$, consider the rewriting relation on
@@ -502,6 +501,8 @@ and then extend \eqref{equ:rew_monomials} by linearity. More generally,
 for every set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, we
 consider the rewriting system $(\Weyl,\rewTheta)$ defined by
 $\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
+
+\todo{Il faudra remonter tout ça au cadre abstrait}
 
 \subsection{\secTroisDeux}\label{sec:troisDeux}
 
