@@ -61,11 +61,11 @@
 \newcommand\Weyl{B_n(\Q)}
 
 % Réécriture
-\newcommand\rewR{\underset{R}{\to}}
-\newcommand\rewh{\underset{h}{\to}}
-\newcommand\transR{\overset{*}{\rewR}}
+\newcommand\rewR{\to_R}
+\newcommand\rewh{\to_h}
+\newcommand\transR{\overset{*}{\to}_R}
 \newcommand\transh{\overset{*}{\rewh}}
-\newcommand\equivR{\underset{R}{\overset{*}{\to}}}
+\newcommand\equivR{\underset{R}{\overset{*}{\leftrightarrow}}}
 \newcommand\equivh{\underset{h}{\overset{*}{\to}}}
 \newcommand\rewTheta{\to_{\Theta}}
 
@@ -215,40 +215,43 @@ it by $<$ without ambiguity.
 
 \section{\secDeux}\label{sec:deux}
 
-In this section, we fix a \data\ $(\K,V,\basis,<)$. We first present our
+In this section, we fix a \data\ $(\K,V,\basis,<)$ and we present our 
 general framework for rewriting systems induced by this \data. We use the
 standard terminology of rewriting, see~\cite{MR1629216}.
 
 \subsection{\secDeuxUn}\label{sec:deuxUn}
 
 We fix a set $R\subseteq\basis\times V$ which represents a set of
-rewriting rules of the form $e\rewR r$. The {\em linear extension} of $R$
+rewriting rules of the form $e\to r$. The {\em linear extension} of $R$
 is the rewriting relation on $V$ that reduces many basis elements at
 once, and which is defined as follows:
 \begin{equation}\label{equ:rewriting_step}
   \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
 \end{equation}
 where $v$ is any element of $V$, and for any $e_i\in\basis$ appearing in
-the sum, $\lambda_i\neq 0$, $e_i\rewR r_i\in R$ and $e_i\notin\supp(v)$.
-In the rest of Section~\ref{sec:deux}, the linear extension of $R$ is
-also denoted by $\rewR$, and its closure under transitivity, symmetry and
-sum is denoted by $\equivR$.
+the sum, $\lambda_i\neq 0$, $e_i\to r_i\in R$ and $e_i\notin\supp(v)$. In
+the rest of Section~\ref{sec:deux}, we use the following conventions. A
+set $R\subseteq\basis\times V$ is simply given by its elements, that we
+denote by $e\rewR r$, and that we call rewriting rules. The linear
+extension of $R$ is also denoted by $\rewR$, and its closures under
+transitivity, symmetry and sum and transitivity, symmetry, reflexivity
+and sum are denoted by $\transR$ and $\equivR$, respectively.
 
 \begin{definition}
   A \emph{local strategy} $h$ for $R$ is the choice, for every non
-  minimal basis element $e$, of a rewriting rule $h_e=e\rewR r_e$ such
-  that $r_e<e$. A vector $v$ is said to be an \emph{$h$-normal form} if
-  it is a normal form for the linear extension of $\rewh$.
+  minimal basis element $e$, of a rewriting rule $h_e=e\rewh r_e\in R$
+  such that $r_e<e$. A vector $v$ is said to be an \emph{$h$-normal form}
+  if it is a normal form for the linear extension of $\rewh$.
 \end{definition}
 
 In the rest of this section, we suppose chosen such a local strategy $h$
 (note that such an $h$ may not exist). Notice that a vector $v$ can be
-decomposed in a unique way as $\sum\lambda_ee+v'$, where $e'\in\supp(v')$
-implies that $e'$ is minimal, and $e\in\supp(v)\setminus\supp(v')$ is
-not. Hence, the linear extension of the local strategy $h$ rewrites $v$
-as follows:
+decomposed in a unique way as $\sum\lambda_ie_i+v'$, where
+$e'\in\supp(v')$ implies that $e'$ is minimal, and
+$e_i\in\supp(v)\setminus\supp(v')$ is not. Hence, the linear extension of
+the local strategy $h$ rewrites $v$ as follows:
 \begin{equation}\label{equ:well-formed_rewriting_step}
-  h_v = \sum\lambda_ee+v'\rewh\sum\lambda_er_e+v',
+  h_v = \sum\lambda_ie_i+v'\rewh\sum\lambda_ir_i+v'.
 \end{equation}
 Also notice that if a basis element is not minimal, then it is a
 $h$-normal form.
@@ -263,6 +266,8 @@ $h$-normal form.
   $\lambda_dd$, while the $h$-normal forms are all the expressions of the
   form $\lambda_dd+\lambda_cc$.
 \end{example}
+
+We easily get the following characterisation of $h$-normal forms.
 
 \begin{lemma}\label{lem:h_normal_forms}
   Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
@@ -292,19 +297,20 @@ $H(v)$. This defines a map $H :V\to V$.
 
 In this section we investigate the confluence properties of $R$. The main
 idea behind this section is that under suitable hypotheses on a local
-strategy $h$, $\rewh$ forms a terminating and confluent subrelation of
-$\rewR$.
+strategy $h$, the rewriting relation $\rewh$ is a terminating and
+confluent subrelation of $\rewR$.
 \medskip
 
-We start in Definition~\ref{def:standardisation_property} and the
-following propositions by relating the confluence of $\rewR$ to
-properties on $h$. Then, in Theorem~\ref{thm:confluence_criterion}, we
-prove a confluence criterion to check whether $R$ satisfies
+We start in Definition~\ref{def:standardisation_property} and 
+Proposition~\ref{prop:h_and_R_confluence} by relating the confluence of
+$\rewR$ to properties on $h$. Then, in
+Theorem~\ref{thm:confluence_criterion}, we prove a confluence criterion
+to check whether $R$ satisfies
 Definition~\ref{def:standardisation_property}.
 
 \begin{definition}\label{def:standardisation_property}
-  Given a local strategy $h$, we say that $R$ is \emph{h-confluent} if
-  for every rewrite rule $e\rewR r\in R$, we have $H(e-r)=0$.
+  Given a local strategy $h$, we say that $\rewR$ is \emph{h-confluent}
+  if for every rewriting rule $h_e=e\rewh r_e$, we have $H(e-r_e)=0$.
 \end{definition}
 \smallskip
 
@@ -314,18 +320,18 @@ Definition~\ref{def:standardisation_property}.
   \[
   H(a)=c+d=H(b),\qquad H(b)=c+d=H(c+d),\qquad H(c)=c= H(b-d),
   \]
-  andso that $R$ is $h$-confluent. If we replace the rule $c\rewR b-d$ by
-  $c\rewR b$, we get $H(c)=c$ and $H(b)=c+d$, so $R$ is not $h$-confluent
-  anymore. 
+  and so that $\rewR$ is $h$-confluent. If we replace the rule
+  $c\rewR b-d$ by $c\rewR b$, we get $H(c)=c$ and $H(b)=c+d$, so $\rewR$
+  is not $h$-confluent anymore. 
 \end{example}
 \smallskip
 
 \begin{proposition}\label{prop:h_and_R_confluence}
   We fix a  local strategy $h$.
   \begin{enumerate}
-  \item\label{it:equationnal_theory} If $R$ is $h$-confluent, then
+  \item\label{it:equationnal_theory} If $\rewR$ is $h$-confluent, then
     $u\equivR v$ if and only if $H(u-v)=0$.
-  \item\label{it:h-conf_implies_conf} If $R$ is $h$-confluent then
+  \item\label{it:h-conf_implies_conf} If $\rewR$ is $h$-confluent then
     $\rewR$ is confluent.
   \end{enumerate}
 \end{proposition}
@@ -334,90 +340,98 @@ Definition~\ref{def:standardisation_property}.
   First, we show Point~\ref{it:equationnal_theory}. The relation
   $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and
   sum. Since the relation $H(u - v) = 0$ is closed under these
-  operations, we get one implication. Reciprocally, if $H(u-v)=0$, then
-  by definition of $H$ we have $u\equivh v$, and in particular
-  $u\equivR v$. \todo{Il me semble qu'il y a un problème car le rôle de
-    $u$ et $v$ dans $H(u-v)=0$ est symétrique}
+  operations, we get one implication. Reciprocally, if $H(u-v)=0$, we
+  have $H(u)=H(v)$. Since, by definition of $H$, we have
+  $u\transR H(u)$ and $v\transR H(v)$, then $u\equivR v$.
+  \todo{Vérifier que c'est bon (ce n'est pas ce qu'on avait écrit dans
+    IWC}
   \smallskip
   
   Let us show Point~\ref{it:h-conf_implies_conf}. Let $v,v_1,v_2\in V$ be
-  such that $v\transR v_i$, for $i=1,2$. By~\ref{it:equationnal_theory},
-  $H(v_1)=H(v_2)$, and by denoting by $u$ this common value. That proves
-  that $\rewR$ is confluent.
+  such that $v\transR v_i$, for $i=1,2$. By
+  Point~\ref{it:equationnal_theory}, $H(v_1)=H(v_2)$, and by denoting by
+  $u$ this common value, we have $v_i\transR u$. That proves that $\rewR$
+  is confluent.
 \end{proof}
 \medskip
 
 Note that the previous proposition is a sufficient but not a necessary
-condition: taking $\basis$ to be the integers, with the rewriting
-relation induced by $n\rewR n+1$ is confluent, but there exist no local
-strategy $h$ such that $R$ is $h$-confluent.
+condition. Indeed, with $\basis$ the set of integers and the rewriting
+rules $n\rewR n+1$, the linear extension of $R$ is confluent, but there
+exist no local strategy $h$ such that $\rewR$ is $h$-confluent.
 \medskip
 
-We now introduce our criterion to show that $R$ is $h$-confluent. For that, we assume that the set of relations $R$ is equipped with a well-founded order $\prec$ satisfying the following decreasingness property:
+We now introduce our criterion to show that $\rewR$ is $h$-confluent. For
+that, we assume that the set of rewriting relations is equipped with a
+well-founded order $\prec$ satisfying the following decreasingness
+property.
 
 \begin{definition}\label{proper:decreasingness_property}
-  We say that $R$ is \emph{locally $h$-confluent} if for every
-  $x \in X$ and $f=x\rewR v$, then letting $h_x=x\rewh r_x$, we
-  have the confluence diagram:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x 
-      \ar [r] ^{f}
-      \ar[d] _{h_x}
-      &
-      v
-      \ar@{<.>} [d] ^{*}
-      \\
-      r_x
-      \ar@{<.>} [r] ^{*}
-      & 
-      v',
-    }
-    \]
-  \end{small}
+  We say that $\rewR$ is \emph{locally $h$-confluent} if for every
+  $e\in\basis$ and every rewriting rule $f=e\rewR r$, then we have the
+  confluence diagram:
+  \[
+  \xymatrix @C = 2.5em @R = 2.5em{
+    e 
+    \ar [r] ^{f}
+    \ar[d] _{h_e}
+    &
+    r
+    \ar@{<.>} [d] ^{*}
+    \\
+    r_e
+    \ar@{<.>} [r] ^{*}
+    & 
+    v,
+  }
+  \]
   where each rewriting step occurring in the dotted arrows is strictly
   smaller than $f$ with respect to  $\prec$.
 \end{definition}
+\smallskip
 
 \begin{example}
-  Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on $R$ by the following ordering: $(x \rewR y), (y \rewR z + t) \prec (z \rewR y - t)$. This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$. The following diagrams show that $R$ is locally $h$-confluent:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x \ar [r] _{R}  
-      \ar [d] _{h_x}   
-      & y 
-      \ar@{=} [d]
-      \\
-      y
-      \ar@{=} [r]
-      & y
-    }
-    \qquad
-    \xymatrix @C = 2.5em @R = 2.5em{
-      y \ar [r] _{R}  
-      \ar [d] _{h_y}   
-      & z + t
-      \ar@{=} [d]
-      \\
-      z + t
-      \ar@{=} [r]
-      & z + t
-    }
-    \qquad
-    \xymatrix @C = 2.5em @R = 2.5em{
-      z \ar [r] _{R}  
-      \ar@{=} [d] _{h_z}   
-      & y - t
-      \ar [d] ^{R}
-      \\
-      z
-      \ar@{=} [r]
-      & z
-    }
-    \]
-  \end{small}
+  Continuing with Example \ref{ex:h_norma_form}, let us define an order
+  $\prec$ on $R$ by the following ordering: $(a\rewR b), (b\rewR c+d)
+  \prec (c\rewR b-d)$. This is guided by the heuristic that rules
+  advancing towards an $h$-normal form should be favored over rules that
+  do not: here $c$ is an $h$-normal form so its rewriting rule is large
+  for $\prec$. The following diagrams show that $\rewR$ is locally
+  $h$-confluent:
+  \[
+  \xymatrix @C = 2.5em @R = 2.5em{
+    a \ar [r] _{R}  
+    \ar [d] _{h_a}   
+    & b 
+    \ar@{=} [d]
+    \\
+    b
+    \ar@{=} [r]
+    & b
+  }
+  \qquad
+  \xymatrix @C = 2.5em @R = 2.5em{
+    b \ar [r] _{R}  
+    \ar [d] _{h_b}   
+    & c+d
+    \ar@{=} [d]
+    \\
+    c+d
+    \ar@{=} [r]
+    & c+d
+  }
+  \qquad
+  \xymatrix @C = 2.5em @R = 2.5em{
+    c \ar [r] _{R}  
+    \ar@{=} [d] _{h_c}   
+    & b-d
+    \ar [d] ^{R}
+    \\
+    c
+    \ar@{=} [r]
+    & c
+  }
+  \]
 \end{example}
 \medskip
 
@@ -425,48 +439,71 @@ Our main result is the following.
 \smallskip
 
 \begin{theorem}\label{thm:confluence_criterion}
-  If $R$ is locally $h$-confluent, then $R$ is $h$-confluent. In particular, $\rewR$ is confluent.
+  Let $R$ be a set of rewriting rules and let $h$ be a local strategy of
+  $R$. If $\rewR$ is locally $h$-confluent, then $\rewR$ is
+  $h$-confluent. In particular, $\rewR$ is confluent. 
 \end{theorem}
+\smallskip
 
 \begin{proof}
-  We reason by induction on $r$ according to the order $\prec$. Looking at the square corresponding to $r$:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x 
-      \ar [r] ^{r}
-      \ar[d] _{h_x}
-      &
-      v
-      \ar@{<.>} [d] ^{*}
-      \\
-      r_x
-      \ar@{<.>} [r] ^{*}
-      & 
-      v',
-    }
-    \]
-  \end{small}
- we have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
+  We reason by induction on rewriting rules $f$ according to the order
+  $\prec$. Looking at the square corresponding to $f$:
+  \[
+  \xymatrix @C = 2.5em @R = 2.5em{
+    e 
+    \ar [r] ^{f}
+    \ar[d] _{h_e}
+    &
+    v
+    \ar@{<.>} [d] ^{*}
+    \\
+    r_e
+    \ar@{<.>} [r] ^{*}
+    & 
+    v',
+  }
+  \]
+  we have $H(e)=H(r_e)$ by definition of $H$, and $H(r_e)=H(v')=H(v)$ by
+  induction hypothesis, which concludes the proof.
+  \todo{Ce n'est pas hyper clair pour moi. Peux-tu reprendre la fin de la
+    preuve?}
 \end{proof}
-
-\begin{remark}
-  Local $h$-confluence implies that the pair of rewriting relations $(\rewh,\rewR)$ is decreasing with respect to conversions (see \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$ and the discrete ordering on $\rewh$. 
-  By \cite[Theorem 3]{van2008confluence}, this implies that $(\rewh,\rewR)$ commute. Using the fact that $\rewh \subseteq \rewR$, one can then recover that $\rewR$ is confluent.
-\end{remark}
-
 \medskip
 
+\begin{remark}
+  Local $h$-confluence implies that the pair of rewriting relations
+  $(\rewh,\rewR)$ is decreasing with respect to conversions (see
+  \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
+  and the discrete ordering on $\rewh$. By
+  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewh,\rewR)$
+  commute. Using the fact that $\rewh \subseteq \rewR$, one can then
+  recover that $\rewR$ is confluent.
+  \todo{Rajouter un phrase au début faisant comprendre que cette remarque
+    s'adresse à des spécialistes de réécriture}
+\end{remark}
+\medskip
 
 Let us show how the Diamond Lemma fits as a particular case of our setup.
 \smallskip
 
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
-  Assume that $\rewR$ is terminating and that for every $x\in X$, $x\rewR r$ and $x\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is confluent.
+  Let $R$ be a set of rewriting rules such that its linear extension is
+  terminating, and for every $e\in\basis$ such that $e\rewR r$ and
+  $e\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is
+  confluent.
 \end{theorem}
 
 \begin{proof}
-  We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+  We define an ordering $e>e'$ on $\basis$ as the transitive closure of
+  the relation ``there exists $v\in V$ such that $e\rewR v$ and
+  $e'\in\supp(v)$''. This is well-founded since by hypotheses $\rewR$ is
+  terminating. By definition, if $e\in\basis$ is not minimal for $>$,
+  then $e$ is not an $R$-normal form. Let us fix an arbitrary rewriting
+  rule $h_e=e\rewh r_e$.  By definition of~$>$, for any $e'\in\supp(r_e)$
+  we have $e'<e$ and so $r_e<e$, which shows that $h$ is a local
+  strategy. Ordering the rewriting rules by their left hand sides makes
+  $\rewR$ locally $h$-confluent. Theorem~\ref{thm:confluence_criterion}
+  finally shows that $\rewR$ is confluent.   
 \end{proof}
 
 \section{\secTrois}\label{sec:trois}
