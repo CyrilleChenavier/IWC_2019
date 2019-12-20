@@ -39,7 +39,7 @@
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
 \newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
-\newcommand\data{{\bf data}}
+\newcommand\data{{\color{red}\bf data}}
 
 % Raccourcis mathématiques
 \newcommand\supp{\text{supp}}
@@ -61,12 +61,12 @@
 \newcommand\Weyl{B_n(\Q)}
 
 % Réécriture
-\newcommand\rewR{\underset{R}{\longrightarrow}}
-\newcommand\rewh{\underset{h}{\longrightarrow}}
+\newcommand\rewR{\underset{R}{\to}}
+\newcommand\rewh{\underset{h}{\to}}
 \newcommand\transR{\overset{*}{\rewR}}
 \newcommand\transh{\overset{*}{\rewh}}
-\newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
-\newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
+\newcommand\equivR{\underset{R}{\overset{*}{\to}}}
+\newcommand\equivh{\underset{h}{\overset{*}{\to}}}
 \newcommand\rewTheta{\to_{\Theta}}
 
 \bibliographystyle{plain}
@@ -195,22 +195,23 @@ present now. We will always work with a tuple  $(\K,V,\basis,<)$, where
 \item $V$ is a $\K$-vector space and $\basis$ is a basis of $V$
 \item $<$ is a well-founded order over $\basis$.
 \end{itemize}
-In the sequel, such a tuple will be called a \data. Given a \data, we
-simply say ground field, vectors and basis elements for $\K$, elements of
-$V$ and $\basis$, respectively. Moreover, every vector $v$ admits a
-unique finite decomposition with coefficients in the ground field
+In the sequel, such a tuple is called a \data. Given a \data, we simply
+say ground field, vectors and basis elements for $\K$, elements of $V$
+and $\basis$, respectively. Moreover, every vector $v$ admits a unique
+finite decomposition with respect to the basis $\basis$ and coefficients
+in the ground field:
 \begin{equation}\label{equ:vector_decompo}
   v=\sum\lambda_ie_i,\quad\lambda_i\neq 0
 \end{equation}
-with respect to the basis $\basis$. A basis element which is minimal for
-$<$ is simply called minimal. The set of basis elements which
-appear in the decompositon \eqref{equ:vector_decompo} is called the
-{\it support} of $v$, and is written $\lm(v)$. We extend $<$ into the
-multiset order on $V$: for any $u,v \in V$, we have $u<v$ if
-$\supp(u)\neq\supp(v)$ and for any $e\in\supp(u)\setminus\supp(v)$, there
-exists $e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that
-this order coincides with the initial one on basis elements, so that we
-can denote it by $<$ without ambiguity.
+A basis element which is minimal for $<$ is simply called minimal. The
+set of basis elements which appear in the decompositon
+\eqref{equ:vector_decompo} is called the {\it support} of $v$, and is
+written $\lm(v)$. We extend $<$ into the multiset order on $V$: for any
+$u,v \in V$, we have $u<v$ if $\supp(u)\neq\supp(v)$ and for any
+$e\in\supp(u)\setminus\supp(v)$, there exists
+$e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
+coincides with the initial one on basis elements, so that we can denote
+it by $<$ without ambiguity.
 
 \section{\secDeux}\label{sec:deux}
 
@@ -220,121 +221,137 @@ standard terminology of rewriting, see~\cite{MR1629216}.
 
 \subsection{\secDeuxUn}\label{sec:deuxUn}
 
-We fix a set $R\subseteq\basis\times V$ which represents rewrite rules of
-the form $e\rewR r$. The set $R$ induces a rewriting relation on $V$,
-where many basis elements are reduced at once, defined as follows:
-\begin{small}
-  \begin{equation}\label{equ:rewriting_step}
-    \sum_i\lambda_ie_i+v\rewR\sum_i\lambda_ir_i+v,
-  \end{equation}
-\end{small}
+We fix a set $R\subseteq\basis\times V$ which represents a set of
+rewriting rules of the form $e\rewR r$. The {\em linear extension} of $R$
+is the rewriting relation on $V$ that reduces many basis elements at
+once, and which is defined as follows:
+\begin{equation}\label{equ:rewriting_step}
+  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
+\end{equation}
 where $v$ is any element of $V$, and for any $e_i\in\basis$ appearing in
 the sum, $\lambda_i\neq 0$, $e_i\rewR r_i\in R$ and $e_i\notin\supp(v)$.
-Finally we denote by $\equivR$ the closure of $\rewR$ under transitivity,
-symmetry and sum.
+In the rest of Section~\ref{sec:deux}, the linear extension of $R$ is
+also denoted by $\rewR$, and its closure under transitivity, symmetry and
+sum is denoted by $\equivR$.
 
 \begin{definition}
   A \emph{local strategy} $h$ for $R$ is the choice, for every non
-  minimal basis element $e$ which is not minimal, of a rewriting rule
-  $h_e=e\rewR r_e$ such that $r_e<e$. 
+  minimal basis element $e$, of a rewriting rule $h_e=e\rewR r_e$ such
+  that $r_e<e$. A vector $v$ is said to be an \emph{$h$-normal form} if
+  it is a normal form for the linear extension of $\rewh$.
 \end{definition}
 
 In the rest of this section, we suppose chosen such a local strategy $h$
-(note that such an $h$ may not exist). Any vector $v$ can be decomposed
-in a unique way as $\sum\lambda_ee+v'$, where $e'\in\supp(v')$ implies
-that $e'$ is minimal, and $e\in\supp(v)\setminus\supp(v')$ is not. We
-define a rewriting relation $\rewh$ as follows:
-\begin{small}
-  \begin{equation}\label{equ:well-formed_rewriting_step}
-    h_v = \sum\lambda_ee+v'\rewh\sum\lambda_er_e+v',
-  \end{equation}
-\end{small}
-where for every $e$, $h_e=e\rewR r_e$. Note in particular that if $e$ is
-minimal, then $h_e=e\to e$ is the identity on $e$.
-
-\medskip
-
-\begin{definition}
-  A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal
-  form for $\rewh$.
-\end{definition}
-
+(note that such an $h$ may not exist). Notice that a vector $v$ can be
+decomposed in a unique way as $\sum\lambda_ee+v'$, where $e'\in\supp(v')$
+implies that $e'$ is minimal, and $e\in\supp(v)\setminus\supp(v')$ is
+not. Hence, the linear extension of the local strategy $h$ rewrites $v$
+as follows:
+\begin{equation}\label{equ:well-formed_rewriting_step}
+  h_v = \sum\lambda_ee+v'\rewh\sum\lambda_er_e+v',
+\end{equation}
+Also notice that if a basis element is not minimal, then it is a
+$h$-normal form.
 
 \begin{example}\label{ex:h_norma_form}
-  Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z,t$, and the following distinguished rewrite rules: $h_x = x \rewh y$ and $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal forms are all the expressions of the form $\lambda_t t + \lambda_z z$.
+  Let $\basis=\{a,b,c,d\}$, and consider the linear extension of the
+  rewriting rules $a\rewR b$, $b\rewR c+d$, $c\rewR b-d$. Note that this
+  is not a terminating rewriting relation since we have the loop
+  \[b\ \rewR\ c+d\ \rewR\ (b-d)+d=b.\]
+  We choose the order $a>b>c,d$, as well as the following local strategy:
+  $h_a=a\rewh b$ and $h_b=b\rewh c+d$. Then, the $R$-normal forms are the
+  $\lambda_dd$, while the $h$-normal forms are all the expressions of the
+  form $\lambda_dd+\lambda_cc$.
 \end{example}
 
-
 \begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
-  precisely the minimal elements of $\KX$ for $<$. 
+  Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
+  $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
+  precisely the minimal elements of $V$.
 \end{lemma}
-
 \medskip
 
-For each $v\in\KX$ and strategy local strategy $h$, there exists at most one $v'$ such that $v \rewh v'$,
-and $\rewh$ is compatible with the termination order $<$. As a
-consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$
-to a unique $h$-normal form that we denote by $H(v)$. This defines a map
-$H : \KX \to \KX$.  
+For each $v\in V$ and each local strategy $h$, there exists at most one
+$v'$ such that $v \rewh v'$, and $\rewh$ is compatible with the
+termination order $<$. As a consequence, any $v\in V$ is sent by multiple
+applications of $\rewh$ to a unique $h$-normal form that we denote by
+$H(v)$. This defines a map $H :V\to V$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $H$ is a linear projector, in the sense that for all $u,v \in \KX$ and $\lambda \in \K$, $H(u+v) = H(u) + H(v)$, $H(\lambda u) = \lambda H(u)$ and
-  $H(H(u)) = H(u)$.
+  The map $H$ is a linear projector.
 \end{proposition}
 
 \begin{proof}
   The $h$-normal forms are closed under sums, so that $H(H(v))=H(v)$ for
-  every $v$, that is $H$ is a projector. Moreover, if $u \rewh u'$ and
-  $v \rewh v'$, then we have $u + v \rewh u' + v'$. Iterating~$\rewh$, we
-  get $H(u + v) = H (H(u)+H(v))=H(u)+H(v)$. 
+  every $v$, that is $H$ is a projector. Moreover, if $u\rewh u'$ and
+  $v\rewh v'$, then we have $u+v\rewh u'+v'$. Iterating~$\rewh$, we get
+  $H(u+v)=H(H(u)+H(v))=H(u)+H(v)$. 
 \end{proof}
 
 \subsection{\secDeuxDeux}\label{sec:deuxDeux}
 
-In this section we investigate the confluence properties of $R$.
-The main idea behind this section is that under suitable hypothesis $\rewh$ should form a terminating, confluent subrelation of $\rewR$.
+In this section we investigate the confluence properties of $R$. The main
+idea behind this section is that under suitable hypotheses on a local
+strategy $h$, $\rewh$ forms a terminating and confluent subrelation of
+$\rewR$.
+\medskip
 
-We start in Definition \ref{def:standardisation_property} and the following propositions by relating the confluence of $\rewR$ to properties on $h$.
-Then Theorem~\ref{thm:confluence_criterion}, we prove a confluence
-criterion to check whether $R$ satisfies Definition~\ref{def:standardisation_property}.
+We start in Definition~\ref{def:standardisation_property} and the
+following propositions by relating the confluence of $\rewR$ to
+properties on $h$. Then, in Theorem~\ref{thm:confluence_criterion}, we
+prove a confluence criterion to check whether $R$ satisfies
+Definition~\ref{def:standardisation_property}.
 
 \begin{definition}\label{def:standardisation_property}
-  We say that $R$ is \emph{h-confluent} if for every rewrite rule $x\rewR v\in R$, we have $H(x-v) = 0$.
+  Given a local strategy $h$, we say that $R$ is \emph{h-confluent} if
+  for every rewrite rule $e\rewR r\in R$, we have $H(e-r)=0$.
 \end{definition}
+\smallskip
 
 \begin{example}
-  Let us take the same example as in Example \ref{ex:h_norma_form}. We have three equations to check:
-  \begin{small}
-    \[
-    H(x) = z + t = H(y),\qquad H(y) = z + t = H(z + t),\qquad H(z) = z = H(y - t),
-    \]
-  \end{small}
-    and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
+  Let us take the same example as in Example \ref{ex:h_norma_form}. The
+  following identities hold:
+  \[
+  H(a)=c+d=H(b),\qquad H(b)=c+d=H(c+d),\qquad H(c)=c= H(b-d),
+  \]
+  andso that $R$ is $h$-confluent. If we replace the rule $c\rewR b-d$ by
+  $c\rewR b$, we get $H(c)=c$ and $H(b)=c+d$, so $R$ is not $h$-confluent
+  anymore. 
 \end{example}
+\smallskip
 
-\begin{proposition}\label{prop:equationnal_theory}
-  If $R$ is $h$-confluent, then
-  $u \equivR v$ if and only if $H(u-v)=0$.
+\begin{proposition}\label{prop:h_and_R_confluence}
+  We fix a  local strategy $h$.
+  \begin{enumerate}
+  \item\label{it:equationnal_theory} If $R$ is $h$-confluent, then
+    $u\equivR v$ if and only if $H(u-v)=0$.
+  \item\label{it:h-conf_implies_conf} If $R$ is $h$-confluent then
+    $\rewR$ is confluent.
+  \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $H(u - v) = 0$ is closed under these operations, we get one implication.
-
-Reciprocally, if $H(u - v) = 0$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
+  First, we show Point~\ref{it:equationnal_theory}. The relation
+  $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and
+  sum. Since the relation $H(u - v) = 0$ is closed under these
+  operations, we get one implication. Reciprocally, if $H(u-v)=0$, then
+  by definition of $H$ we have $u\equivh v$, and in particular
+  $u\equivR v$. \todo{Il me semble qu'il y a un problème car le rôle de
+    $u$ et $v$ dans $H(u-v)=0$ est symétrique}
+  \smallskip
+  
+  Let us show Point~\ref{it:h-conf_implies_conf}. Let $v,v_1,v_2\in V$ be
+  such that $v\transR v_i$, for $i=1,2$. By~\ref{it:equationnal_theory},
+  $H(v_1)=H(v_2)$, and by denoting by $u$ this common value. That proves
+  that $\rewR$ is confluent.
 \end{proof}
+\medskip
 
-\begin{proposition}\label{prop:h-conf_implies_conf}
-If $R$ is $h$-confluent then $\rewR$ is confluent.
-\end{proposition}
-\begin{proof}
-  Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
-  From Proposition~\ref{prop:equationnal_theory}, $v_1-v_2$ belongs to
-  $\ker(H)$, that is $H(v_1)=H(v_2)$. Denoting by $u$ the common value, we get
-  $v_i\transR u$, which proves the proposition.
-\end{proof}
-
-Note that the previous proposition is a sufficient but not a necessary condition: taking $X$ to be the integers, with the relations $n \rewR n+1$ is confluent, but there exist no local strategy $h$ making $R$ $h$-confluent. 
+Note that the previous proposition is a sufficient but not a necessary
+condition: taking $\basis$ to be the integers, with the rewriting
+relation induced by $n\rewR n+1$ is confluent, but there exist no local
+strategy $h$ such that $R$ is $h$-confluent.
+\medskip
 
 We now introduce our criterion to show that $R$ is $h$-confluent. For that, we assume that the set of relations $R$ is equipped with a well-founded order $\prec$ satisfying the following decreasingness property:
 
