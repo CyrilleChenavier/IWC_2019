@@ -53,9 +53,9 @@
 
 % Réécriture
 \newcommand\rewR{\to_R}
-\newcommand\rewS{\to_S}
+\newcommand\rewS{\to_{\hat{S}}}
 \newcommand\transR{\overset{*}{\to}_R}
-\newcommand\transh{\overset{*}{\rewS}}
+\newcommand\transh{\overset{*}{\to}_{\kat{S}}}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 \newcommand\equivh{\underset{h}{\overset{*}{\to}}}
 \newcommand\rewTheta{\to_{\Theta}}
@@ -217,15 +217,21 @@ standard terminology of rewriting theory, see~\cite{MR1629216}.
 \label{sec:local_strategies_of_linear_extensions}
 
 We fix a set $R\subseteq\basis\times V$, whose elements are temporally
-written $e\to r$. The {\em linear extension} of $R$ is the rewriting
-relation on $V$ that reduces many basis elements at once, and which is
-defined as follows:
+written $e\to r$. We extend $R$ into a rewriting relation on $V$ that
+reduces many elements at once:
 \begin{equation}\label{equ:rewriting_step}
-  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
+  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v.
 \end{equation}
-where $v$ is any element of $V$, and for any $e_i\in\basis$ appearing in
-the sum, $\lambda_i\neq 0$, $e_i\to r_i\in R$ and $e_i\notin\supp(v)$. In
-the rest of Section~\ref{sec:a_weak_version_of_diamond_lemma}, we use the
+
+\begin{definition}\label{def:extensions}
+  The {\em linear extension} of $R$ is the rewriting relation on $V$
+  defined such as in \eqref{equ:rewriting_step}, where $v$ is any element
+  of $V$, and for any $e_i\in\basis$ appearing in the sum,
+  $\lambda_i\neq 0$, $e_i\to r_i\in R$ and $e_i\notin\supp(v)$. 
+\end{definition}
+\smallskip
+
+In the rest of Section~\ref{sec:a_weak_version_of_diamond_lemma}, we use the
 following conventions. A set $R\subseteq\basis\times V$ is simply given
 by its elements, that we denote by $e\rewR r$, and that we call rewriting
 rules. The linear extension of $R$ is also denoted by $\rewR$, and its
@@ -243,17 +249,18 @@ minimal basis element.
   minimal basis element $e$, there exists exactly one rewriting rule
   $e\rewR r_e$ in $S$ and we have $r_e<e$. 
 \end{definition}
+\smallskip
 
-In the rest of this section, we suppose chosen such a local strategy $S$
-(note such an $S$ may not exist). 
-
-
-We use the same conventions for $S$
-than for $R$: a local strategy is given by its rewriting rules
-$e\rewS r_e$, we still write $\rewS$ for the linear extension of these
-rules and a normal form for $\rewS$ is called an $S$-normal form. In
-particular, every minimal basis element is a $S$-normal form. More
-generally, $S$-normal forms can be easily characterised as follows.
+In the rest of this section, we suppose chosen a local strategy $S$ (note
+that such an $S$ may not exist). As we did for rewriting rules, a local
+strategy is defined by its elements $e\rewS r_e$. However, instead of
+working with the full linear extension of $S$, we will consider the
+rewriting relation $\rewS$ which is defined such as the linear extension
+of $S$ with the additional property that there is no rewriting rule 
+$e\rewR r_e$ such that $e\in\supp(v)$. A normal form for $\rewS$ is
+called an $S$-normal form. In particular, every minimal basis element is
+a $S$-normal form. More generally, $S$-normal forms can be easily
+characterised as follows.
 
 \begin{lemma}\label{lem:h_normal_forms}
   Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
@@ -265,15 +272,14 @@ generally, $S$-normal forms can be easily characterised as follows.
 Notice that a vector $v$ can be
 decomposed in a unique way as $\sum\lambda_ie_i+v'$, where
 $e'\in\supp(v')$ implies that $e'$ is minimal, and
-$e_i\in\supp(v)\setminus\supp(v')$ is not. Hence, the linear extension of
-the local strategy $S$ rewrites $v$ as follows:
+$e_i\in\supp(v)\setminus\supp(v')$ is not. Hence, we have
 \begin{equation}\label{equ:well-formed_rewriting_step}
-  S_v = \sum\lambda_ie_i+v'\rewS\sum\lambda_ir_i+v'.
+  \sum\lambda_ie_i+v'\rewS\sum\lambda_ir_i+v'.
 \end{equation}
-For each $v\in V$ and each local strategy $h$, there exists at most one
-$v'$ such that $v \rewS v'$, and $\rewS$ is compatible with the
+For each $v\in V$ and each local strategy $S$, there exists at most one
+$v'$ such that $v\rewS v'$, and $\rewS$ is compatible with the
 termination order $<$. As a consequence, any $v\in V$ is sent by multiple
-applications of $\rewS$ to a unique $h$-normal form that we denote by
+applications of $\rewS$ to a unique $S$-normal form that we denote by
 $H(v)$. This defines a map $H :V\to V$.  
 
 
