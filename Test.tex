@@ -25,15 +25,6 @@
 
 % Newcommand
 
-% Titre des sections
-\newcommand\secUn{Introduction}
-\newcommand\secDeux{A weak version of diamond lemma}
-\newcommand\secDeuxUn{Local strategies and $h$-normal forms}
-\newcommand\secDeuxDeux{A confluence criterion}
-\newcommand\secTrois{Rewriting and partial derivative equations}
-\newcommand\secTroisUn{Rewriting systems on rational Weyl algebras}
-\newcommand\secTroisDeux{Janet bases and $h$-confluence}
-
 % Texte
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
@@ -62,10 +53,10 @@
 
 % Réécriture
 \newcommand\rewR{\to_R}
-\newcommand\rewh{\to_h}
+\newcommand\rewS{\to_S}
 \newcommand\transR{\overset{*}{\to}_R}
-\newcommand\transh{\overset{*}{\rewh}}
-\newcommand\equivR{\underset{R}{\overset{*}{\leftrightarrow}}}
+\newcommand\transh{\overset{*}{\rewS}}
+\newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 \newcommand\equivh{\underset{h}{\overset{*}{\to}}}
 \newcommand\rewTheta{\to_{\Theta}}
 
@@ -104,6 +95,8 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
 \end{abstract}
 
+\tableofcontents
+
 \todo{plan:
   \begin{itemize}
   \item Section I: IWC theorem
@@ -122,7 +115,7 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   \end{itemize}
 }
 
-\section{\secUn}
+\section{Introduction}
 
 The fact that local confluence together with termination implies
 confluence has been known for abstract rewriting systems since
@@ -140,7 +133,7 @@ scalar) does not terminate. Instead, one needs to first consider
 well-formed rewriting steps before forming the reflexive transitive
 closure.
 
-Nevertheless the Diamond lemma has proved to be very useful : together
+Nevertheless the Diamond lemma has proved to be very useful: together
 with the works of Bokut~\cite{MR0506423}, it has given birth the
 theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have
 provided applications to various areas of noncommutative algebra such
@@ -213,51 +206,76 @@ $e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
 coincides with the initial one on basis elements, so that we can denote
 it by $<$ without ambiguity.
 
-\todo{Placer les préliminaires de réécriture ici? Être précis sur la
-terminologie et les notations}
-
-\section{\secDeux}\label{sec:deux}
+\section{A weak version of diamond lemma}
+\label{sec:a_weak_version_of_diamond_lemma}
 
 In this section, we fix a \data\ $(\K,V,\basis,<)$ and we present our 
 general framework for rewriting systems induced by this \data. We use the
-standard terminology of rewriting, see~\cite{MR1629216}.
+standard terminology of rewriting theory, see~\cite{MR1629216}.
 
-\subsection{\secDeuxUn}\label{sec:deuxUn}
+\subsection{Local strategies of linear extensions}
+\label{sec:local_strategies_of_linear_extensions}
 
-We fix a set $R\subseteq\basis\times V$ which represents a set of
-rewriting rules of the form $e\to r$. The {\em linear extension} of $R$
-is the rewriting relation on $V$ that reduces many basis elements at
-once, and which is defined as follows:
+We fix a set $R\subseteq\basis\times V$, whose elements are temporally
+written $e\to r$. The {\em linear extension} of $R$ is the rewriting
+relation on $V$ that reduces many basis elements at once, and which is
+defined as follows:
 \begin{equation}\label{equ:rewriting_step}
   \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
 \end{equation}
 where $v$ is any element of $V$, and for any $e_i\in\basis$ appearing in
 the sum, $\lambda_i\neq 0$, $e_i\to r_i\in R$ and $e_i\notin\supp(v)$. In
-the rest of Section~\ref{sec:deux}, we use the following conventions. A
-set $R\subseteq\basis\times V$ is simply given by its elements, that we
-denote by $e\rewR r$, and that we call rewriting rules. The linear
-extension of $R$ is also denoted by $\rewR$, and its closures under
-transitivity, symmetry and sum and transitivity, symmetry, reflexivity
-and sum are denoted by $\transR$ and $\equivR$, respectively.
+the rest of Section~\ref{sec:a_weak_version_of_diamond_lemma}, we use the
+following conventions. A set $R\subseteq\basis\times V$ is simply given
+by its elements, that we denote by $e\rewR r$, and that we call rewriting
+rules. The linear extension of $R$ is also denoted by $\rewR$, and its
+closures under transitivity, symmetry and sum and transitivity, symmetry,
+reflexivity and sum are denoted by $\transR$ and $\equivR$, respectively.
+Finally, a normal form for $\rewR$ is called an $R$-normal form.
+\medskip
+
+In the following definition, we introduce the notion of local strategy,
+which consists in selecting exactly one rewriting rule for each non
+minimal basis element.
 
 \begin{definition}
-  A \emph{local strategy} $h$ for $R$ is the choice, for every non
-  minimal basis element $e$, of a rewriting rule $h_e=e\rewh r_e\in R$
-  such that $r_e<e$. A vector $v$ is said to be an \emph{$h$-normal form}
-  if it is a normal form for the linear extension of $\rewh$.
+  A \emph{local strategy} is a subset $S$ of $R$ such that for every non
+  minimal basis element $e$, there exists exactly one rewriting rule
+  $e\rewR r_e$ in $S$ and we have $r_e<e$. 
 \end{definition}
 
-In the rest of this section, we suppose chosen such a local strategy $h$
-(note that such an $h$ may not exist). Notice that a vector $v$ can be
+In the rest of this section, we suppose chosen such a local strategy $S$
+(note such an $S$ may not exist). 
+
+
+We use the same conventions for $S$
+than for $R$: a local strategy is given by its rewriting rules
+$e\rewS r_e$, we still write $\rewS$ for the linear extension of these
+rules and a normal form for $\rewS$ is called an $S$-normal form. In
+particular, every minimal basis element is a $S$-normal form. More
+generally, $S$-normal forms can be easily characterised as follows.
+
+\begin{lemma}\label{lem:h_normal_forms}
+  Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
+  $v'<v$ such that $v\rewS v'$. In particular, $S$-normal forms are
+  precisely the minimal elements of $V$.
+\end{lemma}
+\medskip
+
+Notice that a vector $v$ can be
 decomposed in a unique way as $\sum\lambda_ie_i+v'$, where
 $e'\in\supp(v')$ implies that $e'$ is minimal, and
 $e_i\in\supp(v)\setminus\supp(v')$ is not. Hence, the linear extension of
-the local strategy $h$ rewrites $v$ as follows:
+the local strategy $S$ rewrites $v$ as follows:
 \begin{equation}\label{equ:well-formed_rewriting_step}
-  h_v = \sum\lambda_ie_i+v'\rewh\sum\lambda_ir_i+v'.
+  S_v = \sum\lambda_ie_i+v'\rewS\sum\lambda_ir_i+v'.
 \end{equation}
-Also notice that if a basis element is not minimal, then it is a
-$h$-normal form.
+For each $v\in V$ and each local strategy $h$, there exists at most one
+$v'$ such that $v \rewS v'$, and $\rewS$ is compatible with the
+termination order $<$. As a consequence, any $v\in V$ is sent by multiple
+applications of $\rewS$ to a unique $h$-normal form that we denote by
+$H(v)$. This defines a map $H :V\to V$.  
+
 
 \begin{example}\label{ex:h_norma_form}
   Let $\basis=\{a,b,c,d\}$, and consider the linear extension of the
@@ -265,25 +283,11 @@ $h$-normal form.
   is not a terminating rewriting relation since we have the loop
   \[b\ \rewR\ c+d\ \rewR\ (b-d)+d=b.\]
   We choose the order $a>b>c,d$, as well as the following local strategy:
-  $h_a=a\rewh b$ and $h_b=b\rewh c+d$. Then, the $R$-normal forms are the
+  $h_a=a\rewS b$ and $h_b=b\rewS c+d$. Then, the $R$-normal forms are the
   $\lambda_dd$, while the $h$-normal forms are all the expressions of the
   form $\lambda_dd+\lambda_cc$.
 \end{example}
 
-We easily get the following characterisation of $h$-normal forms.
-
-\begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
-  $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
-  precisely the minimal elements of $V$.
-\end{lemma}
-\medskip
-
-For each $v\in V$ and each local strategy $h$, there exists at most one
-$v'$ such that $v \rewh v'$, and $\rewh$ is compatible with the
-termination order $<$. As a consequence, any $v\in V$ is sent by multiple
-applications of $\rewh$ to a unique $h$-normal form that we denote by
-$H(v)$. This defines a map $H :V\to V$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
   The map $H$ is a linear projector.
@@ -291,16 +295,17 @@ $H(v)$. This defines a map $H :V\to V$.
 
 \begin{proof}
   The $h$-normal forms are closed under sums, so that $H(H(v))=H(v)$ for
-  every $v$, that is $H$ is a projector. Moreover, if $u\rewh u'$ and
-  $v\rewh v'$, then we have $u+v\rewh u'+v'$. Iterating~$\rewh$, we get
+  every $v$, that is $H$ is a projector. Moreover, if $u\rewS u'$ and
+  $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we get
   $H(u+v)=H(H(u)+H(v))=H(u)+H(v)$. 
 \end{proof}
 
-\subsection{\secDeuxDeux}\label{sec:deuxDeux}
+\subsection{A confluence criterion}
+\label{sec:a_confluence_criterion}
 
 In this section we investigate the confluence properties of $R$. The main
 idea behind this section is that under suitable hypotheses on a local
-strategy $h$, the rewriting relation $\rewh$ is a terminating and
+strategy $h$, the rewriting relation $\rewS$ is a terminating and
 confluent subrelation of $\rewR$.
 \medskip
 
@@ -313,7 +318,7 @@ Definition~\ref{def:standardisation_property}.
 
 \begin{definition}\label{def:standardisation_property}
   Given a local strategy $h$, we say that $\rewR$ is \emph{h-confluent}
-  if for every rewriting rule $h_e=e\rewh r_e$, we have $H(e-r_e)=0$.
+  if for every rewriting rule $h_e=e\rewS r_e$, we have $H(e-r_e)=0$.
 \end{definition}
 \smallskip
 
@@ -475,11 +480,11 @@ Our main result is the following.
 
 \begin{remark}
   Local $h$-confluence implies that the pair of rewriting relations
-  $(\rewh,\rewR)$ is decreasing with respect to conversions (see
+  $(\rewS,\rewR)$ is decreasing with respect to conversions (see
   \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
-  and the discrete ordering on $\rewh$. By
-  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewh,\rewR)$
-  commute. Using the fact that $\rewh \subseteq \rewR$, one can then
+  and the discrete ordering on $\rewS$. By
+  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
+  commute. Using the fact that $\rewS \subseteq \rewR$, one can then
   recover that $\rewR$ is confluent.
   \todo{Rajouter un phrase au début faisant comprendre que cette remarque
     s'adresse à des spécialistes de réécriture}
@@ -502,21 +507,23 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
   $e'\in\supp(v)$''. This is well-founded since by hypotheses $\rewR$ is
   terminating. By definition, if $e\in\basis$ is not minimal for $>$,
   then $e$ is not an $R$-normal form. Let us fix an arbitrary rewriting
-  rule $h_e=e\rewh r_e$.  By definition of~$>$, for any $e'\in\supp(r_e)$
+  rule $h_e=e\rewS r_e$.  By definition of~$>$, for any $e'\in\supp(r_e)$
   we have $e'<e$ and so $r_e<e$, which shows that $h$ is a local
   strategy. Ordering the rewriting rules by their left hand sides makes
   $\rewR$ locally $h$-confluent. Theorem~\ref{thm:confluence_criterion}
   finally shows that $\rewR$ is confluent.   
 \end{proof}
 
-\section{\secTrois}\label{sec:trois}
+\section{Rewriting and partial derivative equations}
+\label{sec:rewriting_systems_and_partial_derivative_equations}
 
-\subsection{\secTroisUn}\label{sec:troisUn}
+\subsection{Rewriting systems on rational Weyl algebras}
+\label{sec:rewriting_systems_on_Weyl_algebras}
 
 In this section, we introduce rewriting systems in rational Weyl algebras
-and relate them to the framework introduced in Section~\ref{sec:deux}.
-Before that, we first recall the definitions of Weyl algebras and of
-monomial orders.
+and relate them to the framework introduced in
+Section~\ref{sec:a_weak_version_of_diamond_lemma}. Before that, we first
+recall the definitions of Weyl algebras and of monomial orders.
 \medskip
 
 We fix a set $X:=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
@@ -541,8 +548,8 @@ $\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. Hence, elements of
 $\Weyl$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
 algebra is denoted by $\D$ and is called a differential operator. The
-framework developed in Section~\ref{sec:deux} can be applied to rational
-Weyl algebras by taking $\K:=\Q(X)$ and
+framework developed in Section~\ref{sec:a_weak_version_of_diamond_lemma}
+can be applied to rational Weyl algebras by taking $\K:=\Q(X)$ and
 $\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
 the support of a differential operator $\D$ is the product of partial
 derivative operators which occur in $\D$. It remains to introduce a
@@ -573,7 +580,8 @@ $\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
 
 \todo{Il faudra remonter tout ça au cadre abstrait}
 
-\subsection{\secTroisDeux}\label{sec:troisDeux}
+\subsection{Janet bases and $h$-confluence}
+\label{sec:Janet_bases_and_h_confluence}
 
 In this section, we take $\K = \mathbb R(x_1,x_2,\ldots,x_n)$ the field of real rational functions in $n$ variables, and look at the $\K$-algebra $A = \K[\partial_1,\ldots,\partial_n]$. We suppose given an ordering $\partial_n > \partial_{n-1} > \ldots > \partial_1$. By monomial, we mean unitary monomial.
 
