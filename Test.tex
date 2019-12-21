@@ -275,9 +275,10 @@ elements of the local strategy, we have
 \[u\rewS\sum_i\lambda_ir_i+v.
   \smallskip\]
 The closure of $\rewS$ under transitivy and symmetry is denoted by
-$\transS$ and a normal form for $\rewS$ is called an $S$-normal form. In
-particular, every minimal basis element is a $S$-normal form. More
-generally, $S$-normal forms can be easily characterised as follows.
+$\transS$. Notice that $u\transS v$ implies $u\transR v$. Moreover, a
+normal form for $\rewS$ is called an $S$-normal form. In particular,
+every minimal basis element is a $S$-normal form. More generally,
+$S$-normal forms can be easily characterised as follows.
 \medskip
 
 \begin{lemma}\label{lem:h_normal_forms}
@@ -306,7 +307,8 @@ strategy, for every $v\in V$, there exists at most one $v'$ such that
 $v\rewS v'$. Moreovoer, since $\rewS$ is compatible with the well-founded
 order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
 $S$-normal form that we denote by $\NF(v)$. This defines a map
-$\NF:V\to V$.  
+$\NF:V\to V$, that is fundamental for our confluence criterion of
+Section~\ref{sec:a_confluence_criterion}.
 
 \begin{proposition}\label{prop:linearity_of_H}
   The map $\NFF$ is a linear projector.
@@ -323,79 +325,69 @@ $\NF:V\to V$.
 \subsection{A confluence criterion}
 \label{sec:a_confluence_criterion}
 
-In this section we investigate the confluence properties of $R$. The main
-idea behind this section is that under suitable hypotheses on a local
-strategy $h$, the rewriting relation $\rewS$ is a terminating and
-confluent subrelation of $\rewR$.
-\medskip
-
-We start in Definition~\ref{def:standardisation_property} and 
+The main idea behind this section is that under suitable hypotheses on a
+local strategy $S$, the rewriting relation $\rewS$ is a terminating and
+confluent subrelation of $\rewR$. We start in
+Definition~\ref{def:standardisation_property} and
 Proposition~\ref{prop:h_and_R_confluence} by relating the confluence of
-$\rewR$ to properties on $h$. Then, in
-Theorem~\ref{thm:confluence_criterion}, we prove a confluence criterion
+$\rewR$ to properties on $S$. Then, in
+Theorem~\ref{thm:confluence_criterion}, we give our confluence criterion
 to check whether $R$ satisfies
 Definition~\ref{def:standardisation_property}.
 
 \begin{definition}\label{def:standardisation_property}
-  Given a local strategy $h$, we say that $\rewR$ is \emph{h-confluent}
-  if for every rewriting rule $h_e=e\rewS r_e$, we have $H(e-r_e)=0$.
+  Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
+  if for every rewriting rule $e\rewS r_e$, we have $\NF(e-r_e)=0$.
 \end{definition}
 \smallskip
 
 \begin{example}
   Let us take the same example as in Example \ref{ex:h_norma_form}. The
   following identities hold:
-  \[
-  H(a)=c+d=H(b),\qquad H(b)=c+d=H(c+d),\qquad H(c)=c= H(b-d),
+  \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
   \]
-  and so that $\rewR$ is $h$-confluent. If we replace the rule
-  $c\rewR b-d$ by $c\rewR b$, we get $H(c)=c$ and $H(b)=c+d$, so $\rewR$
-  is not $h$-confluent anymore. 
+  and so that $\rewR$ is $S$-confluent. If we replace the rule
+  $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and $\NF(b)=c+d$, so
+  $\rewR$ is not $S$-confluent anymore. 
 \end{example}
 \smallskip
 
 \begin{proposition}\label{prop:h_and_R_confluence}
-  We fix a  local strategy $h$.
-  \begin{enumerate}
-  \item\label{it:equationnal_theory} If $\rewR$ is $h$-confluent, then
-    $u\equivR v$ if and only if $H(u-v)=0$.
-  \item\label{it:h-conf_implies_conf} If $\rewR$ is $h$-confluent then
-    $\rewR$ is confluent.
-  \end{enumerate}
+  We fix a  local strategy $S$. If $\rewR$ is $S$-confluent, then we have
+  $u\equivR v$ if and only if $\NFF(u-v)=0$. Moreover, $\rewR$ is
+  confluent.
 \end{proposition}
 
 \begin{proof}
-  First, we show Point~\ref{it:equationnal_theory}. The relation
-  $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and
-  sum. Since the relation $H(u - v) = 0$ is closed under these
-  operations, we get one implication. Reciprocally, if $H(u-v)=0$, we
-  have $H(u)=H(v)$. Since, by definition of $H$, we have
-  $u\transR H(u)$ and $v\transR H(v)$, then $u\equivR v$.
-  \todo{Vérifier que c'est bon (ce n'est pas ce qu'on avait écrit dans
-    IWC}
-  \smallskip
-  
-  Let us show Point~\ref{it:h-conf_implies_conf}. Let $v,v_1,v_2\in V$ be
-  such that $v\transR v_i$, for $i=1,2$. By
-  Point~\ref{it:equationnal_theory}, $H(v_1)=H(v_2)$, and by denoting by
-  $u$ this common value, we have $v_i\transR u$. That proves that $\rewR$
-  is confluent.
+  We show the first assertion. The relation $\equivR$ is the closure of
+  $\rewR$ under transitivity, symmetry and sum. Since the relation
+  $\NF(u-v)=0$ is closed under these operations, we get one implication.
+  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$. Since, by
+  definition of $\NF$, we have $u\transS\NF(u)$ and $v\transS\NF(v)$, and
+  since $u\transS v$ implies $u\transR v$, we have $u\equivR v$. For the
+  second assertion of the proposition, let us consider three vectors
+  $v,v_1,v_2\in V$ such that $v\transR v_i$, for $i=1,2$. By the first
+  part of the proposition, we have $\NF(v_1)=\NF(v_2)$. From
+  $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
+  confluent.
 \end{proof}
 \medskip
 
 Note that the previous proposition is a sufficient but not a necessary
 condition. Indeed, with $\basis$ the set of integers and the rewriting
 rules $n\rewR n+1$, the linear extension of $R$ is confluent, but there
-exist no local strategy $h$ such that $\rewR$ is $h$-confluent.
+is no local strategy such that $\rewR$ is confluent relative to this
+strategy.
 \medskip
 
-We now introduce our criterion to show that $\rewR$ is $h$-confluent. For
-that, we assume that the set of rewriting relations is equipped with a
-well-founded order $\prec$ satisfying the following decreasingness
-property.
+The last notion we need for introducing our confluence criterion is local
+$S$-confluence, which is introduced in
+Definition~\ref{proper:decreasingness_property}. For that, we need to
+introduce the following decreasingness property.
 
 \begin{definition}\label{proper:decreasingness_property}
-  We say that $\rewR$ is \emph{locally $h$-confluent} if for every
+  Let $\preceq$ be a well-founded order on $R$. We say that $\rewR$ is
+  \emph{locally $S$-confluent with respect to} $\preceq$ if for every
   $e\in\basis$ and every rewriting rule $f=e\rewR r$, then we have the
   confluence diagram:
   \[
@@ -414,7 +406,7 @@ property.
   }
   \]
   where each rewriting step occurring in the dotted arrows is strictly
-  smaller than $f$ with respect to  $\prec$.
+  smaller than $f$ with respect to  $\preceq$.
 \end{definition}
 \smallskip
 
