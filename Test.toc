@@ -3,8 +3,8 @@
 \contentsline {paragraph}{Conventions and notations.}{3}{section.1}
 \contentsline {section}{\numberline {2}A weak version of diamond lemma}{3}{section.2}
 \contentsline {subsection}{\numberline {2.1}Local strategies of linear extensions}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}A confluence criterion}{4}{subsection.2.2}
-\contentsline {section}{\numberline {3}Rewriting and partial derivative equations}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}Rewriting systems on rational Weyl algebras}{6}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Janet bases and $h$-confluence}{7}{subsection.3.2}
-\contentsline {paragraph}{Conclusion.}{8}{theorem.3.11}
+\contentsline {subsection}{\numberline {2.2}A confluence criterion}{5}{subsection.2.2}
+\contentsline {section}{\numberline {3}Rewriting and partial derivative equations}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}Rewriting systems on rational Weyl algebras}{7}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Janet bases and $h$-confluence}{8}{subsection.3.2}
+\contentsline {paragraph}{Conclusion.}{9}{theorem.3.11}

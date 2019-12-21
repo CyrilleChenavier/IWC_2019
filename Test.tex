@@ -55,10 +55,11 @@
 \newcommand\rewR{\to_R}
 \newcommand\rewS{\to_{\hat{S}}}
 \newcommand\transR{\overset{*}{\to}_R}
-\newcommand\transh{\overset{*}{\to}_{\kat{S}}}
+\newcommand\transS{\overset{*}{\to}_{\hat{S}}}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
-\newcommand\equivh{\underset{h}{\overset{*}{\to}}}
 \newcommand\rewTheta{\to_{\Theta}}
+\newcommand\NF{\text{NF}}
+\newcommand\NFF{\emph{NF}}
 
 \bibliographystyle{plain}
 
@@ -194,12 +195,11 @@ and $\basis$, respectively. Moreover, every vector $v$ admits a unique
 finite decomposition with respect to the basis $\basis$ and coefficients
 in the ground field:
 \begin{equation}\label{equ:vector_decompo}
-  v=\sum\lambda_ie_i,\quad\lambda_i\neq 0
+  v=\sum\lambda_ie_i,\quad\lambda_i\neq 0.
 \end{equation}
-A basis element which is minimal for $<$ is simply called minimal. The
-set of basis elements which appear in the decompositon
+The set of basis elements which appear in the decompositon
 \eqref{equ:vector_decompo} is called the {\it support} of $v$, and is
-written $\lm(v)$. We extend $<$ into the multiset order on $V$: for any
+written $\supp(v)$. We extend $<$ into the multiset order on $V$: for any
 $u,v \in V$, we have $u<v$ if $\supp(u)\neq\supp(v)$ and for any
 $e\in\supp(u)\setminus\supp(v)$, there exists
 $e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
@@ -209,33 +209,41 @@ it by $<$ without ambiguity.
 \section{A weak version of diamond lemma}
 \label{sec:a_weak_version_of_diamond_lemma}
 
-In this section, we fix a \data\ $(\K,V,\basis,<)$ and we present our 
-general framework for rewriting systems induced by this \data. We use the
+In this section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
+$R$ of $\basis\times V$, that is thought as a set of rewriting rules of
+the form $e\to r$. Our objective is to provide a confluence criterion for
+the rewriting system on $V$ which extends $R$ by linearity. We use the
 standard terminology of rewriting theory, see~\cite{MR1629216}.
+
+A basis element which is minimal for $<$ is simply called minimal. 
+
+ A set $R\subseteq\basis\times V$ is simply given
+by its elements, that we denote by $e\rewR r$, and that we call rewriting
+rules.
 
 \subsection{Local strategies of linear extensions}
 \label{sec:local_strategies_of_linear_extensions}
 
-We fix a set $R\subseteq\basis\times V$, whose elements are temporally
-written $e\to r$. We extend $R$ into a rewriting relation on $V$ that
-reduces many elements at once:
+We first introduce the notion of linear extension, that is the rewriting
+relation on $V$ obtained by reducing many basis elements at once. For
+that, we consider elementary reductions of the following form:
+
 \begin{equation}\label{equ:rewriting_step}
-  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v.
+  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
+  \smallskip
 \end{equation}
+where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\to r_i$ are
+elements of $R$.
 
 \begin{definition}\label{def:extensions}
   The {\em linear extension} of $R$ is the rewriting relation on $V$
-  defined such as in \eqref{equ:rewriting_step}, where $v$ is any element
-  of $V$, and for any $e_i\in\basis$ appearing in the sum,
-  $\lambda_i\neq 0$, $e_i\to r_i\in R$ and $e_i\notin\supp(v)$. 
+  defined such as in \eqref{equ:rewriting_step}, where each $\lambda_i$
+  is nonzero and each $e_i$ does not belong to $\supp(v)$. 
 \end{definition}
 \smallskip
 
-In the rest of Section~\ref{sec:a_weak_version_of_diamond_lemma}, we use the
-following conventions. A set $R\subseteq\basis\times V$ is simply given
-by its elements, that we denote by $e\rewR r$, and that we call rewriting
-rules. The linear extension of $R$ is also denoted by $\rewR$, and its
-closures under transitivity, symmetry and sum and transitivity, symmetry,
+The linear extension of $R$ is still denoted by $\rewR$, and its closures
+under transitivity, symmetry and sum and transitivity, symmetry,
 reflexivity and sum are denoted by $\transR$ and $\equivR$, respectively.
 Finally, a normal form for $\rewR$ is called an $R$-normal form.
 \medskip
@@ -251,59 +259,65 @@ minimal basis element.
 \end{definition}
 \smallskip
 
-In the rest of this section, we suppose chosen a local strategy $S$ (note
-that such an $S$ may not exist). As we did for rewriting rules, a local
-strategy is defined by its elements $e\rewS r_e$. However, instead of
-working with the full linear extension of $S$, we will consider the
-rewriting relation $\rewS$ which is defined such as the linear extension
-of $S$ with the additional property that there is no rewriting rule 
-$e\rewR r_e$ such that $e\in\supp(v)$. A normal form for $\rewS$ is
-called an $S$-normal form. In particular, every minimal basis element is
-a $S$-normal form. More generally, $S$-normal forms can be easily
-characterised as follows.
+Notice that a local strategy may not exist. As we did for rewriting
+rules, a local strategy is defined by its elements $e\rewS r_e$\footnote{
+  The hat on $S$ is here to mark the difference between the local
+  strategy and rewriting rules.}. Moreover, instead of working with the
+full linear extension of $S$, we consider the rewriting relation, also
+denoted by $\rewS$, which is defined such as the linear extension of $S$
+with the additional property that there is no rewriting rule $e\rewS r_e$
+such that $e\in\supp(v)$. In other words, a vector $u$ admits a unique
+decomposition
+\[u=\sum_i\lambda_ie_i+v,\]
+where $\lambda_i\neq 0$, $e'\in\supp(v)$ implies that $e'$ is minimal,
+and $e_i\in\supp(u)\setminus\supp(v')$ is not, and if $e_i\rewS r_i$ are
+elements of the local strategy, we have 
+\[u\rewS\sum_i\lambda_ir_i+v.
+  \smallskip\]
+The closure of $\rewS$ under transitivy and symmetry is denoted by
+$\transS$ and a normal form for $\rewS$ is called an $S$-normal form. In
+particular, every minimal basis element is a $S$-normal form. More
+generally, $S$-normal forms can be easily characterised as follows.
+\medskip
 
 \begin{lemma}\label{lem:h_normal_forms}
   Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
   $v'<v$ such that $v\rewS v'$. In particular, $S$-normal forms are
   precisely the minimal elements of $V$.
 \end{lemma}
-\medskip
-
-Notice that a vector $v$ can be
-decomposed in a unique way as $\sum\lambda_ie_i+v'$, where
-$e'\in\supp(v')$ implies that $e'$ is minimal, and
-$e_i\in\supp(v)\setminus\supp(v')$ is not. Hence, we have
-\begin{equation}\label{equ:well-formed_rewriting_step}
-  \sum\lambda_ie_i+v'\rewS\sum\lambda_ir_i+v'.
-\end{equation}
-For each $v\in V$ and each local strategy $S$, there exists at most one
-$v'$ such that $v\rewS v'$, and $\rewS$ is compatible with the
-termination order $<$. As a consequence, any $v\in V$ is sent by multiple
-applications of $\rewS$ to a unique $S$-normal form that we denote by
-$H(v)$. This defines a map $H :V\to V$.  
-
+\smallskip
 
 \begin{example}\label{ex:h_norma_form}
   Let $\basis=\{a,b,c,d\}$, and consider the linear extension of the
-  rewriting rules $a\rewR b$, $b\rewR c+d$, $c\rewR b-d$. Note that this
-  is not a terminating rewriting relation since we have the loop
+  following rewriting rules: $a\rewR b$, $b\rewR c+d$, $c\rewR b-d$. Note
+  that this is not a terminating rewriting relation since we have the
+  loop 
   \[b\ \rewR\ c+d\ \rewR\ (b-d)+d=b.\]
   We choose the order $a>b>c,d$, as well as the following local strategy:
-  $h_a=a\rewS b$ and $h_b=b\rewS c+d$. Then, the $R$-normal forms are the
-  $\lambda_dd$, while the $h$-normal forms are all the expressions of the
-  form $\lambda_dd+\lambda_cc$.
+  $a\rewS b$ and $b\rewS c+d$. Then, the $R$-normal forms are the
+  elements of the form $\lambda_dd$, while the $h$-normal forms are all
+  the expressions of the form $\lambda_dd+\lambda_cc$.
 \end{example}
+\smallskip
 
+We finish this section by introducing the normalisation operator
+associated with the local strategy $S$. By definition of such a
+strategy, for every $v\in V$, there exists at most one $v'$ such that
+$v\rewS v'$. Moreovoer, since $\rewS$ is compatible with the well-founded
+order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
+$S$-normal form that we denote by $\NF(v)$. This defines a map
+$\NF:V\to V$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $H$ is a linear projector.
+  The map $\NFF$ is a linear projector.
 \end{proposition}
 
 \begin{proof}
-  The $h$-normal forms are closed under sums, so that $H(H(v))=H(v)$ for
-  every $v$, that is $H$ is a projector. Moreover, if $u\rewS u'$ and
-  $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we get
-  $H(u+v)=H(H(u)+H(v))=H(u)+H(v)$. 
+  The $S$-normal forms are closed under sum, so that $\NF(\NF(v))=\NF(v)$
+  for every $v$, that is $\NF$ is a projector. Moreover, if $u\rewS u'$
+  and $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we
+  get $\NF(u+v)=\NF(\NF(u)+\NF(v))=\NF(u)+\NF(v)$, which proves linearity
+  of $\NF$.
 \end{proof}
 
 \subsection{A confluence criterion}
@@ -522,6 +536,10 @@ Let us show how the Diamond Lemma fits as a particular case of our setup.
 
 \section{Rewriting and partial derivative equations}
 \label{sec:rewriting_systems_and_partial_derivative_equations}
+
+\todo{Rajouter section sur les stratégies définies à partir des ordres
+  monomiaux, et expliquer rapidement pourquoi la théorie des BG entre
+  dans ce cadre}
 
 \subsection{Rewriting systems on rational Weyl algebras}
 \label{sec:rewriting_systems_on_Weyl_algebras}
