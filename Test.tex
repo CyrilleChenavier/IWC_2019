@@ -242,6 +242,7 @@ once. Hence, we consider elementary reductions of the following form:
 \end{equation}
 where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\rewR r_i$ are
 rewriting rules.
+\smallskip
 
 \begin{definition}\label{def:extensions}
   The {\em linear extension} of $R$ is the rewriting relation on $V$
@@ -260,6 +261,7 @@ In the following definition, we introduce the notion of local strategy,
 which is the selection of exactly one rewriting rule for each non minimal
 basis element. Moreover, the seclected rewriting rule as to be compatible
 with the order $<$.
+\smallskip
 
 \begin{definition}
   A \emph{local strategy} is a subset $S$ of $R$ such that the following
@@ -303,6 +305,7 @@ $S$-normal forms can be easily characterised as follows.
 
 In order to illustrate our notions, we consider the following simple
 running example.
+\smallskip
 
 \begin{example}\label{ex:h_norma_form}
   Let $\basis=\{a,b,c,d\}$ and consider the set $R$ composed of the
@@ -328,7 +331,7 @@ $v\rewS v'$. Moreovoer, since $\rewS$ is compatible with the well-founded
 order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
 $S$-normal form that we denote by $\NF(v)$. This defines a map
 $\NF:V\to V$, that is fundamental for our confluence criterion of
-Section~\ref{sec:a_confluence_criterion}.
+Section~\ref{sec:confluence_relative_a_strategy}.
 \medskip
 
 \begin{proposition}\label{prop:linearity_of_H}
@@ -343,16 +346,26 @@ Section~\ref{sec:a_confluence_criterion}.
   of $\NF$.
 \end{proof}
 
-\subsection{A confluence criterion}
-\label{sec:a_confluence_criterion}
+\subsection{Confluence relative a strategy}
+\label{sec:confluence_relative_a_strategy}
 
-We first introduce the $S$-confluence property.
+In this Section, we first introduce $S$-confluence and show that this
+property implies confluence of $\rewR$. Then, we introduce local
+$S$-confluence which turns out to imply $S$-confluence: our confluence
+criterion follows, and we prove it
+Theorem~\ref{thm:confluence_criterion}. We finish this Section by a new
+proof of Diamond Lemma, based on local $S$-confluence.
+\smallskip
 
 \begin{definition}\label{def:standardisation_property}
   Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
   if for every rewriting rule $e\rewS r_e$, we have $\NF(e-r_e)=0$.
 \end{definition}
 \smallskip
+
+In the following proposition, we show that $S$-confluence implies
+confluence of $\rewR$.
+\medskip
 
 \begin{proposition}\label{prop:h_and_R_confluence}
   Let $S$ be a local strategy such that $\rewR$ is $S$-confluent. We have
@@ -364,11 +377,11 @@ We first introduce the $S$-confluence property.
   We show the first assertion. The relation $\equivR$ is the closure of
   $\rewR$ under transitivity, symmetry and sum. Since the relation
   $\NF(u-v)=0$ is closed under these operations, we get one implication.
-  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$. Since, by
+  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$. Moreover, by
   definition of $\NF$, we have $u\transS\NF(u)$ and $v\transS\NF(v)$, and
-  since $u\transS v$ implies $u\transR v$, we have $u\equivR v$. For the
-  second assertion of the proposition, let us consider three vectors
-  $v,v_1,v_2\in V$ such that $v\transR v_i$, for $i=1,2$. By the first
+  since $v_1\transS v_2$ implies $v_1\transR v_2$, we get $u\equivR v$.
+  For the second assertion, let us consider three vectors
+  $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the first
   part of the proposition, we have $\NF(v_1)=\NF(v_2)$. From
   $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
   confluent.
@@ -380,27 +393,28 @@ condition. Indeed, with $\basis$ the set of integers and the rewriting
 rules $n\rewR n+1$, the linear extension of $R$ is confluent, but there
 is no local strategy such that $\rewR$ is confluent relative to this
 strategy.
-\medskip
+\smallskip
 
 \begin{example}
-  Let us take the same example as in Example \ref{ex:h_norma_form}. The
-  following identities hold:
+  Let us continue Example~\ref{ex:h_norma_form}. The following identities
+  hold:
   \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
   \]
-  and so that $\rewR$ is $S$-confluent. If we replace the rule
-  $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and $\NF(b)=c+d$, so
-  $\rewR$ is not $S$-confluent anymore. 
+  so that $\rewR$ is $S$-confluent, and hence confluent. Notice that if
+  we replace the rule $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and
+  $\NF(b)=c+d$, so $\rewR$ is not $S$-confluent anymore. 
 \end{example}
 \smallskip
 
-Now, we introduce local $S$-confluence, which depends on a well-founded
-order on rewriting rules.
+Now, we introduce local $S$-confluence, which is a decreasingness
+property with respect to a well-founded order on rewriting rules.
+\smallskip
 
 \begin{definition}\label{def:decreasingness_property}
   Let $\prec$ be a well-founded order on $R$ and let $S$ be a local
-  strategy. We say that $\rewR$ is \emph{locally $S$-confluent with
-    respect to} $\prec$ if for every $e\in\basis$ and every rewriting
-  rule $e\rewR r$, then we have the confluence diagram:
+  strategy. We say that~$\rewR$ is \emph{locally $S$-confluent with
+    respect to} $\prec$ if for every $e\in\basis$ and for every rewriting
+  rule~$e\rewR r$, we have a confluence diagram:
   \[\large\begin{tikzcd}
   e\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"]\\
   r_e\ar[r, leftrightarrow, dotted, "*"] & v
@@ -411,34 +425,19 @@ order on rewriting rules.
 \end{definition}
 \smallskip
 
-\begin{example}\label{ex:end_to_example}
-  Continuing with Example \ref{ex:h_norma_form}, let us consider the
-  following order $\prec$ on rewriting rules:
-  \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
-  This choice is guided by the heuristic that rules advancing towards an
-  $S$-normal form should be favored over rules that do not: here $c$ is
-  an $S$-normal form so its rewriting rule is for $\prec$. The following
-  diagrams show that $\rewR$ is locally $S$-confluent:
-  \[\large\begin{tikzcd}
-  a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
-  \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
-    "_{\hat{S}}"'] & b-d\ar[d, "_R"]\\
-  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
-  \end{tikzcd}\]
-\end{example}
+The main result of this Section is the following.
 \medskip
 
-Our main result is the following.
-\smallskip
-
 \begin{theorem}\label{thm:confluence_criterion}
-  Let $R$ be a set of rewriting rules and let $h$ be a local strategy of
-  $R$. If $\rewR$ is locally $h$-confluent, then $\rewR$ is
-  $h$-confluent. In particular, $\rewR$ is confluent. 
+  Let $R$ be a set of rewriting rules. Assume that there exists a local
+  strategy~S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
+  locally S-confluent with respect to $\prec$. Then,~$\rewR$ is
+  confluent. 
 \end{theorem}
-\smallskip
 
 \begin{proof}
+  It is sufficient to show that $\rewR$ is $S$-confluent.
+  
   We reason by induction on rewriting rules $f$ according to the order
   $\prec$. Looking at the square corresponding to $f$:
   \[\large\begin{tikzcd}
@@ -452,40 +451,59 @@ Our main result is the following.
 \end{proof}
 \medskip
 
-\begin{remark}
-  Local $h$-confluence implies that the pair of rewriting relations
-  $(\rewS,\rewR)$ is decreasing with respect to conversions (see
-  \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
-  and the discrete ordering on $\rewS$. By
-  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
-  commute. Using the fact that $\rewS \subseteq \rewR$, one can then
-  recover that $\rewR$ is confluent.
-  \todo{Rajouter un phrase au début faisant comprendre que cette remarque
-    s'adresse à des spécialistes de réécriture}
-\end{remark}
-\medskip
-
-Let us show how the Diamond Lemma fits as a particular case of our setup.
+Local $h$-confluence implies that the pair of rewriting relations
+$(\rewS,\rewR)$ is decreasing with respect to conversions (see
+\cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
+and the discrete ordering on $\rewS$. By
+\cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
+commute. Using the fact that $\rewS \subseteq \rewR$, one can then
+recover that $\rewR$ is confluent.
+\todo{Rajouter un phrase au début faisant comprendre que cette remarque
+  s'adresse à des spécialistes de réécriture}
 \smallskip
 
+\begin{example}\label{ex:end_to_example}
+  Using local $S$-confluence, we way recover that the rewriting relation
+  of Example~\ref{ex:h_norma_form} is confluent. Indeed, let us consider
+  the following order $\prec$ on rewriting rules:
+  \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
+  This choice is guided by the heuristic that rules advancing towards an
+  $S$-normal form should be favored over rules that do not: here $c$ is
+  an $S$-normal form so its rewriting rule is for $\prec$. The following
+  diagrams show that $\rewR$ is locally $S$-confluent:
+  \[\large\begin{tikzcd}
+  a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
+  \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
+    "_{\hat{S}}"'] & b-d\ar[d, "_R"]\\
+  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
+  \end{tikzcd}\]
+\end{example}
+\smallskip
+
+We finish this section by showing how the Diamond Lemma fits as a
+particular case of our setup.
+\medskip
+
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
-  Let $R$ be a set of rewriting rules such that its linear extension is
-  terminating, and for every $e\in\basis$ such that $e\rewR r$ and
-  $e\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is
-  confluent.
+  Let $R$ be a set of rewriting rules such that $\rewR$ is terminating,
+  and for every $e\in\basis$ such that $e\rewR r$ and $e\rewR r'$, $r$
+  and $r'$ are joinable. Then,~$\rewR$ is confluent.
 \end{theorem}
 
 \begin{proof}
   We define an ordering $e>e'$ on $\basis$ as the transitive closure of
-  the relation ``there exists $v\in V$ such that $e\rewR v$ and
-  $e'\in\supp(v)$''. This is well-founded since by hypotheses $\rewR$ is
-  terminating. By definition, if $e\in\basis$ is not minimal for $>$,
-  then $e$ is not an $R$-normal form. Let us fix an arbitrary rewriting
-  rule $h_e=e\rewS r_e$.  By definition of~$>$, for any $e'\in\supp(r_e)$
-  we have $e'<e$ and so $r_e<e$, which shows that $h$ is a local
-  strategy. Ordering the rewriting rules by their left hand sides makes
-  $\rewR$ locally $h$-confluent. Theorem~\ref{thm:confluence_criterion}
-  finally shows that $\rewR$ is confluent.   
+  the relation ``there exists a vector $v$ such that $e\rewR v$ and
+  $e'\in\supp(v)$''. This is a well-founded order since $\rewR$ is
+  assumed to be terminating. Let us define the local strategy $S$ as
+  follows. First, notice that by definition of the order $<$, if the
+  basis element $e$ is not minimal, then it is not an $R$-normal form.
+  Then,~$S$ is composed of elements $e\rewS r$, where $e\rewR r$ is an
+  arbitrary rewriting rules reducing $e$. It remains to define $\prec$:
+  we let $(e\rewR r)\prec(e'\rewR r')$ if $e<e'$, which is well-founded
+  since $<$ is. Finally, the hypothesis $r$ and $r'$ are joinable when
+  $e\rewR r$ and $e\rewR r'$ implies that $\rewR$ is locally
+  $S$-confluent with respect to $\prec$. Hence, by
+  Theorem~\ref{thm:confluence_criterion}, $\rewR$ is confluent.   
 \end{proof}
 
 \section{Rewriting and partial derivative equations}
