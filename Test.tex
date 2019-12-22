@@ -197,7 +197,7 @@ in the ground field:
 \begin{equation}\label{equ:vector_decompo}
   v=\sum\lambda_ie_i,\quad\lambda_i\neq 0.
 \end{equation}
-The set of basis elements which appear in the decompositon
+The set of basis elements which appear in the decomposition
 \eqref{equ:vector_decompo} is called the {\it support} of $v$, and is
 written $\supp(v)$. We extend $<$ into the multiset order on $V$: for any
 $u,v \in V$, we have $u<v$ if $\supp(u)\neq\supp(v)$ and for any
@@ -205,14 +205,15 @@ $e\in\supp(u)\setminus\supp(v)$, there exists
 $e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
 coincides with the initial one on basis elements, so that we can denote
 it by $<$ without ambiguity.
+\medskip
 
-We use the
-standard terminology of rewriting theory, see~\cite{MR1629216}.
+Finally, we use the standard terminology of rewriting theory,
+see~\cite{MR1629216}. \todo{Compléter}
 
-\section{A weak version of diamond lemma}
-\label{sec:a_weak_version_of_diamond_lemma}
+\section{A weak version of the DiamondLlemma}
+\label{sec:a_weak_version_of_the_Diamond_Lemma}
 
-In this Section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
+In this section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
 $R$ of $\basis\times V$, whose elements are called rewriting rules. Such
 a rewriting rule is denoted $e\rewR r$, where $e$ and $r$ are the natural
 projections of this rule of $R$ on $\basis$ and $V$, respectively. Our
@@ -220,17 +221,17 @@ objective is to provide a confluence criterion for the rewriting system
 on $V$ which extends $R$ by linearity.
 \medskip
 
-Throughout the Section, an element of $V$ which is minimal for the
-extension of the order~$<$ to $V$ is simply called minimal.
+Throughout the section, an element of $V$ which is minimal for the
+multiset order~$<$ on $V$ is simply called minimal.
 
 \subsection{Local strategies of linear extensions}
 \label{sec:local_strategies_of_linear_extensions}
 
-In this Section, we first introduce the notion of linear extension, that
+In this section, we first introduce the notion of linear extension, that
 is the rewriting relation on $V$ obtained by extending $R$ by linearity.
 Then, we define local strategies for this linear extension, that we use
-in Section~\ref{sec:rewriting_systems_and_partial_derivative_equations}
-for introducing our confluence criterion.
+in Section~\ref{sec:confluence_relative_a_strategy} for introducing our
+confluence criterion.
 \medskip
 
 The linear extension of $R$ enables us to reduce many basis elements at
@@ -259,7 +260,7 @@ Finally, a normal form for $\rewR$ is called an $R$-normal form.
 
 In the following definition, we introduce the notion of local strategy,
 which is the selection of exactly one rewriting rule for each non minimal
-basis element. Moreover, the seclected rewriting rule as to be compatible
+basis element. Moreover, the selected rewriting rule as to be compatible
 with the order $<$.
 \smallskip
 
@@ -270,7 +271,7 @@ with the order $<$.
   \item the left-hand sides of elements of $S$ are not minimal basis
     elements,
   \item for every non minimal basis element $e$, there exists exactly one
-    rewriting rule $e\rewR r_e$ in~$S$, morevoer we have $r_e<e$.
+    rewriting rule $e\rewR r_e$ in~$S$, moreover we have $r_e<e$.
   \end{itemize}
 \end{definition}
 \smallskip
@@ -289,7 +290,7 @@ and $e_i\in\supp(u)\setminus\supp(v')$ is not, and if $e_i\rewS r_i$ are
 elements of the local strategy, we have 
 \[u\rewS\sum_i\lambda_ir_i+v.
   \smallskip\]
-The closure of $\rewS$ under transitivy and symmetry is denoted by
+The closure of $\rewS$ under transitivity and symmetry is denoted by
 $\transS$. Notice that $u\transS v$ implies $u\transR v$. Moreover, a
 normal form for $\rewS$ is called an $S$-normal form. In particular,
 every minimal basis element is a $S$-normal form. More generally,
@@ -303,8 +304,8 @@ $S$-normal forms can be easily characterised as follows.
 \end{lemma}
 \smallskip
 
-In order to illustrate our notions, we consider the following simple
-running example.
+In order to illustrate our notions, we consider the following running
+example.
 \smallskip
 
 \begin{example}\label{ex:h_norma_form}
@@ -327,7 +328,7 @@ running example.
 We finish this section by introducing the normalisation operator
 associated with a local strategy $S$. By definition of such a strategy,
 for every $v\in V$, there exists at most one $v'$ such that
-$v\rewS v'$. Moreovoer, since $\rewS$ is compatible with the well-founded
+$v\rewS v'$. Moreover, since $\rewS$ is compatible with the well-founded
 order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
 $S$-normal form that we denote by $\NF(v)$. This defines a map
 $\NF:V\to V$, that is fundamental for our confluence criterion of
@@ -349,12 +350,12 @@ Section~\ref{sec:confluence_relative_a_strategy}.
 \subsection{Confluence relative a strategy}
 \label{sec:confluence_relative_a_strategy}
 
-In this Section, we first introduce $S$-confluence and show that this
+In this section, we first introduce $S$-confluence and show that this
 property implies confluence of $\rewR$. Then, we introduce local
 $S$-confluence which turns out to imply $S$-confluence: our confluence
 criterion follows, and we prove it
-Theorem~\ref{thm:confluence_criterion}. We finish this Section by a new
-proof of Diamond Lemma, based on local $S$-confluence.
+Theorem~\ref{thm:confluence_criterion}. We finish this section by a new
+proof of the Diamond Lemma, based on local $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
@@ -425,7 +426,7 @@ property with respect to a well-founded order on rewriting rules.
 \end{definition}
 \smallskip
 
-The main result of this Section is the following.
+The main result of this section is the following.
 \medskip
 
 \begin{theorem}\label{thm:confluence_criterion}
@@ -509,21 +510,17 @@ particular case of our setup.
 \section{Rewriting and partial derivative equations}
 \label{sec:rewriting_systems_and_partial_derivative_equations}
 
-\todo{Rajouter section sur les stratégies définies à partir des ordres
-  monomiaux, et expliquer rapidement pourquoi la théorie des BG entre
-  dans ce cadre}
-
 \subsection{Rewriting systems on rational Weyl algebras}
 \label{sec:rewriting_systems_on_Weyl_algebras}
 
 In this section, we introduce rewriting systems in rational Weyl algebras
 and relate them to the framework introduced in
-Section~\ref{sec:a_weak_version_of_diamond_lemma}. Before that, we first
+Section~\ref{sec:a_weak_version_of_the_Diamond_Lemma}. Before that, we first
 recall the definitions of Weyl algebras and of monomial orders.
 \medskip
 
-We fix a set $X:=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
-$Q(X):=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
+We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
+$\Q(X)=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
 $\Q$. Let us introduce another set of variables
 $\Delta:=\{\diff{1},\cdots,\diff{n}\}$. 
 
@@ -543,14 +540,8 @@ that $\Weyl$ is a vector space on $\Q(X)$ and admits as a basis the set
 $\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. Hence, elements of
 $\Weyl$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
-algebra is denoted by $\D$ and is called a differential operator. The
-framework developed in Section~\ref{sec:a_weak_version_of_diamond_lemma}
-can be applied to rational Weyl algebras by taking $\K:=\Q(X)$ and
-$\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
-the support of a differential operator $\D$ is the product of partial
-derivative operators which occur in $\D$. It remains to introduce a
-well-founded order on $\basis$, and for that, we consider monomial
-orders.
+algebra is denoted by $\D$ and is called a differential operator.
+\smallskip
 
 \begin{definition}
   A {\em monomial order} $\preceq$ on $\basis$ is a well-founded total
@@ -562,6 +553,19 @@ orders.
   monomial and the leading coefficient of $\D$ with respect to $\preceq$,
   respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. 
 \end{definition}
+\smallskip
+
+Hence, we get a \data\ $(\Q(X),\Weyl,\Delta^c,\preceq)$
+
+The
+framework developed in Section~\ref{sec:a_weak_version_of_diamond_lemma}
+can be applied to rational Weyl algebras by taking $\K:=\Q(X)$ and
+$\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
+the support of a differential operator $\D$ is the product of partial
+derivative operators which occur in $\D$. It remains to introduce a
+well-founded order on $\basis$, and for that, we consider monomial
+orders.
+
 
 Given an operator $\D\in\Weyl$, consider the rewriting relation on
 $\Weyl$ defined as follows. Letting $\lm(\D)=\partial^{\alpha}$, we first
