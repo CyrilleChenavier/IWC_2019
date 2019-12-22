@@ -9,8 +9,8 @@
 \usepackage{amsthm}
 \usepackage{titlesec}
 \usepackage[all]{xy}
-\usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{tikz}
+\usepackage{tikz-cd}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -206,34 +206,42 @@ $e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
 coincides with the initial one on basis elements, so that we can denote
 it by $<$ without ambiguity.
 
+We use the
+standard terminology of rewriting theory, see~\cite{MR1629216}.
+
 \section{A weak version of diamond lemma}
 \label{sec:a_weak_version_of_diamond_lemma}
 
-In this section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
-$R$ of $\basis\times V$, that is thought as a set of rewriting rules of
-the form $e\to r$. Our objective is to provide a confluence criterion for
-the rewriting system on $V$ which extends $R$ by linearity. We use the
-standard terminology of rewriting theory, see~\cite{MR1629216}.
+In this Section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
+$R$ of $\basis\times V$, whose elements are called rewriting rules. Such
+a rewriting rule is denoted $e\rewR r$, where $e$ and $r$ are the natural
+projections of this rule of $R$ on $\basis$ and $V$, respectively. Our
+objective is to provide a confluence criterion for the rewriting system
+on $V$ which extends $R$ by linearity.
+\medskip
 
-A basis element which is minimal for $<$ is simply called minimal. 
-
- A set $R\subseteq\basis\times V$ is simply given
-by its elements, that we denote by $e\rewR r$, and that we call rewriting
-rules.
+Throughout the Section, an element of $V$ which is minimal for the
+extension of the order~$<$ to $V$ is simply called minimal.
 
 \subsection{Local strategies of linear extensions}
 \label{sec:local_strategies_of_linear_extensions}
 
-We first introduce the notion of linear extension, that is the rewriting
-relation on $V$ obtained by reducing many basis elements at once. For
-that, we consider elementary reductions of the following form:
+In this Section, we first introduce the notion of linear extension, that
+is the rewriting relation on $V$ obtained by extending $R$ by linearity.
+Then, we define local strategies for this linear extension, that we use
+in Section~\ref{sec:rewriting_systems_and_partial_derivative_equations}
+for introducing our confluence criterion.
+\medskip
+
+The linear extension of $R$ enables us to reduce many basis elements at
+once. Hence, we consider elementary reductions of the following form:
 
 \begin{equation}\label{equ:rewriting_step}
   \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
   \smallskip
 \end{equation}
-where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\to r_i$ are
-elements of $R$.
+where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\rewR r_i$ are
+rewriting rules.
 
 \begin{definition}\label{def:extensions}
   The {\em linear extension} of $R$ is the rewriting relation on $V$
@@ -249,25 +257,30 @@ Finally, a normal form for $\rewR$ is called an $R$-normal form.
 \medskip
 
 In the following definition, we introduce the notion of local strategy,
-which consists in selecting exactly one rewriting rule for each non
-minimal basis element.
+which is the selection of exactly one rewriting rule for each non minimal
+basis element. Moreover, the seclected rewriting rule as to be compatible
+with the order $<$.
 
 \begin{definition}
-  A \emph{local strategy} is a subset $S$ of $R$ such that for every non
-  minimal basis element $e$, there exists exactly one rewriting rule
-  $e\rewR r_e$ in $S$ and we have $r_e<e$. 
+  A \emph{local strategy} is a subset $S$ of $R$ such that the following
+  two conditions hold:
+  \begin{itemize}
+  \item the left-hand sides of elements of $S$ are not minimal basis
+    elements,
+  \item for every non minimal basis element $e$, there exists exactly one
+    rewriting rule $e\rewR r_e$ in~$S$, morevoer we have $r_e<e$.
+  \end{itemize}
 \end{definition}
 \smallskip
 
-Notice that a local strategy may not exist. As we did for rewriting
-rules, a local strategy is defined by its elements $e\rewS r_e$\footnote{
-  The hat on $S$ is here to mark the difference between the local
-  strategy and rewriting rules.}. Moreover, instead of working with the
-full linear extension of $S$, we consider the rewriting relation, also
-denoted by $\rewS$, which is defined such as the linear extension of $S$
-with the additional property that there is no rewriting rule $e\rewS r_e$
-such that $e\in\supp(v)$. In other words, a vector $u$ admits a unique
-decomposition
+Notice that a local strategy may not exist. The elements of such a local
+strategy $S$ are denoted~$e\rewS r_e$\footnote{The hat on $S$ is here to
+  mark the difference between the local strategy and rewriting rules.}.
+Moreover, instead of working with the full linear extension of $S$, we
+consider the rewriting relation, also denoted by $\rewS$, which is
+defined such as the linear extension of $S$ with the additional property
+that there is no rewriting rule $e\rewS r_e$ such that $e\in\supp(v)$. In
+other words, a vector $u$ admits a unique decomposition
 \[u=\sum_i\lambda_ie_i+v,\]
 where $\lambda_i\neq 0$, $e'\in\supp(v)$ implies that $e'$ is minimal,
 and $e_i\in\supp(u)\setminus\supp(v')$ is not, and if $e_i\rewS r_i$ are
@@ -282,33 +295,41 @@ $S$-normal forms can be easily characterised as follows.
 \medskip
 
 \begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $V$. Either $v$ is minimal, or there exists
-  $v'<v$ such that $v\rewS v'$. In particular, $S$-normal forms are
-  precisely the minimal elements of $V$.
+  Given a vector $v$, either $v$ is minimal, or there exists $v'<v$ such
+  that $v\rewS v'$. In particular, $S$-normal forms are precisely the
+  minimal elements of $V$. 
 \end{lemma}
 \smallskip
 
+In order to illustrate our notions, we consider the following simple
+running example.
+
 \begin{example}\label{ex:h_norma_form}
-  Let $\basis=\{a,b,c,d\}$, and consider the linear extension of the
-  following rewriting rules: $a\rewR b$, $b\rewR c+d$, $c\rewR b-d$. Note
-  that this is not a terminating rewriting relation since we have the
-  loop 
-  \[b\ \rewR\ c+d\ \rewR\ (b-d)+d=b.\]
-  We choose the order $a>b>c,d$, as well as the following local strategy:
-  $a\rewS b$ and $b\rewS c+d$. Then, the $R$-normal forms are the
-  elements of the form $\lambda_dd$, while the $h$-normal forms are all
-  the expressions of the form $\lambda_dd+\lambda_cc$.
+  Let $\basis=\{a,b,c,d\}$ and consider the set $R$ composed of the
+  following rewriting rules:
+  \[a\rewR b,\quad b\rewR c+d,\quad c\rewR b-d.\]
+  Note that the linear extension of $R$ is not terminating since there is
+  a rewriting loop due to $b\rewR c+d$ and $c+d\rewR (b-d)+d=b$.
+  Moreover, we choose the order such that $d$ is minimal and other basis
+  elements are not comparable:
+  \[a>d,\quad b>d,\quad c>d.\]
+  Finally, as a local strategy, we select $S$ defined by:
+  \[a\rewS b,\quad b\rewS c+d.\]
+  Then, the $R$-normal forms are the elements of the form $\lambda_dd$,
+  while the $h$-normal forms are all the expressions of the form
+  $\lambda_dd+\lambda_cc$.
 \end{example}
 \smallskip
 
 We finish this section by introducing the normalisation operator
-associated with the local strategy $S$. By definition of such a
-strategy, for every $v\in V$, there exists at most one $v'$ such that
+associated with a local strategy $S$. By definition of such a strategy,
+for every $v\in V$, there exists at most one $v'$ such that
 $v\rewS v'$. Moreovoer, since $\rewS$ is compatible with the well-founded
 order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
 $S$-normal form that we denote by $\NF(v)$. This defines a map
 $\NF:V\to V$, that is fundamental for our confluence criterion of
 Section~\ref{sec:a_confluence_criterion}.
+\medskip
 
 \begin{proposition}\label{prop:linearity_of_H}
   The map $\NFF$ is a linear projector.
@@ -325,10 +346,7 @@ Section~\ref{sec:a_confluence_criterion}.
 \subsection{A confluence criterion}
 \label{sec:a_confluence_criterion}
 
-In Theorem~\ref{thm:confluence_criterion}, we prove our confluence
-criterion for $\rewR$. For that, we introduce two notions, that we call
-$S$-confluence and local $S$-confluence, and prove that the latter
-implies the former, which itselve implies confluence of $\rewR$.
+We first introduce the $S$-confluence property.
 
 \begin{definition}\label{def:standardisation_property}
   Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
@@ -336,19 +354,8 @@ implies the former, which itselve implies confluence of $\rewR$.
 \end{definition}
 \smallskip
 
-\begin{example}
-  Let us take the same example as in Example \ref{ex:h_norma_form}. The
-  following identities hold:
-  \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
-  \]
-  and so that $\rewR$ is $S$-confluent. If we replace the rule
-  $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and $\NF(b)=c+d$, so
-  $\rewR$ is not $S$-confluent anymore. 
-\end{example}
-\smallskip
-
 \begin{proposition}\label{prop:h_and_R_confluence}
-  We fix a  local strategy $S$. If $\rewR$ is $S$-confluent, then we have
+  Let $S$ be a local strategy such that $\rewR$ is $S$-confluent. We have
   $u\equivR v$ if and only if $\NFF(u-v)=0$. Moreover, $\rewR$ is
   confluent.
 \end{proposition}
@@ -366,7 +373,7 @@ implies the former, which itselve implies confluence of $\rewR$.
   $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
   confluent.
 \end{proof}
-\medskip
+\smallskip
 
 Note that the previous proposition is a sufficient but not a necessary
 condition. Indeed, with $\basis$ the set of integers and the rewriting
@@ -375,78 +382,49 @@ is no local strategy such that $\rewR$ is confluent relative to this
 strategy.
 \medskip
 
-The last notion we need for introducing our confluence criterion is local
-$S$-confluence, which is introduced in
-Definition~\ref{proper:decreasingness_property}. For that, we need to
-introduce the following decreasingness property.
+\begin{example}
+  Let us take the same example as in Example \ref{ex:h_norma_form}. The
+  following identities hold:
+  \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
+  \]
+  and so that $\rewR$ is $S$-confluent. If we replace the rule
+  $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and $\NF(b)=c+d$, so
+  $\rewR$ is not $S$-confluent anymore. 
+\end{example}
+\smallskip
+
+Now, we introduce local $S$-confluence, which depends on a well-founded
+order on rewriting rules.
 
 \begin{definition}\label{def:decreasingness_property}
-  Let $\preceq$ be a well-founded order on $R$. We say that $\rewR$ is
-  \emph{locally $S$-confluent with respect to} $\preceq$ if for every
-  $e\in\basis$ and every rewriting rule $f=e\rewR r$, then we have the
-  confluence diagram:
-  \[
-  \xymatrix @C = 2.5em @R = 2.5em{
-    e 
-    \ar [r] ^{f}
-    \ar[d] _{h_e}
-    &
-    r
-    \ar@{<.>} [d] ^{*}
-    \\
-    r_e
-    \ar@{<.>} [r] ^{*}
-    & 
-    v,
-  }
-  \]
-  where each rewriting step occurring in the dotted arrows is strictly
-  smaller than $f$ with respect to  $\preceq$.
+  Let $\prec$ be a well-founded order on $R$ and let $S$ be a local
+  strategy. We say that $\rewR$ is \emph{locally $S$-confluent with
+    respect to} $\prec$ if for every $e\in\basis$ and every rewriting
+  rule $e\rewR r$, then we have the confluence diagram:
+  \[\large\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*"] & v
+  \end{tikzcd}\]
+  where each rewriting step occurring in the dotted arrows belongs to $R$
+  (we removed the subscript $R$ for simplicity) and is strictly smaller
+  than the rewriting rule $e\rewR r$ relative to $\prec$.
 \end{definition}
 \smallskip
 
 \begin{example}\label{ex:end_to_example}
-  Continuing with Example \ref{ex:h_norma_form}, let us define the order
-  $\preceq$ on $R$ as follows: $(a\rewR b), (b\rewR c+d)\prec
-  (c\rewR b-d)$. This is guided by the heuristic that rules advancing
-  towards an $S$-normal form should be favored over rules that do not:
-  here $c$ is an $S$-normal form so its rewriting rule is large for
-  $\prec$. The following diagrams show that $\rewR$ is locally
-  $S$-confluent:
-  \[
-  \xymatrix @C = 2.5em @R = 2.5em{
-    a \ar [r] _{R}  
-    \ar [d] _{h_a}   
-    & b 
-    \ar@{=} [d]
-    \\
-    b
-    \ar@{=} [r]
-    & b
-  }
-  \qquad
-  \xymatrix @C = 2.5em @R = 2.5em{
-    b \ar [r] _{R}  
-    \ar [d] _{h_b}   
-    & c+d
-    \ar@{=} [d]
-    \\
-    c+d
-    \ar@{=} [r]
-    & c+d
-  }
-  \qquad
-  \xymatrix @C = 2.5em @R = 2.5em{
-    c \ar [r] _{R}  
-    \ar@{=} [d] _{h_c}   
-    & b-d
-    \ar [d] ^{R}
-    \\
-    c
-    \ar@{=} [r]
-    & c
-  }
-  \]
+  Continuing with Example \ref{ex:h_norma_form}, let us consider the
+  following order $\prec$ on rewriting rules:
+  \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
+  This choice is guided by the heuristic that rules advancing towards an
+  $S$-normal form should be favored over rules that do not: here $c$ is
+  an $S$-normal form so its rewriting rule is for $\prec$. The following
+  diagrams show that $\rewR$ is locally $S$-confluent:
+  \[\large\begin{tikzcd}
+  a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
+  \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
+    "_{\hat{S}}"'] & b-d\ar[d, "_R"]\\
+  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
+  \end{tikzcd}\]
 \end{example}
 \medskip
 
@@ -463,21 +441,10 @@ Our main result is the following.
 \begin{proof}
   We reason by induction on rewriting rules $f$ according to the order
   $\prec$. Looking at the square corresponding to $f$:
-  \[
-  \xymatrix @C = 2.5em @R = 2.5em{
-    e 
-    \ar [r] ^{f}
-    \ar[d] _{h_e}
-    &
-    v
-    \ar@{<.>} [d] ^{*}
-    \\
-    r_e
-    \ar@{<.>} [r] ^{*}
-    & 
-    v',
-  }
-  \]
+  \[\large\begin{tikzcd}
+  e\ar[r, "f"]\ar[d, "s_e"'] & v\ar[d, leftrightarrow, dotted, "*"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*"'] & v'
+  \end{tikzcd}\]
   we have $H(e)=H(r_e)$ by definition of $H$, and $H(r_e)=H(v')=H(v)$ by
   induction hypothesis, which concludes the proof.
   \todo{Ce n'est pas hyper clair pour moi. Peux-tu reprendre la fin de la
