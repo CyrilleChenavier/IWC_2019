@@ -325,15 +325,10 @@ Section~\ref{sec:a_confluence_criterion}.
 \subsection{A confluence criterion}
 \label{sec:a_confluence_criterion}
 
-The main idea behind this section is that under suitable hypotheses on a
-local strategy $S$, the rewriting relation $\rewS$ is a terminating and
-confluent subrelation of $\rewR$. We start in
-Definition~\ref{def:standardisation_property} and
-Proposition~\ref{prop:h_and_R_confluence} by relating the confluence of
-$\rewR$ to properties on $S$. Then, in
-Theorem~\ref{thm:confluence_criterion}, we give our confluence criterion
-to check whether $R$ satisfies
-Definition~\ref{def:standardisation_property}.
+In Theorem~\ref{thm:confluence_criterion}, we prove our confluence
+criterion for $\rewR$. For that, we introduce two notions, that we call
+$S$-confluence and local $S$-confluence, and prove that the latter
+implies the former, which itselve implies confluence of $\rewR$.
 
 \begin{definition}\label{def:standardisation_property}
   Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
@@ -385,7 +380,7 @@ $S$-confluence, which is introduced in
 Definition~\ref{proper:decreasingness_property}. For that, we need to
 introduce the following decreasingness property.
 
-\begin{definition}\label{proper:decreasingness_property}
+\begin{definition}\label{def:decreasingness_property}
   Let $\preceq$ be a well-founded order on $R$. We say that $\rewR$ is
   \emph{locally $S$-confluent with respect to} $\preceq$ if for every
   $e\in\basis$ and every rewriting rule $f=e\rewR r$, then we have the
@@ -410,14 +405,14 @@ introduce the following decreasingness property.
 \end{definition}
 \smallskip
 
-\begin{example}
-  Continuing with Example \ref{ex:h_norma_form}, let us define an order
-  $\prec$ on $R$ by the following ordering: $(a\rewR b), (b\rewR c+d)
-  \prec (c\rewR b-d)$. This is guided by the heuristic that rules
-  advancing towards an $h$-normal form should be favored over rules that
-  do not: here $c$ is an $h$-normal form so its rewriting rule is large
-  for $\prec$. The following diagrams show that $\rewR$ is locally
-  $h$-confluent:
+\begin{example}\label{ex:end_to_example}
+  Continuing with Example \ref{ex:h_norma_form}, let us define the order
+  $\preceq$ on $R$ as follows: $(a\rewR b), (b\rewR c+d)\prec
+  (c\rewR b-d)$. This is guided by the heuristic that rules advancing
+  towards an $S$-normal form should be favored over rules that do not:
+  here $c$ is an $S$-normal form so its rewriting rule is large for
+  $\prec$. The following diagrams show that $\rewR$ is locally
+  $S$-confluent:
   \[
   \xymatrix @C = 2.5em @R = 2.5em{
     a \ar [r] _{R}  
