@@ -2,13 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amsmath}
-\usepackage{amssymb,mathrsfs}
-\pagestyle{plain}
-\usepackage{enumitem} 
-\usepackage{amsthm}
-\usepackage{titlesec}
-\usepackage[all]{xy}
+\usepackage{amsmath,amssymb,mathrsfs}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 
@@ -24,6 +18,9 @@
 \newtheorem{example}[theorem]{Example}
 
 % Newcommand
+
+%Titre article
+\newcommand\titlePaper{{\color{red}\bf Title}}
 
 % Texte
 \newcommand\eg{\emph{e.g.}}
@@ -67,7 +64,7 @@
 
 \begin{document}
 
-\title{The Diamond Lemma for non-terminating rewriting systems using deterministic reduction strategies (Long Version)}
+\title{\titlePaper}
 
 \author{
 Cyrille Chenavier\inst{1}
@@ -84,7 +81,7 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
 }
 
 \authorrunning{Chenavier and Lucas}
-\titlerunning{Running title}
+\titlerunning{\titlePaper}
 
 \maketitle
 
@@ -210,7 +207,7 @@ it by $<$ without ambiguity.
 Finally, we use the standard terminology of rewriting theory,
 see~\cite{MR1629216}. \todo{Compléter}
 
-\section{A weak version of the DiamondLlemma}
+\section{A weak version of the Diamond Lemma}
 \label{sec:a_weak_version_of_the_Diamond_Lemma}
 
 In this section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
@@ -513,16 +510,16 @@ particular case of our setup.
 \subsection{Rewriting systems on rational Weyl algebras}
 \label{sec:rewriting_systems_on_Weyl_algebras}
 
-In this section, we introduce rewriting systems in rational Weyl algebras
-and relate them to the framework introduced in
-Section~\ref{sec:a_weak_version_of_the_Diamond_Lemma}. Before that, we first
-recall the definitions of Weyl algebras and of monomial orders.
+In this section, we introduce rewriting systems in rational Weyl
+algebras, for which we need to define a suitable \data. We first recall
+the definitions of rational Weyl algebras as well as of monomial orders.
 \medskip
 
 We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
 $\Q(X)=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
 $\Q$. Let us introduce another set of variables
-$\Delta:=\{\diff{1},\cdots,\diff{n}\}$. 
+$\Delta=\{\diff{1},\cdots,\diff{n}\}$.
+\smallskip
 
 \begin{definition}
   The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
@@ -533,52 +530,42 @@ $\Delta:=\{\diff{1},\cdots,\diff{n}\}$.
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
   respect to the indeterminate~$x_i$. This algebra is denoted by $\Weyl$.
 \end{definition}
+\smallskip
 
 Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by 
-$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
+$\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
 that $\Weyl$ is a vector space on $\Q(X)$ and admits as a basis the set
-$\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. Hence, elements of
+\[\Delta^c=\left\{\partial^\alpha\mid\alpha\in\N^n\right\},\]
+which is the free commutative monoid over $\Delta$. Hence, elements of
 $\Weyl$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
 algebra is denoted by $\D$ and is called a differential operator.
 \smallskip
 
 \begin{definition}
-  A {\em monomial order} $\preceq$ on $\basis$ is a well-founded total
+  A {\em monomial order} $\prec$ on $\basis$ is a well-founded total
   order that is compatible with multiplication of monomials, \ie,
-  $\partial^{\alpha}\preceq\partial^{\beta}$ implies 
-  $\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
-  $\alpha,\beta,\gamma\in\N^n$. For every differential operator
-  $\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
-  monomial and the leading coefficient of $\D$ with respect to $\preceq$,
-  respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. 
+  $\partial^{\alpha}\prec\partial^{\beta}$ implies 
+  $\partial^{\alpha+\gamma}\prec\partial^{\beta+\gamma}$, for every
+  $\alpha,\beta,\gamma\in\N^n$. Moreover, the $\prec$-{\it \data} on
+  $\Weyl$ is the following \data:
+  \[(\Q(X),\Weyl,\Delta^c,\prec).\]
 \end{definition}
 \smallskip
 
-Hence, we get a \data\ $(\Q(X),\Weyl,\Delta^c,\preceq)$
+Let $\prec$ be a fixed monomial order and let $\D$ be a differential
+operator. As usual, we denote by $\lm(\D)$ and $\lc(\D)$ the leading
+monomial and the leading coefficient of $\D$ with respect to $\prec$,
+respectively, and we also let $r(\D)=\lc(\D)\lm(\D)-\D$. 
+\medskip
 
-The
-framework developed in Section~\ref{sec:a_weak_version_of_diamond_lemma}
-can be applied to rational Weyl algebras by taking $\K:=\Q(X)$ and
-$\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
-the support of a differential operator $\D$ is the product of partial
-derivative operators which occur in $\D$. It remains to introduce a
-well-founded order on $\basis$, and for that, we consider monomial
-orders.
-
-
-Given an operator $\D\in\Weyl$, consider the rewriting relation on
-$\Weyl$ defined as follows. Letting $\lm(\D)=\partial^{\alpha}$, we first
-have the rewriting steps on monomials defined by
-\begin{equation}\label{equ:rew_monomials}
-  \forall\beta\in\N^n,\quad\partial^{\alpha+\beta}
-  \to_{\D}\partial^{\beta}r(\D),\end{equation}
-and then extend \eqref{equ:rew_monomials} by linearity. More generally,
-for every set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, we
-consider the rewriting system $(\Weyl,\rewTheta)$ defined by
-$\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
-
-\todo{Il faudra remonter tout ça au cadre abstrait}
+Now, we introduce the rewriting system on $\Weyl$ associated with a set
+$\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, as being the
+linear extension of the following set of rewriting rules:
+\[R_{\Theta}=\Big\{\lm(\D_i)\to_{R_\Theta}r(\D_i)\mid 1\leq i\leq r
+\Big\}.\]
+For simplicity, we write rewriting rules and the the linear extension of
+these rules $\D\rewTheta\D'$ instead of $\D\to_{R_\Theta}\D'$.
 
 \subsection{Janet bases and $h$-confluence}
 \label{sec:Janet_bases_and_h_confluence}
