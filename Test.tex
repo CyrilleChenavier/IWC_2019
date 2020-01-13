@@ -46,7 +46,7 @@
 \newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\KX{\K X}
-\newcommand\Weyl{B_n(\Q)}
+\newcommand\Weyl[1]{B_{#1}(\Q)}
 
 % Réécriture
 \newcommand\rewR{\to_R}
@@ -347,8 +347,8 @@ Section~\ref{sec:confluence_relative_a_strategy}.
   of $\NF$.
 \end{proof}
 
-\subsection{Confluence relative a strategy}
-\label{sec:confluence_relative_a_strategy}
+\subsection{Confluence relative to a strategy}
+\label{sec:confluence_relative_to_a_strategy}
 
 In this section, we first introduce $S$-confluence and show that this
 property implies confluence of $\rewR$. Then, we introduce local
@@ -516,13 +516,15 @@ particular case of our setup.
 \label{sec:rewriting_systems_on_Weyl_algebras}
 
 In this section, we introduce rewriting systems in rational Weyl
-algebras, for which we need to define a suitable \data. We first recall
-the definitions of rational Weyl algebras as well as of monomial orders.
+algebras, and use them to compute formal solutions to systems of partial
+derivative equations. For that, we need to define a suitable \data\ on
+rational Weyl algebras. 
 \medskip
 
-We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
-$\Q(X)=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
-$\Q$. Let us introduce another set of variables
+We first recall the definitions of rational Weyl algebras as well as of
+monomial orders. We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates
+and we denote by $\Q(X)=\QXX$ the field of fractions of the polynomial
+algebra $\QX$ over $\Q$. Let us introduce another set of variables
 $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
 \smallskip
 
@@ -533,18 +535,44 @@ $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,\]
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
-  respect to the indeterminate~$x_i$. This algebra is denoted by $\Weyl$.
+  respect to the indeterminate~$x_i$. This algebra is denoted by
+  $\Weyl{n}$.
 \end{definition}
 \smallskip
 
 Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by 
 $\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
-that $\Weyl$ is a vector space on $\Q(X)$ and admits as a basis the set
+that $\Weyl{n}$ is a vector space on $\Q(X)$ and admits as a basis the
+set
 \[\Delta^c=\left\{\partial^\alpha\mid\alpha\in\N^n\right\},\]
 which is the free commutative monoid over $\Delta$. Hence, elements of
-$\Weyl$ should be thought as differential operators with rational
+$\Weyl{n}$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
-algebra is denoted by $\D$ and is called a differential operator.
+algebra is denoted by $\D$ and is called a differential operator. In the
+following example, we illustrate how these operators naturally appear in
+the study of linear systems of ordinary differential and partial
+derivative equations.
+\smallskip
+
+\begin{example}\label{ex:diff_operators_init}
+  {\color{white}toto}
+  \begin{enumerate}
+  \item The ordinary differential equation $y'(x)=xy(x)$ is written in
+    the form $\D y=0$, where the operator $\D=\partial-x$ belongs to
+    $\Weyl{1}=\Q(x)[\partial]$.
+  \item Consider the Janet example~\cite{MR3532888}, that is the system
+    of partial derivative equations with~$3$ variables and one unknown
+    function: $y_{33}=x_2y_{11}$ and $y_{22}=0$, where $y_{ij}$ denotes
+    the second order derivative of the unknown function $y$ with respect
+    to the variables $x_i$ and~$x_j$. Then, these equations are written
+    $\D_1y=0$ and $\D_2y=0$, where $\D_1$ and $\D_2$ are the following
+    elements of $\Weyl{3}$:
+    \[\D_1=\partial_3^2-x_2\partial_1^2,\quad \D_2=\partial_2^2.\]
+  \end{enumerate}
+\end{example}
+\smallskip
+
+Now, we recall the definition of monomial orders.
 \smallskip
 
 \begin{definition}
@@ -553,8 +581,8 @@ algebra is denoted by $\D$ and is called a differential operator.
   $\partial^{\alpha}\prec\partial^{\beta}$ implies 
   $\partial^{\alpha+\gamma}\prec\partial^{\beta+\gamma}$, for every
   $\alpha,\beta,\gamma\in\N^n$. Moreover, the $\prec$-{\it \data} on
-  $\Weyl$ is the following \data:
-  \[(\Q(X),\Weyl,\Delta^c,\prec).\]
+  $\Weyl{n}$ is the following \data:
+  \[(\Q(X),\Weyl{n},\Delta^c,\prec).\]
 \end{definition}
 \smallskip
 
@@ -564,13 +592,30 @@ monomial and the leading coefficient of $\D$ with respect to $\prec$,
 respectively, and we also let $r(\D)=\lc(\D)\lm(\D)-\D$. 
 \medskip
 
-Now, we introduce the rewriting system on $\Weyl$ associated with a set
-$\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, as being the
+Now, we introduce the rewriting system on $\Weyl{n}$ associated with a
+set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, as being the
 linear extension of the following set of rewriting rules:
 \[R_{\Theta}=\Big\{\lm(\D_i)\to_{R_\Theta}r(\D_i)\mid 1\leq i\leq r
 \Big\}.\]
 For simplicity, we write rewriting rules and the the linear extension of
 these rules $\D\rewTheta\D'$ instead of $\D\to_{R_\Theta}\D'$.
+\smallskip
+
+\begin{example}
+  We continue Example~\ref{ex:diff_operators_init}.
+  \begin{enumerate}
+  \item Let $\D=\partial-x\in\Weyl{1}$. Since $\partial$ is greater than
+    $1$ for every monomial order, the rewriting system associated with
+    $\Theta=\{\D\}$ extends the rewriting rule $\partial\rewTheta x$.
+  \item Extending $\partial_3\succ\partial_2\succ\partial_1$ into the
+    deglex order, the rewriting system associated with the pair
+    $\Theta=\{\D_1,\D_2\}$ of the two operators defined in
+    Example~\ref{ex:diff_operators_init} extend the two rewriting rules
+    $\partial_3^2\rewTheta x_2\partial_1^2$ and
+    $\partial_2^2\rewTheta 0$.
+  \end{enumerate}
+\end{example}
+\smallskip
 
 \subsection{Janet bases and $h$-confluence}
 \label{sec:Janet_bases_and_h_confluence}
