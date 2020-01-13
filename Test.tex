@@ -41,7 +41,7 @@
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
 \newcommand\F{\mathscr{F}}
-\newcommand\Q{\mathbb{Q}}
+\newcommand\Q{\mathbb{Q}} 
 \newcommand\N{\mathbb{N}}
 \newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
@@ -227,7 +227,7 @@ multiset order~$<$ on $V$ is simply called minimal.
 In this section, we first introduce the notion of linear extension, that
 is the rewriting relation on $V$ obtained by extending $R$ by linearity.
 Then, we define local strategies for this linear extension, that we use
-in Section~\ref{sec:confluence_relative_a_strategy} for introducing our
+in Section~\ref{sec:confluence_relative_to_a_strategy} for introducing our
 confluence criterion.
 \medskip
 
@@ -532,6 +532,17 @@ $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
   The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
   over the inderminates $\Delta$ and coefficients in $\Q(X)$, subject to
   the following commutation rule:
+  \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
+  1\leq i\leq n,\]
+  where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
+  respect to the indeterminate~$x_i$. This algebra is denoted by
+  $\Weyl{n}$.
+
+  \todo{Proposition de formulation:}
+
+  As a $Q(X)$-vector space, the {\it rational Weyl algebra}
+  over $\Q(X)$ is $\Q(X)[\Delta]$.  The multiplication is induce by the
+  relation $\partial_i \partial_j = \partial_j \partial_i$ and by the following commutation rule:
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,\]
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
