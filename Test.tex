@@ -231,7 +231,7 @@ in Section~\ref{sec:confluence_relative_a_strategy} for introducing our
 confluence criterion.
 \medskip
 
-The linear extension of $R$ enables us to reduce many basis elements at
+The linear extension of $R$ allows us to reduce many basis elements at
 once. Hence, we consider elementary reductions of the following form:
 
 \begin{equation}\label{equ:rewriting_step}
@@ -244,14 +244,14 @@ rewriting rules.
 
 \begin{definition}\label{def:extensions}
   The {\em linear extension} of $R$ is the rewriting relation on $V$
-  defined such as in \eqref{equ:rewriting_step}, where each $\lambda_i$
-  is nonzero and each $e_i$ does not belong to $\supp(v)$. 
+  defined as in \eqref{equ:rewriting_step}, where each $\lambda_i$
+  is nonzero and each $e_i$ does not belong to $\supp(v)$.
+  \todo{On veut rajouter que la somme est non-vide je pense?}
 \end{definition}
 \smallskip
 
 The linear extension of $R$ is still denoted by $\rewR$, and its closures
-under transitivity, symmetry and sum and transitivity, symmetry,
-reflexivity and sum are denoted by $\transR$ and $\equivR$, respectively.
+under transitivity, reflexivity and sum (resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$).
 Finally, a normal form for $\rewR$ is called an $R$-normal form.
 \medskip
 
@@ -270,12 +270,14 @@ with the order $<$.
   \item for every non minimal basis element $e$, there exists exactly one
     rewriting rule $e\rewR r_e$ in~$S$, moreover we have $r_e<e$.
   \end{itemize}
+  \todo{je ne crois pas que l'on définisse d'autre stratégie, donc on peu peut être virer le ``local''} 
 \end{definition}
 \smallskip
 
 Notice that a local strategy may not exist. The elements of such a local
 strategy $S$ are denoted~$e\rewS r_e$\footnote{The hat on $S$ is here to
   mark the difference between the local strategy and rewriting rules.}.
+\todo{Je suis pas fan de la notation mais j'ai pas mieux}
 Moreover, instead of working with the full linear extension of $S$, we
 consider the rewriting relation, also denoted by $\rewS$, which is
 defined such as the linear extension of $S$ with the additional property
@@ -327,8 +329,9 @@ associated with a local strategy $S$. By definition of such a strategy,
 for every $v\in V$, there exists at most one $v'$ such that
 $v\rewS v'$. Moreover, since $\rewS$ is compatible with the well-founded
 order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
-$S$-normal form that we denote by $\NF(v)$. This defines a map
-$\NF:V\to V$, that is fundamental for our confluence criterion of
+$S$-normal form that we denote by $\NF(v)$
+\todo{possiblement on veut rajouter S dans la notation?}. This defines a map
+$\NF:V\to V$  that will be fundamental for our confluence criterion in
 Section~\ref{sec:confluence_relative_a_strategy}.
 \medskip
 
@@ -338,7 +341,7 @@ Section~\ref{sec:confluence_relative_a_strategy}.
 
 \begin{proof}
   The $S$-normal forms are closed under sum, so that $\NF(\NF(v))=\NF(v)$
-  for every $v$, that is $\NF$ is a projector. Moreover, if $u\rewS u'$
+  for every $v$ and $\NF$ is a projector. Moreover, if $u\rewS u'$
   and $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we
   get $\NF(u+v)=\NF(\NF(u)+\NF(v))=\NF(u)+\NF(v)$, which proves linearity
   of $\NF$.
@@ -349,15 +352,15 @@ Section~\ref{sec:confluence_relative_a_strategy}.
 
 In this section, we first introduce $S$-confluence and show that this
 property implies confluence of $\rewR$. Then, we introduce local
-$S$-confluence which turns out to imply $S$-confluence: our confluence
-criterion follows, and we prove it
+$S$-confluence which turns out to imply $S$-confluence. Finally we define our confluence
+criterion for local $S$-confluence, and prove that it is correct in
 Theorem~\ref{thm:confluence_criterion}. We finish this section by a new
 proof of the Diamond Lemma, based on local $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
   Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
-  if for every rewriting rule $e\rewS r_e$, we have $\NF(e-r_e)=0$.
+  if for every rewriting rule $e\rewR r$, we have $\NF(e-r)=0$.
 \end{definition}
 \smallskip
 
@@ -374,10 +377,13 @@ confluence of $\rewR$.
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
   $\rewR$ under transitivity, symmetry and sum. Since the relation
-  $\NF(u-v)=0$ is closed under these operations, we get one implication.
-  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$. Moreover, by
-  definition of $\NF$, we have $u\transS\NF(u)$ and $v\transS\NF(v)$, and
-  since $v_1\transS v_2$ implies $v_1\transR v_2$, we get $u\equivR v$.
+  $\NF(u-v)=0$ is closed under these operations and contains $\rewR$ by hypothesis,
+  we get one implication.
+  
+  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$, and by
+  definition of $\NF$, we get $u\transS\NF(u)$ and $v\transS\NF(v)$. Finally
+  $v_1\transS v_2$ implies $v_1\transR v_2$, and we get $u\equivR v$.
+
   For the second assertion, let us consider three vectors
   $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the first
   part of the proposition, we have $\NF(v_1)=\NF(v_2)$. From
@@ -414,11 +420,10 @@ property with respect to a well-founded order on rewriting rules.
     respect to} $\prec$ if for every $e\in\basis$ and for every rewriting
   rule~$e\rewR r$, we have a confluence diagram:
   \[\large\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"]\\
-  r_e\ar[r, leftrightarrow, dotted, "*"] & v
+  e\ar[r, "_R"]\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
   \end{tikzcd}\]
-  where each rewriting step occurring in the dotted arrows belongs to $R$
-  (we removed the subscript $R$ for simplicity) and is strictly smaller
+  where each rewriting step occurring in the dotted arrows is strictly smaller
   than the rewriting rule $e\rewR r$ relative to $\prec$.
 \end{definition}
 \smallskip
@@ -430,26 +435,26 @@ The main result of this section is the following.
   Let $R$ be a set of rewriting rules. Assume that there exists a local
   strategy~S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
   locally S-confluent with respect to $\prec$. Then,~$\rewR$ is
-  confluent. 
+  $S$-confluent, and \emph{a fortiori} confluent. 
 \end{theorem}
 
 \begin{proof}
-  It is sufficient to show that $\rewR$ is $S$-confluent.
-  
   We reason by induction on rewriting rules $f$ according to the order
-  $\prec$. Looking at the square corresponding to $f$:
+  $\prec$. Let us look at the square corresponding to $f$:
   \[\large\begin{tikzcd}
-  e\ar[r, "f"]\ar[d, "s_e"'] & v\ar[d, leftrightarrow, dotted, "*"]\\
-  r_e\ar[r, leftrightarrow, dotted, "*"'] & v'
+  e\ar[r, "f"]\ar[d, "s_e"'] & v\ar[d, leftrightarrow, dotted, "*"', "f_2"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "f_1"'] & v'.
   \end{tikzcd}\]
-  we have $H(e)=H(r_e)$ by definition of $H$, and $H(r_e)=H(v')=H(v)$ by
-  induction hypothesis, which concludes the proof.
-  \todo{Ce n'est pas hyper clair pour moi. Peux-tu reprendre la fin de la
-    preuve?}
+  By local $S$-confluence, every rewriting step appearing
+  in $f_1$ and $f_2$ is smaller than $f$.
+  Applying the induction hypothesis to each of them we get
+  (by definition of $S$-confluence) $\NFF(r_e) = \NFF(v') = \NFF(v)$.
+  Since $\NFF(e) = \NFF(r_e)$ by definition of $\NFF$ we get $\NFF(e) = \NFF(v)$.
+  By induction, this shows that $\rewR$ is $S$-confluent.
 \end{proof}
 \medskip
 
-Local $h$-confluence implies that the pair of rewriting relations
+Local $S$-confluence implies that the pair of rewriting relations
 $(\rewS,\rewR)$ is decreasing with respect to conversions (see
 \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
 and the discrete ordering on $\rewS$. By
@@ -467,8 +472,8 @@ recover that $\rewR$ is confluent.
   \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
   This choice is guided by the heuristic that rules advancing towards an
   $S$-normal form should be favored over rules that do not: here $c$ is
-  an $S$-normal form so its rewriting rule is for $\prec$. The following
-  diagrams show that $\rewR$ is locally $S$-confluent:
+  an $S$-normal form so the rewriting rule rewriting it should be larger for the ordering $\prec$.
+  The following diagrams show that $\rewR$ is locally $S$-confluent:
   \[\large\begin{tikzcd}
   a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
   \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
@@ -493,12 +498,12 @@ particular case of our setup.
   the relation ``there exists a vector $v$ such that $e\rewR v$ and
   $e'\in\supp(v)$''. This is a well-founded order since $\rewR$ is
   assumed to be terminating. Let us define the local strategy $S$ as
-  follows. First, notice that by definition of the order $<$, if the
-  basis element $e$ is not minimal, then it is not an $R$-normal form.
+  follows. First, notice that by definition of the order $<$, if a
+  basis element $e$ is not minimal, then it cannot be an $R$-normal form.
   Then,~$S$ is composed of elements $e\rewS r$, where $e\rewR r$ is an
   arbitrary rewriting rules reducing $e$. It remains to define $\prec$:
   we let $(e\rewR r)\prec(e'\rewR r')$ if $e<e'$, which is well-founded
-  since $<$ is. Finally, the hypothesis $r$ and $r'$ are joinable when
+  since $<$ is. Finally, the hypothesis that $r$ and $r'$ are joinable whenever
   $e\rewR r$ and $e\rewR r'$ implies that $\rewR$ is locally
   $S$-confluent with respect to $\prec$. Hence, by
   Theorem~\ref{thm:confluence_criterion}, $\rewR$ is confluent.   
