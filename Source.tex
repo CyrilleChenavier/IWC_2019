@@ -2,15 +2,9 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amsmath}
-\usepackage{amssymb,mathrsfs}
-\pagestyle{plain}
-\usepackage{enumitem} 
-\usepackage{amsthm}
-\usepackage{titlesec}
-\usepackage[all]{xy}
-\usepackage{algorithm}
-\usepackage{algorithmic}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{tikz}
+\usepackage{tikz-cd}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -25,20 +19,15 @@
 
 % Newcommand
 
-% Titre des sections
-\newcommand\secUn{Introduction}
-\newcommand\secDeux{A weak version of diamond lemma}
-\newcommand\secDeuxUn{Local strategies and $h$-normal forms}
-\newcommand\secDeuxDeux{A confluence criterion}
-\newcommand\secTrois{Rewriting and partial derivative equations}
-\newcommand\secTroisUn{Rewriting systems on rational Weyl algebras}
-\newcommand\secTroisDeux{Janet bases and $h$-confluence}
+%Titre article
+\newcommand\titlePaper{{\color{red}\bf Title}}
 
 % Texte
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
 \newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
+\newcommand\data{{\color{red}\bf data}}
 
 % Raccourcis mathématiques
 \newcommand\supp{\text{supp}}
@@ -52,21 +41,22 @@
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
 \newcommand\F{\mathscr{F}}
-\newcommand\Q{\mathbb{Q}}
+\newcommand\Q{\mathbb{Q}} 
 \newcommand\N{\mathbb{N}}
 \newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\KX{\K X}
-\newcommand\Weyl{B_n(\Q)}
+\newcommand\Weyl[1]{B_{#1}(\Q)}
 
 % Réécriture
-\newcommand\rewR{\underset{R}{\longrightarrow}}
-\newcommand\rewh{\underset{h}{\longrightarrow}}
-\newcommand\transR{\overset{*}{\rewR}}
-\newcommand\transh{\overset{*}{\rewh}}
-\newcommand\equivR{\underset{R}{\overset{*}{\longleftrightarrow}}}
-\newcommand\equivh{\underset{h}{\overset{*}{\longleftrightarrow}}}
+\newcommand\rewR{\to_R}
+\newcommand\rewS{\to_{\hat{S}}}
+\newcommand\transR{\overset{*}{\to}_R}
+\newcommand\transS{\overset{*}{\to}_{\hat{S}}}
+\newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 \newcommand\rewTheta{\to_{\Theta}}
+\newcommand\NF{\text{NF}}
+\newcommand\NFF{\emph{NF}}
 
 \bibliographystyle{plain}
 
@@ -74,7 +64,7 @@
 
 \begin{document}
 
-\title{The Diamond Lemma for non-terminating rewriting systems using deterministic reduction strategies (Long Version)}
+\title{\titlePaper}
 
 \author{
 Cyrille Chenavier\inst{1}
@@ -91,7 +81,7 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
 }
 
 \authorrunning{Chenavier and Lucas}
-\titlerunning{Running title}
+\titlerunning{\titlePaper}
 
 \maketitle
 
@@ -102,6 +92,8 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   We present a local criterion which enables us to check the confluence property in this framework.
   We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
 \end{abstract}
+
+\tableofcontents
 
 \todo{plan:
   \begin{itemize}
@@ -121,7 +113,7 @@ Inria Rennes - Bretagne Atlantique, \'Equipe Gallinette\\
   \end{itemize}
 }
 
-\section{\secUn}
+\section{Introduction}
 
 The fact that local confluence together with termination implies
 confluence has been known for abstract rewriting systems since
@@ -139,7 +131,7 @@ scalar) does not terminate. Instead, one needs to first consider
 well-formed rewriting steps before forming the reflexive transitive
 closure.
 
-Nevertheless the Diamond lemma has proved to be very useful : together
+Nevertheless the Diamond lemma has proved to be very useful: together
 with the works of Bokut~\cite{MR0506423}, it has given birth the
 theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have
 provided applications to various areas of noncommutative algebra such
@@ -185,275 +177,356 @@ on monomials. In particular, when the rewriting system is terminating,
 we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond
 Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
 
-\section{\secDeux}\label{sec:deux}
+\paragraph{Conventions and notations.}
 
-\subsection{\secDeuxUn}\label{sec:deuxUn}
+Throughout the paper, we fix some conventions and notations that we
+present now. We will always work with a tuple  $(\K,V,\basis,<)$, where
+\begin{itemize}
+\item $\K$ is a field
+\item $V$ is a $\K$-vector space and $\basis$ is a basis of $V$
+\item $<$ is a well-founded order over $\basis$.
+\end{itemize}
+In the sequel, such a tuple is called a \data. Given a \data, we simply
+say ground field, vectors and basis elements for $\K$, elements of $V$
+and $\basis$, respectively. Moreover, every vector $v$ admits a unique
+finite decomposition with respect to the basis $\basis$ and coefficients
+in the ground field:
+\begin{equation}\label{equ:vector_decompo}
+  v=\sum\lambda_ie_i,\quad\lambda_i\neq 0.
+\end{equation}
+The set of basis elements which appear in the decomposition
+\eqref{equ:vector_decompo} is called the {\it support} of $v$, and is
+written $\supp(v)$. We extend $<$ into the multiset order on $V$: for any
+$u,v \in V$, we have $u<v$ if $\supp(u)\neq\supp(v)$ and for any
+$e\in\supp(u)\setminus\supp(v)$, there exists
+$e'\in\supp(v)\setminus\supp(u)$ such that $e'>e$. Notice that this order
+coincides with the initial one on basis elements, so that we can denote
+it by $<$ without ambiguity.
+\medskip
 
-We fix a commutative field $\K$ as well as a well-founded partially ordered set
-$(X,<_X)$. We denote by $\KX$ the vector space spanned by~$X$: an element
-$v\in\KX$ is a finite formal linear combination of elements of $X$ with
-coefficients in $\K$.  The sum of
-$u=\sum\lambda_xx$ and $v=\sum\mu_xx$ equals $\sum(\lambda_x+\mu_x)x$ and
-the product of $\lambda\in\K$ by $v$ equals $\sum(\lambda\lambda_x)x$.
-For every $v\in\KX$, there exists a
-unique finite set $\supp(v)\subset X$, called the \emph{support} of $v$,
-such that
-\begin{small}
-  \begin{equation}\label{equ:support}
-    v=\sum_{x\in\supp(v)}\lambda_xx\ \text{and}\ x\in\supp(v)\Rightarrow\lambda_x
-    \neq 0.
-  \end{equation}
-\end{small}
+Finally, we use the standard terminology of rewriting theory,
+see~\cite{MR1629216}. \todo{Compléter}
+
+\section{A weak version of the Diamond Lemma}
+\label{sec:a_weak_version_of_the_Diamond_Lemma}
+
+In this section, we fix a \data\ $(\K,V,\basis,<)$ as well as a subset
+$R$ of $\basis\times V$, whose elements are called rewriting rules. Such
+a rewriting rule is denoted $e\rewR r$, where $e$ and $r$ are the natural
+projections of this rule of $R$ on $\basis$ and $V$, respectively. Our
+objective is to provide a confluence criterion for the rewriting system
+on $V$ which extends $R$ by linearity.
+\medskip
+
+Throughout the section, an element of $V$ which is minimal for the
+multiset order~$<$ on $V$ is simply called minimal.
+
+\subsection{Local strategies of linear extensions}
+\label{sec:local_strategies_of_linear_extensions}
+
+In this section, we first introduce the notion of linear extension, that
+is the rewriting relation on $V$ obtained by extending $R$ by linearity.
+Then, we define local strategies for this linear extension, that we use
+in Section~\ref{sec:confluence_relative_to_a_strategy} for introducing our
+confluence criterion.
+\medskip
+
+The linear extension of $R$ allows us to reduce many basis elements at
+once. Hence, we consider elementary reductions of the following form:
+
+\begin{equation}\label{equ:rewriting_step}
+  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
+  \smallskip
+\end{equation}
+where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\rewR r_i$ are
+rewriting rules.
 \smallskip
-\noindent
-We
-extend the order $<_X$ into the multiset order on $\KX$, denoted $<_{\KX}$:
-for any $u,v \in \KX$, $u<_{\KX}v$ if $\supp(u) \neq \supp(v)$ and for any $x\in\supp(u)\setminus\supp(v)$, there
-exists $y\in\supp(v)\setminus\supp(u)$ such that $y>_Xx$. Note that $<_{\KX}$ and $<_X$ coincide when restricted to $X$,
-so we simply denote this order by $<$ in the rest of this paper.
 
+\begin{definition}\label{def:extensions}
+  The {\em linear extension} of $R$ is the rewriting relation on $V$
+  defined as in \eqref{equ:rewriting_step}, where each $\lambda_i$
+  is nonzero and each $e_i$ does not belong to $\supp(v)$.
+  \todo{On veut rajouter que la somme est non-vide je pense?}
+\end{definition}
+\smallskip
+
+The linear extension of $R$ is still denoted by $\rewR$, and its closures
+under transitivity, reflexivity and sum (resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$).
+Finally, a normal form for $\rewR$ is called an $R$-normal form.
 \medskip
 
-We fix a set $R\subseteq X\times\KX$ which represents rewrite rules of
-the form $x\rewR r$. The set $R$ induces a rewriting relation on $\KX$ which reduces many $x$'s at once and defined as follows:
-\begin{small}
-  \begin{equation}\label{equ:rewriting_step}
-    \sum_x\lambda_xx+v\rewR\sum_x\lambda_xr_x+v,
-  \end{equation}
-\end{small}
-where $v$ is any element of $\KX$, and for any $x \in X$ appearing in the sum,  $\lambda_x\neq 0$, $x\rewR r_x\in R$ and $x\notin\supp(v)$.
-Finally we denote by $\equivR$ the closure of $\rewR$ under transitivity, symmetry and sum.
+In the following definition, we introduce the notion of local strategy,
+which is the selection of exactly one rewriting rule for each non minimal
+basis element. Moreover, the selected rewriting rule as to be compatible
+with the order $<$.
+\smallskip
 
 \begin{definition}
-  A \emph{local strategy} $h$ for $R$ is the choice, for every $x \in X$ not minimal for $<$, of a rewriting rule $h_x=x \rewR r_x$ such that $r_x < x$. 
+  A \emph{local strategy} is a subset $S$ of $R$ such that the following
+  two conditions hold:
+  \begin{itemize}
+  \item the left-hand sides of elements of $S$ are not minimal basis
+    elements,
+  \item for every non minimal basis element $e$, there exists exactly one
+    rewriting rule $e\rewR r_e$ in~$S$, moreover we have $r_e<e$.
+  \end{itemize}
+  \todo{je ne crois pas que l'on définisse d'autre stratégie, donc on peu peut être virer le ``local''} 
 \end{definition}
+\smallskip
 
-In the rest of this paper, we suppose chosen such a local strategy $h$ (note that such an $h$ may not exist). 
-Any vector $v$ can be decomposed in a unique way as
-$\sum\lambda_xx+v'$, where $y\in\supp(v')$ implies that $y$ is minimal
-for $<$, and $x\in\supp(v)\setminus\supp(v')$ is not. We define a rewriting
-relation $\rewh$ as follows:
-\begin{small}
-  \begin{equation}\label{equ:well-formed_rewriting_step}
-    h_v = \sum\lambda_xx+v'\rewh\sum\lambda_xr_x+v',
-  \end{equation}
-\end{small}
-where for every $x$, $h_x=x \rewR r_x$. Note in particular that if $x$ is minimal for $<$, then $h_x = x \to x$ is the identity on $x$.
-
+Notice that a local strategy may not exist. The elements of such a local
+strategy $S$ are denoted~$e\rewS r_e$\footnote{The hat on $S$ is here to
+  mark the difference between the local strategy and rewriting rules.}.
+\todo{Je suis pas fan de la notation mais j'ai pas mieux}
+Moreover, instead of working with the full linear extension of $S$, we
+consider the rewriting relation, also denoted by $\rewS$, which is
+defined such as the linear extension of $S$ with the additional property
+that there is no rewriting rule $e\rewS r_e$ such that $e\in\supp(v)$. In
+other words, a vector $u$ admits a unique decomposition
+\[u=\sum_i\lambda_ie_i+v,\]
+where $\lambda_i\neq 0$, $e'\in\supp(v)$ implies that $e'$ is minimal,
+and $e_i\in\supp(u)\setminus\supp(v')$ is not, and if $e_i\rewS r_i$ are
+elements of the local strategy, we have 
+\[u\rewS\sum_i\lambda_ir_i+v.
+  \smallskip\]
+The closure of $\rewS$ under transitivity and symmetry is denoted by
+$\transS$. Notice that $u\transS v$ implies $u\transR v$. Moreover, a
+normal form for $\rewS$ is called an $S$-normal form. In particular,
+every minimal basis element is a $S$-normal form. More generally,
+$S$-normal forms can be easily characterised as follows.
 \medskip
-
-\begin{definition}
-  A vector $v$ is said to be an \emph{$h$-normal form} if it is a normal
-  form for $\rewh$.
-\end{definition}
-
-
-\begin{example}\label{ex:h_norma_form}
-  Let $X=\{x,y,z,t\}$, $x\rewR y$, $y \rewR z + t$, $z \rewR y - t$. Note that this is not terminating since we have the infinite loop $y \rewR z + t \rewR (y - t) + t = y$. We choose the order $x > y > z,t$, and the following distinguished rewrite rules: $h_x = x \rewh y$ and $h_y = y \rewh z + t$. Then the $R$-normal forms are the $\lambda_t t$, while the $h$-normal forms are all the expressions of the form $\lambda_t t + \lambda_z z$.
-\end{example}
-
 
 \begin{lemma}\label{lem:h_normal_forms}
-  Let $v$ be a vector in $\KX$. Either $v$ is minimal for $<$, or there exists $v'<v$ such that $v\rewh v'$. In particular, $h$-normal forms are
-  precisely the minimal elements of $\KX$ for $<$. 
+  Given a vector $v$, either $v$ is minimal, or there exists $v'<v$ such
+  that $v\rewS v'$. In particular, $S$-normal forms are precisely the
+  minimal elements of $V$. 
 \end{lemma}
+\smallskip
 
+In order to illustrate our notions, we consider the following running
+example.
+\smallskip
+
+\begin{example}\label{ex:h_norma_form}
+  Let $\basis=\{a,b,c,d\}$ and consider the set $R$ composed of the
+  following rewriting rules:
+  \[a\rewR b,\quad b\rewR c+d,\quad c\rewR b-d.\]
+  Note that the linear extension of $R$ is not terminating since there is
+  a rewriting loop due to $b\rewR c+d$ and $c+d\rewR (b-d)+d=b$.
+  Moreover, we choose the order such that $d$ is minimal and other basis
+  elements are not comparable:
+  \[a>d,\quad b>d,\quad c>d.\]
+  Finally, as a local strategy, we select $S$ defined by:
+  \[a\rewS b,\quad b\rewS c+d.\]
+  Then, the $R$-normal forms are the elements of the form $\lambda_dd$,
+  while the $h$-normal forms are all the expressions of the form
+  $\lambda_dd+\lambda_cc$.
+\end{example}
+\smallskip
+
+We finish this section by introducing the normalisation operator
+associated with a local strategy $S$. By definition of such a strategy,
+for every $v\in V$, there exists at most one $v'$ such that
+$v\rewS v'$. Moreover, since $\rewS$ is compatible with the well-founded
+order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
+$S$-normal form that we denote by $\NF(v)$
+\todo{possiblement on veut rajouter S dans la notation?}. This defines a map
+$\NF:V\to V$  that will be fundamental for our confluence criterion in
+Section~\ref{sec:confluence_relative_a_strategy}.
 \medskip
-
-For each $v\in\KX$ and strategy local strategy $h$, there exists at most one $v'$ such that $v \rewh v'$,
-and $\rewh$ is compatible with the termination order $<$. As a
-consequence, any $v \in \KX$ is sent by multiple applications of $\rewh$
-to a unique $h$-normal form that we denote by $H(v)$. This defines a map
-$H : \KX \to \KX$.  
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $H$ is a linear projector, in the sense that for all $u,v \in \KX$ and $\lambda \in \K$, $H(u+v) = H(u) + H(v)$, $H(\lambda u) = \lambda H(u)$ and
-  $H(H(u)) = H(u)$.
+  The map $\NFF$ is a linear projector.
 \end{proposition}
 
 \begin{proof}
-  The $h$-normal forms are closed under sums, so that $H(H(v))=H(v)$ for
-  every $v$, that is $H$ is a projector. Moreover, if $u \rewh u'$ and
-  $v \rewh v'$, then we have $u + v \rewh u' + v'$. Iterating~$\rewh$, we
-  get $H(u + v) = H (H(u)+H(v))=H(u)+H(v)$. 
+  The $S$-normal forms are closed under sum, so that $\NF(\NF(v))=\NF(v)$
+  for every $v$ and $\NF$ is a projector. Moreover, if $u\rewS u'$
+  and $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we
+  get $\NF(u+v)=\NF(\NF(u)+\NF(v))=\NF(u)+\NF(v)$, which proves linearity
+  of $\NF$.
 \end{proof}
 
-\subsection{\secDeuxDeux}\label{sec:deuxDeux}
+\subsection{Confluence relative to a strategy}
+\label{sec:confluence_relative_to_a_strategy}
 
-In this section we investigate the confluence properties of $R$.
-The main idea behind this section is that under suitable hypothesis $\rewh$ should form a terminating, confluent subrelation of $\rewR$.
-
-We start in Definition \ref{def:standardisation_property} and the following propositions by relating the confluence of $\rewR$ to properties on $h$.
-Then Theorem~\ref{thm:confluence_criterion}, we prove a confluence
-criterion to check whether $R$ satisfies Definition~\ref{def:standardisation_property}.
+In this section, we first introduce $S$-confluence and show that this
+property implies confluence of $\rewR$. Then, we introduce local
+$S$-confluence which turns out to imply $S$-confluence. Finally we define our confluence
+criterion for local $S$-confluence, and prove that it is correct in
+Theorem~\ref{thm:confluence_criterion}. We finish this section by a new
+proof of the Diamond Lemma, based on local $S$-confluence.
+\smallskip
 
 \begin{definition}\label{def:standardisation_property}
-  We say that $R$ is \emph{h-confluent} if for every rewrite rule $x\rewR v\in R$, we have $H(x-v) = 0$.
+  Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
+  if for every rewriting rule $e\rewR r$, we have $\NF(e-r)=0$.
 \end{definition}
+\smallskip
 
-\begin{example}
-  Let us take the same example as in Example \ref{ex:h_norma_form}. We have three equations to check:
-  \begin{small}
-    \[
-    H(x) = z + t = H(y),\qquad H(y) = z + t = H(z + t),\qquad H(z) = z = H(y - t),
-    \]
-  \end{small}
-    and so $R$ is $h$-confluent. Replacing the rule $z \rewR y - t$ by $z \rewR y$, we get $H(z) = z$ and $H(y) = z + t$, so $R$ is not $h$-confluent anymore. 
-\end{example}
-
-\begin{proposition}\label{prop:equationnal_theory}
-  If $R$ is $h$-confluent, then
-  $u \equivR v$ if and only if $H(u-v)=0$.
-\end{proposition}
-
-\begin{proof}
-The relation $\equivR$ is the closure of $\rewR$ under transitivity, symmetry and sum. Since the relation $H(u - v) = 0$ is closed under these operations, we get one implication.
-
-Reciprocally, if $H(u - v) = 0$ then by definition of $H$ we have $u \equivh v$, and in particular $u \equivR v$.
-\end{proof}
-
-\begin{proposition}\label{prop:h-conf_implies_conf}
-If $R$ is $h$-confluent then $\rewR$ is confluent.
-\end{proposition}
-\begin{proof}
-  Let $v,\ v_1,\ v_2\in\KX$ be such that $v\transR v_i$, for $i=1,\ 2$.
-  From Proposition~\ref{prop:equationnal_theory}, $v_1-v_2$ belongs to
-  $\ker(H)$, that is $H(v_1)=H(v_2)$. Denoting by $u$ the common value, we get
-  $v_i\transR u$, which proves the proposition.
-\end{proof}
-
-Note that the previous proposition is a sufficient but not a necessary condition: taking $X$ to be the integers, with the relations $n \rewR n+1$ is confluent, but there exist no local strategy $h$ making $R$ $h$-confluent. 
-
-We now introduce our criterion to show that $R$ is $h$-confluent. For that, we assume that the set of relations $R$ is equipped with a well-founded order $\prec$ satisfying the following decreasingness property:
-
-\begin{definition}\label{proper:decreasingness_property}
-  We say that $R$ is \emph{locally $h$-confluent} if for every
-  $x \in X$ and $f=x\rewR v$, then letting $h_x=x\rewh r_x$, we
-  have the confluence diagram:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x 
-      \ar [r] ^{f}
-      \ar[d] _{h_x}
-      &
-      v
-      \ar@{<.>} [d] ^{*}
-      \\
-      r_x
-      \ar@{<.>} [r] ^{*}
-      & 
-      v',
-    }
-    \]
-  \end{small}
-  where each rewriting step occurring in the dotted arrows is strictly
-  smaller than $f$ with respect to  $\prec$.
-\end{definition}
-
-\begin{example}
-  Continuing with Example \ref{ex:h_norma_form}, let us define an order $\prec$ on $R$ by the following ordering: $(x \rewR y), (y \rewR z + t) \prec (z \rewR y - t)$. This is guided by the heuristic that rules advancing towards an $h$-normal form should be favored over rules that do not: here $z$ is an $h$-normal form so the rule rewriting it is large for $\prec$. The following diagrams show that $R$ is locally $h$-confluent:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x \ar [r] _{R}  
-      \ar [d] _{h_x}   
-      & y 
-      \ar@{=} [d]
-      \\
-      y
-      \ar@{=} [r]
-      & y
-    }
-    \qquad
-    \xymatrix @C = 2.5em @R = 2.5em{
-      y \ar [r] _{R}  
-      \ar [d] _{h_y}   
-      & z + t
-      \ar@{=} [d]
-      \\
-      z + t
-      \ar@{=} [r]
-      & z + t
-    }
-    \qquad
-    \xymatrix @C = 2.5em @R = 2.5em{
-      z \ar [r] _{R}  
-      \ar@{=} [d] _{h_z}   
-      & y - t
-      \ar [d] ^{R}
-      \\
-      z
-      \ar@{=} [r]
-      & z
-    }
-    \]
-  \end{small}
-\end{example}
+In the following proposition, we show that $S$-confluence implies
+confluence of $\rewR$.
 \medskip
 
-Our main result is the following.
+\begin{proposition}\label{prop:h_and_R_confluence}
+  Let $S$ be a local strategy such that $\rewR$ is $S$-confluent. We have
+  $u\equivR v$ if and only if $\NFF(u-v)=0$. Moreover, $\rewR$ is
+  confluent.
+\end{proposition}
+
+\begin{proof}
+  We show the first assertion. The relation $\equivR$ is the closure of
+  $\rewR$ under transitivity, symmetry and sum. Since the relation
+  $\NF(u-v)=0$ is closed under these operations and contains $\rewR$ by hypothesis,
+  we get one implication.
+  
+  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$, and by
+  definition of $\NF$, we get $u\transS\NF(u)$ and $v\transS\NF(v)$. Finally
+  $v_1\transS v_2$ implies $v_1\transR v_2$, and we get $u\equivR v$.
+
+  For the second assertion, let us consider three vectors
+  $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the first
+  part of the proposition, we have $\NF(v_1)=\NF(v_2)$. From
+  $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
+  confluent.
+\end{proof}
 \smallskip
+
+Note that the previous proposition is a sufficient but not a necessary
+condition. Indeed, with $\basis$ the set of integers and the rewriting
+rules $n\rewR n+1$, the linear extension of $R$ is confluent, but there
+is no local strategy such that $\rewR$ is confluent relative to this
+strategy.
+\smallskip
+
+\begin{example}
+  Let us continue Example~\ref{ex:h_norma_form}. The following identities
+  hold:
+  \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
+  \]
+  so that $\rewR$ is $S$-confluent, and hence confluent. Notice that if
+  we replace the rule $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and
+  $\NF(b)=c+d$, so $\rewR$ is not $S$-confluent anymore. 
+\end{example}
+\smallskip
+
+Now, we introduce local $S$-confluence, which is a decreasingness
+property with respect to a well-founded order on rewriting rules.
+\smallskip
+
+\begin{definition}\label{def:decreasingness_property}
+  Let $\prec$ be a well-founded order on $R$ and let $S$ be a local
+  strategy. We say that~$\rewR$ is \emph{locally $S$-confluent with
+    respect to} $\prec$ if for every $e\in\basis$ and for every rewriting
+  rule~$e\rewR r$, we have a confluence diagram:
+  \[\large\begin{tikzcd}
+  e\ar[r, "_R"]\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
+  \end{tikzcd}\]
+  where each rewriting step occurring in the dotted arrows is strictly smaller
+  than the rewriting rule $e\rewR r$ relative to $\prec$.
+\end{definition}
+\smallskip
+
+The main result of this section is the following.
+\medskip
 
 \begin{theorem}\label{thm:confluence_criterion}
-  If $R$ is locally $h$-confluent, then $R$ is $h$-confluent. In particular, $\rewR$ is confluent.
+  Let $R$ be a set of rewriting rules. Assume that there exists a local
+  strategy~S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
+  locally S-confluent with respect to $\prec$. Then,~$\rewR$ is
+  $S$-confluent, and \emph{a fortiori} confluent. 
 \end{theorem}
 
 \begin{proof}
-  We reason by induction on $r$ according to the order $\prec$. Looking at the square corresponding to $r$:
-  \begin{small}
-    \[
-    \xymatrix @C = 2.5em @R = 2.5em{
-      x 
-      \ar [r] ^{r}
-      \ar[d] _{h_x}
-      &
-      v
-      \ar@{<.>} [d] ^{*}
-      \\
-      r_x
-      \ar@{<.>} [r] ^{*}
-      & 
-      v',
-    }
-    \]
-  \end{small}
- we have $H(x) = H(r_x)$ by definition of $H$, and $H(r_x) = H(v') = H(v)$ by induction hypothesis, which concludes the proof.
+  We reason by induction on rewriting rules $f$ according to the order
+  $\prec$. Let us look at the square corresponding to $f$:
+  \[\large\begin{tikzcd}
+  e\ar[r, "f"]\ar[d, "s_e"'] & v\ar[d, leftrightarrow, dotted, "*"', "f_2"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "f_1"'] & v'.
+  \end{tikzcd}\]
+  By local $S$-confluence, every rewriting step appearing
+  in $f_1$ and $f_2$ is smaller than $f$.
+  Applying the induction hypothesis to each of them we get
+  (by definition of $S$-confluence) $\NFF(r_e) = \NFF(v') = \NFF(v)$.
+  Since $\NFF(e) = \NFF(r_e)$ by definition of $\NFF$ we get $\NFF(e) = \NFF(v)$.
+  By induction, this shows that $\rewR$ is $S$-confluent.
 \end{proof}
-
-\begin{remark}
-  Local $h$-confluence implies that the pair of rewriting relations $(\rewh,\rewR)$ is decreasing with respect to conversions (see \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$ and the discrete ordering on $\rewh$. 
-  By \cite[Theorem 3]{van2008confluence}, this implies that $(\rewh,\rewR)$ commute. Using the fact that $\rewh \subseteq \rewR$, one can then recover that $\rewR$ is confluent.
-\end{remark}
-
 \medskip
 
-
-Let us show how the Diamond Lemma fits as a particular case of our setup.
+Local $S$-confluence implies that the pair of rewriting relations
+$(\rewS,\rewR)$ is decreasing with respect to conversions (see
+\cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
+and the discrete ordering on $\rewS$. By
+\cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
+commute. Using the fact that $\rewS \subseteq \rewR$, one can then
+recover that $\rewR$ is confluent.
+\todo{Rajouter un phrase au début faisant comprendre que cette remarque
+  s'adresse à des spécialistes de réécriture}
 \smallskip
 
+\begin{example}\label{ex:end_to_example}
+  Using local $S$-confluence, we way recover that the rewriting relation
+  of Example~\ref{ex:h_norma_form} is confluent. Indeed, let us consider
+  the following order $\prec$ on rewriting rules:
+  \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
+  This choice is guided by the heuristic that rules advancing towards an
+  $S$-normal form should be favored over rules that do not: here $c$ is
+  an $S$-normal form so the rewriting rule rewriting it should be larger for the ordering $\prec$.
+  The following diagrams show that $\rewR$ is locally $S$-confluent:
+  \[\large\begin{tikzcd}
+  a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
+  \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
+    "_{\hat{S}}"'] & b-d\ar[d, "_R"]\\
+  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
+  \end{tikzcd}\]
+\end{example}
+\smallskip
+
+We finish this section by showing how the Diamond Lemma fits as a
+particular case of our setup.
+\medskip
+
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
-  Assume that $\rewR$ is terminating and that for every $x\in X$, $x\rewR r$ and $x\rewR r'\in R$, $r$ and $r'$ are joinable. Then, $\rewR$ is confluent.
+  Let $R$ be a set of rewriting rules such that $\rewR$ is terminating,
+  and for every $e\in\basis$ such that $e\rewR r$ and $e\rewR r'$, $r$
+  and $r'$ are joinable. Then,~$\rewR$ is confluent.
 \end{theorem}
 
 \begin{proof}
-  We define an ordering $x > y$ on $X$ as the transitive closure of the relation ``there exists $v \in \KX$ such that $x \rewR v$ and $y\in\supp(v)$''. This is well-founded since by hypothesis $\rewR$ is terminating. By definition, if $x \in X$ is not minimal for $>$, then $x$ is not an $R$-normal form. Let us fix an arbitrary rewriting step $h_x= x \rewh r_x$.  By definition of~$>$, for any $y \in \supp(r_x)$ we have $y < x$ and so $r_x < x$, which shows that  $h$ is a local strategy. Ordering the rewrite rules by their left hand sides makes $R$ locally $h$-confluent. Theorem \ref{thm:confluence_criterion} finally shows that $R$ is confluent.  
+  We define an ordering $e>e'$ on $\basis$ as the transitive closure of
+  the relation ``there exists a vector $v$ such that $e\rewR v$ and
+  $e'\in\supp(v)$''. This is a well-founded order since $\rewR$ is
+  assumed to be terminating. Let us define the local strategy $S$ as
+  follows. First, notice that by definition of the order $<$, if a
+  basis element $e$ is not minimal, then it cannot be an $R$-normal form.
+  Then,~$S$ is composed of elements $e\rewS r$, where $e\rewR r$ is an
+  arbitrary rewriting rules reducing $e$. It remains to define $\prec$:
+  we let $(e\rewR r)\prec(e'\rewR r')$ if $e<e'$, which is well-founded
+  since $<$ is. Finally, the hypothesis that $r$ and $r'$ are joinable whenever
+  $e\rewR r$ and $e\rewR r'$ implies that $\rewR$ is locally
+  $S$-confluent with respect to $\prec$. Hence, by
+  Theorem~\ref{thm:confluence_criterion}, $\rewR$ is confluent.   
 \end{proof}
 
-\section{\secTrois}\label{sec:trois}
+\section{Rewriting and partial derivative equations}
+\label{sec:rewriting_systems_and_partial_derivative_equations}
 
-\subsection{\secTroisUn}\label{sec:troisUn}
+\subsection{Rewriting systems on rational Weyl algebras}
+\label{sec:rewriting_systems_on_Weyl_algebras}
 
-In this section, we introduce rewriting systems in rational Weyl algebras
-and relate them to the framework introduced in Section~\ref{sec:deux}.
-Before that, we first recall the definitions of Weyl algebras and of
-monomial orders.
+In this section, we introduce rewriting systems in rational Weyl
+algebras, and use them to compute formal solutions to systems of partial
+derivative equations. For that, we need to define a suitable \data\ on
+rational Weyl algebras. 
 \medskip
 
-We fix a set $X:=\{x_1,\cdots,x_n\}$ of indeterminates and we denote by
-$Q(X):=\QXX$ the field of fractions of the polynomial algebra $\QX$ over
-$\Q$. Let us introduce another set of variables
-$\Delta:=\{\diff{1},\cdots,\diff{n}\}$. 
+We first recall the definitions of rational Weyl algebras as well as of
+monomial orders. We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates
+and we denote by $\Q(X)=\QXX$ the field of fractions of the polynomial
+algebra $\QX$ over $\Q$. Let us introduce another set of variables
+$\Delta=\{\diff{1},\cdots,\diff{n}\}$.
+\smallskip
 
 \begin{definition}
   The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
@@ -462,49 +535,101 @@ $\Delta:=\{\diff{1},\cdots,\diff{n}\}$.
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,\]
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
-  respect to the indeterminate~$x_i$. This algebra is denoted by $\Weyl$.
+  respect to the indeterminate~$x_i$. This algebra is denoted by
+  $\Weyl{n}$.
+
+  \todo{Proposition de formulation:}
+
+  As a $Q(X)$-vector space, the {\it rational Weyl algebra}
+  over $\Q(X)$ is $\Q(X)[\Delta]$.  The multiplication is induce by the
+  relation $\partial_i \partial_j = \partial_j \partial_i$ and by the following commutation rule:
+  \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
+  1\leq i\leq n,\]
+  where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
+  respect to the indeterminate~$x_i$. This algebra is denoted by
+  $\Weyl{n}$.
 \end{definition}
+\smallskip
 
 Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by 
-$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
-that $\Weyl$ is a vector space on $\Q(X)$ and admits as a basis the set
-$\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. Hence, elements of
-$\Weyl$ should be thought as differential operators with rational
+$\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
+that $\Weyl{n}$ is a vector space on $\Q(X)$ and admits as a basis the
+set
+\[\Delta^c=\left\{\partial^\alpha\mid\alpha\in\N^n\right\},\]
+which is the free commutative monoid over $\Delta$. Hence, elements of
+$\Weyl{n}$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
-algebra is denoted by $\D$ and is called a differential operator. The
-framework developed in Section~\ref{sec:deux} can be applied to rational
-Weyl algebras by taking $\K:=\Q(X)$ and
-$\basis:=\left\{\partial^\alpha\mid\alpha\in\N^n\right\}$. In particular,
-the support of a differential operator $\D$ is the product of partial
-derivative operators which occur in $\D$. It remains to introduce a
-well-founded order on $\basis$, and for that, we consider monomial
-orders.
+algebra is denoted by $\D$ and is called a differential operator. In the
+following example, we illustrate how these operators naturally appear in
+the study of linear systems of ordinary differential and partial
+derivative equations.
+\smallskip
+
+\begin{example}\label{ex:diff_operators_init}
+  {\color{white}toto}
+  \begin{enumerate}
+  \item The ordinary differential equation $y'(x)=xy(x)$ is written in
+    the form $\D y=0$, where the operator $\D=\partial-x$ belongs to
+    $\Weyl{1}=\Q(x)[\partial]$.
+  \item Consider the Janet example~\cite{MR3532888}, that is the system
+    of partial derivative equations with~$3$ variables and one unknown
+    function: $y_{33}=x_2y_{11}$ and $y_{22}=0$, where $y_{ij}$ denotes
+    the second order derivative of the unknown function $y$ with respect
+    to the variables $x_i$ and~$x_j$. Then, these equations are written
+    $\D_1y=0$ and $\D_2y=0$, where $\D_1$ and $\D_2$ are the following
+    elements of $\Weyl{3}$:
+    \[\D_1=\partial_3^2-x_2\partial_1^2,\quad \D_2=\partial_2^2.\]
+  \end{enumerate}
+\end{example}
+\smallskip
+
+Now, we recall the definition of monomial orders.
+\smallskip
 
 \begin{definition}
-  A {\em monomial order} $\preceq$ on $\basis$ is a well-founded total
+  A {\em monomial order} $\prec$ on $\basis$ is a well-founded total
   order that is compatible with multiplication of monomials, \ie,
-  $\partial^{\alpha}\preceq\partial^{\beta}$ implies 
-  $\partial^{\alpha+\gamma}\preceq\partial^{\beta+\gamma}$, for every
-  $\alpha,\beta,\gamma\in\N^n$. For every differential operator
-  $\D\in\Weyl$, let us denote by $\lm(\D)$ and $\lc(\D)$ the leading
-  monomial and the leading coefficient of $\D$ with respect to $\preceq$,
-  respectively, and let us write $r(\D):=\lc(\D)\lm(\D)-\D$. 
+  $\partial^{\alpha}\prec\partial^{\beta}$ implies 
+  $\partial^{\alpha+\gamma}\prec\partial^{\beta+\gamma}$, for every
+  $\alpha,\beta,\gamma\in\N^n$. Moreover, the $\prec$-{\it \data} on
+  $\Weyl{n}$ is the following \data:
+  \[(\Q(X),\Weyl{n},\Delta^c,\prec).\]
 \end{definition}
+\smallskip
 
-Given an operator $\D\in\Weyl$, consider the rewriting relation on
-$\Weyl$ defined as follows. Letting $\lm(\D)=\partial^{\alpha}$, we first
-have the rewriting steps on monomials defined by
-\begin{equation}\label{equ:rew_monomials}
-  \forall\beta\in\N^n,\quad\partial^{\alpha+\beta}
-  \to_{\D}\partial^{\beta}r(\D),\end{equation}
-and then extend \eqref{equ:rew_monomials} by linearity. More generally,
-for every set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, we
-consider the rewriting system $(\Weyl,\rewTheta)$ defined by
-$\D\rewTheta\D'$, whenever $\D\to_{\D_i}\D'$, for some $1\leq i\leq r$.
+Let $\prec$ be a fixed monomial order and let $\D$ be a differential
+operator. As usual, we denote by $\lm(\D)$ and $\lc(\D)$ the leading
+monomial and the leading coefficient of $\D$ with respect to $\prec$,
+respectively, and we also let $r(\D)=\lc(\D)\lm(\D)-\D$. 
+\medskip
 
-\todo{Il faudra remonter tout ça au cadre abstrait}
+Now, we introduce the rewriting system on $\Weyl{n}$ associated with a
+set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, as being the
+linear extension of the following set of rewriting rules:
+\[R_{\Theta}=\Big\{\lm(\D_i)\to_{R_\Theta}r(\D_i)\mid 1\leq i\leq r
+\Big\}.\]
+For simplicity, we write rewriting rules and the the linear extension of
+these rules $\D\rewTheta\D'$ instead of $\D\to_{R_\Theta}\D'$.
+\smallskip
 
-\subsection{\secTroisDeux}\label{sec:troisDeux}
+\begin{example}
+  We continue Example~\ref{ex:diff_operators_init}.
+  \begin{enumerate}
+  \item Let $\D=\partial-x\in\Weyl{1}$. Since $\partial$ is greater than
+    $1$ for every monomial order, the rewriting system associated with
+    $\Theta=\{\D\}$ extends the rewriting rule $\partial\rewTheta x$.
+  \item Extending $\partial_3\succ\partial_2\succ\partial_1$ into the
+    deglex order, the rewriting system associated with the pair
+    $\Theta=\{\D_1,\D_2\}$ of the two operators defined in
+    Example~\ref{ex:diff_operators_init} extend the two rewriting rules
+    $\partial_3^2\rewTheta x_2\partial_1^2$ and
+    $\partial_2^2\rewTheta 0$.
+  \end{enumerate}
+\end{example}
+\smallskip
+
+\subsection{Janet bases and $h$-confluence}
+\label{sec:Janet_bases_and_h_confluence}
 
 In this section, we take $\K = \mathbb R(x_1,x_2,\ldots,x_n)$ the field of real rational functions in $n$ variables, and look at the $\K$-algebra $A = \K[\partial_1,\ldots,\partial_n]$. We suppose given an ordering $\partial_n > \partial_{n-1} > \ldots > \partial_1$. By monomial, we mean unitary monomial.
 
