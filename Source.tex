@@ -27,6 +27,7 @@
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
 \newcommand\todo[1]{{\bf\textcolor{red}{#1}}}
+\newcommand\fixmecc[1]{{\textcolor{blue}{{\bf Cyrille:} #1}}}
 \newcommand\data{{\color{red}\bf data}}
 
 % Raccourcis mathématiques
@@ -37,6 +38,8 @@
 \DeclareMathOperator{\lm}{lm}
 \DeclareMathOperator{\lc}{lc}
 \newcommand\basis{\mathscr{B}}
+\newcommand\SigmaTheta{\Sigma_{\Theta}}
+\newcommand\lambdaB{\lambda_\bullet}
 
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
@@ -55,11 +58,10 @@
 \newcommand\transS{\overset{*}{\twoheadrightarrow}_S}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 \newcommand\rewTheta{\to_{\Theta}}
-\DeclareMathOperator{\NF}{{\it S}-NF}
+\DeclareMathOperator{\SNF}{{\it S}-NF}
+\DeclareMathOperator{\NF}{NF}
 
 \bibliographystyle{plain}
-
-
 
 \begin{document}
 
@@ -312,21 +314,22 @@ We finish this section by introducing the normalisation operator of a
 strategy $S$. By definition of a strategy, for every $v\in V$, there
 exists at most one $v'$ such that $v\rewS v'$. Moreover, since $\rewS$ is
 compatible with the well-founded order $<$, $v$ is sent by multiple
-applications of~$\rewS$ to a unique $S$-normal form $\NF(v)$. This
-defines a map $\NF:V\to V$ that will be fundamental for our confluence
+applications of~$\rewS$ to a unique $S$-normal form $\SNF(v)$. This
+defines a map $\SNF:V\to V$ that will be fundamental for our confluence
 criterion in Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $\NF$ is a linear projector.
+  The map $\SNF$ is a linear projector.
 \end{proposition}
 
 \begin{proof}
-  The $S$-normal forms are closed under sum, so that $\NF(\NF(v))=\NF(v)$
-  for every $v$ and $\NF$ is a projector. Moreover, if $u\rewS u'$
-  and $v\rewS v'$, then we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we
-  get $\NF(u+v)=\NF(\NF(u)+\NF(v))=\NF(u)+\NF(v)$, which proves linearity
-  of $\NF$.
+  The $S$-normal forms are closed under sum, so that
+  $\SNF(\SNF(v))=\SNF(v)$ for every $v$ and $\SNF$ is a projector.
+  Moreover, if $u\rewS u'$ and $v\rewS v'$, then we have
+  $u+v\rewS u'+v'$. Iterating~$\rewS$, we get
+  $\SNF(u+v)=\SNF(\SNF(u)+\SNF(v))=\SNF(u)+\SNF(v)$, which proves
+  linearity of $\SNF$.
 \end{proof}
 
 \subsection{Confluence relative to a strategy}
@@ -342,7 +345,7 @@ by a new proof of the Diamond Lemma, based on local $S$-confluence.
 
 \begin{definition}\label{def:standardisation_property}
   Given a strategy $S$, we say that $\rewR$ is \emph{S-confluent} if for
-  every rewriting rule~$e\rewR r$, we have $\NF(e-r)=0$.
+  every rewriting rule~$e\rewR r$, we have $\SNF(e-r)=0$.
 \end{definition}
 \smallskip
 
@@ -352,24 +355,24 @@ confluence of $\rewR$.
 
 \begin{proposition}\label{prop:h_and_R_confluence}
   Let $S$ be a strategy such that $\rewR$ is $S$-confluent. We have 
-  $u\equivR v$ if and only if $\NF(u-v)=0$. Moreover, $\rewR$ is
+  $u\equivR v$ if and only if $\SNF(u-v)=0$. Moreover, $\rewR$ is
   confluent.
 \end{proposition}
 
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
   $\rewR$ under transitivity, symmetry and sum. Since the relation
-  $\NF(u-v)=0$ is closed under these operations and contains $\rewR$ by
-  hypothesis, we get one implication. Reciprocally, if $\NF(u-v)=0$, then
-  we have $\NF(u)=\NF(v)$, and by definition of $\NF$, we get
-  $u\transS\NF(u)$ and $v\transS\NF(v)$. Finally $v_1\transS v_2$ implies
-  $v_1\transR v_2$, and we get $u\equivR v$.
+  $\SNF(u-v)=0$ is closed under these operations and contains $\rewR$ by
+  hypothesis, we get one implication. Reciprocally, if $\SNF(u-v)=0$,
+  then we have $\SNF(u)=\SNF(v)$, and by definition of $\SNF$, we get
+  $u\transS\SNF(u)$ and $v\transS\SNF(v)$. Finally $v_1\transS v_2$
+  implies $v_1\transR v_2$, and we get $u\equivR v$.
 
   For the second assertion, let us consider three vectors
-  $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the first
-  part of the proposition, we have $\NF(v_1)=\NF(v_2)$. Since we have
-  $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
-  confluent.
+  $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the
+  first part of the proposition, we have $\SNF(v_1)=\SNF(v_2)$. Since we
+  have $v_i\transS\SNF(v_i)$, we get $v_i\transR\SNF(v_i)$, so that
+  $\rewR$ is confluent.
 \end{proof}
 \smallskip
 
@@ -382,11 +385,12 @@ relative to this strategy.
 \begin{example}
   Let us continue Example~\ref{ex:h_norma_form}. The following identities
   hold:
-  \[\NF(a)=c+d=\NF(b),\qquad\NF(b)=c+d=\NF(c+d),\qquad\NF(c)=c=\NF(b-d),
+  \[\SNF(a)=c+d=\SNF(b),\qquad\SNF(b)=c+d=\SNF(c+d),\qquad
+  \SNF(c)=c=\SNF(b-d),
   \]
   so that $\rewR$ is $S$-confluent, and hence confluent. Notice that if
-  we replace the rule $c\rewR b-d$ by $c\rewR b$, we get $\NF(c)=c$ and
-  $\NF(b)=c+d$, so $\rewR$ is not $S$-confluent anymore. 
+  we replace the rule $c\rewR b-d$ by $c\rewR b$, we get $\SNF(c)=c$ and
+  $\SNF(b)=c+d$, so $\rewR$ is not $S$-confluent anymore. 
 \end{example}
 \smallskip
 
@@ -429,9 +433,10 @@ The main result of this section is the following.
   By local $S$-confluence, every rewriting step appearing
   in $f_1$ and $f_2$ is smaller than $f$.
   Applying the induction hypothesis to each of them we get
-  (by definition of $S$-confluence) $\NF(r_e) = \NF(v') = \NF(v)$.
-  Since $\NF(e) = \NF(r_e)$ by definition of $\NF$ we get $\NF(e) = \NF(v)$.
-  By induction, this shows that $\rewR$ is $S$-confluent.
+  (by definition of $S$-confluence) $\SNF(r_e) = \SNF(v') = \SNF(v)$.
+  Since $\SNF(e) = \SNF(r_e)$ by definition of $\SNF$ we get
+  $\SNF(e) = \SNF(v)$. By induction, this shows that $\rewR$ is
+  $S$-confluent.
 \end{proof}
 \medskip
 
@@ -497,14 +502,14 @@ particular case of our setup.
 \subsection{Rewriting systems on rational Weyl algebras}
 \label{sec:rewriting_systems_on_Weyl_algebras}
 
-In this section, we introduce rewriting systems in rational Weyl
-algebras, and use them to compute formal solutions to systems of partial
-derivative equations. For that, we need to define a suitable \data\ on
-rational Weyl algebras. 
+In this section, we first recall the definitions of rational Weyl
+algebras as well as of monomial orders. We then obtain a suitable \data\
+on rational Weyl algebas, that we use to define rewriting systems on 
+these algebras.
 \medskip
 
-We first recall the definitions of rational Weyl algebras as well as of
-monomial orders. We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates
+
+We fix a set $X=\{x_1,\cdots,x_n\}$ of indeterminates
 and we denote by $\Q(X)=\QXX$ the field of fractions of the polynomial
 algebra $\QX$ over $\Q$. Let us introduce another set of variables
 $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
@@ -512,29 +517,28 @@ $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
 
 \begin{definition}
   As a $\Q(X)$-vector space, the {\it rational Weyl algebra} over $\Q(X)$
-  is the polynomial algebra $\Q(X)[\Delta]$. The multiplication is induce
-  by the relation $\partial_i \partial_j = \partial_j \partial_i$ and by
-  the following commutation rule:
+  is the polynomial algebra $\Q(X)[\Delta]$ with $\Delta$ as set of
+  indeterminates. The multiplication is induce by the relation
+  $\partial_i \partial_j = \partial_j \partial_i$ and by the following
+  commutation rule:
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,\]
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
-  respect to the indeterminate~$x_i$. This algebra is denoted by
-  $\Weyl{n}$.
+  respect to~$x_i$. This algebra is denoted by $\Weyl{n}$.
 \end{definition}
 \smallskip
 
 Given $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$, we denote by 
-$\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Notice
-that $\Weyl{n}$ is a vector space on $\Q(X)$ and admits as a basis the
-set
+$\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$. Hence, 
+a basis of $\Weyl{n}$ as $\Q(X)$-vector space is the set
 \[\Delta^c=\left\{\partial^\alpha\mid\alpha\in\N^n\right\},\]
-which is the free commutative monoid over $\Delta$. Hence, elements of
+which is the free commutative monoid over $\Delta$. Elements of
 $\Weyl{n}$ should be thought as differential operators with rational
 functions coefficients, and for this reason, a generic element of this
 algebra is denoted by $\D$ and is called a differential operator. In the
-following example, we illustrate how these operators naturally appear in
-the study of linear systems of ordinary differential and partial
-derivative equations.
+following example, we illustrate how these operators provide an algebraic
+model of linear systems of ordinary differential and partial derivative
+equations.
 \smallskip
 
 \begin{example}\label{ex:diff_operators_init}
@@ -590,7 +594,7 @@ $\D\to_{R_\Theta}\D'$.
   \item Extending $\partial_3\succ\partial_2\succ\partial_1$ into the
     deglex order, the rewriting system associated with the pair
     $\Theta=\{\D_1,\D_2\}$ of the two operators defined in
-    Example~\ref{ex:diff_operators_init} extend the two rewriting rules
+    Example~\ref{ex:diff_operators_init} extends the two rewriting rules
     $\partial_3^2\rewTheta x_2\partial_1^2$ and
     $\partial_2^2\rewTheta 0$.
   \end{enumerate}
@@ -624,7 +628,7 @@ In this section, by monomial, we mean unitary monomial.
   where $m$ is a monomial in $\Weyl n$.
   \todo{I think this is it but maybe it is $\lm(f_i) m$?
     Also maybe it should be moved to the previous section?}
-  
+  \fixmecc{je crois que c'est déjà fait juste au-dessus.}
 \end{definition}
 
 \begin{definition}
