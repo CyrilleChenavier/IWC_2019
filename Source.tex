@@ -26,16 +26,16 @@
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
-\newcommand\todo[1]{{\bf\textcolor{red}{#1.}}}
+\newcommand\todo[1]{{\bf\textcolor{red}{#1}}}
 \newcommand\data{{\color{red}\bf data}}
 
 % Raccourcis mathématiques
-\newcommand\supp{\text{supp}}
+\DeclareMathOperator{\supp}{supp}
 \newcommand\Span[1]{\langle#1\rangle}
 \newcommand\diff[1]{\partial_{#1}}
 \newcommand\D{\mathcal{D}}
-\newcommand\lm{\text{lm}}
-\newcommand\lc{\text{lc}}
+\DeclareMathOperator{\lm}{lm}
+\DeclareMathOperator{\lc}{lc}
 \newcommand\basis{\mathscr{B}}
 
 % Structures algébriques
@@ -50,13 +50,12 @@
 
 % Réécriture
 \newcommand\rewR{\to_R}
-\newcommand\rewS{\to_{\hat{S}}}
+\newcommand\rewS{\twoheadrightarrow_S}
 \newcommand\transR{\overset{*}{\to}_R}
-\newcommand\transS{\overset{*}{\to}_{\hat{S}}}
+\newcommand\transS{\overset{*}{\twoheadrightarrow}_S}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 \newcommand\rewTheta{\to_{\Theta}}
-\newcommand\NF{\text{NF}}
-\newcommand\NFF{\emph{NF}}
+\DeclareMathOperator{\NF}{{\it S}-NF}
 
 \bibliographystyle{plain}
 
@@ -221,48 +220,35 @@ on $V$ which extends $R$ by linearity.
 Throughout the section, an element of $V$ which is minimal for the
 multiset order~$<$ on $V$ is simply called minimal.
 
-\subsection{Local strategies of linear extensions}
-\label{sec:local_strategies_of_linear_extensions}
+\subsection{Strategies on linear rewriting systems}
+\label{sec:strategies_on_linear_rewriting_systems}
 
-In this section, we first introduce the notion of linear extension, that
-is the rewriting relation on $V$ obtained by extending $R$ by linearity.
-Then, we define local strategies for this linear extension, that we use
-in Section~\ref{sec:confluence_relative_to_a_strategy} for introducing our
-confluence criterion.
-\medskip
-
-The linear extension of $R$ allows us to reduce many basis elements at
-once. Hence, we consider elementary reductions of the following form:
+In this section, we define strategies of linear rewriting systems, these
+strategies are used to introduce our confluence criterion in
+Section~\ref{sec:confluence_relative_to_a_strategy}. We first need to
+extend the rewriting rules in~$R$ into a rewriting relation on $V$ by
+considering elementary reductions of the following form:
 
 \begin{equation}\label{equ:rewriting_step}
-  \sum_i\lambda_ie_i+v\to\sum_i\lambda_ir_i+v,
+  \sum_{i=1}^n\lambda_ie_i+v\to\sum_{i=1}^n\lambda_ir_i+v,
   \smallskip
 \end{equation}
-where $v$ is a vector, $\lambda_i$ is a scalar and $e_i\rewR r_i$ are
-rewriting rules.
-\smallskip
-
-\begin{definition}\label{def:extensions}
-  The {\em linear extension} of $R$ is the rewriting relation on $V$
-  defined as in \eqref{equ:rewriting_step}, where each $\lambda_i$
-  is nonzero and each $e_i$ does not belong to $\supp(v)$.
-  \todo{On veut rajouter que la somme est non-vide je pense?}
-\end{definition}
-\smallskip
-
-The linear extension of $R$ is still denoted by $\rewR$, and its closures
-under transitivity, reflexivity and sum (resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$).
-Finally, a normal form for $\rewR$ is called an $R$-normal form.
+where $n$ is a strictly positive integer, $v$ is a vector, and for each
+index $i$ in the sum, $\lambda_i$ is a nonzero scalar and $e_i\rewR r_i$
+is a rewriting rule. This rewriting relation is still denoted by $\rewR$,
+and its closures under transitivity, reflexivity and sum (resp. and
+symmetry) is denoted by $\transR$ (resp. $\equivR$). Finally, a normal
+form for $\rewR$ is called an $R$-normal form.
 \medskip
 
-In the following definition, we introduce the notion of local strategy,
-which is the selection of exactly one rewriting rule for each non minimal
-basis element. Moreover, the selected rewriting rule as to be compatible
-with the order $<$.
+In the following definition, we introduce strategies, which consist in
+selecting exactly one rewriting rule for each non minimal basis element.
+Moreover, the selected rewriting rule as to be compatible with the order
+$<$.
 \smallskip
 
 \begin{definition}
-  A \emph{local strategy} is a subset $S$ of $R$ such that the following
+  A \emph{strategy} is a subset $S$ of $R$ such that the following
   two conditions hold:
   \begin{itemize}
   \item the left-hand sides of elements of $S$ are not minimal basis
@@ -270,24 +256,22 @@ with the order $<$.
   \item for every non minimal basis element $e$, there exists exactly one
     rewriting rule $e\rewR r_e$ in~$S$, moreover we have $r_e<e$.
   \end{itemize}
-  \todo{je ne crois pas que l'on définisse d'autre stratégie, donc on peu peut être virer le ``local''} 
 \end{definition}
 \smallskip
 
-Notice that a local strategy may not exist. The elements of such a local
-strategy $S$ are denoted~$e\rewS r_e$\footnote{The hat on $S$ is here to
-  mark the difference between the local strategy and rewriting rules.}.
-\todo{Je suis pas fan de la notation mais j'ai pas mieux}
-Moreover, instead of working with the full linear extension of $S$, we
-consider the rewriting relation, also denoted by $\rewS$, which is
-defined such as the linear extension of $S$ with the additional property
-that there is no rewriting rule $e\rewS r_e$ such that $e\in\supp(v)$. In
-other words, a vector $u$ admits a unique decomposition
-\[u=\sum_i\lambda_ie_i+v,\]
-where $\lambda_i\neq 0$, $e'\in\supp(v)$ implies that $e'$ is minimal,
-and $e_i\in\supp(u)\setminus\supp(v')$ is not, and if $e_i\rewS r_i$ are
-elements of the local strategy, we have 
-\[u\rewS\sum_i\lambda_ir_i+v.
+Notice that a strategy may not exist. The elements of a strategy $S$ are
+denoted~$e\rewS r_e$\footnote{The double head on the arrow are here to
+  mark the difference between strategies and rewriting rules.}. Moreover,
+this strategy is extended into the rewriting relation, still denoted by
+$\rewS$, defined such as in~\eqref{equ:rewriting_step}, with the
+additional property that there is no $e\rewS r_e$ such that
+$e\in\supp(v)$. In other words, a vector $u$ admits a unique
+decomposition
+\[u=\sum_{i=1}^n\lambda_ie_i+v,\]
+where each $\lambda_i$ is nonzero, each basis element in $\supp(v)$ is
+minimal and each $e_i$ is not, and if $n$ is nonzero and $e_i\rewS r_i$
+are elements of the strategy, then we have 
+\[u\rewS\sum_{i=1}^n\lambda_ir_i+v.
   \smallskip\]
 The closure of $\rewS$ under transitivity and symmetry is denoted by
 $\transS$. Notice that $u\transS v$ implies $u\transR v$. Moreover, a
@@ -308,15 +292,15 @@ example.
 \smallskip
 
 \begin{example}\label{ex:h_norma_form}
-  Let $\basis=\{a,b,c,d\}$ and consider the set $R$ composed of the
-  following rewriting rules:
+  Let $\basis=\{a,b,c,d\}$ and consider the set $R$ of rewriting rules
+  defined as follows:
   \[a\rewR b,\quad b\rewR c+d,\quad c\rewR b-d.\]
-  Note that the linear extension of $R$ is not terminating since there is
-  a rewriting loop due to $b\rewR c+d$ and $c+d\rewR (b-d)+d=b$.
-  Moreover, we choose the order such that $d$ is minimal and other basis
-  elements are not comparable:
+  Note that $\rewR$ is not terminating since there is a rewriting loop
+  due to $b\rewR c+d$ and $c+d\rewR (b-d)+d=b$. Moreover, we choose the
+  order such that $d$ is minimal and other basis elements are not
+  comparable:
   \[a>d,\quad b>d,\quad c>d.\]
-  Finally, as a local strategy, we select $S$ defined by:
+  Finally, we select the strategy $S$ defined by:
   \[a\rewS b,\quad b\rewS c+d.\]
   Then, the $R$-normal forms are the elements of the form $\lambda_dd$,
   while the $h$-normal forms are all the expressions of the form
@@ -324,19 +308,17 @@ example.
 \end{example}
 \smallskip
 
-We finish this section by introducing the normalisation operator
-associated with a local strategy $S$. By definition of such a strategy,
-for every $v\in V$, there exists at most one $v'$ such that
-$v\rewS v'$. Moreover, since $\rewS$ is compatible with the well-founded
-order $<$, $v$ is sent by multiple applications of $\rewS$ to a unique
-$S$-normal form that we denote by $\NF(v)$
-\todo{possiblement on veut rajouter S dans la notation?}. This defines a map
-$\NF:V\to V$  that will be fundamental for our confluence criterion in
-Section~\ref{sec:confluence_relative_a_strategy}.
+We finish this section by introducing the normalisation operator of a
+strategy $S$. By definition of a strategy, for every $v\in V$, there
+exists at most one $v'$ such that $v\rewS v'$. Moreover, since $\rewS$ is
+compatible with the well-founded order $<$, $v$ is sent by multiple
+applications of~$\rewS$ to a unique $S$-normal form $\NF(v)$. This
+defines a map $\NF:V\to V$ that will be fundamental for our confluence
+criterion in Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
 \begin{proposition}\label{prop:linearity_of_H}
-  The map $\NFF$ is a linear projector.
+  The map $\NF$ is a linear projector.
 \end{proposition}
 
 \begin{proof}
@@ -351,16 +333,16 @@ Section~\ref{sec:confluence_relative_a_strategy}.
 \label{sec:confluence_relative_to_a_strategy}
 
 In this section, we first introduce $S$-confluence and show that this
-property implies confluence of $\rewR$. Then, we introduce local
-$S$-confluence which turns out to imply $S$-confluence. Finally we define our confluence
-criterion for local $S$-confluence, and prove that it is correct in
-Theorem~\ref{thm:confluence_criterion}. We finish this section by a new
-proof of the Diamond Lemma, based on local $S$-confluence.
+property implies confluence of~$\rewR$. Then, we introduce local
+$S$-confluence which turns out to imply $S$-confluence. Finally we define
+our confluence criterion for local $S$-confluence, and prove that it is
+correct in Theorem~\ref{thm:confluence_criterion}. We finish this section
+by a new proof of the Diamond Lemma, based on local $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
-  Given a local strategy $S$, we say that $\rewR$ is \emph{S-confluent}
-  if for every rewriting rule $e\rewR r$, we have $\NF(e-r)=0$.
+  Given a strategy $S$, we say that $\rewR$ is \emph{S-confluent} if for
+  every rewriting rule~$e\rewR r$, we have $\NF(e-r)=0$.
 \end{definition}
 \smallskip
 
@@ -369,24 +351,23 @@ confluence of $\rewR$.
 \medskip
 
 \begin{proposition}\label{prop:h_and_R_confluence}
-  Let $S$ be a local strategy such that $\rewR$ is $S$-confluent. We have
-  $u\equivR v$ if and only if $\NFF(u-v)=0$. Moreover, $\rewR$ is
+  Let $S$ be a strategy such that $\rewR$ is $S$-confluent. We have 
+  $u\equivR v$ if and only if $\NF(u-v)=0$. Moreover, $\rewR$ is
   confluent.
 \end{proposition}
 
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
   $\rewR$ under transitivity, symmetry and sum. Since the relation
-  $\NF(u-v)=0$ is closed under these operations and contains $\rewR$ by hypothesis,
-  we get one implication.
-  
-  Reciprocally, if $\NF(u-v)=0$, we have $\NF(u)=\NF(v)$, and by
-  definition of $\NF$, we get $u\transS\NF(u)$ and $v\transS\NF(v)$. Finally
-  $v_1\transS v_2$ implies $v_1\transR v_2$, and we get $u\equivR v$.
+  $\NF(u-v)=0$ is closed under these operations and contains $\rewR$ by
+  hypothesis, we get one implication. Reciprocally, if $\NF(u-v)=0$, then
+  we have $\NF(u)=\NF(v)$, and by definition of $\NF$, we get
+  $u\transS\NF(u)$ and $v\transS\NF(v)$. Finally $v_1\transS v_2$ implies
+  $v_1\transR v_2$, and we get $u\equivR v$.
 
   For the second assertion, let us consider three vectors
   $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the first
-  part of the proposition, we have $\NF(v_1)=\NF(v_2)$. From
+  part of the proposition, we have $\NF(v_1)=\NF(v_2)$. Since we have
   $v_i\transS\NF(v_i)$, we get $v_i\transR\NF(v_i)$, so that $\rewR$ is
   confluent.
 \end{proof}
@@ -394,9 +375,8 @@ confluence of $\rewR$.
 
 Note that the previous proposition is a sufficient but not a necessary
 condition. Indeed, with $\basis$ the set of integers and the rewriting
-rules $n\rewR n+1$, the linear extension of $R$ is confluent, but there
-is no local strategy such that $\rewR$ is confluent relative to this
-strategy.
+rules $n\rewR n+1$, there is no strategy such that $\rewR$ is confluent
+relative to this strategy.
 \smallskip
 
 \begin{example}
@@ -415,12 +395,12 @@ property with respect to a well-founded order on rewriting rules.
 \smallskip
 
 \begin{definition}\label{def:decreasingness_property}
-  Let $\prec$ be a well-founded order on $R$ and let $S$ be a local
-  strategy. We say that~$\rewR$ is \emph{locally $S$-confluent with
-    respect to} $\prec$ if for every $e\in\basis$ and for every rewriting
-  rule~$e\rewR r$, we have a confluence diagram:
-  \[\large\begin{tikzcd}
-  e\ar[r, "_R"]\ar[d, "_{\hat{S}}"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+  Let $\prec$ be a well-founded order on $R$ and let $S$ be a strategy.
+  We say that~$\rewR$ is \emph{locally $S$-confluent with respect to}
+  $\prec$ if for every $e\in\basis$ and for every rewriting rule
+  $e\rewR r$, we have a confluence diagram:
+  \[\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
   r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
   \end{tikzcd}\]
   where each rewriting step occurring in the dotted arrows is strictly smaller
@@ -432,13 +412,14 @@ The main result of this section is the following.
 \medskip
 
 \begin{theorem}\label{thm:confluence_criterion}
-  Let $R$ be a set of rewriting rules. Assume that there exists a local
-  strategy~S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
+  Let $R$ be a set of rewriting rules. Assume that there exists a
+  strategy S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
   locally S-confluent with respect to $\prec$. Then,~$\rewR$ is
   $S$-confluent, and \emph{a fortiori} confluent. 
 \end{theorem}
 
 \begin{proof}
+  \todo{Reprendre en faisant attention aux noms des réductions.}
   We reason by induction on rewriting rules $f$ according to the order
   $\prec$. Let us look at the square corresponding to $f$:
   \[\large\begin{tikzcd}
@@ -448,36 +429,37 @@ The main result of this section is the following.
   By local $S$-confluence, every rewriting step appearing
   in $f_1$ and $f_2$ is smaller than $f$.
   Applying the induction hypothesis to each of them we get
-  (by definition of $S$-confluence) $\NFF(r_e) = \NFF(v') = \NFF(v)$.
-  Since $\NFF(e) = \NFF(r_e)$ by definition of $\NFF$ we get $\NFF(e) = \NFF(v)$.
+  (by definition of $S$-confluence) $\NF(r_e) = \NF(v') = \NF(v)$.
+  Since $\NF(e) = \NF(r_e)$ by definition of $\NF$ we get $\NF(e) = \NF(v)$.
   By induction, this shows that $\rewR$ is $S$-confluent.
 \end{proof}
 \medskip
 
-Local $S$-confluence implies that the pair of rewriting relations
-$(\rewS,\rewR)$ is decreasing with respect to conversions (see
-\cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
-and the discrete ordering on $\rewS$. By
-\cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
-commute. Using the fact that $\rewS \subseteq \rewR$, one can then
-recover that $\rewR$ is confluent.
-\todo{Rajouter un phrase au début faisant comprendre que cette remarque
-  s'adresse à des spécialistes de réécriture}
+\begin{remark}
+  Local $S$-confluence implies that the pair of rewriting relations
+  $(\rewS,\rewR)$ is decreasing with respect to conversions (see
+  \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
+  and the discrete ordering on $\rewS$. By
+  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
+  commute. Using the fact that $\rewS \subseteq \rewR$, one can then
+  recover that $\rewR$ is confluent.
+\end{remark}
 \smallskip
 
 \begin{example}\label{ex:end_to_example}
-  Using local $S$-confluence, we way recover that the rewriting relation
-  of Example~\ref{ex:h_norma_form} is confluent. Indeed, let us consider
-  the following order $\prec$ on rewriting rules:
+  Using $S$-confluence, we may recover that the rewriting relation of
+  Example~\ref{ex:h_norma_form} is confluent. Indeed, let us consider the
+  following order $\prec$ on rewriting rules:
   \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
   This choice is guided by the heuristic that rules advancing towards an
   $S$-normal form should be favored over rules that do not: here $c$ is
-  an $S$-normal form so the rewriting rule rewriting it should be larger for the ordering $\prec$.
+  an $S$-normal form so the rewriting rule rewriting it should be larger
+  for the ordering $\prec$.
   The following diagrams show that $\rewR$ is locally $S$-confluent:
-  \[\large\begin{tikzcd}
-  a\ar[r, "_R"']\ar[d, "_{\hat{S}}"'] & b\ar[d, equal] & b\ar[r, "_R"']
-  \ar[d, "_{\hat{S}}"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
-    "_{\hat{S}}"'] & b-d\ar[d, "_R"]\\
+  \[\begin{tikzcd}
+  a\ar[r, "_R"']\ar[d, "_S"'] & b\ar[d, equal] & b\ar[r, "_R"']
+  \ar[d, "_S"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
+    "_S"'] & b-d\ar[d, "_R"]\\
   b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
   \end{tikzcd}\]
 \end{example}
@@ -497,13 +479,13 @@ particular case of our setup.
   We define an ordering $e>e'$ on $\basis$ as the transitive closure of
   the relation ``there exists a vector $v$ such that $e\rewR v$ and
   $e'\in\supp(v)$''. This is a well-founded order since $\rewR$ is
-  assumed to be terminating. Let us define the local strategy $S$ as
-  follows. First, notice that by definition of the order $<$, if a
-  basis element $e$ is not minimal, then it cannot be an $R$-normal form.
-  Then,~$S$ is composed of elements $e\rewS r$, where $e\rewR r$ is an
-  arbitrary rewriting rules reducing $e$. It remains to define $\prec$:
-  we let $(e\rewR r)\prec(e'\rewR r')$ if $e<e'$, which is well-founded
-  since $<$ is. Finally, the hypothesis that $r$ and $r'$ are joinable whenever
+  assumed to be terminating. Let us define the strategy $S$ as follows.
+  First, notice that by definition of the order $<$, if a basis element
+  $e$ is not minimal, then it cannot be an $R$-normal form. Then,~$S$ is
+  composed of elements $e\rewS r$, where $e\rewR r$ is an arbitrary
+  rewriting rules reducing $e$. It remains to define $\prec$: we let
+  $(e\rewR r)\prec(e'\rewR r')$ if $e<e'$, which is well-founded since
+  $<$ is. Finally, the hypothesis that $r$ and $r'$ are joinable whenever
   $e\rewR r$ and $e\rewR r'$ implies that $\rewR$ is locally
   $S$-confluent with respect to $\prec$. Hence, by
   Theorem~\ref{thm:confluence_criterion}, $\rewR$ is confluent.   
@@ -529,20 +511,10 @@ $\Delta=\{\diff{1},\cdots,\diff{n}\}$.
 \smallskip
 
 \begin{definition}
-  The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
-  over the inderminates $\Delta$ and coefficients in $\Q(X)$, subject to
+  As a $\Q(X)$-vector space, the {\it rational Weyl algebra} over $\Q(X)$
+  is the polynomial algebra $\Q(X)[\Delta]$. The multiplication is induce
+  by the relation $\partial_i \partial_j = \partial_j \partial_i$ and by
   the following commutation rule:
-  \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
-  1\leq i\leq n,\]
-  where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
-  respect to the indeterminate~$x_i$. This algebra is denoted by
-  $\Weyl{n}$.
-
-  \todo{Proposition de formulation:}
-
-  As a $Q(X)$-vector space, the {\it rational Weyl algebra}
-  over $\Q(X)$ is $\Q(X)[\Delta]$.  The multiplication is induce by the
-  relation $\partial_i \partial_j = \partial_j \partial_i$ and by the following commutation rule:
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,\]
   where $d/dx_i:\Q(X)\to\Q(X)$ is the partial derivative operator with
@@ -600,16 +572,13 @@ Now, we recall the definition of monomial orders.
 Let $\prec$ be a fixed monomial order and let $\D$ be a differential
 operator. As usual, we denote by $\lm(\D)$ and $\lc(\D)$ the leading
 monomial and the leading coefficient of $\D$ with respect to $\prec$,
-respectively, and we also let $r(\D)=\lc(\D)\lm(\D)-\D$. 
-\medskip
-
-Now, we introduce the rewriting system on $\Weyl{n}$ associated with a
-set $\Theta=\{\D_1,\cdots,\D_r\}$ of differential operators, as being the
-linear extension of the following set of rewriting rules:
+respectively, and we also let $r(\D)=\lc(\D)\lm(\D)-\D$. The rewriting
+system on $\Weyl{n}$ associated with a set $\Theta=\{\D_1,\cdots,\D_r\}$
+of differential operators, is defined by the following rewriting rules:
 \[R_{\Theta}=\Big\{\lm(\D_i)\to_{R_\Theta}r(\D_i)\mid 1\leq i\leq r
 \Big\}.\]
-For simplicity, we write rewriting rules and the the linear extension of
-these rules $\D\rewTheta\D'$ instead of $\D\to_{R_\Theta}\D'$.
+For simplicity, we write $\D\rewTheta\D'$ instead of
+$\D\to_{R_\Theta}\D'$.
 \smallskip
 
 \begin{example}
@@ -631,61 +600,145 @@ these rules $\D\rewTheta\D'$ instead of $\D\to_{R_\Theta}\D'$.
 \subsection{Janet bases and $h$-confluence}
 \label{sec:Janet_bases_and_h_confluence}
 
-In this section, we take $\K = \mathbb R(x_1,x_2,\ldots,x_n)$ the field of real rational functions in $n$ variables, and look at the $\K$-algebra $A = \K[\partial_1,\ldots,\partial_n]$. We suppose given an ordering $\partial_n > \partial_{n-1} > \ldots > \partial_1$. By monomial, we mean unitary monomial.
+\subsubsection{Cones and strategies}
 
-\begin{example}
-  Elements of $A$ should be thought of as systems of linear partial derivative equations. For example, the equation $x_1 \frac{\partial u}{\partial x_1} - u = 0$ corresponds to the element $x_1 \partial_1 - 1$ in $A$.
+In this section, by monomial, we mean unitary monomial.
 
-  Similarly, the $1$-dimensional heat equation $\frac{\partial u}{\partial t} = \kappa \frac{\partial^2 u}{\partial x^2}$  corresponds (taking $x_1 = t$ and $x_2 = x$) to the element $\partial_1 - \kappa \partial_2^2$.
-\end{example}
+% \begin{example}
+%   Elements of $A$ should be thought of as systems of linear partial derivative
+%   equations. For example, the equation $x_1 \frac{\partial u}{\partial x_1} - u = 0$
+%   corresponds to the element $x_1 \partial_1 - 1$ in $A$.
+
+%   Similarly, the $1$-dimensional heat equation
+%   $\frac{\partial u}{\partial t} = \kappa \frac{\partial^2 u}{\partial x^2}$  corresponds (taking $x_1 = t$
+%   and $x_2 = x$) to the element $\partial_1 - \kappa \partial_2^2$.
+% \end{example}
 
 \begin{definition}
- For any monomial $m$ and $1 \leq k \leq n$ we denote by $\nu_k(m)$ the power of $\partial_k$ in $m$.
-For any $\overline j =(j_1,\ldots,j_n) \in \mathbb N^n$, we denote by $\partial^{\overline j}$ the monomial $m$ such that $\nu_k(m) = j_k$ for all $k$. For any subset $E \subset \{1,\ldots,n\}$, we denote by $Mon(E)$ the set of monomials $m$ such that $\nu_k(m) = 0$ for all $k \notin E$. In particular, $Mon(\{1,\ldots,n\}$ is the set of all monomials of $A$ which we denote simply by $Mon$, while $Mon(\emptyset)$ is reduced to $\{1\}$. 
+  Let $f_1,\ldots,f_p$ be non-zero untitary elements of $\Weyl n$.
+  Write $f_i = \lm (f_i) + r_i$.
+  Using the ordered basis of $\Weyl n$ described earlier,
+  the family $f_1,\ldots,f_p$ induces a rewriting system $R$ on the vector
+  space underlying $\Weyl n$.
+  The rewriting system $R$ is formed of pairs $(m \lm(f_i), - m  r_i)$,
+  where $m$ is a monomial in $\Weyl n$.
+  \todo{I think this is it but maybe it is $\lm(f_i) m$?
+    Also maybe it should be moved to the previous section?}
+  
 \end{definition}
 
 \begin{definition}
-  A \emph{cone} is a pair $(m,E)$, where $m \in A$ and $E \subset \{1,\ldots,n\}$. $m$ is called the \emph{origin of the cone}, while $E$ is the \emph{direction}. A cone is \emph{monomial} if $m$ is a monomial. We denote by $(m,E)^*$ the family of monomials of the form $mp$, where $p \in Mon(E)$.
+  For any monomial $m$ and $1 \leq k \leq n$ we denote by $\nu_k(m)$
+  the power of $\partial_k$ in $m$.
+  For any $\overline j =(j_1,\ldots,j_n) \in \mathbb N^n$, we denote by $\partial^{\overline j}$
+  the monomial $m$ such that $\nu_k(m) = j_k$ for all $k$. For any subset
+  $E \subset \{1,\ldots,n\}$, we denote by $Mon(E)$ the set of monomials $m$ such that
+  $\nu_k(m) = 0$ for all $k \notin E$. In particular, $Mon(\{1,\ldots,n\})$ is the set of
+  all monomials of $\Weyl n$ which we denote simply by $Mon$, while $Mon(\emptyset)$ is
+  reduced to $\{1\}$. 
+\end{definition}
 
-  If $S$ is a family of monomials, a \emph{cone-partition} of $S$ is a family of monomial cones $(m_i,E_i)$ for $i \in I$ such that for $i \neq j$, $(m_i,E_i)^* \cap (m_j,E_j) = \emptyset$ and $S = \coprod_{i \in I} (m_i,E_i)^*$. In other words the $(m_i,E_i)^*$ form a partition of $S$ into monomial cones. It is a finite cone-partition if $I$ is finite.
+\begin{definition}
+  A \emph{cone} is a pair $(m,E)$, where $m \in \Weyl n$ and $E \subset \{1,\ldots,n\}$.
+  $m$ is called the \emph{origin of the cone}, while $E$
+  is the \emph{direction}. A cone is \emph{monomial} if $m$ is a monomial.
+  We denote by $(m,E)^*$ the family of monomials of the form $mp$,
+  where $p \in Mon(E)$.
+
+  If $S$ is a family of monomials, a \emph{cone-partition} of $S$ is a family
+  of monomial cones $(m_i,E_i)$ for $i \in I$ such that for $i \neq j$,
+  $(m_i,E_i)^* \cap (m_j,E_j)^* = \emptyset$ and $S = \coprod_{i \in I} (m_i,E_i)^*$.
+  In other words the $(m_i,E_i)^*$ form a partition of $S$ into monomial cones.
+  It is a finite cone-partition if $I$ is finite.
 \end{definition}
 
 
  \begin{definition}
-   A family of monomial cones $(m_i,E_i)$ with distinct origins is said to be \emph{complete} if it induces a cone-partition of the monomial ideal generated by the $m_i$s. 
+   A family of monomial cones $(m_i,E_i)$ with distinct origins is said
+   to be \emph{complete} if it induces a cone-partition of the monomial ideal
+   generated by the $m_i$'s. 
 
-   A family of cones $(p_i,E_i)$ is said to be \emph{complete} if $(lm(p_i),E_i)$ is complete. 
+   A family of cones $(p_i,E_i)$ is said to be \emph{complete}
+   if $(lm(p_i),E_i)$ is complete. 
  \end{definition}
 
  \begin{lemma}
-  A complete family of cones gives rise to a local strategy on $A$. 
+   Let $m_i$ be a family of elements of $\Weyl n$ with distinct and unitary
+   leading monomials, and $R$ be the associated rewriting system.
+   
+   The data of a family of directions $E_i$ such that $(m_i,E_i)$ yields a
+   rewriting strategy $S$ for $R$.
 \end{lemma}
 \begin{proof}[\todo{Sketch}]
-  We use the monomial ordering on reducible monomials, and reducible ones are bigger than irreducible ones.
+  We use the monomial ordering on reducible monomials,
+  and reducible ones are bigger than irreducible ones.
 
-  Then we only need to define $h$ on reducible ones. For $x \in Red(R)$, there exists a unique $(m_i,E_i)$ in the cone-partition such that $x=m_i p$ with $p \in E_i$ and $m_i$ corresponds to an element $m_i + r$ of $R$. Then $h$ is defined by $h_x = x = m_ip  \rewR -rp$.
+  Then we only need to define $S$ on reducible ones. For $x \in Red(R)$,
+  there exists a unique $(m_i,E_i)$ in the cone-partition such that $x=m_i p$
+  with $p \in E_i$ and $m_i$ corresponds to an element $m_i + r$ of $R$.
+  Then $h$ is defined by $h_x = x = m_ip  \rewR -rp$.
 \end{proof}
 
 
-In order to produce suitable cone-partitions as in the previous lemma, we introduce the notion of multiplicative variables.
+
+ \begin{proposition}
+   Let $m_i$ be a family of elements of $\Weyl n$ with distinct and unitary
+   leading monomials, and $R$ be the associated rewriting system.
+   
+   The data of a family of directions $E_i$ such that $(m_i,E_i)$ forms a complete
+   family of cones is equivalent to the data of a rewriting strategy $S$ for $R$
+   such that, if $(e,r_e) \in S$ and $(me,mr_e) \in S$,
+   then $(m^k e,m^k r_e) \in S$ for all $k \geq 0$.
+ \end{proposition}
+ \begin{proof}[\todo{I think this is true? In any case a caracterisation would be interesting}].
+
+ \end{proof}
+
+ 
+\begin{definition}
+  Let $(m_i,E_i)$ be a complete family of cones, and $S$ the associated strategy.
+  The family of cones $(m_i,E_i)$ is said to be \emph{passive} if for all
+  $v \in E_i^\complement$, $\NF(vm_i) = 0$.
+\end{definition}
+
+\begin{proposition}
+  Let $(m_i,E_i)$ be a complete family of cones, and $S$ the associated strategy.
+  Then $(m_i,E_i)$ is passive if and only if $S$ is confluent. 
+\end{proposition}
+\begin{proof}
+\todo{TODO} 
+\end{proof}
+
+\subsubsection{The case of Janet basis}
+
+In order to produce suitable cone-partitions as in the previous lemma,
+we introduce the notion of multiplicative variables.
 
 \begin{definition}
-  Let $M$ be a subset of $Mon$, and let $m  \in M$. We define a subset $\mu_M(m)$ of $\{1,\ldots,n\}$. Let us write $m = \partial_1^{i_1}\partial_2^{i_2}\ldots \partial_n^{i_n}$, and take $k \in \{1,\ldots,n\}$. Then $k \in \mu_M(m)$ if the following implication is true:
+  Let $M$ be a subset of $Mon$, and let $m  \in M$. We define a subset $\mu_M(m)$
+  of $\{1,\ldots,n\}$. Let us write $m = \partial_1^{i_1}\partial_2^{i_2}\ldots \partial_n^{i_n}$, and take
+  $k \in \{1,\ldots,n\}$. Then $k \in \mu_M(m)$ if the following implication is true:
   \[
 \forall m' \in M, \quad (\forall j < k, \nu_j(m') = \nu_j(m) \, \quad \Rightarrow \quad \, \nu_k(m') \leq \nu_k(m)).
   \]
   
 
-  We call $(m,\mu_M(m))$ the cone of $m$ in $M$. If $M$ is clear then we will just write $\mu(m)$. If $k \in \mu(m)$ we will say that $\partial_k$ is a \emph{multiplicative variable} of $m$.
+  We call $(m,\mu_M(m))$ the cone of $m$ in $M$. If $M$ is clear then we will
+  just write $\mu(m)$. If $k \in \mu(m)$ we will say that $\partial_k$ is a
+  \emph{multiplicative variable} of $m$.
 \end{definition}
 
 \begin{lemma}\label{lem:multiplicative_cones_disjoint}
 Let $M \subset Mon$ and $m,m' \in M$. If $m \neq m'$, then $(m,\mu(m))^* \cap (m',\mu(m'))^* = \emptyset$.
 \end{lemma}
 \begin{proof}
-   Since $m \neq m'$, there exists $k$ minimal such that $\nu_k(m) \neq \nu_k(m')$. Without loss of generality, we can suppose $\nu_k(m) < \nu_k(m')$. By definition of $\mu$, we therefore have that $k \notin \mu(m)$.
+  Since $m \neq m'$, there exists $k$ minimal such that $\nu_k(m) \neq \nu_k(m')$.
+  Without loss of generality, we can suppose $\nu_k(m) < \nu_k(m')$.
+  By definition of $\mu$, we therefore have that $k \notin \mu(m)$.
 
-   Take now $p \in (m,\mu(m))^* \cap (m',\mu(m'))^*$. Then $p = mq$, with $\nu_k(q) = 0$, and so $\nu_k(p) = \nu_k(m)$. But $p$ is a multiple of $m'$ and so $\nu_k(m) = \nu_k(p) \geq \nu_k(m')$, which is contradictory.
+  Take now $p \in (m,\mu(m))^* \cap (m',\mu(m'))^*$. Then $p = mq$, with $\nu_k(q) = 0$,
+  and so $\nu_k(p) = \nu_k(m)$. But $p$ is a multiple of $m'$ and so
+  $\nu_k(m) = \nu_k(p) \geq \nu_k(m')$, which is contradictory.
  \end{proof}
 
  \begin{example}
@@ -693,15 +746,27 @@ Let $M \subset Mon$ and $m,m' \in M$. If $m \neq m'$, then $(m,\mu(m))^* \cap (m
  \end{example}
 
  \begin{definition}
-   A set of monomials $M$ is \emph{Janet-complete} if the family of all $(m,\mu(m))$ is complete.
+   A set of monomials $M$ is \emph{Janet-complete} if the family of
+   all $(m,\mu(m))$ is complete.
 
-   A set of polynomials $R$ is \emph{Janet-complete} if $lm(R)$ is Janet-complete.
-\end{definition}
+   A set of polynomials $R$ is \emph{Janet-complete} if $lm(R)$ is
+   Janet-complete.
+ \end{definition}
+
+ 
 
 
 
 
-\paragraph{Conclusion.} We introduced a sufficient condition, based on deterministic reduction strategies, of confluence for rewriting systems on vector spaces. As a particular case, we recover the Diamond Lemma. This work maybe extended in particular into two main directions. The first one consists in weakening our assumption on the set $\K$ of coefficients, by allowing non invertible coefficients. A second extension consists in characterising Janet bases in this framework, with the objective to develop constructive methods in the analysis and formal resolution of PDE's.
+ \paragraph{Conclusion.} We introduced a sufficient condition,
+ based on deterministic reduction strategies, of confluence for
+ rewriting systems on vector spaces. As a particular case,
+ we recover the Diamond Lemma. This work maybe extended in particular
+ into two main directions. The first one consists in weakening our assumption
+ on the set $\K$ of coefficients, by allowing non invertible coefficients.
+ A second extension consists in characterising Janet bases in this framework,
+ with the objective to develop constructive methods in the analysis and formal
+ resolution of PDE's.
 
 \bibliography{Biblio}
 
