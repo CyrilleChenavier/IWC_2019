@@ -404,7 +404,7 @@ property with respect to a well-founded order on rewriting rules.
   $\prec$ if for every $e\in\basis$ and for every rewriting rule
   $e\rewR r$, we have a confluence diagram:
   \[\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
   r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
   \end{tikzcd}\]
   where each rewriting step occurring in the dotted arrows is strictly smaller
@@ -462,9 +462,9 @@ The main result of this section is the following.
   for the ordering $\prec$.
   The following diagrams show that $\rewR$ is locally $S$-confluent:
   \[\begin{tikzcd}
-  a\ar[r, "_R"']\ar[d, "_S"'] & b\ar[d, equal] & b\ar[r, "_R"']
-  \ar[d, "_S"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
-    "_S"'] & b-d\ar[d, "_R"]\\
+  a\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & b\ar[d, equal] & b\ar[r, "_R"']
+  \ar[d, twoheadrightarrow, "_S"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
+    twoheadrightarrow, "_S"'] & b-d\ar[d, "_R"]\\
   b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
   \end{tikzcd}\]
 \end{example}
