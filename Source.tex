@@ -580,11 +580,12 @@ equations.
   \item The ordinary differential equation $y'(x)=xy(x)$ is written in
     the form $\D y=0$, where the operator $\D=\partial-x$ belongs to
     $\Weyl{1}=\Q(x)[\partial]$.
-  \item Consider the Janet example~\cite{MR3532888}, that is the system
-    of partial derivative equations with~$3$ variables and one unknown
-    function: $y_{33}=x_2y_{11}$ and $y_{22}=0$, where $y_{ij}$ denotes
-    the second order derivative of the unknown function $y$ with respect
-    to the variables $x_i$ and~$x_j$. Then, these equations are written
+  \item\label{it:Janet_example_init} Consider the Janet
+    example~\cite{MR3532888}, that is the system of partial derivative
+    equations with~$3$ variables and one unknown function:
+    $y_{33}=x_2y_{11}$ and $y_{22}=0$, where $y_{ij}$ denotes the second
+    order derivative of the unknown function $y$ with respect to the
+    variables $x_i$ and~$x_j$. Then, these equations are written
     $\D_1y=0$ and $\D_2y=0$, where $\D_1$ and $\D_2$ are the following
     elements of $\Weyl{3}$:
     \[\D_1=\partial_3^2-x_2\partial_1^2,\quad \D_2=\partial_2^2.\]
@@ -618,16 +619,17 @@ For simplicity, we write $\D\rewTheta\D'$ instead of
 $\D\to_{R_\Theta}\D'$. \todo{Est-ce qu'il faut pas diviser par $\lc(\D)$?}
 \smallskip
 
-\begin{example}
+\begin{example}\label{ex:diff_operators_rew}
   We continue Example~\ref{ex:diff_operators_init}.
   \begin{enumerate}
   \item Let $\D=\partial-x\in\Weyl{1}$. Since $\partial$ is greater than
     $1$ for every monomial order, the rewriting system associated with
     $\Theta=\{\D\}$ extends the rewriting rule $\partial\rewTheta x$.
-  \item Extending $\partial_3\succ\partial_2\succ\partial_1$ into the
-    deglex order, the rewriting system associated with the pair
-    $\Theta=\{\D_1,\D_2\}$ of the two operators defined in
-    Example~\ref{ex:diff_operators_init} extends the two rewriting rules
+  \item\label{it:Janet_example_rew} Extending
+    $\partial_3\succ\partial_2\succ\partial_1$ into the deglex order, the
+    rewriting system associated with the pair $\Theta=\{\D_1,\D_2\}$ of
+    the two operators defined in Example~\ref{ex:diff_operators_init}
+    extends the two rewriting rules
     $\partial_3^2\rewTheta x_2\partial_1^2$ and
     $\partial_2^2\rewTheta 0$.
   \end{enumerate}
@@ -748,6 +750,7 @@ In order to produce suitable cone-partitions as in the previous lemma,
 we introduce the notion of multiplicative variables.
 
 \begin{definition}
+  \fixmecc{Inverser ordre, \ie, $\partial_i<\partial_{i+1}$.}
   Let $M$ be a subset of $Mon$, and let $m  \in M$. We define a subset $\mu_M(m)$
   of $\{1,\ldots,n\}$. Let us write $m = \partial_1^{i_1}\partial_2^{i_2}\ldots \partial_n^{i_n}$, and take
   $k \in \{1,\ldots,n\}$. Then $k \in \mu_M(m)$ if the following implication is true:
@@ -774,9 +777,6 @@ Let $M \subset Mon$ and $m,m' \in M$. If $m \neq m'$, then $(m,\mu(m))^* \cap (m
   $\nu_k(m) = \nu_k(p) \geq \nu_k(m')$, which is contradictory.
  \end{proof}
 
- \begin{example}
-\todo{TODO}
- \end{example}
 
  \begin{definition}
    A set of monomials $M$ is \emph{Janet-complete} if the family of
@@ -787,6 +787,16 @@ Let $M \subset Mon$ and $m,m' \in M$. If $m \neq m'$, then $(m,\mu(m))^* \cap (m
  \end{definition}
 
  
+\begin{example}
+  Consider the Janet example, see Point~\ref{it:Janet_example_init} of
+  Example~\ref{ex:diff_operators_init}: $\Theta=\{\D_1,\D_2\}$, where
+  $\D_1=\partial_3^2 -x_2\partial_1^2$ and $\D_2=\partial_2^2$. Writing
+  $M:=\lm(\Theta)$, we have:
+  \[\mu_M(\partial_3^2)=\{\partial_1,\partial_2,\partial_3\},\quad
+  \mu_M(\partial_2^2)=\{\partial_1,\partial_2\}.\]
+  Hence, $\Theta$ is not Janet-complete, since $\partial_2^2\partial_3$
+  does not belong to the involutive cone of $\lm(\Theta)$.
+ \end{example}
 
 
 

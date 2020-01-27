@@ -1,0 +1,146 @@
+\documentclass[10pt]{easychair}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+% Newcommand
+
+%Titre article
+\newcommand\titlePaper{{\color{red}\bf Title}}
+
+% Texte
+\newcommand\eg{\emph{e.g.}}
+\newcommand\ie{\emph{i.e.}}
+\newcommand\G{Gröbner}
+\newcommand\todo[1]{{\bf\textcolor{red}{#1}}}
+\newcommand\fixmecc[1]{{\textcolor{blue}{{\bf Cyrille:} #1}}}
+\newcommand\data{{\color{red}\bf data}}
+
+% Raccourcis mathématiques
+\DeclareMathOperator{\supp}{supp}
+\newcommand\Span[1]{\langle#1\rangle}
+\newcommand\diff[1]{\partial_{#1}}
+\newcommand\D{\mathcal{D}}
+\DeclareMathOperator{\lm}{lm}
+\DeclareMathOperator{\lc}{lc}
+\newcommand\basis{\mathscr{B}}
+\newcommand\SigmaTheta{\Sigma_{\Theta}}
+\newcommand\lambdaB{\lambda_\bullet}
+
+% Structures algébriques
+\newcommand\K{\mathbb{K}}
+\newcommand\F{\mathscr{F}}
+\newcommand\Q{\mathbb{Q}} 
+\newcommand\N{\mathbb{N}}
+\newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
+\newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
+\newcommand\KX{\K X}
+\newcommand\Weyl[1]{B_{#1}(\Q)}
+\DeclareMathOperator{\Mon}{Mon}
+\DeclareMathOperator{\Mul}{Mul}
+
+% Réécriture
+\newcommand\rewR{\to_R}
+\newcommand\rewS{\twoheadrightarrow_S}
+\newcommand\transR{\overset{*}{\to}_R}
+\newcommand\transS{\overset{*}{\twoheadrightarrow}_S}
+\newcommand\equivR{\overset{*}{\leftrightarrow}_R}
+\newcommand\rewTheta{\to_{\Theta}}
+\newcommand\divInv[1]{\mid_{#1}}
+\DeclareMathOperator{\SNF}{{\it S}-NF}
+\DeclareMathOperator{\NF}{NF}
+
+\bibliographystyle{plain}
+
+\begin{document}
+
+\section{Involutive divisions}
+
+In this section, we fix a rational Weyl algebra $\Weyl{n}$, with sets of
+indeterminates $X=\{x_1,\cdots,x_n\}$ and
+$\Delta=\{\partial_1,\cdots,\partial_n\}$.
+\medskip
+
+We first recall that an {\em involutive division} $L$ on $\Mon(\Delta)$
+is given if for any finite set $U\subset\Mon(\Delta)$, a relation
+$\divInv{L}^U$ on $U\times\Mon(\Delta)$ is defined such that for every
+$u,u'\in U,m,m'\in\Mon(\Delta)$, we have:
+\begin{enumerate}[label=\alph*)]
+\item $u\divInv{L}^Um\Rightarrow u\mid m$,
+\item $u\divInv{L}^Uu$,
+\item $u\divInv{L}^Uum$ and $u\divInv{L}^Uum'$ if and only if
+  $u\divInv{L}^Uumm'$,
+\item\label{it:vertex} $u\divInv{L}^Um$ and $u'\divInv{L}^Um$ implies
+  $u\divInv{L}^Uu'$ or $u'\divInv{L}^Uu$,
+\item\label{it:transitivity} $u\divInv{L}^Uu'$ and $u'\divInv{L}^Um$
+  implies $u\divInv{L}^Um$,
+\item\label{it:filter} for every $V\subseteq U$ and every $v\in V$,
+  $v\divInv{L}^Vm$ if and only if $v\divInv{L}^Um$. 
+\end{enumerate}
+If $u\divInv{L}^Um$, we  say that $u$ is an {\em L-involutive divisor} of
+$m$. In the sequel, we remove the upper index $U$, that is, we write
+$u\divInv{L}m$ if $u$ is an $L$-involutive divisor of $m$.
+\medskip
+
+The variable $\partial_i$ is said to be {\em L-multiplicative} for $u$ if
+$u$ is an $L$-involutive divisor of $u\partial_i$ and the set of
+$L$-multiplicative variables for $u$ is written $\Mul_L(u,U)$. Notice
+that an involutive division is entirely determined by the list of
+multiplicative variables for elements of $U$, such that conditions
+\ref{it:vertex}, \ref{it:transitivity}, and \ref{it:filter} are
+fulfilled. The {\em cone} and the {\em involutive cone} of $U$ w.r.t. to
+the involutive division $L$ are the subsets $C(U)$ and $C_L(U)$ of
+$\Mon(\Delta)$ defined as follows:
+\[C(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Delta)\},\quad
+C_L(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Mul_L(u,U))\}.\]
+
+\begin{definition}
+  The set $U$ is said to be {\em L-complete} if $C(U)=C_L(U)$. The set
+  $U$ is said to be {\em L-autoreduced} if every $u\in U$ admits only $u$
+  as $L$-involutive divisor. A set $\Theta$ of differential operators is
+  said to be {\em L-complete} (resp., {\em L-reduced}) if $\lm(\Theta)$
+  is $L$-complete (resp., $L$-autoreduced).
+\end{definition}
+
+\begin{example}
+  Thomas, Janet, Pommaret
+\end{example}
+
+\begin{proposition}
+  Let L be an involutive division on $\Mon(\Delta)$ and let
+  $\Theta=\{D_1,\cdots,\D_r\}$ be an autoreduced complete subset of
+  $\Weyl{n}$. Then, the set 
+  \[S:=\{\lm(\D_i)m_i\rewTheta\frac{r_i}{\lc(\D_i)}m_i\mid1\leq i\leq r,
+  \quad m_i\in C_L(\lm(\D_i),\lm(\Theta))\},\]
+  is a strategy for $\rewTheta$ w.r.t. the $\prec$-\data.
+\end{proposition}
+
+\begin{proof}
+  By definition of $<$, the non minimal basis elements of $\Mon(\Delta)$
+  are monomials $m$ which are reducible by $\rewTheta$, that are
+  monomials of the form $\lm(\D_i)m_i$, where $m_i\in\Mon(\Delta)$. Since
+  $\lm(\D)$ is $L$-complete, there exists $1\leq j\leq r$ such that
+  $m=\lm(D_j)m_j$, where $m_j$ contains only variables in
+  $\Mul_L(\lm(\D_i),\lm(\Theta))$. Hence, left-hand sides of $S$ are
+  exactly non minimal elements of $\Delta$. Moreover, since
+  $\lm(\D_i)m_i\rewTheta r_i/\lc(\D_i)m_i$ implies
+  $r_i/\lc(\D_i)m_i<\lm(\D_i)m_i$, $S$ is a strategy for $\rewTheta$
+  w.r.t. the $\prec$-data.
+\end{proof}
+
+\end{document}
