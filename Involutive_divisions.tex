@@ -73,13 +73,13 @@
 
 In this section, we fix a rational Weyl algebra $\Weyl{n}$, with sets of
 indeterminates $X=\{x_1,\cdots,x_n\}$ and
-$\Delta=\{\partial_1,\cdots,\partial_n\}$.
+$\Delta=\{\partial_1,\cdots,\partial_n\}$. 
 \medskip
 
 We first recall that an {\em involutive division} $L$ on $\Mon(\Delta)$
 is given if for any finite set $U\subset\Mon(\Delta)$, a relation
 $\divInv{L}^U$ on $U\times\Mon(\Delta)$ is defined such that for every
-$u,u'\in U,m,m'\in\Mon(\Delta)$, we have:
+$u,u'\in U$ and every $m,m'\in\Mon(\Delta)$, we have:
 \begin{enumerate}[label=\alph*)]
 \item $u\divInv{L}^Um\Rightarrow u\mid m$,
 \item $u\divInv{L}^Uu$,
@@ -92,29 +92,34 @@ $u,u'\in U,m,m'\in\Mon(\Delta)$, we have:
 \item\label{it:filter} for every $V\subseteq U$ and every $v\in V$,
   $v\divInv{L}^Vm$ if and only if $v\divInv{L}^Um$. 
 \end{enumerate}
-If $u\divInv{L}^Um$, we  say that $u$ is an {\em L-involutive divisor} of
-$m$. In the sequel, we remove the upper index $U$, that is, we write
-$u\divInv{L}m$ if $u$ is an $L$-involutive divisor of $m$.
+In the sequel, we write $\divInv{L}$ instead if $\divInv{L}^U$ and we say
+that $u\in U$ is an {\em L-involutive divisor} of $m\in\Mon(\Theta)$ if
+$u\divInv{L}m$.
 \medskip
 
-The variable $\partial_i$ is said to be {\em L-multiplicative} for $u$ if
+Now, we recall the definitions of cones and completeness. The variable
+$\partial_i$ is said to be {\em L-multiplicative} for $u$ w.r.t. $U$ if
 $u$ is an $L$-involutive divisor of $u\partial_i$ and the set of
-$L$-multiplicative variables for $u$ is written $\Mul_L(u,U)$. Notice
-that an involutive division is entirely determined by the list of
-multiplicative variables for elements of $U$, such that conditions
+$L$-multiplicative variables for $u$ w.r.t. $U$ is written $\Mul_L(u,U)$.
+Notice that an involutive division is entirely determined by the list of
+multiplicative variables w.r.t. each finite sets $U$ such that conditions
 \ref{it:vertex}, \ref{it:transitivity}, and \ref{it:filter} are
 fulfilled. The {\em cone} and the {\em involutive cone} of $U$ w.r.t. to
 the involutive division $L$ are the subsets $C(U)$ and $C_L(U)$ of
 $\Mon(\Delta)$ defined as follows:
 \[C(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Delta)\},\quad
 C_L(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Mul_L(u,U))\}.\]
+Finally, we say that $U$ is {\em L-complete} if $C(U)=C_L(U)$.
+\smallskip
 
 \begin{definition}
-  The set $U$ is said to be {\em L-complete} if $C(U)=C_L(U)$. The set
-  $U$ is said to be {\em L-autoreduced} if every $u\in U$ admits only $u$
-  as $L$-involutive divisor. A set $\Theta$ of differential operators is
-  said to be {\em L-complete} (resp., {\em L-reduced}) if $\lm(\Theta)$
-  is $L$-complete (resp., $L$-autoreduced).
+  Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
+  let $\prec$ be a monomial order, and let $L$ be an involutive division
+  on $\Mon(\Delta)$. We say that $\Theta$ is {\em L-complete} if
+  $\lm(\Theta)$ is $L$-complete. We say that $\Theta$ is
+  {\em involutively L-autoreduced} if for every $\D\in\Theta$, $\lm(\D)$
+  is the only element of $\supp(\D)$ which belongs to $C_L(\lm(\Theta))$
+  and if it admits only $\lm(\D)$ as $L$-involutive divisor.
 \end{definition}
 
 \begin{example}
