@@ -412,6 +412,39 @@ property with respect to a well-founded order on rewriting rules.
 \end{definition}
 \smallskip
 
+\begin{theorem}
+  The following are equivalent:
+  \begin{enumerate}
+    \item There exists a well-founded order $\prec$ on $R$ such that for every $e\in\basis$ and for every rewriting rule
+  $e\rewR r$, we have a confluence diagram:
+  \[\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
+  \end{tikzcd}\]
+  where each rewriting step occurring in the dotted arrows is strictly smaller
+  than the rewriting rule $e\rewR r$ relative to $\prec$.
+\item $R$ is $S$-confluent.
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  $(1) \Rightarrow (2)$: This is the proof of the next theorem.
+
+  $(2) \Rightarrow (1)$: We define an order $\prec$ on $R$ by saying $(e,r) \prec (e',r')$ if $r = r_e$ and $r' \neq r_{e'}$. Take now $(e,r) \in R$. We distinguish two cases.
+  \begin{itemize}
+  \item If $r = r_e$. Then the following diagram square shows that the property holds for $e$ (since there is no rewriting step in the bottom and left faces):
+     \[\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r_e \ar[equal, d]\\
+  r_e\ar[r, equal] & r_e
+\end{tikzcd}\]
+\item If $r \neq r_e$, then we have
+       \[\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r \ar[twoheadrightarrow, , "_S", d] \\
+  r_e\ar[r, twoheadrightarrow, "_S"'] & \SNF (e)
+\end{tikzcd}\]
+This diagram holds because by hypothesis $\SNF(r) = \SNF(e)$. The rewrtiting steps appearing in the left and bottom sides all belong to $S$, and so are in particular smaller than $(e,r)$ by definition of $\prec$.
+  \end{itemize}
+\end{proof}
+
 The main result of this section is the following.
 \medskip
 
