@@ -335,12 +335,10 @@ criterion in Section~\ref{sec:confluence_relative_to_a_strategy}.
 \subsection{Confluence relative to a strategy}
 \label{sec:confluence_relative_to_a_strategy}
 
-In this section, we first introduce $S$-confluence and show that this
-property implies confluence of~$\rewR$. Then, we introduce local
-$S$-confluence which turns out to imply $S$-confluence. Finally we define
-our confluence criterion for local $S$-confluence, and prove that it is
-correct in Theorem~\ref{thm:confluence_criterion}. We finish this section
-by a new proof of the Diamond Lemma, based on local $S$-confluence.
+In this section, we introduce $S$-confluence and show that this property
+implies confluence of~$\rewR$. We also show that $S$-confluence is
+characterised in terms of a decreasingness property. We finish by a new
+proof of the Diamond Lemma, based on local $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
@@ -349,15 +347,15 @@ by a new proof of the Diamond Lemma, based on local $S$-confluence.
 \end{definition}
 \smallskip
 
-In the following proposition, we show that $S$-confluence implies
+The main result of this section asserts that $S$-confluence implies
 confluence of $\rewR$.
 \medskip
 
-\begin{proposition}\label{prop:h_and_R_confluence}
+\begin{theorem}\label{thm:h_and_R_confluence}
   Let $S$ be a strategy such that $\rewR$ is $S$-confluent. We have 
   $u\equivR v$ if and only if $\SNF(u-v)=0$. Moreover, $\rewR$ is
   confluent.
-\end{proposition}
+\end{theorem}
 
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
@@ -376,10 +374,10 @@ confluence of $\rewR$.
 \end{proof}
 \smallskip
 
-Note that the previous proposition is a sufficient but not a necessary
-condition. Indeed, with $\basis$ the set of integers and the rewriting
-rules $n\rewR n+1$, there is no strategy such that $\rewR$ is confluent
-relative to this strategy.
+Note that $S$-confluence is a sufficient but not a necessary condition
+for confluence. Indeed, with $\basis$ the set of integers and the
+rewriting rules $n\rewR n+1$, there is no strategy such that $\rewR$ is
+confluent relative to this strategy.
 \smallskip
 
 \begin{example}
@@ -394,55 +392,78 @@ relative to this strategy.
 \end{example}
 \smallskip
 
-Now, we introduce local $S$-confluence, which is a decreasingness
-property with respect to a well-founded order on rewriting rules.
+Now, we show that $S$-confluence is caracterised in terms of a
+decreasingness property with respect to a well-founded order on rewriting
+rules.
 \smallskip
 
-\begin{definition}\label{def:decreasingness_property}
-  Let $\prec$ be a well-founded order on $R$ and let $S$ be a strategy.
-  We say that~$\rewR$ is \emph{locally $S$-confluent with respect to}
-  $\prec$ if for every $e\in\basis$ and for every rewriting rule
-  $e\rewR r$, we have a confluence diagram:
-  \[\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
-  r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
-  \end{tikzcd}\]
-  where each rewriting step occurring in the dotted arrows is strictly smaller
-  than the rewriting rule $e\rewR r$ relative to $\prec$.
-\end{definition}
-\smallskip
-
-\begin{theorem}
-  The following are equivalent:
+\begin{proposition}
+  Leet $S$ be a strategy of $R$. The following assertions are equivalent.
   \begin{enumerate}
-    \item There exists a well-founded order $\prec$ on $R$ such that for every $e\in\basis$ and for every rewriting rule
-  $e\rewR r$, we have a confluence diagram:
-  \[\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
-  r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
-  \end{tikzcd}\]
-  where each rewriting step occurring in the dotted arrows is strictly smaller
-  than the rewriting rule $e\rewR r$ relative to $\prec$.
-\item $R$ is $S$-confluent.
+  \item $R$ is $S$-confluent.
+  \item There exists a well-founded order $\prec$ on $R$ such that for
+    every non minimal basis element~$e$ and for every rewriting rule
+    $e\rewR r$, we have a confluence diagram:
+    \[\begin{tikzcd}
+    e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] &
+    r\ar[d, leftrightarrow, dotted, "*"', "R"]\\
+    r_e\ar[r, leftrightarrow, dotted, "*", "R"'] & v
+    \end{tikzcd}\]
+    where each rewriting step occurring in the dotted arrows is strictly
+    smaller than the rewriting rule $e\rewR r$ relative to $\prec$.
   \end{enumerate}
-\end{theorem}
-\begin{proof}
-  $(1) \Rightarrow (2)$: This is the proof of the next theorem.
+\end{proposition}
 
-  $(2) \Rightarrow (1)$: We define an order $\prec$ on $R$ by saying $(e,r) \prec (e',r')$ if $r = r_e$ and $r' \neq r_{e'}$. Take now $(e,r) \in R$. We distinguish two cases.
+\begin{proof}
+  $(1) \Rightarrow (2)$: We define the order $\prec$ on $R$ by
+  $e\rewS r_e\prec e'\rewR r$ whenever $e'\rewR r\notin S$. Clearly this
+  order is terminating since each chain of strictly decreasing elements
+  has length $2$. Let $e$ be a non minimal basis element an let
+  $e\rewR r$ be a rewriting rule. We distinguish two cases.
   \begin{itemize}
-  \item If $r = r_e$. Then the following diagram square shows that the property holds for $e$ (since there is no rewriting step in the bottom and left faces):
-     \[\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r_e \ar[equal, d]\\
-  r_e\ar[r, equal] & r_e
-\end{tikzcd}\]
-\item If $r \neq r_e$, then we have
-       \[\begin{tikzcd}
-  e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r \ar[twoheadrightarrow, , "_S", d] \\
-  r_e\ar[r, twoheadrightarrow, "_S"'] & \SNF (e)
-\end{tikzcd}\]
-This diagram holds because by hypothesis $\SNF(r) = \SNF(e)$. The rewrtiting steps appearing in the left and bottom sides all belong to $S$, and so are in particular smaller than $(e,r)$ by definition of $\prec$.
+  \item If $r=r_e$ where $e\rewS r_e\in S$, then we have the following
+    diagram:
+    \[\begin{tikzcd}
+    e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & r_e \ar[equal, d]\\
+    r_e\ar[r, equal] & r_e
+    \end{tikzcd}\]
+    Since no rewriting step occurs in the right and bottom faces, the
+    decreasingness property that we expect trivially holds.
+  \item If $r\neq r_e$, we first notice that since $S$ is a strategy and
+    $e$ is a non minimal  basis element, there exists a rewriting rule
+    $e\rewS r_e$ in $S$. Moreover, by definitions of the map $\SNF$ and
+    of the $S$-confluence property, we have $\SNF(r_e)=\SNF(e)=\SNF(r)$.
+    Hence, we get the following confluence diagram.
+    \[\begin{tikzcd}
+    e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] &
+    r \ar[twoheadrightarrow, , "_S", d] \\
+    r_e\ar[r, twoheadrightarrow, "_S"'] & \SNF (e)
+    \end{tikzcd}\]
+    Let us show that this diagram satisfies the decreasingness property.
+    Since $r\neq r_e$ by assumption, $e\rewR r$ does not belong to $S$.
+    Hence, since every rewriting step in right and bottom face belong to
+    $S$, they are smaller than $e\rewR r$ for the order $\prec$ by
+    definition.
   \end{itemize}
+  $(2) \Rightarrow (1)$: Let $e\rewR r$ be a rewriting rule and let us
+  consider a diagram
+  \[\begin{tikzcd}
+  e\ar[r, "_R"']\ar[d, "_S"', twoheadrightarrow] &
+  r\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
+  r_e\ar[r, leftrightarrow, dotted, "*", "_R"'] & v.
+  \end{tikzcd}\]
+  where every rewriting step appearing in the dotted arrows is smaller
+  than $e\rewR r$ for a terminating order $\prec$ on $R$. Assume by
+  induction that each of these rewriting steps $e'\rewR r'$ is such that
+  $\SNF(e')=\SNF(r')$.
+
+  
+  Applying the induction hypothesis to each of them we get
+  (by definition of $S$-confluence) $\SNF(r_e) = \SNF(v') = \SNF(v)$.
+  Since $\SNF(e) = \SNF(r_e)$ by definition of $\SNF$ we get
+  $\SNF(e) = \SNF(v)$. By induction, this shows that $\rewR$ is
+  $S$-confluent.
+
 \end{proof}
 
 The main result of this section is the following.
