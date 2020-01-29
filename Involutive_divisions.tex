@@ -90,70 +90,86 @@ $u,u'\in U$ and every $m,m'\in\Mon(\Delta)$, we have:
 \item\label{it:transitivity} $u\divInv{L}^Uu'$ and $u'\divInv{L}^Um$
   implies $u\divInv{L}^Um$,
 \item\label{it:filter} for every $V\subseteq U$ and every $v\in V$,
-  $v\divInv{L}^Vm$ if and only if $v\divInv{L}^Um$. 
+  $v\divInv{L}^Um$ implies $v\divInv{L}^Vm$. 
 \end{enumerate}
 In the sequel, we write $\divInv{L}$ instead if $\divInv{L}^U$ and we say
-that $u\in U$ is an {\em L-involutive divisor} of $m\in\Mon(\Theta)$ if
-$u\divInv{L}m$.
+that $u\in U$ is an {\em L-involutive divisor} of $m\in\Mon(\Delta)$ if
+$u\divInv{L}m$. We say that $U$ is {\em L-autoreduced} if every $u\in U$
+admits only $u$ as involutive divisor.
 \medskip
 
-Now, we recall the definitions of cones and completeness. The variable
-$\partial_i$ is said to be {\em L-multiplicative} for $u$ w.r.t. $U$ if
-$u$ is an $L$-involutive divisor of $u\partial_i$ and the set of
-$L$-multiplicative variables for $u$ w.r.t. $U$ is written $\Mul_L(u,U)$.
-Notice that an involutive division is entirely determined by the list of
-multiplicative variables w.r.t. each finite sets $U$ such that conditions
-\ref{it:vertex}, \ref{it:transitivity}, and \ref{it:filter} are
-fulfilled. The {\em cone} and the {\em involutive cone} of $U$ w.r.t. to
-the involutive division $L$ are the subsets $C(U)$ and $C_L(U)$ of
-$\Mon(\Delta)$ defined as follows:
-\[C(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Delta)\},\quad
-C_L(U):=\bigcup_{u\in U}\{um\mid m\in\Mon(\Mul_L(u,U))\}.\]
-Finally, we say that $U$ is {\em L-complete} if $C(U)=C_L(U)$.
+Now, we recall the definitions of multiplicative variables, cones, and
+completeness. The variable $\partial_i$ is said to be
+{\em L-multiplicative} for $u$ w.r.t. $U$ if $u$ is an $L$-involutive
+divisor of $u\partial_i$ and the set of $L$-multiplicative variables for
+$u$ w.r.t. $U$ is written $\Mul_L(u,U)$. Notice that $u\divInv{L}m$ if
+and only if $m=um'$, where $m'\in\Mon(\Mul_L(u,U))$, \ie, $m'$ contains
+only monomials in $\Mul_L(u,U)$. Notice also that an involutive division
+is entirely determined by the list of multiplicative variables w.r.t.
+each finite sets $U$ such that conditions \ref{it:vertex},
+\ref{it:transitivity}, and \ref{it:filter} are fulfilled. The {\em cone}
+and the {\em involutive cone} of~$U$ w.r.t. to  $L$ are the subsets
+$C(U)$ and $C_L(U)$ of $\Mon(\Delta)$ defined as follows:
+\[C(U):=\bigcup_{u\in U}\{um: m\in\Mon(\Delta)\},\quad
+C_L(U):=\bigcup_{u\in U}\{um: u\in\Mon(\Mul_L(u,U))\}.\]
+Notice that $C_L(U)\subseteq C(U)$. Finally, we say that $U$ is
+{\em L-complete} if $C_L(U)=C(U)$. 
 \smallskip
 
 \begin{definition}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
   let $\prec$ be a monomial order, and let $L$ be an involutive division
-  on $\Mon(\Delta)$. We say that $\Theta$ is {\em L-complete} if
-  $\lm(\Theta)$ is $L$-complete. We say that $\Theta$ is
-  {\em involutively L-autoreduced} if for every $\D\in\Theta$, $\lm(\D)$
-  is the only element of $\supp(\D)$ which belongs to $C_L(\lm(\Theta))$
-  and if it admits only $\lm(\D)$ as $L$-involutive divisor in
-  $\lm(\Theta)$.
+  on $\Mon(\Delta)$. We say that $\Theta$ is {\em L-complete} and
+  {\em L-autoreduced} if $\lm(\Theta)\subset\Mon(\Delta)$ is $L$-complete
+  and $L$-autoreduced, respectively.
 \end{definition}
 
 \begin{example}
   Thomas, Janet, Pommaret
 \end{example}
 
-\begin{proposition}
+\begin{proposition}\label{prop:involutive_strategy}
   Let L be an involutive division on $\Mon(\Delta)$ and let
-  $\Theta=\{D_1,\cdots,\D_r\}$ be an autoreduced complete subset of
-  $\Weyl{n}$. Then, the set 
-  \[S:=\{\lm(\D_i)m_i\rewTheta\frac{r_i}{\lc(\D_i)}m_i\mid1\leq i\leq r,
-  \quad m_i\in\Mon(\Mul_L(\lm(\D_i),\lm(\Theta)))\},\]
-  is a strategy for $\rewTheta$ w.r.t. the $\prec$-\data.
+  $\Theta=\{D_1,\cdots,\D_r\}$ be an L-autoreduced and L-complete set of
+  differential operators. A strategy for $\rewTheta$ is given by the
+  following set:
+  \[S:=\{\lm(\D_i)m_i\rewTheta\frac{1}{\lc(\D_i)}r_im_i:\ 1\leq i\leq r,
+  \quad\lm(\D_i)\divInv{L}\lm(\D_i)m_i\}.\]
+    
+  \fixmecc{vérifier l'ordre $\lm(\D_i)m_i$.}
 \end{proposition}
 
 \begin{proof}
-  By definition of $<$, the non minimal basis elements of $\Mon(\Delta)$
-  are monomials which are reducible by $\rewTheta$. Hence, left-hand
-  sides of $S$ are non minimal basis monomials. Conversely, such a
-  monomial $m$ is of the form $\lm(\D_j)m_j$, where $1\leq j\leq r$ and
-  $m_j$ is an arbitrary monomial, that is, $m$ belongs to the cone
-  $C(\lm(\Theta))$. Since $\lm(\Theta)$ is $L$-complete, $C(\lm(\Theta))$
-  is equal to the involutive cone $C_L(\lm(\Theta))$, so that there
-  exists $1\leq i\leq r$ such that $m=\lm(D_i)m_i$, where $m_i$ contains
-  only variables in $\Mul_L(\lm(\D_i),\lm(\Theta))$. Hence, left-hand
-  sides of $S$ are exactly non minimal elements of $\Delta$. Moreover,
-  since $\Theta$ is $L$-autoreduced, every monomial admits as most one
-  $L$-involutive divisor in $\lm(\Theta)$, so that the left-hand sides
-  of elements of $S$ are pairwise distinct. Finally,
-  $\lm(\D_i)m_i\rewTheta r_i/\lc(\D_i)m_i$ implies
-  $r_i/\lc(\D_i)m_i<\lm(\D_i)m_i$. Hence, $S$ is a strategy for
-  $\rewTheta$ w.r.t. the $\prec$-data.
+  We first have to prove that left-hand sides of $S$ are exactly
+  monomials that are not minimal for $<$. This is a consequence of the
+  following observations: $1).$ left-hand sides of $S$ form the
+  involutive cone $C_L(\lm(\Theta))$, $2).$ since $\Theta$ is complete,
+  we have $C_L(\lm(\Theta))=C(\lm(\Theta))$, $3).$ $C(\lm(\Theta))$ is
+  the set of monomials that are reducible by $\rewTheta$, $4).$ the set
+  of monomials that are reducible by $\rewTheta$ is the set of monomials
+  that are not minimal for $<$. Moreover, every monomial~$m$ that is a
+  left-hand side of $S$ admits exactly one involutive divisor, so that
+  there exists exactly one rewriting rule in $S$ of the form $m\rewS\D$.
+  Finally, we have $\D<m$ by definition of $<$, which proves that $S$ is
+  a strategy for $\rewTheta$.
 \end{proof}
+
+\begin{definition}
+  The strategy defined in Proposition~\ref{prop:involutive_strategy} is
+  called the {\em L-strategy} w.r.t. $(\Theta,\prec)$.
+\end{definition}
+
+\begin{definition}
+  Let $\Theta\subset\Weyl{n}$ be a finite set of operators and let $L$ be
+  an involutive division on $\Mon(\Delta)$ such that $\Theta$ is
+  $L$-autoreduced. We say $\Theta$ is {\em L-involutive} if for every
+  $\D\in\Theta$ and every $m\in\Mon(\Delta)$, we have $\SNF(\D m)=0$. We
+  say that $\Theta$ is {\em  L-passive} if for every $\D\in\Theta$ and
+  every variable $\partial_i$ that is not $L$-multiplicative for
+  $\Theta$, we have $\SNF(\D\partial_i)=0$.
+\end{definition}
+
+
 
 \begin{definition}
   Let $U$ be a finite subset of $\Mon(\Delta)$. An involutive $U$-division is a relation $\divInv{}^U$ satisfying axioms a) to e). The notions of completeness and autoreduced are still well defined in this case.
