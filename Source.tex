@@ -338,7 +338,7 @@ criterion in Section~\ref{sec:confluence_relative_to_a_strategy}.
 In this section, we introduce $S$-confluence and show that this property
 implies confluence of~$\rewR$. We also show that $S$-confluence is
 characterised in terms of a decreasingness property. We finish by a new
-proof of the Diamond Lemma, based on local $S$-confluence.
+proof of the Diamond Lemma, based on $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
@@ -380,7 +380,7 @@ rewriting rules $n\rewR n+1$, there is no strategy such that $\rewR$ is
 confluent relative to this strategy.
 \smallskip
 
-\begin{example}
+\begin{example}\label{ex:S-conf}
   Let us continue Example~\ref{ex:h_norma_form}. The following identities
   hold:
   \[\SNF(a)=c+d=\SNF(b),\qquad\SNF(b)=c+d=\SNF(c+d),\qquad
@@ -392,12 +392,18 @@ confluent relative to this strategy.
 \end{example}
 \smallskip
 
-Now, we show that $S$-confluence is caracterised in terms of a
-decreasingness property with respect to a well-founded order on rewriting
-rules.
+In Proposition~\ref{prop:S-conf_decreasing}, we show that $S$-confluence
+is caracterised in terms of a decreasingness property with respect to a
+well-founded order on rewriting rules. Moreover, this characterisation
+also shows that even if the notion of $S$-confluence seems to be strict
+at a first sight, it is flexible in the sense that allowing to reverse
+rewriting rules does not bring more confluence diagrams. In the statement
+of the proposition, we use the following notation: for every basis
+element $e$, we write $e\overset{=}{\twoheadrightarrow}_Sr_e$, for
+$e\rewS r_e$ if $e$ is not minimal and $r_e=e$, otherwise.
 \smallskip
 
-\begin{proposition}
+\begin{proposition}\label{prop:S-conf_decreasing}
   Let $S$ be a strategy of $R$. The following assertions are equivalent.
   \begin{enumerate}
   \item $R$ is $S$-confluent.
@@ -421,7 +427,7 @@ rules.
   distinguish three cases.
   \begin{itemize}
   \item If $e$ is a minimal basis element, then we have $\SNF(e)=e$ and
-    $e\rewR r$ does not belong to $S$. Moreover, since $\rewR$ is
+    $e\rewR r$ does not belong to~$S$. Moreover, since $\rewR$ is
     $S$-confluent, we have $\SNF(e)=\SNF(r)$, so that we get the
     following diagram
     \[\begin{tikzcd}
@@ -432,30 +438,30 @@ rules.
     Since $r\transS e$ implies $r\transR e$ and since $e\rewR r$ is greater
     than all elements of $S$ by definition of $\prec$, the decreasingness
     property that we expect holds.
-  \item If $e$ is not a minimal basis element and if $r=r_e$ where
-    $e\rewS r_e\in S$, then we have the following diagram:
+  \item If $e$ is not a minimal basis element and if the rule
+    $e\rewR r$ belongs to $S$, then we have the following diagram:
     \[\begin{tikzcd}
-    e\ar[r, twoheadrightarrow, "_S"']\ar[d, twoheadrightarrow, "_S"']
-    & r_e \ar[equal, d]\\
-    r_e\ar[r, equal] & r_e
+    e\ar[r, twoheadrightarrow, "_S"']\ar[d, "_R"']
+    & r \ar[equal, d]\\
+    r\ar[r, equal] & r
     \end{tikzcd}\]
     Since no rewriting step occurs in the right and bottom faces, the
     decreasingness property that we expect trivially holds.
-  \item If $e$ is not a minimal basis element and if $r\neq r_e$, by
-    definition of a strategy, we first notice that there exists a
-    rewriting rule $e\rewS r_e$ in $S$. Moreover, by definitions of the
-    map $\SNF$ and of the $S$-confluence property, we have
-    $\SNF(r_e)=\SNF(e)=\SNF(r)$. Hence, we get the following diagram:
+  \item In the last case, $e$ is not minimal and the rule $e\rewR r$ does
+    not belong to $S$. First, notice that by definition of a strategy, 
+    there exists a rewriting rule $e\rewS r_e$ in $S$. Moreover, by
+    definitions of the map $\SNF$ and of the $S$-confluence property, we
+    have the equalities $\SNF(r_e)=\SNF(e)=\SNF(r)$. Hence, we get the
+    following diagram:
     \[\begin{tikzcd}
     e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] &
     r \ar[twoheadrightarrow, , "_S", "*"', d] \\
     r_e\ar[r, twoheadrightarrow, "_S"', "*"] & \SNF (e)
     \end{tikzcd}\]
-    Let us show that this diagram satisfies the decreasingness property.
-    Since $r\neq r_e$ by assumption, $e\rewR r$ does not belong to $S$.
-    Hence, since every rewriting step in right and bottom face belong to
-    $S$, they are smaller than $e\rewR r$ for the order $\prec$ by
-    definition.
+    Since $e\rewR r$ does not belong to $S$ and since every rewriting
+    step in the right and bottom faces belong to $S$, they are smaller
+    than $e\rewR r$ for the order $\prec$ by definition. Hence, the
+    decreasingness property that we expect holds.
   \end{itemize}
   $(2)\Rightarrow (1)$: Let $e\rewR r$ be a rewriting rule and let us
   assume by induction that for every rewriting step $e'\rewR r'$ smaller
@@ -476,61 +482,35 @@ rules.
   $\SNF(e)=\SNF(r)$ for every rewriting rule $e\rewR r$, that is $R$ is
   $S$-confluent.
 \end{proof}
-
-The main result of this section is the following.
-\medskip
-
-\begin{theorem}\label{thm:confluence_criterion}
-  Let $R$ be a set of rewriting rules. Assume that there exists a
-  strategy S and a well-founded order $\prec$ on $R$ such that $\rewR$ is
-  locally S-confluent with respect to $\prec$. Then,~$\rewR$ is
-  $S$-confluent, and \emph{a fortiori} confluent. 
-\end{theorem}
-
-\begin{proof}
-  \todo{Reprendre en faisant attention aux noms des réductions.}
-  We reason by induction on rewriting rules $f$ according to the order
-  $\prec$. Let us look at the square corresponding to $f$:
-  \[\large\begin{tikzcd}
-  e\ar[r, "f"]\ar[d, "s_e"'] & v\ar[d, leftrightarrow, dotted, "*"', "f_2"]\\
-  r_e\ar[r, leftrightarrow, dotted, "*", "f_1"'] & v'.
-  \end{tikzcd}\]
-  By local $S$-confluence, every rewriting step appearing
-  in $f_1$ and $f_2$ is smaller than $f$.
-  Applying the induction hypothesis to each of them we get
-  (by definition of $S$-confluence) $\SNF(r_e) = \SNF(v') = \SNF(v)$.
-  Since $\SNF(e) = \SNF(r_e)$ by definition of $\SNF$ we get
-  $\SNF(e) = \SNF(v)$. By induction, this shows that $\rewR$ is
-  $S$-confluent.
-\end{proof}
-\medskip
+\smallskip
 
 \begin{remark}
-  Local $S$-confluence implies that the pair of rewriting relations
-  $(\rewS,\rewR)$ is decreasing with respect to conversions (see
-  \cite[Definition 3]{van2008confluence}), using the order $\prec$ on $R$
-  and the discrete ordering on $\rewS$. By
-  \cite[Theorem 3]{van2008confluence}, this implies that $(\rewS,\rewR)$
-  commute. Using the fact that $\rewS \subseteq \rewR$, one can then
-  recover that $\rewR$ is confluent.
+  Based on Proposition~\ref{prop:S-conf_decreasing}, local $S$-confluence
+  implies that the pair of rewriting relations $(\rewS,\rewR)$ is
+  decreasing with respect to conversions
+  (see~\cite[Definition 3]{van2008confluence}), using the order $\prec$
+  on $R$ and the discrete ordering on $\rewS$. 
+  By~\cite[Theorem 3]{van2008confluence}, this implies that
+  $(\rewS,\rewR)$ commutes. Using the fact that $\rewS \subseteq \rewR$,
+  one can then recover that $\rewR$ is confluent.
 \end{remark}
 \smallskip
 
 \begin{example}\label{ex:end_to_example}
-  Using $S$-confluence, we may recover that the rewriting relation of
-  Example~\ref{ex:h_norma_form} is confluent. Indeed, let us consider the
-  following order $\prec$ on rewriting rules:
+  Let us illustrate Proposition~\ref{prop:S-conf_decreasing} with
+  Example~\ref{ex:S-conf}. Let us consider the following order $\prec$ on
+  rewriting rules:
   \[(a\rewR b)\prec(c\rewR b-d),\quad(b\rewR c+d)\prec(c\rewR b-d).\]
   This choice is guided by the heuristic that rules advancing towards an
   $S$-normal form should be favored over rules that do not: here $c$ is
   an $S$-normal form so the rewriting rule rewriting it should be larger
-  for the ordering $\prec$.
-  The following diagrams show that $\rewR$ is locally $S$-confluent:
+  for the ordering $\prec$. The decreasing diagrams are the following:
   \[\begin{tikzcd}
-  a\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] & b\ar[d, equal] & b\ar[r, "_R"']
-  \ar[d, twoheadrightarrow, "_S"'] & c+d\ar[d, equal] & c\ar[r, "_R"']\ar[d,
-    twoheadrightarrow, "_S"'] & b-d\ar[d, "_R"]\\
-  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & c\ar[r, equal] & c
+  a\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
+  b\ar[d, equal] & b\ar[d, "_R"']
+  \ar[r, twoheadrightarrow, "_S"'] & c+d\ar[d, equal] &
+  c\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] & c\ar[d,equal]\\
+  b\ar[r, equal] & b & c+d\ar[r, equal] & c+d & b-d\ar[r,  "_R"'] & c
   \end{tikzcd}\]
 \end{example}
 \smallskip
