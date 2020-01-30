@@ -133,10 +133,10 @@ Notice that $C_L(U)\subseteq C(U)$. Finally, we say that $U$ is
   $\Theta=\{D_1,\cdots,\D_r\}$ be an L-autoreduced and L-complete set of
   differential operators. A strategy for $\rewTheta$ is given by the
   following set:
-  \[S:=\{\lm(\D_i)m_i\rewTheta\frac{1}{\lc(\D_i)}r_im_i:\ 1\leq i\leq r,
-  \quad\lm(\D_i)\divInv{L}\lm(\D_i)m_i\}.\]
+  \[S:=\{\lm(\D_i)m\rewTheta\frac{1}{\lc(\D_i)}r_im:\ 1\leq i\leq r,
+  \quad\lm(\D_i)\divInv{L}\lm(\D_i)m\}.\]
     
-  \fixmecc{vérifier l'ordre $\lm(\D_i)m_i$.}
+  \fixmecc{vérifier l'ordre $\lm(\D_i)m$.}
 \end{proposition}
 
 \begin{proof}
@@ -172,19 +172,76 @@ Notice that $C_L(U)\subseteq C(U)$. Finally, we say that $U$ is
 
 
 \begin{definition}
-  Let $U$ be a finite subset of $\Mon(\Delta)$. An involutive $U$-division is a relation $\divInv{}^U$ satisfying axioms a) to e). The notions of completeness and autoreduced are still well defined in this case.
+  Let $U$ be a finite subset of $\Mon(\Delta)$. An involutive $U$-division is a
+  relation $\divInv{}^U$ satisfying axioms a) to e). The notions of completeness
+  and autoreduced are still well defined in this case.
 \end{definition}
 
 \begin{proposition}
-Let $\Theta=\{D_1,\cdots,\D_r\}$ be an complete subset of
-$\Weyl{n}$,  $U$ its set of leading monomials, and $S$ a strategy for $\rewTheta$.
-
-The following are equivalent:
-\begin{itemize}
-\item $S$ is the strategy associated to an complete autoreduced involutive $U$-division.
-\item The relation $u \divInv{S} v$ defined by $u \divInv{S} v$ if $v = u w$ and $r_v = r_u w$ is an involutive $U$-division. 
-\end{itemize}
+  Let $\Theta=\{D_1,\cdots,\D_r\}$ be an complete subset of $\Weyl{n}$, $U$ its set of
+  leading monomials, and $S$ a strategy for $\rewTheta$.
+  
+  The following are equivalent:
+  \begin{itemize}
+  \item $S$ is the strategy associated to a complete autoreduced \todo{(not
+      really the right condition)} involutive $U$-division.
+  \item The relation $u \divInv{S} v$, defined by $u \divInv{S} um$ if either
+    $u = v$ or $r_u \neq u$ and $r_{um} = r_u m$, is an involutive $U$-division.
+  \end{itemize}
 \end{proposition}
+\begin{proof}
+  Let $S$ be the strategy associated to a complete autoreduced involutive
+  $U$-division $L$. Let us show that $\divInv L$ and $\divInv S$ coincide. In
+  particular, this will show that $\divInv S$ is an involutive $U$-division.
+
+  Suppose $u \divInv L v$, and let us write $v = uw$. We distinguish two cases:
+  \begin{itemize}
+  \item If there exists $\D_i$ such that $\lm(\D_i) \divInv L u$, write
+    $u = \lm(\D_i)m$, so that $r_u = \lc(\D_i)^{-1} r_i m$. Then we also have
+    $\D_i \divInv L v$. Since $v = \lm(\D_i)mw$ we get
+    $r_v = \lc(\D_i)^{-1} r_i m w = r_u w$, and thus $u \divInv S v$.
+  \item Otherwise, suppose that there exists $\D_i$ such that
+    $\lm(\D_i) \divInv L v$. Then either $\lm(\D_i) \divInv L u$ or
+    $u \divInv L \lm(\D_i)$.  The first is impossible by hypothesis, the second
+    because $L$ is autoreduced.
+  \end{itemize}
+
+  Reciprocally, suppose that $u \divInv S v$, with $u \neq v$, and let us write
+  $v = uw$. Since $u \divInv v$, $r_u \neq u$ and there exists $\D_i$ such that
+  $\lm(\D_i) \divInv L u$. In particular $u = \lm(\D_i)m$ and
+  $r_u = \lc(\D_i)^{-1} r_i m$. By hypothesis
+  $r_v = r_u w = \lc(\D_i)^{-1} r_i m w$. So
+  $\lm(\D_i) \divInv L \lm(\D_i)mw = uw$. So either $u \divInv L uw$ or
+  $uw \divInv L u$. The second one is impossible because $uw$ cannot divide $u$,
+  and so finally $u \divInv L uw = v$. This completes the proof that
+  $\divInv{S} = \divInv{L}$.
+
+
+  Reciprocally, let $S$ be strategy such that $\divInv{S}$ is an involutive
+  $U$-division. Let us show that $\divInv{U}$ is complete and autoreduced. Let
+  $v = um \in C(U)$, with $m \in \Mon(\Delta)$, and $u \in U$. Then $r_um < um$, so
+  $v$ is not an $S$-normal form, and there exists exists $u' \in U$ and
+  $m' \in \Mon(\Delta')$ such that $v = u'm'$ and $r_{v} = r_{u'}m$. This means that
+  $u' \divInv S u'm'$, and so $v \in C_S(U)$. This proves that $\divInv S$ is
+  complete. \todo{il reste à montrer qu'elle est autoreduced}
+
+  Let now $T$ be the strategy induced by $\divInv S$, and let us show that $S$
+  and $T$ agree. Let $u \in \Mon(\Delta)$. We distinguish two cases.
+  \begin{itemize}
+  \item Suppose first that $u$ is an $S$-normal form. Then the only $v$ such
+    that $v \divInv S u$ is $u$ itself. If $u$ is not a $T$-normal form, then
+    there exists $\D_i$ such that $\lm(\D_i) \divInv S u$. So $u = \lm(\D_i)$,
+    which contradicts the fact that $u$ is an $S$-normal form.
+  \item Otherwise, then there exists $\D_i$ such that $u = \lm(\D_i) m$ and
+    $r^S_u = \lc(\D_i)^{-1} r_i m$. This implies that
+    $\lm(\D_i) \divInv S \lm(\D_i)m$, and thus
+    $r^T_u = \lc(\D_i)^{-1} r_i m = r^S_u$.
+  \end{itemize}
+  
+
+  \todo{there is probably a mistake because I don't think I used the hypothesis on S?}
+  
+\end{proof}
 
 \end{document}
 
