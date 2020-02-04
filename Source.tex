@@ -783,11 +783,24 @@ set $U$ such that conditions \ref{it:vertex}, \ref{it:transitivity}, and
 \ref{it:filter} are fulfilled. We say that $U$ is {\em L-autoreduced} if
 every $u\in U$ admits only $u$ as $L$-involutive divisor, \ie,
 $u\divInv{L}u'$ implies $u=u'$. Notice that if $U$ is $L$-autoreduced,
-then every monomial $m$ admits at most one $L$-involutive divisor. 
+then every monomial $m$ admits at most one $L$-involutive divisor. We
+finish this discussion on involutive divisions with three classical
+examples. Before, let us introduce the following notation: given a
+monomial $m=\partial^\alpha\in\monBasis$, let us denote by
+$d_k(m):=\alpha_k$ the degree of $m$ w.r.t. the variable $\partial_k$.
 \smallskip
 
-\begin{example}
-  Thomas, Janet, Pommaret
+\begin{example} We fix a finite set of monomials $U\subset\monBasis$. The
+  {\em Janet, Thomas} and {\em Pommaret} divisions are the involutive
+  divisions $\divInv{J},\divInv{T}$, and $\divInv{P}$ such that the
+  variable $\partial_i$, where $1\leq i\leq n$, is
+  $J,L$ or $P$-multiplicative for $u$ w.r.t.\ if and only if 
+  \begin{itemize}
+  \item for $\divInv{J}$: $d_i(u)=\max\{d_i(u'):\ u'\in U\ \text{and}\
+    d_j(u')=d_j(u),\ \forall i<j\leq n\}$, 
+  \item for $\divInv{T}$: $d_i(u)=\max\{d_i(u'):\ u'\in U\}$,
+  \item for $\divInv{P}$: for every $1\leq j\leq i$, we have $d_j(u)=0$.
+  \end{itemize}
 \end{example}
 \smallskip
 
