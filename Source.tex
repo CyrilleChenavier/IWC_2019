@@ -21,7 +21,7 @@
 % Newcommand
 
 %Titre article
-\newcommand\titlePaper{Differential elemination in rational Weyl algebras using strategies}
+\newcommand\titlePaper{Strategies in algebraic rewriting, with applications to rational Weyl algebras}
 
 % Texte
 \newcommand\eg{\emph{e.g.}}
@@ -75,7 +75,7 @@
 
 \begin{document}
 
-\title{Differential elimination in rational Weyl algebras\\ using strategies}
+\title{Strategies in algebraic rewriting, \\ with application to rational Weyl algebras}
 
 \author{
 Cyrille Chenavier\inst{1}
@@ -96,12 +96,20 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
 
 \maketitle
 
-\begin{abstract}
-  We study the confluence property for rewriting systems whose underlying set of terms admits a vector space structure. For that, we use deterministic reduction strategies.
-  These strategies are based on the choice of standard reductions applied to basis elements.
-  We provide a sufficient condition of confluence in terms of the kernel of the operator which computes standard normal forms.
-  We present a local criterion which enables us to check the confluence property in this framework.
-  We show how this criterion is related to the Diamond Lemma for terminating rewriting systems.
+\begin{abstract}  
+  We study the confluence property for rewriting systems whose underlying set of
+  terms admits a vector space structure. For that, we use deterministic
+  reduction strategies. These strategies are based on the choice of standard
+  reductions applied to basis elements.
+
+  We provide a sufficient condition of confluence in terms of the kernel of the
+  operator which computes standard normal forms. We present a local criterion to
+  check the confluence property in this framework, and show that this criterion
+  is related to the Diamond Lemma for terminating rewriting systems.
+
+  Finally, we relate these strategies to the notion of involutive division on
+  rational Weyl algebras, and completely characterise the strategies induced by
+  an involutive division.
 \end{abstract}
 
 \tableofcontents
@@ -113,80 +121,94 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
     \begin{itemize}
     \item definition of rew. rules and rew. steps
     \item proposition: convergent implies general form of solution to PDE
-    \item Janet bases: Janet complete implies existence of a strategy, passivity implies $h$-confluence criterion, as a consequence we recover formal solutions to PDE
+    \item Janet bases: Janet complete implies existence of a strategy, passivity
+      implies $h$-confluence criterion, as a consequence we recover formal
+      solutions to PDE
     \item $y'=xy$ and Janet example
     \end{itemize}
   \end{itemize}
   Example $y'=xy$, main steps:
   \begin{itemize}
-  \item general solution is given by $\Span{u\mid x^{2n+1}}=0$ and $\Span{u\mid x^{2n}}=u(0)/(2^nn!)$
-  \item we recover this by rew: we need $(\partial_x)^nx=x(\partial_x)^n+n(\partial_x)^{n-1}$ (using Leibniz identity and induction) and $\Span{u\mid x^n}=1/(n!)(\partial_x)^n(u)_{\mid 0}$ and we prove the previous two formulas by induction (use this example as a running example?)
+  \item general solution is given by $\Span{u\mid x^{2n+1}}=0$ and
+    $\Span{u\mid x^{2n}}=u(0)/(2^nn!)$
+  \item we recover this by rew: we need
+    $(\partial_x)^nx=x(\partial_x)^n+n(\partial_x)^{n-1}$ (using Leibniz identity and induction) and
+    $\Span{u\mid x^n}=1/(n!)(\partial_x)^n(u)_{\mid 0}$ and we prove the previous two
+    formulas by induction (use this example as a running example?)
   \end{itemize}
 }
 
+
 \section{Introduction}
 
-The fact that local confluence together with termination implies
-confluence has been known for abstract rewriting systems since
-Newman's work~\cite{MR0007372}. For rewriting on noncommutative
-polynomials, a similar result known as the Diamond lemma was
-introduced by Bergman~\cite{MR506890} nearly 30 years later, in order
-to compute normal forms in noncommutative algebras using rewriting
-theory. It asserts that for terminating rewriting systems, the local
-confluence property can be checked on monomials.
+So-called ``abstract rewriting'' was founded by Newman~\cite{MR0007372}, who
+proved that terminating and locally confluent rewriting systems are
+confluent. On the other hand, ``algebraic rewriting'' stems from the work of
+Bergman~\cite{MR506890}, which proved the Diamond Lemma to compute normal forms
+in noncommutative algebras. It asserts that for terminating rewriting systems,
+the local confluence property can be checked on monomials.
 
-One difficulty of rewriting polynomials is that the naive notion of
-rewriting path (obtained as the closure of the generating rewriting
-relations under reflexivity, transitivity, sum and product by a
-scalar) does not terminate. Instead, one needs to first consider
-well-formed rewriting steps before forming the reflexive transitive
+Abstract rewriting is a very active field of research in computer science,
+especially through its instanciations as graph rewriting or (higher order) term
+rewriting systems. Most recently, higher dimensional rewriting systems have been
+used to compute cofibrant replacements for monoids or PROs. \todo{references}
+
+Algebraic rewriting has also proved to be very useful: together with the
+works of Bokut~\cite{MR0506423}, it has given birth the theory of noncommutative
+\G\ bases~\cite{MR1299371}. The latter have provided applications to various
+areas of noncommutative algebra such as the study of embedding problems (which
+appear in the works of Bokut and Bergman), homological algebra~\cite{MR1072284,
+  MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}.
+
+These two theories have nevertheless been developed largely independently,
+although similar results sometimes appear in both frameworks. The main obstacle
+to unifying these two theories appears to be that the naive notion of rewriting
+path in algebraic rewriting (obtained as the closure of the generating rewriting
+relations under reflexivity, transitivity, sum and product by a scalar) does not
+terminate in the sense of abstract rewriting. Instead, one needs to first
+consider well-formed rewriting steps before forming the reflexive transitive
 closure.
 
-Nevertheless the Diamond lemma has proved to be very useful: together
-with the works of Bokut~\cite{MR0506423}, it has given birth the
-theory of noncommutative \G\ bases~\cite{MR1299371}. The latter have
-provided applications to various areas of noncommutative algebra such
-as the study of embedding problems (which appear in the works of Bokut
-and Bergman), homological algebra~\cite{MR1072284, MR2110434} or
-Koszul duality~\cite{MR1832913, MR0265437}.
+The goal of this paper is therefore to develop a theory of algebraic rewriting
+which does not presuppose a notion of well-formed rewriting steps, as a
+first step towards a unification of these two theories.
 
-Computation of normal forms in noncommutative algebra is also used to
-provide formal solutions to partial differential equations. In this
-framework, a confluence criterion analogous to the Diamond Lemma is
-given by Janet bases~\cite{MR2394773}, which specify a deterministic
-way to reduce each polynomial into normal form using standard
-reductions~\cite{Mell}. The confluence criterion may then be asserted
-as follows: for each monomial $m$ and each non-standard reduction
-$m\to f$, $f$ is reducible into $\widehat{m}$, where the latter is
-obtained from $m$ using only standard reductions.
+Our formalism is based on the notion of rewriting strategy. We prove in this
+setting a slightly more general version of Bergman's Diamond Lemma: it allows
+the treatment of non-terminating rewriting relations.
 
-In the presented paper, we propose an extension of the Diamond Lemma
-which offers two improvements over the one from Bergman: first it
-allows the treatment of non-terminating rewriting relations, and
-second it does not presuppose a notion of well-formed rewriting
-steps. This last property seems particularly promising in order to
-extend the Diamond Lemma to other structures.
+Instead, we suppose given an ordering on the monomials, independent of the
+rewriting relation.  We then use methods based on standard reductions: for every
+monomial $m$, we select exactly one reduction with left-hand side $m$, which is
+decreasing for the ordering chosen. Such choices induce a deterministic way to
+reduce each polynomial, obtained by applying simultaneously standard reductions
+on every monomial appearing in its decomposition. When these deterministic
+reductions terminate, one defines an operator which maps every polynomial to its
+unique standard normal form.
 
-Instead of supposing that the rewriting relation studied is
-terminating, we suppose given an ordering on the monomials,
-independent of the rewriting relation.  We then use methods based on
-standard reductions: for every monomial $m$, we select exactly one
-reduction with left-hand side $m$, which is decreasing for the
-ordering chosen. Such choices induce a deterministic way to reduce
-each polynomial, obtained by applying simultaneously standard
-reductions on every monomial appearing in its decomposition. When
-these deterministic reductions terminate, one defines an operator
-which maps every polynomial to its unique standard normal form.
+From this operator, we define a suitable notion of confluence in our setting,
+and show in Proposition~\ref{prop:h-conf_implies_conf} that it implies the usual
+notion of confluence for the rewriting system studied. We then provide an
+effective method for checking this criterion in
+Theorem~\ref{thm:confluence_criterion}. This method is based on a local analysis
+corresponding to checking local confluence on monomials. In particular, when the
+rewriting system is terminating, we show (Theorem~\ref{thm:diamond_lemma}) that
+we recover the Diamond Lemma as a particular case of
+Theorem~\ref{thm:confluence_criterion}.
 
-From this operator, we define a suitable notion of confluence in
-our setting, and show in Proposition~\ref{prop:h-conf_implies_conf}
-that it implies the usual notion of confluence for the rewriting
-system studied. We then provide an effective method for checking this
-criterion in Theorem~\ref{thm:confluence_criterion}. This method is
-based on a local analysis corresponding to checking local confluence
-on monomials. In particular, when the rewriting system is terminating,
-we show (Theorem~\ref{thm:diamond_lemma}) that we recover the Diamond
-Lemma as a particular case of Theorem~\ref{thm:confluence_criterion}.
+
+
+
+Computation of normal forms in noncommutative algebra is also used to provide
+formal solutions to partial differential equations. In this framework, a
+confluence criterion analogous to the Diamond Lemma is given by auto-reduced
+involutive divisions, which specify a deterministic way to reduce each
+polynomial into normal form using standard reductions~\cite{Mell}. In the second
+part of this paper, we relate auto-reduced involutive divisions to our notion of
+rewriting strategies. In particular we show that any such division induces a
+rewriting strategy, and completely characterise the rewriting strategies which
+arise in this way. We also show that the \emph{passivity} of an involutive
+division corresponds to the (local) confluence of the associated strategy. \todo{ref partout}
 
 \section{A weak version of the Diamond Lemma}
 \label{sec:a_weak_version_of_the_Diamond_Lemma}
@@ -959,3 +981,8 @@ resolution of PDE's.
   implies $u\divInv{L}^Um$,
 \item\label{it:filter} for every $V\subseteq U$ and every $v\in V$,
   $v\divInv{L}^Um$ implies $v\divInv{L}^Vm$. 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
