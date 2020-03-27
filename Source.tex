@@ -229,9 +229,10 @@ written $\supp(v)$.
 
 We also fix a subset $R$ of $\basis\times V$, whose elements are called
 rewriting rules. A rewriting rule is denoted by $e\rewR r$, where $e$ 
-and~$r$ are the images of this rule through the natural projections of
-$R$ on $\basis$ and $V$, respectively. Throughout the paper, we use the
-standard terminology of rewriting theory, see~\cite{MR1629216}.
+and~$r$ are left and right-hand sides of this rule, \ie, its images
+through the natural projections of $R$ on $\basis$ and $V$, respectively.
+Throughout the paper, we use the standard terminology of rewriting
+theory, see~\cite{MR1629216}.
 \todo{Compléter?}
 
 \subsection{Strategies on linear rewriting systems}
@@ -239,7 +240,7 @@ standard terminology of rewriting theory, see~\cite{MR1629216}.
 
 In this section, we present our general framework for rewriting systems
 on vector spaces and introduce the notion of strategies for such systems.
-These strategies are used to introduce a criterion in 
+These strategies are used to formulate a confluence criterion in 
 Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
@@ -248,7 +249,7 @@ considering elementary reductions that reduce many basis elements at
 once. Formally, elementary reductions are of the following form: 
 
 \begin{equation}\label{equ:rewriting_step}
-  \sum_{i=1}^n\lambda_ie_i+v\to\sum_{i=1}^n\lambda_ir_i+v,
+  \sum_{i=1}^n\lambda_ie_i+v\rewR\sum_{i=1}^n\lambda_ir_i+v,
   \smallskip
 \end{equation}
 where $n$ is a strictly positive integer, $v$ is a vector, and for each
@@ -256,43 +257,45 @@ index $i$ in the sum, $\lambda_i$ is a nonzero scalar, $e_i\rewR r_i$ is
 a rewriting rule, and $e_i$ does not belong to $\supp(v)$. Notice that we
 do not assume that $\supp(v)$ contains only basis elements that are
 irreducible for $\rewR$. This rewriting relation is still denoted by
-$\rewR$ and its closures under transitivity, reflexivity and sum (resp.
-and symmetry) is denoted by $\transR$ (resp. $\equivR$). Finally, a
-normal form for $\rewR$ is called an $R$-normal form. In the sequel, we
-refer $\rewR$ as the rewriting relation induced by the rewriting rules
-$R$.
+$\rewR$ since it extends the rewriting rules in $R$, and its closures
+under transitivity, reflexivity and sum (resp. and symmetry) is denoted
+by $\transR$ (resp. $\equivR$). Finally, a normal form for $\rewR$ is
+called an $R$-normal form. In the sequel, we refer $\rewR$ as the
+rewriting relation induced by the rewriting rules $R$.
 \medskip
 
-Let $S$ be a subset of $R$ whose elements are denoted by~$e\rewS r_e$
-\footnote{The double head on the arrow are here to mark the difference
-  between elements of $S$ and rewriting rules.}. We extend $\rewS$ into
-the rewriting relation, still denoted by~$\rewS$, defined such as
-in~\eqref{equ:rewriting_step}, with the additional property that there is
-no $e\rewS r_e$ in the strategy such that $e\in\supp(v)$. In other words,
-a vector $u$ admits a unique decomposition
+A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
+are pairwise distinct, that is if $e\rewR r$ and $e'\rewR r'$ belong to
+$S$ and are such that $e=e'$, then we have $e\rewR r=e'\rewR r'$. Hence,
+each $S$-reducible basis element $e$ corresponds to exactly one rewriting
+rule $e\rewR r_S(e)$ in~$S$. We extend the pre-strategy $S$ into the
+determinitic rewriting relation~$\rewS$\footnote{The double head on the
+  arrow marks the difference with the nondeterministic $\to_S$ defined
+  such as in~\eqref{equ:rewriting_step}.} defined as follows. Every
+vector $u$ admits a unique decomposition 
 \[u=\sum_{i=1}^n\lambda_ie_i+v,
 \smallskip\]
-where each $\lambda_i$ is nonzero, each $e_i$ is a left-hand side of $S$,
-each basis element in $\supp(v)$ is not, and if $n$ is nonzero and
-$e_i\rewS r_i$ are elements of the strategy, then we have 
-\[u\rewS\sum_{i=1}^n\lambda_ir_i+v.
+where each $\lambda_i$ is nonzero, each $e_i$ is a left-hand side of a
+rule $e_i\rewR r_S(e_i)$ in $S$, and each basis element in $\supp(v)$ is
+not. If $n$ is nonzero, then we let
+\[u\rewS\sum_{i=1}^n\lambda_ir_S(e_i)+v.
 \smallskip\]
 The closure of $\rewS$ under transitivity and symmetry is denoted by
 $\transS$. A normal form for $\rewS$ is called an $S$-normal form. Notice
-that $u\transS v$ implies $u\transR v$ and that the two rewriting
-relations $\rewRR$ and $\rewR$ are different as soon as $R$ contains two
-elements with distinct left-hand sides.
+that $u\transS v$ implies $u\transR v$ and that $R$ is a pre-strategy for
+itself only if its left-hand side are pairwise distinct. 
 \smallskip
 
 \begin{definition}
-  A {\em pre-strategy} is a subset $S$ of $R$ such that its left-hand
-  sides are pairwise distinct. A pre-strategy is called a {\em strategy}
-  if the rewriting relation $\rewS$ is terminating. 
+  A pre-strategy is called a {\em strategy} if the rewriting relation
+  $\rewS$ is terminating. 
 \end{definition}
 \smallskip
 
-In order to illustrate our notions, we consider the following running
-example.
+Following our convention for elements of $R$, those of $S$ are written in
+the form $e\rewS r_S(e)$, and the rewriting relation $\rewS$ is called
+the rewriting (pre-)strategy induced by $S$. In order to illustrate our
+notions, we consider the following running example.
 \smallskip
 
 \begin{example}\label{ex:h_norma_form}
@@ -302,7 +305,7 @@ example.
   \smallskip\]
   Note that $\rewR$ is not terminating since there is a rewriting loop
   due to $b\rewR c+d$ and $c+d\rewR (b-d)+d=b$. We select the
-  pre-strategy $S$ defined as follows:
+  pre-strategy $S$ composed of the following rules:
   \[a\rewS b,\quad b\rewS c+d.
   \smallskip\]
   This pre-strategy is clearly a strategy since every vector admits an
@@ -544,7 +547,7 @@ particular case of our setup.
   show that $\rewR$ is $S$-confluent using the criterion of
   Proposition~\ref{prop:S-conf_decreasing}. For that, we define the order
   $<$ on $R$ by letting $(e\rewR r)<(e'\rewR r')$ whenever there exists a
-  vector $v$ such that $e'\transR v$ and $e'\in\supp(v)$. This order is
+  vector $v$ such that $e'\transR v$ and $e\in\supp(v)$. This order is
   well-founded since $\rewR$ is terminating. Now, let $e\rewR r$ be a
   rewriting rule, so that $e$ is not an $R$-normal form and
   $e\overset{=}{\rewS}r_e$ means $e\rewS r_e$. Using the confluence
@@ -771,16 +774,17 @@ operators. From this, we show that the rewriting system induced by an
 involutive set of operators is confluent.
 \medskip
 
-We first recall the definition of involutive division and associated
-notions that are involutive divisors, multiplicative variables, and
-autoreducibility. For that, we temporally work with monomials instead of
-operators and denote these monomials with Latin letters $u,m$ instead
-of~$\partial^\alpha$. Then, we will reuse the  operator notation for
-monomials when we will consider rewriting systems on rational Weyl
-algebras. An {\em involutive division} $L$ on $\Mon(\Delta)$ is defined
-by a binary relation $\divInv{L}^U$ on $U\times\Mon(\Delta)$, for every
-finite subset $U\subset\Mon(\Delta)$, satisfying for every $u,u'\in U$
-and every $m,m'\in\Mon(\Delta)$, the following relations:
+We first recall from~\cite{MR1627129} the definition of involutive
+divisions and associated notions that are involutive divisors,
+multiplicative variables, and autoreducibility. For that, we temporally
+work with monomials instead of operators and denote these monomials with
+Latin letters $u,m$ instead of~$\partial^\alpha$. Then, we will reuse the
+operator notation for monomials when we will consider rewriting systems
+on rational Weyl algebras. An {\em involutive division} $L$ on
+$\Mon(\Delta)$ is defined by a binary relation $\divInv{L}^U$ on
+$U\times\Mon(\Delta)$, for every finite subset $U\subset\Mon(\Delta)$,
+satisfying for every $u,u'\in U$ and every $m,m'\in\Mon(\Delta)$, the
+following relations:
 \begin{enumerate}[label=\alph*)]
 \item\label{it:div} $u\divInv{L}^Um\Rightarrow u\mid m$,
 \item\label{it:unit} $u\divInv{L}^Uu$,
@@ -834,15 +838,14 @@ the case where $U$ is the set
 \smallskip\]
 of leading monomials of elements of $\Theta$. Hence, we may extend the
 autoreducibility property for monomial sets w.r.t.\ an involutive
-division to sets of differential operators. 
+division to sets of differential operators.
 \smallskip
 
 \begin{definition}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
   let $\prec$ be a monomial order, and let $L$ be an involutive division
   on $\Mon(\Delta)$. We say that $\Theta$ is {\em left L-autoreduced} if
-  $\lm(\Theta)$ is $L$-autoreduced,
-  respectively.
+  $\lm(\Theta)$ is $L$-autoreduced.
 \end{definition}
 \smallskip
 \noindent
@@ -890,7 +893,10 @@ r(\D_i)$ in order to simplify notations.
 From Proposition~\ref{prop:involutive_strategy}, any involutive division
 $L$ such that $\Theta$ is left $L$-autoreduced induces a strategy
 $\SThetaL$ for $\RTheta$. Hence, we get a well-defined normalisation
-operator $\SThetaL$ corresponding to this strategy.
+operator $\SThetaL$ corresponding to this strategy. The following
+definition is an adaptation of the notion of involutive bases for
+polynomial ideals~\cite{MR1627129} to the case of sets of monic
+differential operators.
 \smallskip
 
 \begin{definition}
@@ -912,7 +918,7 @@ operators is confluent.
 \begin{theorem}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
   let $\prec$ be a monomial order on $\monBasis$ such that each element
-  of $\Theta$ is monic , and let L be an involutive division 
+  of $\Theta$ is monic, and let L be an involutive division 
   on~$\monBasis$ such that $\Theta$ is left L-autoreduced and
   L-involutive. Then, the rewriting relation~$\rewTheta$ is confluent.
 \end{theorem}
@@ -950,7 +956,7 @@ $\partial_i$ is $S$-divisible by $\lm(\D)$.
 \begin{proposition}
   If the strategy $S$ is involutive, then the S-division satisfies
   axioms~\ref{it:div}--\ref{it:transitivity} of the definition of an
-  involutive division. Moreover, if L is an involutve division on
+  involutive division. Moreover, if L is an involutive division on
   $\monBasis$ such that $\Theta$ is left L-autoreduced, then the
   $\SThetaL$-division is the restriction of L to $\lm(\Theta)$.
 \end{proposition}
@@ -985,17 +991,3 @@ resolution of PDE's.
 \bibliography{Biblio}
 
 \end{document}
-
-
-
-\item\label{it:vertex} $u\divInv{L}^Um$ and $u'\divInv{L}^Um$ implies
-  $u\divInv{L}^Uu'$ or $u'\divInv{L}^Uu$,
-\item\label{it:transitivity} $u\divInv{L}^Uu'$ and $u'\divInv{L}^Um$
-  implies $u\divInv{L}^Um$,
-\item\label{it:filter} for every $V\subseteq U$ and every $v\in V$,
-  $v\divInv{L}^Um$ implies $v\divInv{L}^Vm$. 
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
