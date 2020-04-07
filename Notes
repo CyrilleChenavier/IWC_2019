@@ -1,7 +1,12 @@
 === À faire ===
 
-* Relier la réécriture en parallèle aux suites de pas de réécriture bien formées (i.e. tels que définis pour les bases de G), i.e., a se réécrit parallèlement à b implique il existe un vrai chemin de a vers b
+* Chapeau section 2: appeler terminologie utilisée
+* Chapeaux 2 et 3 : écrire une ou deux phrases présentant la section.
 
+* Exemples section 3.2 :
+  - étendre 3.6 avec les exemples de la section 3.1
+  - avant 3.10 : rajouter exemple Janet, illustrer lien confluence et involutif
+  - après 3.10 : parler de complétion + faire l'exemple de Janet en renvoyant à Pommaret
 
 === A regarder ===
 
