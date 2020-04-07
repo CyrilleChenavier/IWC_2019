@@ -114,29 +114,6 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
 
 \tableofcontents
 
-\todo{plan:
-  \begin{itemize}
-  \item Section I: IWC theorem
-  \item Section 2: rew on rationnal Weyl algebras
-    \begin{itemize}
-    \item definition of rew. rules and rew. steps
-    \item proposition: convergent implies general form of solution to PDE
-    \item Janet bases: Janet complete implies existence of a strategy, passivity
-      implies $h$-confluence criterion, as a consequence we recover formal
-      solutions to PDE
-    \item $y'=xy$ and Janet example
-    \end{itemize}
-  \end{itemize}
-  Example $y'=xy$, main steps:
-  \begin{itemize}
-  \item general solution is given by $\Span{u\mid x^{2n+1}}=0$ and
-    $\Span{u\mid x^{2n}}=u(0)/(2^nn!)$
-  \item we recover this by rew: we need
-    $(\partial_x)^nx=x(\partial_x)^n+n(\partial_x)^{n-1}$ (using Leibniz identity and induction) and
-    $\Span{u\mid x^n}=1/(n!)(\partial_x)^n(u)_{\mid 0}$ and we prove the previous two
-    formulas by induction (use this example as a running example?)
-  \end{itemize}
-}
 
 
 \section{Introduction}
@@ -265,8 +242,8 @@ rewriting relation induced by the rewriting rules $R$.
 \medskip
 
 A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
-are pairwise distinct, that is if $e\rewR r$ and $e'\rewR r'$ belong to
-$S$ and are such that $e=e'$, then we have $e\rewR r=e'\rewR r'$. Hence,
+are pairwise distinct, that is if $e\rewR r$ and $e\rewR r'$ belong to
+$S$, then we have $ r= r'$. Hence,
 each $S$-reducible basis element $e$ corresponds to exactly one rewriting
 rule $e\rewR r_S(e)$ in~$S$. We extend the pre-strategy $S$ into the
 determinitic rewriting relation~$\rewS$\footnote{The double head on the
@@ -312,6 +289,16 @@ notions, we consider the following running example.
   $S$-normal form after one reduction by $\rewS$. The $R$-normal forms
   are the elements of the form $\lambda_dd$, while the $S$-normal forms
   are all the expressions of the form $\lambda_dd+\lambda_cc$.
+\end{example}
+
+\begin{example}\label{ex:case_N}
+  Let $\basis = \mathbb N$, with set of rewriting rules $R$ given by
+  $n \rewR n+1$.
+
+  Then a pre-strategy $S$ corresponds to a subset $E$ of $\mathbb N$. It is a
+  strategy if and only if for all $n \in E$, there exists $k \in \mathbb N$ such
+  that $n + k \notin E$. In other words $S$ is a strategy if and only if the
+  complement of $E$ in $\mathbb N$ is cofinal in $\mathbb N$.
 \end{example}
 \smallskip
 
@@ -381,11 +368,10 @@ induces is entirely characterised by $S$-normal forms.
 \end{proof}
 \smallskip
 
-Note that $S$-confluence is a sufficient but not a necessary condition
-for confluence. Indeed, with $\basis$ the set of integers and the
-rewriting rules $n\rewR n+1$, there is no strategy such that~$\rewR$ is
-confluent relative to this strategy.
-\smallskip
+Note that $S$-confluence is a sufficient but not a necessary condition for
+confluence. Indeed, with $\basis$ the set of integers and the rewriting rules
+$n\rewR n+1$ as in Example~\ref{ex:case_N}, there is no strategy such
+that~$\rewR$ is confluent relative to this strategy.  \smallskip
 
 \begin{example}\label{ex:S-conf}
   Let us continue Example~\ref{ex:h_norma_form}. The following identities
@@ -403,8 +389,8 @@ In Proposition~\ref{prop:S-conf_decreasing}, we show that $S$-confluence
 is caracterised in terms of the decreasingness property that we introduce
 in Definition~\ref{def:decreasing}. In order to state this definition, we
 introduce the following notation: for every basis element $e$, we write
-$e\overset{=}{\twoheadrightarrow}_Sr_e$, for $e\rewS r_e$ if such a
-rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
+$e\overset{=}{\twoheadrightarrow}_Sr_S(e)$, for $e\rewS r_S(e)$ if such a
+rewriting rule exists in the strategy $S$ and $e=r_S(e)$, otherwise.
 \smallskip
 
 \begin{definition}\label{def:decreasing}
@@ -413,7 +399,7 @@ rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
   rewriting rule $e\rewR r$, we have a diagram:
   \[\begin{tikzcd}
       e\ar[d, "_R"']\ar[r, twoheadrightarrow, "=", "_S"'] &
-      r_e\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
+      r_S(e)\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
       r\ar[r, leftrightarrow, dotted, "*", "_R"'] & v
     \end{tikzcd}\]
   where each rewriting rule occurring in the dotted arrows is strictly
@@ -432,7 +418,7 @@ rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
 
 \begin{proof}
   $(1)\Rightarrow (2)$: We define the order $<$ on $R$ by
-  $e\rewS r_e<e'\rewR r$ whenever $e'\rewR r\notin S$. This order is
+  $e\rewS r_S(e)<e'\rewR r$ whenever $e'\rewR r\notin S$. This order is
   clearly well-founded since each chain of strictly decreasing elements
   has length $2$. Let $e\rewR r$ be a rewriting rule and let us construct
   a decreasing diagram as in Definition~\ref{def:decreasing}. We
@@ -461,16 +447,16 @@ rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
     diagram is decreasing w.r.t.\ $(S,<)$.
   \item In the last case, $e$ is not a $S$-normal form and $e\rewR r$
     does not belong to $S$. In particular, there exists a rewriting rule
-    of the form $e\rewS r_e$ in the strategy $S$. Moreover, by
+    of the form $e\rewS r_S(e)$ in the strategy $S$. Moreover, by
     definitions of the map $\SNF$ and of the $S$-confluence property, we
     have the equalities
-    \[\SNF(r_e)=\SNF(e)=\SNF(r).
+    \[\SNF(r_S(e))=\SNF(e)=\SNF(r).
     \smallskip\]
     Hence, we get the following diagram:
     \[\begin{tikzcd}
     e\ar[r, "_R"']\ar[d, twoheadrightarrow, "_S"'] &
     r \ar[twoheadrightarrow, , "_S", "*"', d] \\
-    r_e\ar[r, twoheadrightarrow, "_S"', "*"] & \SNF (e)
+    r_S(e) \ar[r, twoheadrightarrow, "_S"', "*"] & \SNF (e)
     \end{tikzcd}\]
     Since $e\rewR r$ does not belong to $S$ and since every rewriting
     step in the right and bottom faces belong to $S$, they are smaller
@@ -483,12 +469,12 @@ rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
   decreasing diagram:
   \[\begin{tikzcd}
   e\ar[d, "_R"']\ar[r, twoheadrightarrow, "=", "_S"'] &
-  r_e\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
+  r_S(e)\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
   r\ar[r, leftrightarrow, dotted, "*", "_R"'] & v
   \end{tikzcd}\]
   Using our induction hypothesis and adapting the argument in the first
   part of the proof of Theorem~\ref{thm:S-confluence_criterion}, we have
-  $\SNF(r)=\SNF(v)=\SNF(r_e)$. Hence, since $\SNF(e)=\SNF(r_e)$ by
+  $\SNF(r)=\SNF(v)=\SNF(r_S(e))$. Hence, since $\SNF(e)=\SNF(r_S(e))$ by
   definition of the map $\SNF$, we have $\SNF(e)=\SNF(r)$. The order
   $<$ being well-founded, this inductive argument proves that
   $\SNF(e)=\SNF(r)$ for every rewriting rule $e\rewR r$, that is $R$ is
@@ -497,14 +483,19 @@ rewriting rule exists in the strategy $S$ and $e=r_e$, otherwise.
 \smallskip
 
 \begin{remark}
-  Based on Proposition~\ref{prop:S-conf_decreasing}, local $S$-confluence
-  implies that the pair of rewriting relations $(\rewS,\rewR)$ is
-  decreasing with respect to conversions
-  (see~\cite[Definition 3]{van2008confluence}), using the order $<$ on
-  $R$ and the discrete order on $\rewS$. 
-  By~\cite[Theorem 3]{van2008confluence}, this implies that
-  $(\rewS,\rewR)$ commutes. Using the fact that $\rewS \subseteq \rewR$,
-  one can then recover that $\rewR$ is confluent.
+  In the case where the rewriting system comes from a set-theoretic rewriting
+  system (that is, the right hand sides of the rewriting rules are elements of
+  the basis), the fact that local $S$-confluence implies that $\rewR$ is
+  confluent is a special case of Van Ostroom's decreasing diagrams
+  \cite{van2008confluence}.
+
+  More precisely, based on Proposition~\ref{prop:S-conf_decreasing}, local
+  $S$-confluence implies that the pair of rewriting relations $(\rewS,\rewR)$ is
+  decreasing with respect to conversions (see~\cite[Definition
+  3]{van2008confluence}), using the order $<$ on $R$ and the discrete order on
+  $\rewS$.  By~\cite[Theorem 3]{van2008confluence}, this implies that
+  $(\rewS,\rewR)$ commutes. Using the fact that $\rewS \subseteq \rewR$, one can then
+  recover that $\rewR$ is confluent.
 \end{remark}
 \smallskip
 
@@ -540,7 +531,7 @@ particular case of our setup.
 
 \begin{proof}
   For every basis element $e$ that is reducible by $\rewR$, we select
-  exactly one arbitrary rewriting rule $e\rewR r_e$ with left hand-side
+  exactly one arbitrary rewriting rule with left hand-side
   $e$. Then, let $S$ be the pre-strategy composed of these selected
   rewriting rules. Since $\rewR$ is terminating and contains $\rewS$, the
   latter is also terminating, so that $S$ is a strategy for $R$. Let us
@@ -550,11 +541,11 @@ particular case of our setup.
   vector $v$ such that $e'\transR v$ and $e\in\supp(v)$. This order is
   well-founded since $\rewR$ is terminating. Now, let $e\rewR r$ be a
   rewriting rule, so that $e$ is not an $R$-normal form and
-  $e\overset{=}{\rewS}r_e$ means $e\rewS r_e$. Using the confluence
+  $e\overset{=}{\rewS}r_S(e)$ means $e\rewS r_S(e)$. Using the confluence
   hypothesis of the theorem, we have a diagram
   \[\begin{tikzcd}
   e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-  r_e\ar[d, rightarrow, "*"', "_R"]\\
+  r_S(e)\ar[d, rightarrow, "*"', "_R"]\\
   r\ar[r, rightarrow, "*", "_R"'] & v
   \end{tikzcd}\]
   Each rewriting rule appearing in the right and bottom faces is strictly
@@ -564,15 +555,18 @@ particular case of our setup.
 \end{proof}
 \smallskip
 
-Notice that in the proof of the Diamond Lemma, we select for $<$ another
-order than the one given in the proof of
-Proposition~\ref{prop:S-conf_decreasing} (the latter asserts that each
-rule of $S$ is smaller than each rule which is not in $S$ and there is no
-other comparison). That illustrates that even if $S$-confluence seems to
-be a strict notion at a first sight, it is flexible in the sense that
-allowing to reverse rewriting rules does not bring more confluence
-diagrams as soon as these rules are small enough for at least one
-well-founded order. 
+Notice that in the proof of the Diamond Lemma, we select for $<$ another order
+than the one given in the proof of Proposition~\ref{prop:S-conf_decreasing} (the
+latter asserts that each rule of $S$ is smaller than each rule which is not in
+$S$ and there is no other comparison). This is a good illustration of the
+flexibility of the characterisation of $S$-confluence given in
+Proposition~\ref{prop:S-conf_decreasing}.
+
+% That illustrates that even if $S$-confluence seems to
+% be a strict notion at a first sight, it is flexible in the sense that
+% allowing to reverse rewriting rules does not bring more confluence
+% diagrams as soon as these rules are small enough for at least one
+% well-founded order. 
 
 \section{Differential elimination in rational Weyl algebras}
 \label{sec:differential_elimination_in_rational_Weyl_algebras}
@@ -602,7 +596,7 @@ monic operators.
 \begin{definition}
   The {\it rational Weyl algebra} over $\Q(X)$ is the set of polynomials
   $\Q(X)[\Delta]$ with coefficients in $\QXX$ and indeterminates
-  $\Delta$. The multiplication of this algebra is induced by the
+  $\Delta$. The multiplication of this $\mathbb Q$-algebra is induced by the
   commutation laws $\partial_i\partial_j=\partial_j\partial_i$ and
   \[\diff{i}f=f\diff{i}+\frac{d}{dx_i}(f),\quad f\in\Q(X),\quad
   1\leq i\leq n,
@@ -614,7 +608,7 @@ monic operators.
 
 Notice that $\Weyl{n}$ is a $\QXX$-vector space and that the monomial set
 $\monBasis$ is a basis of~$\Weyl{n}$. Elements of~$\Weyl{n}$ should be
-thought as differential operators with rational functions coefficients
+thought of as differential operators with rational functions coefficients
 and for this reason, a generic element of this algebra is denoted by $\D$
 and is called a differential operator. In the following example, we
 illustrate how these operators provide an algebraic model of linear
@@ -628,7 +622,7 @@ derivative equations (in the case $n\geq 2$).
   \item\label{it:ODE_init} The linear ordinary differential equation
     $y'(x)=xy(x)$ is written in the form $(\D y)(x)=0$, where the operator
     $\D:=\partial-x$ belongs to $\Weyl{1}=\Q(x)[\partial]$. 
-  \item\label{it:Janet_example_init} Consider the Janet
+  \item\label{it:Janet_example_init} Consider Janet's
     example~\cite{MR3532888}, that is the linear system of partial
     derivative equations with~$3$ variables, one unknown function, and
     the two equations $y_{33}(x)=x_2y_{11}(x)$ and $y_{22}(x)=0$, where
@@ -808,7 +802,7 @@ determined by the list of multiplicative variables w.r.t.\ each finite
 set $U$ such that conditions \ref{it:vertex}, \ref{it:transitivity}, and
 \ref{it:filter} are fulfilled. We say that $U$ is {\em L-autoreduced} if
 every $u\in U$ admits only $u$ as $L$-involutive divisor, \ie,
-$u\divInv{L}u'$ implies $u=u'$. Notice that if $U$ is $L$-autoreduced,
+$u'\divInv{L}u$ implies $u'=u$. Notice that if $U$ is $L$-autoreduced,
 then every monomial $m$ admits at most one $L$-involutive divisor. We
 finish this discussion on involutive divisions with three classical
 examples. Before, let us introduce the following notation: given a
@@ -865,7 +859,7 @@ contains only $L$-multiplicative variables for $\lm(\D)$ w.r.t.\
 $\lm(\Theta)$. Finally, we let
 \begin{equation}\label{equ:S-strategy}
   \SThetaL:=\Big\{\partial^\alpha\lm(\D)\rewThetaS{L}\partial^\alpha
-  r(\D):\ \D\in\Theta,\quad\lm(\D)\divInv{L}\partial^\alpha\lm(\D)\Big\}.
+  r(\D) : \, \D\in\Theta,\quad\lm(\D)\divInv{L}\partial^\alpha\lm(\D)\Big\}.
   \smallskip
 \end{equation}
 Here again, we choose to write
@@ -991,3 +985,8 @@ resolution of PDE's.
 \bibliography{Biblio}
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
