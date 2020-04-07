@@ -190,7 +190,13 @@ division corresponds to the (local) confluence of the associated strategy. \todo
 \section{A weak version of the Diamond Lemma}
 \label{sec:a_weak_version_of_the_Diamond_Lemma}
 
-Throughout this section, we fix a ground field $\K$, a $\K$-vector space
+In this section, we introduce rewriting strategies for rewriting systems
+on vector spaces and formulate a confluence criterion in terms of
+strategies. In particular, we obtain a new proof of the Diamond Lemma
+based on rewriting strategies.
+\medskip
+
+Throughout the section, we fix a ground field $\K$, a $\K$-vector space
 $V$, and a basis $\basis$ of $V$. We say vectors and basis elements for
 elements of $V$ and $\basis$, respectively. Every vector $v$ admits a
 unique finite decomposition with respect to the basis $\basis$ and
@@ -201,16 +207,23 @@ coefficients in the ground field:
 \end{equation}
 The set of basis elements which appear in the decomposition
 \eqref{equ:vector_decompo} is called the {\it support} of $v$ and is
-written $\supp(v)$.
+written $\supp(v)$. We also fix a subset $R$ of $\basis\times V$, whose
+elements are called rewriting rules. A rewriting rule is denoted by
+$e\rewR r$, where $e$ and~$r$ are left and right-hand sides of this rule,
+\ie, its images through the natural projections of $R$ on $\basis$ and
+$V$, respectively.
 \medskip
 
-We also fix a subset $R$ of $\basis\times V$, whose elements are called
-rewriting rules. A rewriting rule is denoted by $e\rewR r$, where $e$ 
-and~$r$ are left and right-hand sides of this rule, \ie, its images
-through the natural projections of $R$ on $\basis$ and $V$, respectively.
 Throughout the paper, we use the standard terminology of rewriting
-theory, see~\cite{MR1629216}.
-\todo{Compléter?}
+theory, see~\cite{MR1629216}. An {\em abstract rewriting system} is a
+pair $(A,\to)$, where $A$ is a set and $\to$ is binary relation on $A$,
+called {\em rewriting relation}. An element $(a,b)\in\to$ is written
+$a\to b$ and is called a {\em reduction}. A {\em normal form} for $\to$
+is an element $a\in A$ such that there is no $b\in A$ such that $a\to b$.
+The rewriting relation $\to$ is said to be {\em confluent} if whenever
+$a$ rewrites into $b$ and $c$, that is, there exist finite sequences of
+reductions from $a$ to $b$ and $c$, then there exists $d$ such that $b$
+and $c$ rewrite into $d$. 
 
 \subsection{Strategies on linear rewriting systems}
 \label{sec:strategies_on_linear_rewriting_systems}
@@ -222,8 +235,8 @@ Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
 We first extend the rewriting rules into a rewriting relation on $V$ by
-considering elementary reductions that reduce many basis elements at
-once. Formally, elementary reductions are of the following form: 
+considering reductions that rewrite many basis elements at once.
+Formally, reductions are of the following form: 
 
 \begin{equation}\label{equ:rewriting_step}
   \sum_{i=1}^n\lambda_ie_i+v\rewR\sum_{i=1}^n\lambda_ir_i+v,
@@ -235,14 +248,27 @@ a rewriting rule, and $e_i$ does not belong to $\supp(v)$. Notice that we
 do not assume that $\supp(v)$ contains only basis elements that are
 irreducible for $\rewR$. This rewriting relation is still denoted by
 $\rewR$ since it extends the rewriting rules in $R$, and its closures
-under transitivity, reflexivity and sum (resp. and symmetry) is denoted
-by $\transR$ (resp. $\equivR$). Finally, a normal form for $\rewR$ is
-called an $R$-normal form. In the sequel, we refer $\rewR$ as the
-rewriting relation induced by the rewriting rules $R$.
-\medskip
+under transitivity, reflexivity, \todo{scalar multiplication}, and sum
+(resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$). Finally,
+a normal form for $\rewR$ is called an $R$-normal form. In the sequel, we
+refer $\rewR$ as the rewriting relation induced by the rewriting rules
+$R$.
+\smallskip
+
+\begin{remark}
+  Usually, the notations $\overset{*}{\to}$ and
+  $\overset{*}{\leftrightarrow}$
+  stand for the closures of the binary relation $\to$ under transitivity
+  and reflexivity and transitivity, reflexivity, and symmetry. In this
+  paper, we also require closures under vector spaces operations since we
+  precisely wish to develop a rewriting theory internal to vector spaces.
+  \todo{Changer/supprimer la deuxième phrase?}
+\end{remark}
+\smallskip
+
 
 A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
-are pairwise distinct, that is if $e\rewR r$ and $e\rewR r'$ belong to
+are pairwise distinct, that is, if $e\rewR r$ and $e\rewR r'$ belong to
 $S$, then we have $ r= r'$. Hence,
 each $S$-reducible basis element $e$ corresponds to exactly one rewriting
 rule $e\rewR r_S(e)$ in~$S$. We extend the pre-strategy $S$ into the
@@ -293,12 +319,11 @@ notions, we consider the following running example.
 
 \begin{example}\label{ex:case_N}
   Let $\basis = \mathbb N$, with set of rewriting rules $R$ given by
-  $n \rewR n+1$.
-
-  Then a pre-strategy $S$ corresponds to a subset $E$ of $\mathbb N$. It is a
-  strategy if and only if for all $n \in E$, there exists $k \in \mathbb N$ such
-  that $n + k \notin E$. In other words $S$ is a strategy if and only if the
-  complement of $E$ in $\mathbb N$ is cofinal in $\mathbb N$.
+  $n \rewR n+1$. Then a pre-strategy $S$ corresponds to a subset $E$ of
+  $\mathbb N$. It is a strategy if and only if for all $n \in E$, there
+  exists $k \in \mathbb N$ such that $n + k \notin E$. In other words $S$
+  is a strategy if and only if the complement of $E$ in $\mathbb N$ is
+  cofinal in $\mathbb N$. \todo{Expliquer ce que veut dire cofinal}
 \end{example}
 \smallskip
 
@@ -353,12 +378,13 @@ induces is entirely characterised by $S$-normal forms.
 
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
-  $\rewR$ under transitivity, symmetry and sum. Since the relation
-  $\SNF(u-v)=0$ is closed under these operations and contains $\rewR$ by
-  $S$-confluence, we get one implication. Reciprocally, if $\SNF(u-v)=0$,
-  then we have $\SNF(u)=\SNF(v)$, and by definition of $\SNF$, we get
-  $u\transS\SNF(u)$ and $v\transS\SNF(v)$. Finally, $v_1\transS v_2$
-  implies $v_1\transR v_2$ and we get $u\equivR v$.
+  $\rewR$ under transitivity, symmetry, scalar multiplication and sum.
+  Since the relation $\SNF(u-v)=0$ is closed under these operations and
+  contains $\rewR$ by $S$-confluence, we get one implication.
+  Reciprocally, if $\SNF(u-v)=0$, then we have $\SNF(u)=\SNF(v)$, and by
+  definition of $\SNF$, we get $u\transS\SNF(u)$ and $v\transS\SNF(v)$.
+  Finally, $v_1\transS v_2$ implies $v_1\transR v_2$ and we get
+  $u\equivR v$.
 
   For the second assertion, let us consider three vectors
   $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the
@@ -477,7 +503,7 @@ rewriting rule exists in the strategy $S$ and $e=r_S(e)$, otherwise.
   $\SNF(r)=\SNF(v)=\SNF(r_S(e))$. Hence, since $\SNF(e)=\SNF(r_S(e))$ by
   definition of the map $\SNF$, we have $\SNF(e)=\SNF(r)$. The order
   $<$ being well-founded, this inductive argument proves that
-  $\SNF(e)=\SNF(r)$ for every rewriting rule $e\rewR r$, that is $R$ is
+  $\SNF(e)=\SNF(r)$ for every rewriting rule $e\rewR r$, that is, $R$ is
   $S$-confluent.
 \end{proof}
 \smallskip
@@ -487,15 +513,14 @@ rewriting rule exists in the strategy $S$ and $e=r_S(e)$, otherwise.
   system (that is, the right hand sides of the rewriting rules are elements of
   the basis), the fact that local $S$-confluence implies that $\rewR$ is
   confluent is a special case of Van Ostroom's decreasing diagrams
-  \cite{van2008confluence}.
-
-  More precisely, based on Proposition~\ref{prop:S-conf_decreasing}, local
-  $S$-confluence implies that the pair of rewriting relations $(\rewS,\rewR)$ is
-  decreasing with respect to conversions (see~\cite[Definition
-  3]{van2008confluence}), using the order $<$ on $R$ and the discrete order on
-  $\rewS$.  By~\cite[Theorem 3]{van2008confluence}, this implies that
-  $(\rewS,\rewR)$ commutes. Using the fact that $\rewS \subseteq \rewR$, one can then
-  recover that $\rewR$ is confluent.
+  \cite{van2008confluence}. More precisely, based on
+  Proposition~\ref{prop:S-conf_decreasing}, local $S$-confluence implies
+  that the pair of rewriting relations $(\rewS,\rewR)$ is decreasing with
+  respect to conversions (see~\cite[Definition 3]{van2008confluence}),
+  using the order $<$ on $R$ and the discrete order on $\rewS$.
+  By~\cite[Theorem 3]{van2008confluence}, this implies that
+  $(\rewS,\rewR)$ commutes. Using the fact that $\rewS \subseteq \rewR$,
+  one can then recover that $\rewR$ is confluent.
 \end{remark}
 \smallskip
 
@@ -571,9 +596,15 @@ Proposition~\ref{prop:S-conf_decreasing}.
 \section{Differential elimination in rational Weyl algebras}
 \label{sec:differential_elimination_in_rational_Weyl_algebras}
 
+In this section, we introduce rewriting systems on rationnal Weyl
+algebras and relate involutive divisions to rewriting strategies for such
+systems. In particular, we show that involutive sets in rationnal Weyl
+algebras induce confluent rewriting systems.
+\medskip
+
 Throughout the section, we fix a set $X=\{x_1,\cdots,x_n\}$ of
 indeterminates and we denote by $\Q(X):=\QXX$ the field of fractions of
-the polynomial algebra $\QX$ over $\Q$. We fix another set of variables
+the polynomial algebra $\QX$ over~$\Q$. We fix another set of variables
 $\Delta=\{\diff{1},\cdots,\diff{n}\}$ that model partial derivative
 operators, see Example~\ref{ex:diff_operators_init}. We denote by
 $\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$ the
@@ -623,7 +654,7 @@ derivative equations (in the case $n\geq 2$).
     $y'(x)=xy(x)$ is written in the form $(\D y)(x)=0$, where the operator
     $\D:=\partial-x$ belongs to $\Weyl{1}=\Q(x)[\partial]$. 
   \item\label{it:Janet_example_init} Consider Janet's
-    example~\cite{MR3532888}, that is the linear system of partial
+    example~\cite{MR3532888}, that is, the linear system of partial
     derivative equations with~$3$ variables, one unknown function, and
     the two equations $y_{33}(x)=x_2y_{11}(x)$ and $y_{22}(x)=0$, where
     $y_{ij}(x)$ denotes the second order derivative of the unknown
@@ -644,13 +675,13 @@ derivative equations (in the case $n\geq 2$).
 
 The next step before introducing rewriting systems on rationanl Weyl
 algebras is to recall the definition of monic operators. We fix a
-monomial order $\prec$ on $\monBasis$, that is a well-founded total order
-which is admissible, \ie, $\partial^{\alpha}\prec\partial^{\beta}$
+monomial order $\prec$ on $\monBasis$, that is, a well-founded total 
+order which is admissible, \ie, $\partial^{\alpha}\prec\partial^{\beta}$
 implies $\partial^{\alpha+\gamma}\prec\partial^{\beta+\gamma}$, for every
 $\alpha,\beta,\gamma\in\N^n$. Given an operator $\D$, we denote by
 $\lm(\D)$ the leading monomial of $\D$ with respect to~$\prec$, that 
-is~$\lm(\D)$ is the greatest element of $\supp(\D)$, where the support is
-defined w.r.t.\ the basis $\monBasis$. 
+is, $\lm(\D)$ is the greatest element of $\supp(\D)$, where the support 
+is defined w.r.t.\ the basis $\monBasis$. 
 \smallskip
 
 \begin{definition}
