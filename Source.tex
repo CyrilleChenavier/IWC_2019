@@ -105,7 +105,7 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
   We provide a sufficient condition of confluence in terms of the kernel of the
   operator which computes standard normal forms. We present a local criterion to
   check the confluence property in this framework, and show that this criterion
-  is related to the Diamond Lemma for terminating rewriting systems.
+  is related to the diamond lemma for terminating rewriting systems.
 
   Finally, we relate these strategies to the notion of involutive division on
   rational Weyl algebras, and completely characterise the strategies induced by
@@ -114,85 +114,69 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
 
 \tableofcontents
 
-
-
 \section{Introduction}
 
-So-called ``abstract rewriting'' was founded by Newman~\cite{MR0007372}, who
-proved that terminating and locally confluent rewriting systems are
-confluent. On the other hand, ``algebraic rewriting'' stems from the work of
-Bergman~\cite{MR506890}, which proved the Diamond Lemma to compute normal forms
-in noncommutative algebras. It asserts that for terminating rewriting systems,
-the local confluence property can be checked on monomials.
+Rewriting systems are computational models given by a set of syntactic
+expressions and transformation rules used to simplify expressions into
+equivalent ones. Since rewriting theory is applicable to different
+problems of mathematics and computer science, it was developed for many
+syntaxes of terms, \eg, strings, ($\Sigma-$, higher-order, infinitary)
+terms, graphs, (commutative, noncommutative, vectors of) polynomials,
+(linear combinations of) trees, (higher-dimensional) cells. Abstract
+rewriting theory unifies these contexts and provides universal
+formulations of rewriting properties, such as termination, normalisation
+and (local) confluence. Newman's lemma is one of the most famous results 
+of abstract rewriting and asserts that under termination hypothesis, 
+local confluence implies confluence.
+\medskip
 
-Abstract rewriting is a very active field of research in computer science,
-especially through its instanciations as graph rewriting or (higher order) term
-rewriting systems. Most recently, higher dimensional rewriting systems have been
-used to compute cofibrant replacements for monoids or PROs. \todo{references}
+In the context of rewriting over algebraic structures, the Newman's lemma
+is used in conjunction with the critical pairs lemma to algorithmically
+prove confluence. This is something fundamental since confluent rewriting
+systems provide methods for solving decision problems, computing (linear,
+homotopy) bases, Hilbert series, or free
+resolutions~\cite{MR846601, MR2964639, MR1072284, MR1360005}. From these 
+methods, one get constructive proofs of theoretical results, such as 
+embedding, coherence or homological theorems~\cite{MR506890, MR0506423,
+  MR3347996, MR3742562, MR265437, MR920522}, but also applications to 
+problems coming from topics modelled by algebra, such as cryptography, 
+analysis of (ordinary differential, partial derivative, time-delay) 
+equations or control theory. For instance, many informations of 
+functional equations may be read over free resolutions: integrability
+conditions, parametrization of solutions, existence of autonomous
+curves~\cite{MR2233761, MR1308976}.
+\medskip
 
-Algebraic rewriting has also proved to be very useful: together with the
-works of Bokut~\cite{MR0506423}, it has given birth the theory of noncommutative
-\G\ bases~\cite{MR1299371}. The latter have provided applications to various
-areas of noncommutative algebra such as the study of embedding problems (which
-appear in the works of Bokut and Bergman), homological algebra~\cite{MR1072284,
-  MR2110434} or Koszul duality~\cite{MR1832913, MR0265437}.
+When one considers algebraic structures with underlying vector spaces
+operations, the conjunction of the Newman's lemma and the critical pairs
+lemma is traditionally known under the name of diamond's lemma. In 
+practice, this lemma is used to test if a generating set of a polynomial
+ideal is a \G\ basis, since confluent linear rewriting systems are 
+usually induced by \G\ bases or one of their numerous adaptations to
+different classes of algebras or operads~\cite{MR506890, MR2202562,
+  MR2667136, MR1044911, MR1299371}. As an illustration of such a class,
+let us mention Weyl algebras that are models of differential operators
+with polynomial coefficients. These algebras are composed of polynomials
+over two sets of $n$ variables, the state variables $x_1,\cdots,x_n$ and
+the vector field variables $\partial_1,\cdots,\partial_n$, and submitted
+to the commutation rules
+\[\forall 1\leq i\neq j\leq n:\qquad x_ix_j=x_jx_i,\quad\partial_i
+\partial_j=\partial_j\partial_i,\quad\partial_ix_j=x_j\partial_i,\quad
+\partial_ix_i=x_i\partial_i+1.\]
+These relations represent classical rules from differential calculus: the
+second on means that second order derivatives of smooth functions
+commute, the third one means that $x_j$ is constant for differentition
+with respect to $x_i$ and the last one represents the Leibniz's rule for
+differentition with respect to $x_i$, that is,
+$\partial_i(x_if)=x_i\partial_i(f)+f$, for any smooth function $f$.
+\medskip
 
-These two theories have nevertheless been developed largely independently,
-although similar results sometimes appear in both frameworks. The main obstacle
-to unifying these two theories appears to be that the naive notion of rewriting
-path in algebraic rewriting (obtained as the closure of the generating rewriting
-relations under reflexivity, transitivity, sum and product by a scalar) does not
-terminate in the sense of abstract rewriting. Instead, one needs to first
-consider well-formed rewriting steps before forming the reflexive transitive
-closure.
-
-The goal of this paper is therefore to develop a theory of algebraic rewriting
-which does not presuppose a notion of well-formed rewriting steps, as a
-first step towards a unification of these two theories.
-
-Our formalism is based on the notion of rewriting strategy. We prove in this
-setting a slightly more general version of Bergman's Diamond Lemma: it allows
-the treatment of non-terminating rewriting relations.
-
-Instead, we suppose given an ordering on the monomials, independent of the
-rewriting relation.  We then use methods based on standard reductions: for every
-monomial $m$, we select exactly one reduction with left-hand side $m$, which is
-decreasing for the ordering chosen. Such choices induce a deterministic way to
-reduce each polynomial, obtained by applying simultaneously standard reductions
-on every monomial appearing in its decomposition. When these deterministic
-reductions terminate, one defines an operator which maps every polynomial to its
-unique standard normal form.
-
-From this operator, we define a suitable notion of confluence in our setting,
-and show in Proposition~\ref{prop:h-conf_implies_conf} that it implies the usual
-notion of confluence for the rewriting system studied. We then provide an
-effective method for checking this criterion in
-Theorem~\ref{thm:confluence_criterion}. This method is based on a local analysis
-corresponding to checking local confluence on monomials. In particular, when the
-rewriting system is terminating, we show (Theorem~\ref{thm:diamond_lemma}) that
-we recover the Diamond Lemma as a particular case of
-Theorem~\ref{thm:confluence_criterion}.
-
-
-
-
-Computation of normal forms in noncommutative algebra is also used to provide
-formal solutions to partial differential equations. In this framework, a
-confluence criterion analogous to the Diamond Lemma is given by auto-reduced
-involutive divisions, which specify a deterministic way to reduce each
-polynomial into normal form using standard reductions~\cite{Mell}. In the second
-part of this paper, we relate auto-reduced involutive divisions to our notion of
-rewriting strategies. In particular we show that any such division induces a
-rewriting strategy, and completely characterise the rewriting strategies which
-arise in this way. We also show that the \emph{passivity} of an involutive
-division corresponds to the (local) confluence of the associated strategy. \todo{ref partout}
-
-\section{A weak version of the Diamond Lemma}
-\label{sec:a_weak_version_of_the_Diamond_Lemma}
+\section{A weak version of the diamond lemma}
+\label{sec:a_weak_version_of_the_diamond_lemma}
 
 In this section, we introduce rewriting strategies for rewriting systems
 on vector spaces and formulate a confluence criterion in terms of
-strategies. In particular, we obtain a new proof of the Diamond Lemma
+strategies. In particular, we obtain a new proof of the diamond lemma
 based on rewriting strategies.
 \medskip
 
@@ -266,10 +250,12 @@ $R$.
 \end{remark}
 \smallskip
 
+\todo{Il faudrait expliquer pourquoi dans le cas d'une pré-stratégie on
+  réécrit tout le mondex.}
 
 A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
 are pairwise distinct, that is, if $e\rewR r$ and $e\rewR r'$ belong to
-$S$, then we have $ r= r'$. Hence,
+$S$, then we have $e\rewR r=e\rewR r'$. Hence,
 each $S$-reducible basis element $e$ corresponds to exactly one rewriting
 rule $e\rewR r_S(e)$ in~$S$. We extend the pre-strategy $S$ into the
 determinitic rewriting relation~$\rewS$\footnote{The double head on the
@@ -356,7 +342,7 @@ Section~\ref{sec:confluence_relative_to_a_strategy}.
 In this section, we introduce $S$-confluence and show that this property
 implies confluence of~$\rewR$. We also show that $S$-confluence is
 characterised in terms of a decreasingness property. We finish by a new
-proof of the Diamond Lemma, based on $S$-confluence.
+proof of the diamond lemma, based on $S$-confluence.
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
@@ -462,12 +448,12 @@ rewriting rule exists in the strategy $S$ and $e=r_S(e)$, otherwise.
     Since $r\transS e$ implies $r\transR e$ and since $e\rewR r$ is greater
     than all elements of $S$ by definition of $\prec$, this diagram is
     decreasing w.r.t.\ $(S,<)$.
-  \item If $e\rewR r=e\rewS r$ belongs to $S$, then we have the following
-    diagram:
+  \item If $e\rewR r=e\rewS r_S(e)$ belongs to $S$, then we have the 
+    following diagram:
     \[\begin{tikzcd}
     e\ar[r, twoheadrightarrow, "_S"']\ar[d, "_R"']
-    & r \ar[equal, d]\\
-    r\ar[r, equal] & r
+    & r_S(e) \ar[equal, d]\\
+    r_S(e)\ar[r, equal] & r_S(e)
     \end{tikzcd}\]
     Since no rewriting step occurs in the right and bottom faces, this
     diagram is decreasing w.r.t.\ $(S,<)$.
@@ -544,7 +530,7 @@ rewriting rule exists in the strategy $S$ and $e=r_S(e)$, otherwise.
 \end{example}
 \smallskip
 
-We finish this section by showing how the Diamond Lemma fits as a
+We finish this section by showing how the diamond lemma fits as a
 particular case of our setup.
 \medskip
 
@@ -580,7 +566,7 @@ particular case of our setup.
 \end{proof}
 \smallskip
 
-Notice that in the proof of the Diamond Lemma, we select for $<$ another order
+Notice that in the proof of the diamond lemma, we select for $<$ another order
 than the one given in the proof of Proposition~\ref{prop:S-conf_decreasing} (the
 latter asserts that each rule of $S$ is smaller than each rule which is not in
 $S$ and there is no other comparison). This is a good illustration of the
@@ -654,7 +640,7 @@ derivative equations (in the case $n\geq 2$).
     $y'(x)=xy(x)$ is written in the form $(\D y)(x)=0$, where the operator
     $\D:=\partial-x$ belongs to $\Weyl{1}=\Q(x)[\partial]$. 
   \item\label{it:Janet_example_init} Consider Janet's
-    example~\cite{MR3532888}, that is, the linear system of partial
+    example~\cite{MR1308976}, that is, the linear system of partial
     derivative equations with~$3$ variables, one unknown function, and
     the two equations $y_{33}(x)=x_2y_{11}(x)$ and $y_{22}(x)=0$, where
     $y_{ij}(x)$ denotes the second order derivative of the unknown
@@ -704,13 +690,13 @@ For simplicity, we write $\D\rewTheta\D'$ instead of
 $\D\to_{R_\Theta}\D'$. The rewriting relation $\rewTheta$ is terminating
 since the rewriting rules reduce a monomial into a combination of
 strictly smaller monomials w.r.t.\ the well-founded order $\prec$.
-Moreover, notice that in that the case where the coefficient
-$\lc(\D)\in\QXX$ of $\lm(\D)$ in $\D$ is not constant, the situation is
-much harder. Indeed, in this case, the left-hand sides of the rewriting
-rules are of the form $\partial^\alpha(\lc(\D)\lm(\D))$ and due to
-commutation laws, these elements are not monomials. In particular, we are
-not in the situation of our general approach developped in 
-Section~\ref{sec:a_weak_version_of_the_Diamond_Lemma} anymore.
+Moreover, notice that in the case where the coefficient $\lc(\D)\in\QXX$
+of $\lm(\D)$ in $\D$ is not constant, the situation is much harder.
+Indeed, in this case, the left-hand sides of the rewriting rules are of
+the form $\partial^\alpha(\lc(\D)\lm(\D))$ and due to commutation laws,
+these elements are not monomials. In particular, we are not in the
+situation of our general approach developped in  
+Section~\ref{sec:a_weak_version_of_the_diamond_lemma} anymore.
 \medskip
 
 We finish this section with some comments on $\rewTheta$. Let us consider 
@@ -719,7 +705,7 @@ equations given by
 \begin{equation}\label{equ:PDE_system}
   \{(\D y)=0:\D\in\Theta\}.
 \end{equation}
-Let $y(x)$ be an arbitrary solution of this system. Then, for every
+Let $y(x)$ be an arbitrary solution to this system. Then, for every
 operator $\partial^\alpha$ and every $\D\in\Theta$, we also have
 $(\partial^\alpha\D y)(x)=0$, or equivalently,
 $(\partial^\alpha\lm(\D)y)(x)=(\partial^\alpha r(\D)y)(x)$. Hence, if
@@ -758,12 +744,12 @@ example.
     this rewriting sequence has the following meaning. First, notice that
     the space of solutions of this equation is the one-dimensional
     $\R$-vector space spanned by the function $e^{x^2/2}$. The second
-    order derivative of a generic solution $y(x)=Ce^{x^2/2}$, for an
-    arbitrary constant $C$, is given by $y''(x)=(x^2+1)Ce^{x^2/2}$, which
-    reads  $(\partial^2y)(x)=(x^2+1)y(x)$ in terms of operators. Notice
-    that if we allow to reduce the left $\partial$ in $\partial^2$, then
-    we get $\partial^2\transTheta x^2$, which is false in terms of
-    operators since $y''(x)$ is not equal to $x^2y(x)$. 
+    order derivative of a solution $y(x)=Ce^{x^2/2}$, for an arbitrary
+    constant $C$, is given by $y''(x)=(x^2+1)Ce^{x^2/2}$, which reads
+    $(\partial^2y)(x)=(x^2+1)y(x)$ in terms of operators. Notice that if
+    we allow to reduce the left $\partial$ in $\partial^2$, then we get
+    $\partial^2\transTheta x^2$, which is false in terms of operators
+    since $y''(x)$ is not equal to $x^2y(x)$.
   \item\label{it:Janet_example_rew} Let $\Theta:=\{\D_1,\D_2\}$, where
     $\D_1:=\partial_3^2-x_2\partial_1^2$ and $\D_2:=\partial_2^2$
     correspond to the two equations of the Janet example. We define
@@ -1006,7 +992,7 @@ $\partial_i$ is $S$-divisible by $\lm(\D)$.
 \paragraph{Conclusion.} We introduced a sufficient condition,
 based on deterministic reduction strategies, of confluence for
 rewriting systems on vector spaces. As a particular case,
-we recover the Diamond Lemma. This work maybe extended in particular
+we recover the diamond lemma. This work maybe extended in particular
 into two main directions. The first one consists in weakening our assumption
 on the set $\K$ of coefficients, by allowing non invertible coefficients.
 A second extension consists in characterising Janet bases in this framework,
