@@ -44,7 +44,6 @@
 
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
-%\newcommand\F{\mathscr{F}}
 \newcommand\Q{\mathbb{Q}}
 \newcommand\R{\mathbb{R}} 
 \newcommand\N{\mathbb{N}}
@@ -59,6 +58,8 @@
 \newcommand\rewR{\to_R}
 \newcommand\rewRR{\twoheadrightarrow_R}
 \newcommand\rewS{\twoheadrightarrow_S}
+\newcommand\rewTrans{\overset{*}{\to}}
+\newcommand\rewEquiv{\overset{*}{\leftrightarrow}}
 \newcommand\transR{\overset{*}{\to}_R}
 \newcommand\transS{\overset{*}{\twoheadrightarrow}_S}
 \newcommand\transTheta{\overset{*}{\to}_\Theta}
@@ -171,6 +172,23 @@ differentiation with respect to $x_i$, that is,
 $\partial_i(x_if)=x_i\partial_i(f)+f$, for any smooth function $f$.
 \medskip
 
+\paragraph{Terminology and conventions of rewriting theory.}
+
+Throughout the paper, we use the standard terminology and conventions of
+rewriting theory~\cite{MR1629216}. An {\em abstract rewriting system} is 
+a pair $(A,\to)$, where $A$ is a set and $\to$ is binary relation on $A$,
+called {\em rewriting relation}. An element $(a,b)\in\to$ is written
+$a\to b$ and is called a {\em rewriting step}. A {\em normal form} for
+$\to$ is an element $a\in A$ such that there is no $b\in A$ such that
+$a\to b$. We denote by $\rewTrans$ (resp. $\rewEquiv$) the closure of
+$\to$ under transitivity and reflexivity (resp. and syymmetry). When
+$a\rewTrans b$, that is there exists a (possibly empty) finite sequence
+of rewriting steps from $a$ to  $b$, we say that $a$ {\em rewrites} into
+$b$. The rewriting relation $\to$ is said to be {\em confluent} if
+whenever $a\rewTrans b$ and $a\rewTrans c$, there exists $d$ such that
+$b\rewTrans c$ and $c\rewTrans d$. 
+
+
 \section{A weak version of the diamond lemma}
 \label{sec:a_weak_version_of_the_diamond_lemma}
 
@@ -196,18 +214,6 @@ elements are called rewriting rules. A rewriting rule is denoted by
 $e\rewR r$, where $e$ and~$r$ are left and right-hand sides of this rule,
 \ie, its images through the natural projections of $R$ on $\basis$ and
 $V$, respectively.
-\medskip
-
-Throughout the paper, we use the standard terminology of rewriting
-theory, see~\cite{MR1629216}. An {\em abstract rewriting system} is a
-pair $(A,\to)$, where $A$ is a set and $\to$ is binary relation on $A$,
-called {\em rewriting relation}. An element $(a,b)\in\to$ is written
-$a\to b$ and is called a {\em reduction}. A {\em normal form} for $\to$
-is an element $a\in A$ such that there is no $b\in A$ such that $a\to b$.
-The rewriting relation $\to$ is said to be {\em confluent} if whenever
-$a$ rewrites into $b$ and $c$, that is, there exist finite sequences of
-reductions from $a$ to $b$ and $c$, then there exists $d$ such that $b$
-and $c$ rewrite into $d$. 
 
 \subsection{Strategies on linear rewriting systems}
 \label{sec:strategies_on_linear_rewriting_systems}
@@ -218,72 +224,83 @@ These strategies are used to formulate a confluence criterion in
 Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
-We first extend the rewriting rules into a rewriting relation on $V$ by
-considering reductions that rewrite many basis elements at once.
-Formally, reductions are of the following form: 
-
-\begin{equation}\label{equ:rewriting_step}
-  \sum_{i=1}^n\lambda_ie_i+v\rewR\sum_{i=1}^n\lambda_ir_i+v,
+We first extend the rewriting rules into a rewriting relation on $V$,
+still written $\rewR$, where the rewriting steps are of the following
+form: 
+\begin{equation}\label{equ:R_rewriting_step}
+  \lambda e+v\rewR\lambda r+v,
   \smallskip
 \end{equation}
-where $n$ is a strictly positive integer, $v$ is a vector, and for each
-index $i$ in the sum, $\lambda_i$ is a nonzero scalar, $e_i\rewR r_i$ is
-a rewriting rule, and $e_i$ does not belong to $\supp(v)$. Notice that we
-do not assume that $\supp(v)$ contains only basis elements that are
-irreducible for $\rewR$. This rewriting relation is still denoted by
-$\rewR$ since it extends the rewriting rules in $R$, and its closures
-under transitivity, reflexivity, scalar multiplication, and sum
-(resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$). Finally,
-a normal form for $\rewR$ is called an $R$-normal form. In the sequel, we
-refer $\rewR$ as the rewriting relation induced by the rewriting rules
-$R$.
-\smallskip
-
-\begin{remark}
-  Usually, the notations $\overset{*}{\to}$ and
-  $\overset{*}{\leftrightarrow}$
-  stand for the closures of the binary relation $\to$ under transitivity
-  and reflexivity and transitivity, reflexivity, and symmetry. In this
-  paper, we also require closures under vector spaces operations since we
-  precisely wish to develop a rewriting theory internal to vector spaces.
-\end{remark}
-\smallskip
-
-\todo{Il faudrait expliquer pourquoi dans le cas d'une pré-stratégie on
-  réécrit tout le monde.}
-
-A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
-are pairwise distinct, that is, if $e\rewR r$ and $e\rewR r'$ belong to
-$S$, then we have $e\rewR r=e\rewR r'$. Hence,
-each $S$-reducible basis element $e$ corresponds to exactly one rewriting
-rule $e\rewR r_S(e)$ in~$S$. We extend the pre-strategy $S$ into the
-determinitic rewriting relation~$\rewS$\footnote{The double head on the
-  arrow marks the difference with the nondeterministic $\to_S$ defined
-  such as in~\eqref{equ:rewriting_step}.} defined as follows. Every
-vector $u$ admits a unique decomposition 
-\[u=\sum_{i=1}^n\lambda_ie_i+v,
-\smallskip\]
-where each $\lambda_i$ is nonzero, each $e_i$ is a left-hand side of a
-rule $e_i\rewR r_S(e_i)$ in $S$, and each basis element in $\supp(v)$ is
-not. If $n$ is nonzero, then we let
-\[u\rewS\sum_{i=1}^n\lambda_ir_S(e_i)+v.
-\smallskip\]
-The closure of $\rewS$ under transitivity and symmetry is denoted by
-$\transS$. A normal form for $\rewS$ is called an $S$-normal form. Notice
-that $u\transS v$ implies $u\transR v$ and that $R$ is a pre-strategy for
-itself only if its left-hand sides are pairwise distinct. 
+where $e\rewR r$ is a rewriting rule, $\lambda$ is a nonzero scalar and
+$v$ is a vector such that $e$ does not belong to its support. A normal
+form for $\rewR$ is called an $R$-normal form. In the sequel, we refer
+$\rewR$ as the rewriting relation induced by the rewriting rules $R$. In
+the following definition, we introduce the notion of a pre-strategy for
+$R$ as being a map $r_S$ that satisfies some condition. The notation
+$r_S$ is motivated by the fact that a pre-strategy only depends on a
+unique subset~$S$ of $R$ with pairwise distinct left-hand sides, that is,
+if $e\rewR r$ and $e\rewR r'$ belong to $S$, then we have
+$e\rewR r=e\rewR r'$, see
+Proposition~\ref{prop:pre-stratagies_caracterisation}.
 \smallskip
 
 \begin{definition}
-  A pre-strategy is called a {\em strategy} if the rewriting relation
-  $\rewS$ is terminating. 
+  A {\em pre-strategy} for $R$ is a function $r_S:\basis\to V$ such that
+  $r_S(e)\neq e$ implies that there exists a rewriting rule
+  $e\rewR r_S(e)$ in $R$.
+\end{definition}
+\smallskip
+
+\begin{proposition}\label{prop:pre-stratagies_caracterisation}
+  There is a one-to-one correspondance between pre-strategies for $R$ and
+  subsets of $R$ with pairwise distinct left-hand sides.
+\end{proposition}
+
+\begin{proof}
+  If $S\subseteq R$ has pairwise distinct left-hand sides, then we let
+  $r_S(e)=r$ if there exists a rewriting rule of the form $e\rewR r$ in
+  $S$, and $r_S(e)=e$, otherwise. This function is well-defined since
+  there is at most one rewriting rule with left-hand side $e$ in $S$.
+  Conversely, the pre-strategy~$r_S$ corresponds to the set
+  $S=\{e\rewR r_S(e)\mid e\neq r_S(e)\}\subseteq R$.
+\end{proof}
+\smallskip
+
+Using pre-strategies, we may easily introduce a new rewriting relation on
+$V$, which turs out to be compatible with vector spaces operations.
+Indeed, the pre-strategy $r_S$ extends into a unique endomorphism of $V$,
+that we still denote by $r_S$. Then, we introduce the
+rewriting~$\rewS$ on $V$ whose rewriting steps are of the form:
+\begin{equation}\label{equ:S_rewriting_step}
+  v\rewS r_S(v).
+\end{equation}
+The double-head arrow is here to emphasis that contrary
+to~\eqref{equ:R_rewriting_step}, the rewrriting
+relation~\eqref{equ:S_rewriting_step} is parallel in the sense that it
+reduces many basis elements at once. Indeed, for every vector $v$ given
+by its unique decomposition such that as in~\eqref{equ:vector_decompo},
+we have $v=\sum\lambda_ie_i\rewS\sum\lambda_ir_S(e_i)$. The compatibility
+with vector space operations simply means that if we have $u\rewS v$ and
+$u'\rewS v'$, then we also have $u+\lambda v\rewS u'+\lambda v'$. Also
+notice that $\rewS$ is deterministic since for every vector $v$, there is 
+at one rewriting step of the form $v\rewS v'$. \todo{liens entre
+  $\rewR$ et $\rewS$?}
+\smallskip
+
+\begin{definition}
+  A pre-strategy $r_S$ is called a {\em strategy} if the rewriting 
+  relation $\rewS$ is terminating. 
 \end{definition}
 \smallskip
 
 Following our convention for elements of $R$, those of $S$ are written in
-the form $e\rewS r_S(e)$, and the rewriting relation $\rewS$ is called
-the rewriting (pre-)strategy induced by $S$. In order to illustrate our
-notions, we consider the following running example.
+the form $e\rewS r_S(e)$ and a normal form for $\rewS$ is called an
+$S$-normal form. The rewriting relation $\rewS$ is called the rewriting
+(pre-)strategy induced by $S$. Moreover, based on
+Proposition~\ref{prop:pre-stratagies_caracterisation}, in the sequel we
+use the terminology "(pre-)strategy for $R$" for susbets of $R$ with
+pairwise left-hand sides (and such that $\rewS$ is terminating). In order
+to illustrate our notions, we consider the following running example.
 \smallskip
 
 \begin{example}\label{ex:h_norma_form}
@@ -296,8 +313,8 @@ notions, we consider the following running example.
   pre-strategy $S$ composed of the following rules:
   \[a\rewS b,\quad b\rewS c+d.
   \smallskip\]
-  This pre-strategy is clearly a strategy since every vector admits an
-  $S$-normal form after one reduction by $\rewS$. The $R$-normal forms
+  This pre-strategy $S$ is clearly a strategy since every vector admits
+  an $S$-normal form after one reduction by $\rewS$. The $R$-normal forms
   are the elements of the form $\lambda_dd$, while the $S$-normal forms
   are all the expressions of the form $\lambda_dd+\lambda_cc$.
 \end{example}
@@ -313,11 +330,10 @@ notions, we consider the following running example.
 \smallskip
 
 We finish this section by introducing the normalisation operator of a
-strategy $S$. By definition of a strategy, for every $v\in V$, there
-exists at most one $v'$ such that $v\rewS v'$. Moreover, since~$\rewS$ is
-terminating, $v$ is sent by multiple applications of~$\rewS$ to a unique
-$S$-normal form, written $\SNF(v)$. This defines a map $\SNF:V\to V$ that
-we use to introduce our confluence criterion in
+strategy $S$. Since~$\rewS$ is terminating, each vector $v$ is sent by
+multiple applications of $r_S$ to a unique $S$-normal form, that we
+denote by $\SNF(v)$. This defines a map $\SNF:V\to V$ that we use to
+introduce our confluence criterion in
 Section~\ref{sec:confluence_relative_to_a_strategy}.
 \medskip
 
@@ -326,13 +342,10 @@ Section~\ref{sec:confluence_relative_to_a_strategy}.
 \end{proposition}
 
 \begin{proof}
-  The $S$-normal forms are closed under sum, so that
-  $\SNF(\SNF(v))=\SNF(v)$ for every vector $v$, so that $\SNF$ is a
-  projector. Moreover, if $u\rewS u'$ and $v\rewS v'$, then by definition
-  of~$\rewS$, we have $u+v\rewS u'+v'$. Iterating~$\rewS$, we get
-  \[\SNF(u+v)=\SNF(\SNF(u)+\SNF(v))=\SNF(u)+\SNF(v),
-  \smallskip\]
-  which proves linearity of $\SNF$.
+  The linearity of $\SNF$ follows from the fact that $r_S$ is linear.
+  Moreover, the $S$-normal forms are closed under sum, so that
+  $\SNF(\SNF(v))=\SNF(v)$ for every vector $v$, and $\SNF$ is a
+  projector. 
 \end{proof}
 
 \subsection{Confluence relative to a strategy}
@@ -346,7 +359,7 @@ proof of the diamond lemma, based on $S$-confluence.
 
 \begin{definition}\label{def:standardisation_property}
   Given a strategy $S$ for $R$, we say that $\rewR$ is \emph{S-confluent}
-  if for every rewriting rule~$e\rewR r$, we have $\SNF(e-r)=0$.
+  if for every rewriting rule~$e\rewR r$ in $R$, we have $\SNF(e-r)=0$.
 \end{definition}
 \smallskip
 
@@ -363,13 +376,12 @@ induces is entirely characterised by $S$-normal forms.
 
 \begin{proof}
   We show the first assertion. The relation $\equivR$ is the closure of
-  $\rewR$ under transitivity, symmetry, scalar multiplication and sum.
-  Since the relation $\SNF(u-v)=0$ is closed under these operations and
-  contains $\rewR$ by $S$-confluence, we get one implication.
-  Reciprocally, if $\SNF(u-v)=0$, then we have $\SNF(u)=\SNF(v)$, and by
-  definition of $\SNF$, we get $u\transS\SNF(u)$ and $v\transS\SNF(v)$.
-  Finally, $v_1\transS v_2$ implies $v_1\transR v_2$ and we get
-  $u\equivR v$.
+  $\rewR$ under transitivity, reflexivity, and symmetry. Since the
+  relation $\SNF(u-v)=0$ is closed under these operations and contains
+  $\rewR$ by $S$-confluence, we get one implication. Reciprocally, if
+  $\SNF(u-v)=0$, then we have $\SNF(u)=\SNF(v)$, and by definition of
+  $\SNF$, we get $u\transS\SNF(u)$ and $v\transS\SNF(v)$. Finally,
+  $v_1\transS v_2$ implies $v_1\transR v_2$ and we get $u\equivR v$.
 
   For the second assertion, let us consider three vectors
   $v,v_1,v_2\in V$ such that for $i=1,2$, we have $v\transR v_i$. By the
