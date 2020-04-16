@@ -70,6 +70,7 @@
 \newcommand\SThetaL{S_{\Theta,L}}
 \DeclareMathOperator{\SNF}{{\it S}-NF}
 \DeclareMathOperator{\SThetaLNF}{{\it S}_{\Theta,L}-NF}
+\newcommand{\SThetaNF}[1]{{\it S}_{\Theta,#1}\operatorname{-NF}}
 
 \bibliographystyle{plain}
 
@@ -766,12 +767,12 @@ example.
         0 & 2\partial_1^2\partial_2
       \end{tikzcd}
     \end{equation}
-    The right arrow is to the relation $\partial_2^2(x_2\partial_1^2)=2
-    \partial_1^2\partial_2+\partial_1^2\partial_2^2$, which is proven
-    applying twice the commutation law $\partial_2x_2=x_2\partial_2+1$.
-    We deduce from~\eqref{equ:non_conf_Janet_ex} that any solution $y(x)$
-    of the equations $(\D_iy)(x)=0$ has to verify the new integrability
-    condition $y_{112}(x)=0$.
+    The right arrow is an application of the rule $\partial_2^2 \rewTheta 0$, mad
+    possible by the relation
+    $\partial_2^2(x_2\partial_1^2)=2 \partial_1^2\partial_2+x_2\partial_1^2\partial_2^2$, which is proven applying twice
+    the commutation law $\partial_2x_2=x_2\partial_2+1$.  We deduce
+    from~\eqref{equ:non_conf_Janet_ex} that any solution $y(x)$ of the equations
+    $(\D_iy)(x)=0$ has to verify the new integrability condition $y_{112}(x)=0$.
   \end{enumerate}
 \end{example}
 \smallskip
@@ -827,7 +828,9 @@ monomial $m=\partial^\alpha\in\monBasis$, let us denote by
 $d_k(m):=\alpha_k$ the degree of $m$ w.r.t. the variable $\partial_k$.
 \smallskip
 
-\begin{example} We fix a finite set of monomials $U\subset\monBasis$. The
+\begin{example}\label{ex:involutive_division}
+
+  We fix a finite set of monomials $U\subset\monBasis$. The
   {\em Janet, Thomas} and {\em Pommaret} divisions are the involutive
   divisions $\divInv{J},\divInv{T}$, and $\divInv{P}$ such that the
   variable $\partial_i$, where $1\leq i\leq n$, is
@@ -838,6 +841,8 @@ $d_k(m):=\alpha_k$ the degree of $m$ w.r.t. the variable $\partial_k$.
   \item for $\divInv{T}$: $d_i(u)=\max\{d_i(u'):\ u'\in U\}$,
   \item for $\divInv{P}$: for every $1\leq j\leq i$, we have $d_j(u)=0$.
   \end{itemize}
+
+  
 \end{example}
 \smallskip
 
@@ -852,6 +857,7 @@ autoreducibility property for monomial sets w.r.t.\ an involutive
 division to sets of differential operators.
 \smallskip
 
+
 \begin{definition}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
   let $\prec$ be a monomial order, and let $L$ be an involutive division
@@ -864,6 +870,37 @@ The adjective "left" is here to emphasis that it may exist
 $\D,\D'\in\Theta$ such that $\lm(\D)$ is an $L$-involutive divisor of a
 monomial $\partial^\alpha\in\supp(r(\D'))$.
 \medskip
+
+\begin{example}\label{ex:multiplicative_variables}
+  We can now apply the involutive divisions of Example
+  \ref{ex:involutive_division} to find the multiplicative variables associated
+  to the differential operators of Example \ref{ex:diff_operators_rew}.
+  \begin{enumerate}
+  \item Take $\Theta = \{\D\}$, where $\D = \partial - x \in \Weyl 1$. Then
+    $\lm \D = \partial$, and $\partial$ is a multiplicative variable for $\D$ for the Janet
+    and Thomas divisions, but not for the Pommaret one. This means that
+    $\partial \divInv{J}^\Theta \partial^n$ and $\partial \divInv{T}^\Theta \partial^n$ for all
+    $n > 0$, but that $\partial \nmid_P^\Theta \partial^n$, unless $n = 1$.
+
+    In addition, since $\partial$ does not appear as the leading monomial of an other
+    element of $\Theta$, $\D$ is left-autoreduced for all three involutive divisions.
+  \item Take now $\Theta = \{\D_1,\D_2\}$, where
+    $\D_1 = \partial_3^2 - x_2\partial_1^2$ and $\D_2 = \partial_2^2$. Then the following table gives
+    the multiplicative variables for $\D_1$ and $\D_2$ for all three involutive divisions:
+    \begin{center}
+    \begin{tabular}{l|ccc}
+      & Janet & Thomas & Pommaret \\ \hline
+      $\D_1$ & $\partial_1, \partial_2, \partial_3$ & $\partial_1, \partial_3$ & $\emptyset$ \\
+      $\D_2$ & $\partial_1, \partial_2$ & $\partial_2$ & $\partial_1$ \\
+    \end{tabular}
+  \end{center}
+
+  Once again, the leading monomials of elements of $\Theta$ do not divide each
+  others, so $\Theta$ is left-autoreduced for all three involutive divisions.
+  \end{enumerate}
+\end{example}
+\smallskip
+
 
 From now on, we fix a set $\Theta$ of monic (the order being fixed, we
 drop it in $\prec$-monic) differential operators. Let $\RTheta$  be the
@@ -901,6 +938,7 @@ r(\D_i)$ in order to simplify notations.
 \end{proof}
 \smallskip
 
+
 From Proposition~\ref{prop:involutive_strategy}, any involutive division
 $L$ such that $\Theta$ is left $L$-autoreduced induces a strategy
 $\SThetaL$ for $\RTheta$. Hence, we get a well-defined normalisation
@@ -915,15 +953,55 @@ differential operators.
   let $\prec$ be a monomial order on $\monBasis$ such that each element
   of $\Theta$ is monic, and let $L$ be an involutive division on
   $\Mon(\Delta)$ such that $\Theta$ is left $L$-autoreduced. We say that
-  $\Theta$ is {\em L-involutive} if for every $\D\in\Theta$ and every
+  $\Theta$ is {\em $L$-involutive} if for every $\D\in\Theta$ and every
   $\partial^\alpha\in\Mon(\Delta)$, we have
   $\SThetaLNF(\partial^\alpha\D)=0$. 
 \end{definition}
 \smallskip
 
-We can now state the main theorem of this section, which asserts that the
-rewriting relation induced by an $L$-involutive set of differential
-operators is confluent.
+\begin{example}
+Let us continue Example \ref{ex:multiplicative_variables}.
+\begin{enumerate}
+\item In the case $\Theta = \{ \D \}$, with $\D = \partial - x$. For the Pommaret division,
+  we have seen that $\D$ admits no multiplicative variable, so the strategy
+  $S_{\Theta,P}$ is reduced to the rule $\partial \rewThetaS{P} x$. As a result we get:
+  \[
+    \partial \D = \partial^2 - \partial x = \partial^2 - x \partial - 1 \rewThetaS{P} \partial^2 - x^2 - 1.
+  \]
+  This last term is a normal form for $\rewThetaS{P}$, hence
+  $\SThetaNF{P}(\partial\D) \neq 0$ and so $\Theta$ is not $P$-involutive.
+
+  
+  On the other hand for the Janet and Thomas divisions, $S_{\Theta,J}$ and
+  $S_{\Theta,T}$ coincide, and contain the rules
+  $\partial^{n+1} \rewThetaS{J} \partial^n x$. This yields:
+  \[
+    \partial\D = \partial^2 - \partial x = \partial^2 - x \partial - 1 \rewThetaS{J} \partial x  - x^2 -1 = x \partial - x^2 \rewThetaS{J} 0.
+  \]
+  So we get $\SThetaNF{J}(\partial\D) = 0$, and more generally
+  $\SThetaNF{J}(\partial^n\D) = 0$: $\Theta$ is both  $J$- and $T$-involutive.
+  
+\item In the case $\Theta = \{ \D_1 , \D_2 \}$, with
+  $\D_1 = \partial_3^2 - x_2 \partial_1^2$ and $\D_2 = \partial_2^2$, $\Theta$ will not be involutive for
+  either of the three involutive divisions of Example
+  \ref{ex:involutive_division}. In the case of the Janet division for example, we have:
+  \[
+    \partial_3^2 \D_2 = \partial_2^2 \partial_3^2
+    \rewThetaS{J} \partial_2^2 (x_2 \partial_1^2) =
+    x_2 \partial_1^2 \partial_2^2 - 2 \partial_1^2 \partial_2
+    \rewThetaS{J} 2 \partial_1^2 \partial_2.
+  \]
+  This last term is a normal form for $S_{\Theta,J}$, so we get
+  $\rewThetaSNF{J}(\partial_3^2 \D_2) = 2 \partial_1^2 \partial_2 \neq 0$: $\Theta$ is not $J$-involutive. 
+\end{enumerate}
+\end{example}
+
+The astute reader may remark that the last computation of the previous example
+is closely related to the diagram appearing in Example
+\ref{ex:diff_operators_rew}, which shows that $\rewTheta$ fails to be
+confluent. This relationship between confluence and $L$-involutivity is actually
+a very general one, as shown by the following theorem.
+
 \medskip
 
 \begin{theorem}
