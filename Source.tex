@@ -142,33 +142,32 @@ embedding, coherence or homological theorems~\cite{MR506890, MR0506423,
   MR3347996, MR3742562, MR265437, MR920522}, but also applications to 
 problems coming from topics modelled by algebra, such as cryptography, 
 analysis of (ordinary differential, partial derivative, time-delay) 
-equations or control theory. For instance, many informations of 
+equations or control theory. For instance, much information of 
 functional equations may be read over free resolutions: integrability
 conditions, parametrization of solutions, existence of autonomous
 curves~\cite{MR2233761, MR1308976}.
 \medskip
 
 When one considers algebraic structures with underlying vector spaces
-operations, the conjunction of the Newman's lemma and the critical pairs
-lemma is traditionally known under the name of diamond's lemma. In 
-practice, this lemma is used to test if a generating set of a polynomial
-ideal is a \G\ basis, since confluent linear rewriting systems are 
-usually induced by \G\ bases or one of their numerous adaptations to
-different classes of algebras or operads~\cite{MR506890, MR2202562,
-  MR2667136, MR1044911, MR1299371}. As an illustration of such a class,
-let us mention Weyl algebras that are models of differential operators
-with polynomial coefficients. These algebras are composed of polynomials
-over two sets of $n$ variables, the state variables $x_1,\cdots,x_n$ and
-the vector field variables $\partial_1,\cdots,\partial_n$, and submitted
-to the commutation rules
-\[\forall 1\leq i\neq j\leq n:\qquad x_ix_j=x_jx_i,\quad\partial_i
-\partial_j=\partial_j\partial_i,\quad\partial_ix_j=x_j\partial_i,\quad
-\partial_ix_i=x_i\partial_i+1.\]
+operations, the conjunction of the Newman's lemma and the critical pairs lemma
+is traditionally known under the name of diamond's lemma. In practice, this
+lemma is used to test if a generating set of a polynomial ideal is a \G\ basis,
+since confluent linear rewriting systems are usually induced by \G\ bases or one
+of their numerous adaptations to different classes of algebras or
+operads~\cite{MR506890, MR2202562, MR2667136, MR1044911, MR1299371}. As an
+illustration of such a class, let us mention Weyl algebras that are models of
+differential operators with polynomial coefficients. These algebras are composed
+of polynomials over two sets of $n$ variables, the state variables
+$x_1,\ldots,x_n$ and the vector field variables $\partial_1,\ldots,\partial_n$, and submitted to the
+commutation rules
+\[ \forall 1\leq i\neq j\leq n: \qquad x_ix_j=x_jx_i,
+  \quad \partial_i\partial_j=\partial_j\partial_i, \quad \partial_ix_j=x_j\partial_i, \quad
+\partial_ix_i=x_i\partial_i+1. \]
 These relations represent classical rules from differential calculus: the
-second on means that second order derivatives of smooth functions
-commute, the third one means that $x_j$ is constant for differentition
+second one means that second order derivatives of smooth functions
+commute, the third one means that $x_j$ is constant for differentiation
 with respect to $x_i$ and the last one represents the Leibniz's rule for
-differentition with respect to $x_i$, that is,
+differentiation with respect to $x_i$, that is,
 $\partial_i(x_if)=x_i\partial_i(f)+f$, for any smooth function $f$.
 \medskip
 
@@ -233,7 +232,7 @@ a rewriting rule, and $e_i$ does not belong to $\supp(v)$. Notice that we
 do not assume that $\supp(v)$ contains only basis elements that are
 irreducible for $\rewR$. This rewriting relation is still denoted by
 $\rewR$ since it extends the rewriting rules in $R$, and its closures
-under transitivity, reflexivity, \todo{scalar multiplication}, and sum
+under transitivity, reflexivity, scalar multiplication, and sum
 (resp. and symmetry) is denoted by $\transR$ (resp. $\equivR$). Finally,
 a normal form for $\rewR$ is called an $R$-normal form. In the sequel, we
 refer $\rewR$ as the rewriting relation induced by the rewriting rules
@@ -247,12 +246,11 @@ $R$.
   and reflexivity and transitivity, reflexivity, and symmetry. In this
   paper, we also require closures under vector spaces operations since we
   precisely wish to develop a rewriting theory internal to vector spaces.
-  \todo{Changer/supprimer la deuxième phrase?}
 \end{remark}
 \smallskip
 
 \todo{Il faudrait expliquer pourquoi dans le cas d'une pré-stratégie on
-  réécrit tout le mondex.}
+  réécrit tout le monde.}
 
 A {\em pre-strategy} of $R$ is a subset $S$ of $R$ whose left-hand sides 
 are pairwise distinct, that is, if $e\rewR r$ and $e\rewR r'$ belong to
@@ -273,7 +271,7 @@ not. If $n$ is nonzero, then we let
 The closure of $\rewS$ under transitivity and symmetry is denoted by
 $\transS$. A normal form for $\rewS$ is called an $S$-normal form. Notice
 that $u\transS v$ implies $u\transR v$ and that $R$ is a pre-strategy for
-itself only if its left-hand side are pairwise distinct. 
+itself only if its left-hand sides are pairwise distinct. 
 \smallskip
 
 \begin{definition}
@@ -767,7 +765,7 @@ example.
         0 & 2\partial_1^2\partial_2
       \end{tikzcd}
     \end{equation}
-    The right arrow is an application of the rule $\partial_2^2 \rewTheta 0$, mad
+    The right arrow is an application of the rule $\partial_2^2 \rewTheta 0$, made
     possible by the relation
     $\partial_2^2(x_2\partial_1^2)=2 \partial_1^2\partial_2+x_2\partial_1^2\partial_2^2$, which is proven applying twice
     the commutation law $\partial_2x_2=x_2\partial_2+1$.  We deduce
@@ -877,7 +875,7 @@ monomial $\partial^\alpha\in\supp(r(\D'))$.
   to the differential operators of Example \ref{ex:diff_operators_rew}.
   \begin{enumerate}
   \item Take $\Theta = \{\D\}$, where $\D = \partial - x \in \Weyl 1$. Then
-    $\lm \D = \partial$, and $\partial$ is a multiplicative variable for $\D$ for the Janet
+    $\lm (\D) = \partial$, and $\partial$ is a multiplicative variable for $\D$ for the Janet
     and Thomas divisions, but not for the Pommaret one. This means that
     $\partial \divInv{J}^\Theta \partial^n$ and $\partial \divInv{T}^\Theta \partial^n$ for all
     $n > 0$, but that $\partial \nmid_P^\Theta \partial^n$, unless $n = 1$.
