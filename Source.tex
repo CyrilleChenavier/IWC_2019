@@ -285,9 +285,41 @@ with vector space operations simply means that if we have $u\rewS v$ and
 $u'\rewS v'$, then we also have $u+\lambda v\rewS u'+\lambda v'$. Also
 notice that $\rewS$ is deterministic since for every vector $v$, there is 
 at most one rewriting step of the form $v\rewS v'$. \todo{liens entre
-  $\rewR$ et $\rewS$: on en a besoin pour montrer  premier théorème de la
-secttion suivante.}
+  $\rewR$ et $\rewS$: on en a besoin pour montrer le premier théorème de la
+section suivante.}
 \smallskip
+
+
+\begin{lemma}
+  Let $S$ be a pre-strategy for $R$, and suppose that there is an order $>$ on
+  $\basis$. For $e \in \basis$ and $v \in V$, write $e > v$ if $e > e_i$ for any
+  $e_i \in \supp(v)$. Suppose that for any $e \in \basis$, $r_S(e) = e$ or
+  $e > r_S(e)$. \todo{C'est peut être la ``bonne'' définition de stratégie
+    maintenant?}
+
+  Then there is an inclusion $\rewS \, \subset \, \transR$.
+\end{lemma}
+\begin{proof}
+  We have to show that for any $v \in V$, $v \transR r_S(v)$. Write
+  $v = \sum_{i = 1}^n \lambda_i e_i$ the decomposition of $u$ in the basis
+  $\basis$, so that $r_S(v)= \sum_{i = 1}^n \lambda_i r_S(e_i)$. Up to a reindexing of
+  the sum, we can suppose that $e_1 < e_2 < \ldots < e_n$. Pose now
+  $v_k = \sum_{i = 1}^k \lambda_i r_S(e_i) + \sum_{i = k+1}^n \lambda_i e_i$ for
+  $0 \leq k \leq n$.  In particular we have $v_0 = v$ and $v_n = r_S(v)$. We will now
+  show that for all $0 \leq k < n$, either $v_k \rewR v_{k+1}$ or
+  $v_k = v_{k+1}$, which will show that $v \transR r_S(v)$.
+
+  Take $0 \leq k < n$. If $r_S(e_{k+1}) = e_{k+1}$, then $v_k = v_{k+1}$ and we are done.
+  Otherwise, notice first that
+  \[
+    e_{k+1} > \sum_{i = 1}^k \lambda_i e_i \geq \sum_{i = 1}^k \lambda_ir_S(e_i)
+  \]
+  Taking $u = v_k - \lambda_{k+1} e_{k+1}$, we therefore have
+  $e_{k+1} \notin \supp(u)$. Since $(e_{k+1},r_S(e_{k+1})) \in R$, we finally get that
+  $\lambda_{k+1} e_{k+1} + u \rewR \lambda_{k+1} r_S(e_{k+1}) + u$, hence
+  $v_k \rewR v_{k+1}$, which concludes the proof.
+ \end{proof}
+
 
 \begin{definition}
   A pre-strategy $r_S$ is called a {\em strategy} if the rewriting 
@@ -325,9 +357,7 @@ to illustrate our notions, we consider the following running example.
   Let $\basis:= \mathbb N$, with set of rewriting rules $R$ given by
   $n \rewR n+1$. Then, a pre-strategy $S$ corresponds to a subset $E$ of
   $\mathbb N$. It is a strategy if and only if for all $n \in E$, there
-  exists $k \in \mathbb N$ such that $n + k \notin E$. In other words,
-  $S$ is a strategy if and only if the complement of $E$ in $\mathbb N$ 
-  is cofinal in $\mathbb N$. \todo{Expliquer ce que veut dire cofinal}
+  exists $k \in \mathbb N$ such that $n + k \notin E$. 
 \end{example}
 \smallskip
 
