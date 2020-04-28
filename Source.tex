@@ -67,6 +67,7 @@
 \newcommand\transR{\overset{*}{\to}_R}
 \newcommand\transS{\overset{*}{\to}_S}
 \newcommand\transParS{\overset{*}{\twoheadrightarrow}_S}
+\newcommand\transParRew{\overset{*}{\twoheadrightarrow}}
 
 \newcommand\rewEquiv{\overset{*}{\leftrightarrow}}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
@@ -324,15 +325,13 @@ with distinct left-hand sides.
   still denote by $r$. Then, the rewriting steps $v\parRew r(v)$, with
   $v\neq r(v)$, define a parallel rewriting relation with distinct
   left-hand sides. The two associations between $\parS$ and $r$ are
-  inverses to each other, which concludes the proof. \todo{Le résultat
-    est faux si on a des règles de la forme $v\parS v$. Est-ce qu'on
-    s'emmerde à expliquer ça?}
+  inverses to each other, which concludes the proof. 
 \end{proof}
 
-Notice that if $r$ is the function corresponding to $\parRew$, then we 
-have $v\transRew v'$ if and only if $r(v)\neq v$ and there exists an
-integer $n$ such that $v'=r^n(v)$, where $r^n$ denotes the $n$-th
-composition of the function~$r$, seen as a linear map on $V$.
+Notice that if $r$ is the function corresponding to $\transParRew$, then
+we have $v\transRew v'$ if and only if and there exists an integer $n$
+such that $v'=r^n(v)$, where $r^n$ denotes the $n$-th composition of the
+function~$r$, seen as a linear map on $V$. 
 \medskip
 
 Let us relate parallel rewriting relations to $\rewR$ using strategies.
@@ -342,8 +341,9 @@ Proposition~\ref{prop:parRew_function}, $\parS$ corresponds to the
 function $r_S:\basis\to V$ defined by~$r_S(e)=v$ if there exists a
 rewriting rule $e\rewR v$ in $S$ and $r_S(e)=e$, otherwise. Finally, we
 denote by~$\ordS$ the rewriting preorder on $\basis$ induced by~$\parS$,
-that is, $e\ordS e'$ if there exists a vector $v$ such 
-that~$e'\transParS v$ and~$e\in\supp(v)$.
+that is, $e\ordS e'$ if $e\in\supp(r_S(e'))$. In other words, $\ordS$ is
+the transitive closure of the relation: there exists a vector $v$ such
+that $e'\transParS v$ and~$e\in\supp(v)$.
 \smallskip
 
 \begin{definition}\label{def:strategies}
@@ -400,9 +400,7 @@ $e\ordS e'$ implies $e<_Re'$.
     \[R=\{n\rewR n+1:\quad n\in\N\}.\]
     Then, a pre-strategy $S$ corresponds to a subset $E$ of $\mathbb N$.
     It is a strategy if and only if for all $n \in E$, there exists
-    $k \in \mathbb N$ such that $n + k \notin E$. In other words, $S$ is
-    a strategy if and only if the complement of $E$ in $\mathbb N$ is
-    cofinal in $\mathbb N$. \todo{expliquer ce que veut dire cofinal}
+    $k \in \mathbb N$ such that $n + k \notin E$. 
   \end{enumerate}
 \end{example}
 \smallskip
@@ -459,9 +457,10 @@ are given in the following proposition.
   not comparable for $\ordS$, for each indices $i$ and $j$, $e_i$ does
   not belong to $\supp(r_S(e_j))$. Hence, we may reduce successively each
   $e_i$ into $r_S(e_i)$ and finally have
-  \[v\transS\sum\lambda_ie_i+\SNF(v')\transS\sum\lambda_ir_S(e_i)+r_S(v')
+  \[v\transS\sum\lambda_ie_i+\SNF(v')\transS\sum\lambda_ir_S(e_i)
+  +\SNF(v')\transS\sum\lambda_i\SNF(e_i)+\SNF(v')
   =r_S(v).\]
-  That completes the proof.
+  That completes the proof. \todo{Preuve plus générale}
 \end{proof}
 
 \subsection{Confluence relative to a strategy}
@@ -522,8 +521,7 @@ Note that $S$-confluence is a sufficient but not a necessary condition for
 confluence. Indeed, with $\basis$ the set of integers and the rewriting rules
 $n\rewR n+1$ as in Point~\ref{it:case_N} of
 Example~\ref{ex:strategies_step_1}, there is no strategy such that
-$\rewR$ is confluent relative to this strategy. \todo{Éventuellement
-  prendre l'autre contre-exemple}
+$\rewR$ is confluent relative to this strategy. 
 \smallskip
 
 \begin{example}\label{ex:S-conf}
@@ -641,7 +639,6 @@ for every vector $v$.
 \smallskip
 
 \begin{remark}
-  \todo{reprendre}
   In the case where the rewriting system comes from a set-theoretic rewriting
   system (that is, the right-hand sides of the rewriting rules are elements of
   the basis), the fact that local $S$-confluence implies that $\rewR$ is
@@ -653,7 +650,8 @@ for every vector $v$.
   using the order $<$ on $R$ and the discrete order on $\parS$.
   By~\cite[Theorem 3]{van2008confluence}, this implies that
   $(\parS,\rewR)$ commutes. Using the fact that $\parS \subseteq \rewR$,
-  one can then recover that $\rewR$ is confluent.
+  one can then recover that $\rewR$ is confluent. \todo{vérifier avec
+  $\transS\subseteq\transR$}
 \end{remark}
 \smallskip
 
@@ -721,7 +719,7 @@ than the one given in the proof of Proposition~\ref{prop:S-conf_decreasing} (the
 latter asserts that each rule of $S$ is smaller than each rule which is not in
 $S$ and there is no other comparison). This is a good illustration of the
 flexibility of the characterisation of $S$-confluence given in
-Proposition~\ref{prop:S-conf_decreasing}. \todo{vérifier}
+Proposition~\ref{prop:S-conf_decreasing}. 
 
 \section{Differential elimination in rational Weyl algebras}
 \label{sec:differential_elimination_in_rational_Weyl_algebras}
