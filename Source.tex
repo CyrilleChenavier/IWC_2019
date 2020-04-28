@@ -421,47 +421,73 @@ are given in the following proposition.
 \smallskip
 
 \begin{proposition}\label{prop:linearity_of_SNF}
-  The map $\SNF$ is a linear projector. Moreover, for every vector $v$,
-  we have~$v\transRew_S\SNF(v)$.
+  The map $\SNF$ is a linear projector. 
 \end{proposition}
 
 \begin{proof}
-  Let us show the first part of the proposition. The function
-  $r_S:\basis\to V$ associated to~$\parS$ induces a unique endomorphism
-  of $V$, also denoted $r_S$. By definition of $\SNF$, for every  
-  vector~$v$, there exists an integer $n_v$ such that
-  $\SNF(v)=r_S^n(v)$, for every $n\geq n_v$. Now, let us consider a
-  linear combination $v_3=v_1+\lambda v_2$ of two vectors and let $n$ be
-  any integer greater than $n_{v_i}$'s. Since a composition of linear
+  The map $r_S:\basis\to V$ associated to~$\parS$ induces a unique endomorphism of
+  $V$, also denoted $r_S$. By definition of $\SNF$, for every vector~$v$, there
+  exists an integer $n_v$ such that $\SNF(v)=r_S^n(v)$, for every $n\geq n_v$. Now,
+  let us consider a linear combination $v_3=v_1+\lambda v_2$ of two vectors and let
+  $n$ be any integer greater than $n_{v_i}$'s. Since a composition of linear
   maps is still a linear map, we have
-  $r_S^n(v_3)=r_S^n(v_1)+\lambda r_S^n(v_2)$, which proves linearity of
-  $\SNF$. Let us show that $\SNF$ is a projector. A linear combination of
-  $S$-normal forms is still an $S$-normal form, and for every vector $v$,
-  $\SNF(v)$ is an $S$-normal form. From these two facts, for every vector
-  $v$, we have $\SNF(\SNF(v))=\SNF(v)$, that is, $\SNF$ is a projector.
+  $r_S^n(v_3)=r_S^n(v_1)+\lambda r_S^n(v_2)$, which proves linearity of $\SNF$. Let us
+  show that $\SNF$ is a projector. A linear combination of $S$-normal forms is
+  still an $S$-normal form, and for every vector $v$, $\SNF(v)$ is an $S$-normal
+  form. From these two facts, for every vector $v$, we have
+  $\SNF(\SNF(v))=\SNF(v)$, that is, $\SNF$ is a projector.
+\end{proof}
 
-  Let us show by induction the second part of the proposition. If $v$ is
-  an $S$-normal form, this is obvious. Otherwise, $v$ may be uniquely
-  written in the form
+\begin{proposition}\label{prop:rewS_transR}
+  For any vector $v$, we have $v \transR r_S(v)$.  In addition, all the rewriting steps appearing in $v \transR r_S(v)$ belong to $S$. In particular, we have the inclusion:
+  \[
+    \parS \subset \transR.
+  \]
+ 
+\end{proposition}
+\begin{proof}
+  The rewriting order $<_S$ induces a terminating order, still denoted $<_S$ on
+  $V$, where vectors are compared according to their support, using the multiset
+  order. We reason by induction on $v \in V$. If $v$ is minimal, then
+  $r_S(v) = v$ and hence $v \transR r_S(v)$.
+
+  Suppose now that $v$ is not minimal. Then $v$ may be uniquely written in the form
   \begin{equation}\label{equ:decompo_max}
     v=\sum_{i=1}^n\lambda_ie_i+v'
   \end{equation}
-  where the basis elements $e_i$ are the elements of $\supp(v)$ that are
-  maximal for the rewriting preorder $\ordS$, $\lambda_i$ are their
-  coefficients in $v$ and $v'$ is such that~\eqref{equ:decompo_max}
-  holds. Since $S$ is a strategy, the preorder $\ordS$ is in fact a
-  terminating order, and we assume $v'\transS\SNF(v')$ by induction. By
-  definition of $<_S$, the rewriting rules of $S$ that are involved in
-  this rewriting path have left-hand sides not greater than $e_i$'s, so
-  that $v\transS\sum\lambda_ie_i+\SNF(v')$. Moreover, since $e_i$'s are
-  not comparable for $\ordS$, for each indices $i$ and $j$, $e_i$ does
-  not belong to $\supp(r_S(e_j))$. Hence, we may reduce successively each
-  $e_i$ into $r_S(e_i)$ and finally have
-  \[v\transS\sum\lambda_ie_i+\SNF(v')\transS\sum\lambda_ir_S(e_i)
-  +\SNF(v')\transS\sum\lambda_i\SNF(e_i)+\SNF(v')
-  =r_S(v).\]
-  That completes the proof. \todo{Preuve plus générale}
+  where the basis elements $e_i$ are the elements of $\supp(v)$ that are maximal
+  for the rewriting preorder $\ordS$, and the $\lambda_i$'s are their coefficients in
+  $v$. In particular $v' < v$ and so by induction $v' \transR r_S(v')$.  By
+  definition of $<_S$, the rewriting rules of $S$ that are involved in this
+  rewriting path have left-hand sides not greater than $e_i$'s, so that
+  $v\transR \sum\lambda_ie_i+r_S(v')$. Moreover, since the $e_i$'s are not comparable for
+  $\ordS$, for each indices $i$ and $j$, $e_i$ does not belong to
+  $\supp(r_S(e_j))$. Hence, we may reduce successively each $e_i$ into
+  $r_S(e_i)$ and finally have
+  \[
+    v \transR
+    \sum \lambda_ie_i+r_S(v') \transR
+    \sum\lambda_ir_S(e_i) + r_S(v')
+    =r_S(v).\]
 \end{proof}
+
+\begin{corollary}\label{cor:transS_equivR}
+  For any vectors $u,v$, if $u \transParS v$ then $ u \equivR v$.  In addition,
+  all the rewriting steps appearing in $u \equivR v$ belong to $S$.
+\end{corollary}
+
+\begin{remark}
+  While the ``classical'' rewriting relation $\transR$ does not respect the
+  vector space operations, the equivalence relation does: if $u \equivR u'$ and
+  $v \equivR v'$, then $\lambda_1 u + \lambda_2 v \equivR \lambda_1 u' + \lambda_2 v'$.
+
+  In the following sections, we will never make use of Proposition
+  \ref{prop:rewS_transR}, but only of Corollary \ref{cor:transS_equivR}. This way,
+  we respect our paradigm that all the notions in sight should preserve the
+  vector space structure, and that we do not presuppose a notion of
+  ``well-formed'' rewriting step.
+\end{remark}
+
 
 \subsection{Confluence relative to a strategy}
 \label{sec:confluence_relative_to_a_strategy}
