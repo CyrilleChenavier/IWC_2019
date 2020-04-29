@@ -398,10 +398,12 @@ Let $S$ be a strategy for $R$. In the sequel, we denote elements of $S$
 in the form $e\parS r_S(e)$ and a normal form for $\parS$ is called an
 {\em S-normal form}. We denote rewriting rules of $S$ with double head
 arrows to emphasize that we will work with the parallel rewriting
-relation induced by $S$ rather than the non-parallel one\footnote{In
-  fact, the non parallel rewriting relation $\to_S$ is explicitly used
-  twice for technical reasons: in Proposition~\ref{prop:linearity_of_SNF}
-  and in the proof of Proposition~\ref{prop:S-conf_decreasing}.}. Since
+relation induced by $S$ rather than the non-parallel one
+% \footnote{In
+  % fact, the non parallel rewriting relation $\to_S$ is explicitly used
+  % twice for technical reasons: in Proposition~\ref{prop:linearity_of_SNF}
+  % and in the proof of Proposition~\ref{prop:S-conf_decreasing}.}.
+Since
 $S$ is a strategy, $\parS$ is terminating and it is deterministic in the
 sense that for every vector $v$, there is at most one~$v'$ such that
 $v\parS v'$. Hence, each $v$ admits exactly one $S$-normal form that we
@@ -428,7 +430,9 @@ are given in the following proposition.
 \end{proof}
 
 \begin{proposition}\label{prop:rewS_transR}
-  For any vector $v$, we have $v \transR r_S(v)$.  In addition, all the rewriting steps appearing in $v \transR r_S(v)$ belong to $S$. In particular, we have the inclusion:
+  For any vector $v$, we have $v \transR r_S(v)$. In addition, all the
+  rewriting steps appearing in $v \transR r_S(v)$ belong to $S$. In particular,
+  we have the inclusion:
   \[
     \parS \subset \transR.
   \]
@@ -462,19 +466,18 @@ are given in the following proposition.
 
 \begin{corollary}\label{cor:transS_equivR}
   For any vectors $u,v$, if $u \transParS v$ then $ u \equivR v$.  In addition,
-  all the rewriting steps appearing in $u \equivR v$ belong to $S$.
+  it is possible to choose this rewriting path such that all the rewriting steps
+  belong to $S$.
 \end{corollary}
 
 \begin{remark}
-  While the ``classical'' rewriting relation $\transR$ does not respect the
-  vector space operations, the equivalence relation does: if $u \equivR u'$ and
-  $v \equivR v'$, then $\lambda_1 u + \lambda_2 v \equivR \lambda_1 u' + \lambda_2 v'$.
-
-  In the following sections, we will never make use of Proposition
-  \ref{prop:rewS_transR}, but only of Corollary \ref{cor:transS_equivR}. This way,
-  we respect our paradigm that all the notions in sight should preserve the
-  vector space structure, and that we do not presuppose a notion of
-  ``well-formed'' rewriting step.
+  Note that while the ``classical'' rewriting relation $\transR$ does not
+  respect the vector space operations, the equivalence relation does, as shown
+  in Proposition \ref{prop:vs_structure}.  In the following sections, we will
+  never make use of Proposition \ref{prop:rewS_transR}, but only of Corollary
+  \ref{cor:transS_equivR}. This way, we respect our paradigm that all notions in
+  sight should preserve the vector space structure, and that we do not
+  presuppose a notion of ``well-formed'' rewriting step.
 \end{remark}
 
 
@@ -587,26 +590,24 @@ for every vector $v$.
 \end{proposition}
 
 \begin{proof}
-  $(1)\Rightarrow (2)$: As in Proposition~\ref{prop:linearity_of_SNF}, we
-  use the non parallel rewriting relation~$\to_S$ induced by $S$. We
-  define the order $\prec$ on $R$ by $e\to_S r_S(e)<e'\rewR v$ whenever
-  $e'\rewR v\notin S$. This order is terminating since each chain of
-  strictly decreasing elements has length $2$. Let $e\rewR v$ be a
-  rewriting rule and let us construct a decreasing diagram as in
+  $(1)\Rightarrow (2)$: We define the order $\prec$ on $R$ by
+  $e\rewR r_S(e)<e'\rewR v$ whenever $e'\rewR v\notin S$. This order is terminating
+  since each chain of strictly decreasing elements has length $2$. Let
+  $e\rewR v$ be a rewriting rule and let us construct a decreasing diagram as in
   Definition~\ref{def:decreasing}. We distinguish three cases.
   \begin{itemize}
   \item If $e$ is an $S$-normal form, then we have $\SNF(e)=e$ and
     $e\rewR v$ does not belong to~$S$. Moreover, since $\rewR$ is
     $S$-confluent, we have $\SNF(e)=\SNF(v)$, and from
-    Proposition~\ref{prop:linearity_of_SNF}, we get the following diagram
+    Corollary~\ref{cor:transS_equivR}, we get the following diagram
     \[\begin{tikzcd}
     e\ar[d, "_R"']\ar[r, equal] &
     e\ar[d, equal]\\
-    v\ar[r, "*", "_S"'] & e
-    \end{tikzcd}\]
-    Since, by definition, $e\rewR r$ is greater than all elements of $S$ 
-    for $\prec$, this diagram is decreasing w.r.t.\ $(S,\prec)$. 
-  \item If $e\rewR v=e\to_S r_S(e)$ belongs to $S$, then we have the 
+    v\ar[r, "*", leftrightarrow, "_R"'] & e
+  \end{tikzcd}\] In addition, we can choose the path $v \equivR e$ such that all
+the rewriting steps are in $S$. By definition of $\prec$, this diagram is decreasing
+w.r.t.\ $(S,\prec)$.
+  \item If $e\rewR v=e\parS r_S(e)$ belongs to $S$, then we have the 
     following diagram:
     \[\begin{tikzcd}
     e\ar[r, twoheadrightarrow, "_S"']\ar[d, "_R"']
@@ -615,24 +616,22 @@ for every vector $v$.
     \end{tikzcd}\]
     Since no rewriting step occurs in the right and bottom faces, this
     diagram is decreasing w.r.t.\ $(S,\prec)$.
-  \item In the last case, $e$ is not a $S$-normal form and $e\rewR v$
+  \item In the last case, $e$ is not an $S$-normal form and $e\rewR v$
     does not belong to $S$. In particular, there exists a rewriting rule
-    of the form $e\parS r_S(e)=e\to_S r_S(e)$ in $S$. By definitions of
+    of the form $e\parS r_S(e)$ in $S$. By definition of
     the map $\SNF$ and of the $S$-confluence property, we have the
     equalities
     \[\SNF(r_S(e))=\SNF(e)=\SNF(v).
     \smallskip\]
-    By Proposition~\ref{prop:linearity_of_SNF}, we get the following
+    By Corollary~\ref{cor:transS_equivR}, we get the following
     diagram:
     \[\begin{tikzcd}
     e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-    r_S(e) \ar["_S", "*"', d] \\
-    v \ar[r, "_S"', "*"] & \SNF (e)
-    \end{tikzcd}\]
-    Since $e\rewR v$ does not belong to $S$ and since every rewriting
-    step in the right and bottom faces belong to $S$, they are smaller
-    than $e\rewR v$ for $\prec$ by definition of this order. Hence, the
-    diagram is decreasing w.r.t.\ $(S,\prec)$. 
+    r_S(e) \ar["_R", "*"', leftrightarrow, d] \\
+    v \ar[r, "_R"',leftrightarrow, "*"] & \SNF (e).
+  \end{tikzcd}\] Once again we can choose the paths $v \equivR \SNF(e)$ and
+$r_S(e) \equivR \SNF(e)$ so that all the rewriting steps are in $S$, and the
+diagram is decreasing w.r.t.\ $(S,\prec)$ by definition of $\prec$.
   \end{itemize}
   $(2)\Rightarrow (1)$: Let $e\rewR v$ be a rewriting rule and let us
   assume by induction that for every rewriting step $e'\rewR v'$ smaller
@@ -663,8 +662,8 @@ for every vector $v$.
   that the pair of rewriting relations $(\parS,\rewR)$ is decreasing with
   respect to conversions (see~\cite[Definition 3]{van2008confluence}),
   using the order $<$ on $R$ and the discrete order on $\parS$.
-  By~\cite[Theorem 3]{van2008confluence}, this implies that
-  $(\parS,\rewR)$ commutes. Using the fact that $\parS \subseteq \rewR$,
+  By~\cite[Theorem 3]{van2008confluence}, this implies that the relations
+  $(\parS,\rewR)$ commute. Using the fact that $\parS \subseteq \transR$,
   one can then recover that $\rewR$ is confluent. \todo{vérifier avec
   $\transS\subseteq\transR$}
 \end{remark}
@@ -1263,3 +1262,8 @@ resolution of PDE's.
 
 \end{document}
  
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
