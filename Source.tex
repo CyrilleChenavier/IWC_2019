@@ -1,12 +1,18 @@
-\documentclass[10pt]{easychair}
-\usepackage[T1]{fontenc}
+\documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{amsmath,amssymb,mathrsfs,amsthm}
+\pagestyle{plain}
+\usepackage[filecolor=green]{hyperref}
+\usepackage{color}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usepackage{enumitem}
+\usepackage{vmargin}
+\setmarginsrb{2cm}{2cm}{2cm}{1.5cm}{0cm}{0cm}{0cm}{1.5cm}
+\bibliographystyle{plain}
 
+% Newtheorems
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -14,34 +20,26 @@
 
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
-\newtheorem{property}[theorem]{Property}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{example}[theorem]{Example}
 
 % Newcommand
-
-%Titre article
-\newcommand\titlePaper{Strategies in algebraic rewriting, with applications to rational Weyl algebras}
 
 % Texte
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
 \newcommand\G{Gröbner}
 \newcommand\todo[1]{{\bf\textcolor{red}{#1}}}
-\newcommand\fixmecc[1]{{\textcolor{blue}{{\bf Cyrille:} #1}}}
-\newcommand\data{{\color{red}\bf data}}
 
 % Raccourcis mathématiques
-\DeclareMathOperator{\supp}{supp}
-\newcommand\Span[1]{\langle#1\rangle}
 \newcommand\diff[1]{\partial_{#1}}
 \newcommand\D{\mathcal{D}}
-\DeclareMathOperator{\lm}{lm}
-\DeclareMathOperator{\lc}{lc}
 \newcommand\basis{\mathscr{B}}
 \newcommand\SigmaTheta{\Sigma_{\Theta}}
-\newcommand\lambdaB{\lambda_\bullet}
 \newcommand\ordS{<_S}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\lm}{lm}
+\DeclareMathOperator{\lc}{lc}
 
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
@@ -50,7 +48,6 @@
 \newcommand\N{\mathbb{N}}
 \newcommand\QX{\mathbb{Q}[x_1,\cdots,x_n]}
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
-\newcommand\KX{\K X}
 \newcommand\Weyl[1]{B_{#1}(\Q)}
 \newcommand\monBasis{\Mon(\Delta)}
 \DeclareMathOperator{\Mon}{Mon}
@@ -58,7 +55,6 @@
 
 % Réécriture dans les ev
 \newcommand\rewR{\to_R}
-\newcommand\rewS{\to_S}
 \newcommand\parRew{\twoheadrightarrow}
 \newcommand\parS{\twoheadrightarrow_S}
 \newcommand\parTheta[1]{\twoheadrightarrow_{\Theta,#1}}
@@ -72,6 +68,7 @@
 \newcommand\rewEquiv{\overset{*}{\leftrightarrow}}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
 
+\DeclareMathOperator{\SNF}{{\it S}-NF}
 
 % Réécriture dans les algèbres de Weyl
 \newcommand\rewTheta{\to_\Theta}
@@ -79,36 +76,24 @@
 \newcommand\divInv[1]{\mid_{#1}}
 \newcommand\RTheta{R_{\Theta}}
 \newcommand\SThetaL{S_{\Theta,L}}
-\DeclareMathOperator{\SNF}{{\it S}-NF}
-\DeclareMathOperator{\SThetaLNF}{{\it S}_{\Theta,L}-NF}
 \newcommand{\SThetaNF}[1]{{\it S}_{\Theta,#1}\operatorname{-NF}}
-
-\bibliographystyle{plain}
+\DeclareMathOperator{\SThetaLNF}{{\it S}_{\Theta,L}-NF}
 
 \begin{document}
 
 \title{Strategies in algebraic rewriting, \\ with application to rational Weyl algebras}
-
-\author{
-Cyrille Chenavier\inst{1}
-\and
-Maxime Lucas\inst{2}
-}
-
-\institute{
-  Johannes Kepler University, Institute for Algebra\\
-  \email{cyrille.chenavier@jku.at}
-\and
-Inria Rennes - Bretagne Atlantique, Gallinette team\\
-\email{maxime.lucas@inria.fr}
-}
-
-\authorrunning{C. Chenavier and M. Lucas}
-\titlerunning{\titlePaper}
+\author{Cyrille Chenavier\footnote{
+    Johannes Kepler University, Institute for Algebra,
+    cyrille.chenavier@jku.at.
+  }\and Maxime Lucas\footnote{Inria Rennes - Bretagne Atlantique,
+    Gallinette team, maxime.lucas@inria.fr.}
+  }
+\date{}
 
 \maketitle
-
-\begin{abstract}  
+      
+\begin{abstract}
+  \todo{Reprendre}
   We study the confluence property for rewriting systems whose underlying set of
   terms admits a vector space structure. For that, we use deterministic
   reduction strategies. These strategies are based on the choice of standard
@@ -123,6 +108,10 @@ Inria Rennes - Bretagne Atlantique, Gallinette team\\
   rational Weyl algebras, and completely characterise the strategies induced by
   an involutive division.
 \end{abstract}
+\noindent
+\begin{small}\textbf{Keywords:} \todo{todo}.\\[0.2cm]
+  \textbf{M.S.C 2010 - Primary:} \todo{todo}. \textbf{Secondary:} \todo{todo}.
+\end{small}
 
 \tableofcontents
 
@@ -1273,8 +1262,4 @@ resolution of PDE's.
 \bibliography{Biblio}
 
 \end{document}
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
+ 
