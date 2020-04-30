@@ -136,39 +136,143 @@ is used in conjunction with the critical pairs lemma to algorithmically
 prove confluence. This is something fundamental since confluent rewriting
 systems provide methods for solving decision problems, computing (linear,
 homotopy) bases, Hilbert series, or free
-resolutions~\cite{MR846601, MR2964639, MR1072284, MR1360005}. From these 
-methods, one get constructive proofs of theoretical results, such as 
-embedding, coherence or homological theorems~\cite{MR506890, MR0506423,
-  MR3347996, MR3742562, MR265437, MR920522}, but also applications to 
-problems coming from topics modelled by algebra, such as cryptography, 
-analysis of (ordinary differential, partial derivative, time-delay) 
-equations or control theory. For instance, much information of 
-functional equations may be read over free resolutions: integrability
-conditions, parametrization of solutions, existence of autonomous
-curves~\cite{MR2233761, MR1308976}.
+resolutions~\cite{MR846601, GuiraudHoffbeckMalbos19, MR2964639,
+  MR1072284, MR1360005}. From these methods, one get constructive proofs
+of theoretical results, such as  embedding, coherence or homological
+theorems~\cite{MR506890, MR0506423, MR3347996, MR3742562, MR265437,
+  MR920522}, but also applications to problems coming from topics
+modelled by algebra, such as cryptography, analysis of (ordinary
+differential, partial derivative, time-delay) equations or control
+theory. For instance, many informations of functional equations may be
+read over free resolutions: integrability conditions, parametrization of
+solutions, existence of autonomous curves~\cite{MR2233761, MR1308976}.
 \medskip
 
 When one considers algebraic structures with underlying vector spaces
-operations, the conjunction of the Newman's lemma and the critical pairs lemma
-is traditionally known under the name of diamond's lemma. In practice, this
-lemma is used to test if a generating set of a polynomial ideal is a \G\ basis,
-since confluent linear rewriting systems are usually induced by \G\ bases or one
-of their numerous adaptations to different classes of algebras or
-operads~\cite{MR506890, MR2202562, MR2667136, MR1044911, MR1299371}. As an
-illustration of such a class, let us mention Weyl algebras that are models of
-differential operators with polynomial coefficients. These algebras are composed
-of polynomials over two sets of $n$ variables, the state variables
-$x_1,\ldots,x_n$ and the vector field variables $\partial_1,\ldots,\partial_n$, and submitted to the
-commutation rules
+operations, the conjunction of the Newman's lemma and the critical pairs
+lemma is traditionally known under the name of diamond's lemma. In
+practice, this lemma is used to test if a generating set of a polynomial
+ideal is a \G\ basis, since confluent linear rewriting systems are
+usually induced by \G\ bases or one of their numerous adaptations to
+different classes of algebras or operads~\cite{MR506890, MR2202562,
+  MR2667136, MR1044911, MR1299371}. As an illustration of theses classes,
+let us mention polynomial Weyl algebras that are models of differential
+operators with polynomial coefficients. These algebras are composed of
+polynomials over two sets of $n$ variables, the state variables
+$x_1,\ldots,x_n$ and the vector field variables
+$\partial_1,\ldots,\partial_n$, and submitted to the commutation rules
 \[ \forall 1\leq i\neq j\leq n: \qquad x_ix_j=x_jx_i,
-  \quad \partial_i\partial_j=\partial_j\partial_i, \quad \partial_ix_j=x_j\partial_i, \quad
-\partial_ix_i=x_i\partial_i+1. \]
+\quad \partial_i\partial_j=\partial_j\partial_i, \quad \partial_ix_j=
+x_j\partial_i, \quad\partial_ix_i=x_i\partial_i+1. \]
 These relations represent classical rules from differential calculus: the
 second one means that second order derivatives of smooth functions
 commute, the third one means that $x_j$ is constant for differentiation
 with respect to $x_i$ and the last one represents the Leibniz's rule for
 differentiation with respect to $x_i$, that is,
 $\partial_i(x_if)=x_i\partial_i(f)+f$, for any smooth function $f$.
+Rewriting over vector spaces requires to introduce a notion of
+well-formed rewriting step, also called {\em positive rewriting step}
+in~\cite{GuiraudHoffbeckMalbos19}, that is, each step reduces only one
+basis element together with its coefficient in a given vector. Typically,
+the vector is a polynomial and the reduced basis element is a monomial
+that appears in this polynomial with a nonzero coefficient. Doing so
+avoids pathological situations, \eg, $v_1\to v_2$ implies that the
+rewriting step $v_2=v_2-v_1+v_1\to v_2-v_2+v_1=v_1$ is not well-formed.
+On the other hand, rewriting steps are not compatible with vector spaces
+operations since $u_1\to u_2$ and $v_1\to v_2$ imply that
+$u_1+v_1\to u_2+v_2$ is not well-formed as soon as two different basis
+elements are rewritten in $u_1$ and $v_1$.
+\medskip
+
+\begin{center}
+  \large\bf Our results
+\end{center}
+
+In the present paper, we introduce an alternative approach to rewriting
+theory over vector spaces, which does not presuppose any notion of
+well-formed rewriting step. Instead, our rewriting steps only depend on
+vector spaces operations, they may reduce many basis elements at once,
+still avoiding pathological situations. Moreover, our framework is valid
+in every vector space and can be applied to the case where the
+coefficients do not commute with basis elements. We illustrate this last
+point with rewriting systems over rational Weyl algebras, and from this,
+we show that so-called {\em involutive bases}~\cite{MR1627129} induce
+confluent rewriting systems.
+\medskip
+
+Given a set of rewriting rules of the form $e\to v$, where $e$ is a basis
+element and $v$ is a vector, we introduce the notion of
+{\em parallel rewriting relation} with rewriting steps $v_1\parRew v_2$
+that consists in replacing each left-hand side of a rule $e$ occuring in
+$v_1$ by the corresponding right-hand side $v$ to get~$v_2$. As mentioned
+above, this definition is purely internal to the category of vector
+spaces and does not require any notion of well-formed rewriting step. Our
+approach is related to the classical one through the notion of
+{\em strategy}, which means that the rewriting preorder of $\parRew$ is
+terminating. Following the ideas of~\cite{GuiraudHoffbeckMalbos19}, and
+contrary to rewriting with \G\ bases, rewriting with strategies does not
+require any monomial order but uses the order induced by the rewriting
+process itself. The link with classical rewriting over vector spaces is
+given by a confluence criterion. Indeed, the initial rewriting rules
+induce a rewriting relation~$\rewR$ involving well-formed rewriting steps
+only, and we say that $\rewR$ is {\em S-confluent} if for every rewriting
+rule $e\to v$, $e$ and~$v$ are joinable using $\parRew$. In
+Theorem~\ref{thm:S-confluence_criterion}, we show that the $S$-confluence
+property implies confluence of $\rewR$, and we construct a basis of the
+vector space quotiented by the equivalence relation of $\rewR$ in terms
+of normal forms for $\parRew$. Moreover, we also show that the
+$S$-confluence property is characterised by a decreasingness property,
+which enables us to provide a new proof of the diamond's lemma in
+Theorem~\ref{thm:diamond_lemma}.
+\medskip
+
+Since our approach works for arbitrary vector spaces, it may be declined
+in different classes of algebras over fields, including rational Weyl
+algebras. The later extend polynomial Weyl algebras presented above,
+since they are composed of differential operators with coefficients in
+the field of rational functions. Unlike polynomial Weyl algebras, that
+are vector spaces over the field of constants and modules\footnote{A
+  module is like a vector space but its scalars belong to a ring instead
+  of a field.} over the ring of polynomials, rational Weyl algebras are
+vector spaces over the field of rational functions. Notice that because
+of the Leibniz's rule, rational functions do not commute with operators.
+Rewriting-like methods in this context yield applications to formal
+analysis of linear systems of ordinary differential or partial derivative
+equations as mentioned above. In particular, involutive divisions, such
+as {\em Janet, Thomas} and {\em Pommaret} divisions, provide
+deterministic techniques to rewrite differential operators. By
+determinism, we mean that each differential operator admits at most one
+involutive divisor, that is, it may be rewritten into at most one other
+differential operator. This determinism is strongly related to our notion
+of strategy and parallel reductions. In particular, we show in 
+Theorem~\ref{thm:involutive_conf} that involutive bases induce
+$S$-confluent rewriting systems. Finally, we show how most of the axioms
+of involutive divisions may be formalised in purely rewriting language
+using rewriting strategies.
+\medskip
+
+\paragraph{Organisation.}
+
+In Section~\ref{sec:a_weak_version_of_the_diamond_lemma}, we present our
+general framework and general results for rewriting systems over vector
+spaces. In Section~\ref{sec:strategies_on_linear_rewriting_systems}, we
+introduce parallel rewriting relations, rewriting strategies, and a
+normalisation operator associated to each strategy. In
+Section~\ref{sec:confluence_relative_to_a_strategy}, we introduce the
+$S$-confluence property, and show that it implies confluence property for
+well-formed rewriting relations and that bases of quotient vector spaces
+may be constructed in terms of normal forms for parallel rewriting
+relations. We also show that $S$-confluence is characterised by a
+decreasingness property, from which we deduce a proof of the diamond's
+lemma based on strategies. In
+Section~\ref{sec:differential_elimination_in_rational_Weyl_algebras}, we
+illustrate our general framework by rewriting systems over rational Weyl
+algebras. In Section~\ref{sec:rewriting_systems_on_Weyl_algebras}, we
+introduce well-formed rewriting systems over rational Weyl algebras. In
+Section~\ref{sec:involutive_divisions_ and_strategies}, we recall the
+definition of an involutive division and of involutive sets of operators
+and show that involutive divisions define rewriting strategies, and that
+involutive sets $S$-confluent rewriting relations.
 \medskip
 
 \paragraph{Terminology and conventions of rewriting theory.}
@@ -198,7 +302,8 @@ that whenever $a\rewEquiv b$, then~$a$ and $b$ are joinable.
 In this section, we introduce parallel rewriting relations and rewriting
 strategies over vector spaces. We deduce a confluence criterion in terms
 of strategies as well as a method based on strategies to construct linear
-bases of vector spaces. We also obtain a new proof of the diamond lemma.
+bases of vector spaces. We also obtain a new proof of the diamond's
+lemma.
 \medskip
 
 Throughout the section, we fix a ground field $\K$, a $\K$-vector space
@@ -499,7 +604,7 @@ rewriting rules $R$. We show that $S$-confluence implies confluence
 of~$\rewR$ and guarantees that $S$-normal forms basis elements form a
 basis of $V/\equivR$. We also show that $S$-confluence is characterised
 in terms of a decreasingness property. We finish by a new proof of the
-diamond lemma, based on $S$-confluence. 
+diamond's lemma, based on $S$-confluence. 
 \smallskip
 
 \begin{definition}\label{def:standardisation_property}
@@ -706,7 +811,7 @@ for every vector $v$.
 \end{example}
 \smallskip
 
-We finish this section by showing how the diamond lemma fits as a
+We finish this section by showing how the diamond's lemma fits as a
 particular case of our setup.
 \medskip
 
@@ -743,11 +848,12 @@ particular case of our setup.
 \end{proof}
 \smallskip
 
-Notice that in the proof of the diamond lemma, we select for $<$ another order
-than the one given in the proof of Proposition~\ref{prop:S-conf_decreasing} (the
-latter asserts that each rule of $S$ is smaller than each rule which is not in
-$S$ and there is no other comparison). This is a good illustration of the
-flexibility of the characterisation of $S$-confluence given in
+Notice that in the proof of the diamond's lemma, we select for $<$
+another order than the one given in the proof of
+Proposition~\ref{prop:S-conf_decreasing} (the latter asserts that each
+rule of $S$ is smaller than each rule which is not in $S$ and there is no
+other comparison). This is a good illustration of the flexibility of the
+characterisation of $S$-confluence given in
 Proposition~\ref{prop:S-conf_decreasing}. 
 
 \section{Differential elimination in rational Weyl algebras}
@@ -1185,7 +1291,7 @@ $L$-involutivity is actually a very general one, as shown by the
 following theorem.
 \medskip
 
-\begin{theorem}
+\begin{theorem}\label{thm:involutive_conf}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
   let $\prec$ be a monomial order on $\monBasis$ such that each element
   of $\Theta$ is monic, and let L be an involutive division 
