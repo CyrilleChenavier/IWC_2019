@@ -81,7 +81,8 @@
 
 \begin{document}
 
-\title{Strategies in algebraic rewriting, \\ with application to rational Weyl algebras}
+\title{Parallel rewriting relations and the confluence property\\[0.2cm]
+  of involutive sets in rational Weyl algebras\vspace{0.5cm}}
 \author{Cyrille Chenavier\footnote{
     Johannes Kepler University, Institute for Algebra,
     cyrille.chenavier@jku.at.
@@ -93,24 +94,24 @@
 \maketitle
       
 \begin{abstract}
-  \todo{Reprendre}
-  We study the confluence property for rewriting systems whose underlying set of
-  terms admits a vector space structure. For that, we use deterministic
-  reduction strategies. These strategies are based on the choice of standard
-  reductions applied to basis elements.
-
-  We provide a sufficient condition of confluence in terms of the kernel of the
-  operator which computes standard normal forms. We present a local criterion to
-  check the confluence property in this framework, and show that this criterion
-  is related to the diamond lemma for terminating rewriting systems.
-
-  Finally, we relate these strategies to the notion of involutive division on
-  rational Weyl algebras, and completely characterise the strategies induced by
-  an involutive division.
+  We study rewriting systems whose underlying set of terms admits vector
+  space operations over a given field. We introduce parallel rewriting
+  relations, that are rewriting relations compatible with vector space
+  operations, as well as rewriting strategies, that consist in choosing
+  one rewriting step for each reducible basis element of the vector
+  space. Using these notions, we introduce the $S$-confluence property
+  and show that it implies confluence. We deduce a proof of the diamond's
+  lemma, based on strategies. We illustrate our general framework with
+  rewriting systems over rational Weyl algebras, that are vector spaces
+  over a field of rational functions. In particular, we show that
+  involutive divisions induce rewriting strategies over rational Weyl
+  algebras, and using the $S$-confluence property, we show that
+  involutive sets induce confluent rewriting systems over rational Weyl
+  algebras.
 \end{abstract}
 \noindent
-\begin{small}\textbf{Keywords:} \todo{todo}.\\[0.2cm]
-  \textbf{M.S.C 2010 - Primary:} \todo{todo}. \textbf{Secondary:} \todo{todo}.
+\begin{small}\textbf{Keywords:} parallel rewriting, deterministic
+  rewriting, linear rewriting.
 \end{small}
 
 \tableofcontents
@@ -148,7 +149,7 @@ read over free resolutions: integrability conditions, parametrization of
 solutions, existence of autonomous curves~\cite{MR2233761, MR1308976}.
 \medskip
 
-When one considers algebraic structures with underlying vector spaces
+When one considers algebraic structures with underlying vector space
 operations, the conjunction of the Newman's lemma and the critical pairs
 lemma is traditionally known under the name of diamond's lemma. In
 practice, this lemma is used to test if a generating set of a polynomial
@@ -178,14 +179,22 @@ the vector is a polynomial and the reduced basis element is a monomial
 that appears in this polynomial with a nonzero coefficient. Doing so
 avoids pathological situations, \eg, $v_1\to v_2$ implies that the
 rewriting step $v_2=v_2-v_1+v_1\to v_2-v_2+v_1=v_1$ is not well-formed.
-On the other hand, rewriting steps are not compatible with vector spaces
-operations since $u_1\to u_2$ and $v_1\to v_2$ imply that
-$u_1+v_1\to u_2+v_2$ is not well-formed as soon as two different basis
-elements are rewritten in $u_1$ and $v_1$.
+On the other hand, well-formed rewriting steps are not compatible with
+vector space operations since as soon as two different basis elements are
+rewritten in the well-formed rewriting steps $u_1\to u_2$ and
+$v_1\to v_2$, then $u_1+v_1\to u_2+v_2$ is not well-formed.
+\medskip
+
+The notion of well-formed rewriting step is specific to rewriting systems
+over vector spaces and, as mentioned above, it does not satisfy suitable
+compatibilities with the underlying algebraic operations. These two facts
+are obstructions to the development of a categorical framework that we
+hope to unify rewriting theories over algebraic structures. \todo{Mieux
+  le dire}
 \medskip
 
 \begin{center}
-  \large\bf Our results
+  {\large\bf Our results}
 \end{center}
 
 In the present paper, we introduce an alternative approach to rewriting
@@ -203,7 +212,7 @@ confluent rewriting systems.
 Given a set of rewriting rules of the form $e\to v$, where $e$ is a basis
 element and $v$ is a vector, we introduce the notion of
 {\em parallel rewriting relation} with rewriting steps $v_1\parRew v_2$
-that consists in replacing each left-hand side of a rule $e$ occuring in
+that consists in replacing each left-hand side of a rule $e$ occurring in
 $v_1$ by the corresponding right-hand side $v$ to get~$v_2$. As mentioned
 above, this definition is purely internal to the category of vector
 spaces and does not require any notion of well-formed rewriting step. Our
@@ -253,11 +262,12 @@ using rewriting strategies.
 
 \paragraph{Organisation.}
 
-In Section~\ref{sec:a_weak_version_of_the_diamond_lemma}, we present our
-general framework and general results for rewriting systems over vector
-spaces. In Section~\ref{sec:strategies_on_linear_rewriting_systems}, we
-introduce parallel rewriting relations, rewriting strategies, and a
-normalisation operator associated to each strategy. In
+In Section~\ref{sec:parallel_rewriting_relations_over_vector_space}, we
+present our general framework and general results for rewriting systems
+over vector spaces. In
+Section~\ref{sec:rewriting_strategies_over_vector_space}, we introduce
+parallel rewriting relations, rewriting strategies, and a normalisation
+operator associated to each strategy. In
 Section~\ref{sec:confluence_relative_to_a_strategy}, we introduce the
 $S$-confluence property, and show that it implies confluence property for
 well-formed rewriting relations and that bases of quotient vector spaces
@@ -265,11 +275,11 @@ may be constructed in terms of normal forms for parallel rewriting
 relations. We also show that $S$-confluence is characterised by a
 decreasingness property, from which we deduce a proof of the diamond's
 lemma based on strategies. In
-Section~\ref{sec:differential_elimination_in_rational_Weyl_algebras}, we
-illustrate our general framework by rewriting systems over rational Weyl
-algebras. In Section~\ref{sec:rewriting_systems_on_Weyl_algebras}, we
-introduce well-formed rewriting systems over rational Weyl algebras. In
-Section~\ref{sec:involutive_divisions_ and_strategies}, we recall the
+Section~\ref{sec:rewriting_strategies_over_rational_Weyl_algebras}, we
+illustrate our general framework by rewriting systems over rational 
+Weyl algebras. In Section~\ref{sec:rewriting_systems_over_Weyl_algebras},
+we introduce well-formed rewriting systems over rational Weyl algebras. 
+In Section~\ref{sec:involutive_divisions_and_strategies}, we recall the
 definition of an involutive division and of involutive sets of operators
 and show that involutive divisions define rewriting strategies, and that
 involutive sets $S$-confluent rewriting relations.
@@ -296,8 +306,8 @@ exists $d$ such that $b\transRew c$ and $c\transRew d$. The confluence
 property is equivalent to the {\em Church-Rosser property} that assterts
 that whenever $a\rewEquiv b$, then~$a$ and $b$ are joinable.
 
-\section{A weak version of the diamond lemma}
-\label{sec:a_weak_version_of_the_diamond_lemma}
+\section{Parallel rewriting relations over vector spaces}
+\label{sec:parallel_rewriting_relations_over_vector_space}
 
 In this section, we introduce parallel rewriting relations and rewriting
 strategies over vector spaces. We deduce a confluence criterion in terms
@@ -319,8 +329,8 @@ The set of basis elements which appear in the decomposition
 \eqref{equ:vector_decompo} is called the {\it support} of $v$ and is
 written $\supp(v)$. 
 
-\subsection{Strategies on linear rewriting systems}
-\label{sec:strategies_on_linear_rewriting_systems}
+\subsection{Rewriting strategies over vector spaces}
+\label{sec:rewriting_strategies_over_vector_space}
 
 In this section, we introduce parallel rewriting relations and rewriting
 strategies over vector spaces, and we construct a normalisation operator
@@ -438,8 +448,7 @@ written $r_S$. Let us denote by~$\ordS$ the rewriting preorder
 on~$\basis$ induced by~$\parS$, that is, $\ordS$ is the transitive
 closure of the relation: there exists a vector $v$ such that
 $e'\transParS v$ and~$e\in\supp(v)$. In other words, $e\ordS e'$ if and
-only if $e\in\supp(r_S(e'))$. \todo{Faut-il mettre
-  $r_S$ à la puissance $n$?}
+only if $e\in\supp(r_S^n(e'))$, for some nonnegative integer~$n$.
 \smallskip
 
 \begin{definition}\label{def:strategies}
@@ -571,30 +580,21 @@ Section~\ref{sec:confluence_relative_to_a_strategy}.
 \end{proof}
 \smallskip
 
-Point~\ref{it:rewS_transR} of Proposition~\ref{prop:strategies} has the
-following consequence.
+The conclusion of Point~\ref{it:rewS_transR} of
+Proposition~\ref{prop:strategies} concerns the binary relation $\transR$.
+However, in what follows, we do not use this conclusion since one wishes
+to work as much as possible with relations that are compatible with
+vector space operations, such as $\equivR$, see
+Proposition~\ref{prop:vs_structure}. So, instead of using
+Point~\ref{it:rewS_transR} of Proposition~\ref{prop:strategies}, we work
+with its following consequence, that concerns $\equivR$.
 \smallskip
 
 \begin{corollary}\label{cor:transS_equivR}
   For any vectors $u,v$, if $u \transParS v$ then $u\equivR v$. In
   addition, it is possible to choose this equivalence path such that each
-  intermediate rewriting step belongs to $S$. \todo{C'est un peu bizarre
-    à lire par ce qu'on a en fait un résultat plus fort (on peut se passer
-    de l'équivalence). Je suggère qu'on bouge le contenu de la remarque
-    dans le chapeau précédent le corollaire.}
+  intermediate rewriting step belongs to $S$.
 \end{corollary}
-
-\begin{remark}
-  Note that while the rewriting relation $\transR$ does not respect the
-  vector space operations, the equivalence relation does, as shown
-  in Point~\ref{prop:vs_structure} of~\ref{prop:strategies}.  In the
-  following sections, we will
-  never make use of Proposition \ref{prop:rewS_transR}, but only of Corollary
-  \ref{cor:transS_equivR}. This way, we respect our paradigm that all notions in
-  sight should preserve the vector space structure, and that we do not
-  presuppose a notion of ``well-formed'' rewriting step.
-\end{remark}
-
 
 \subsection{Confluence relative to a strategy}
 \label{sec:confluence_relative_to_a_strategy}
@@ -677,8 +677,14 @@ $\rewR$ is confluent relative to this strategy.
 
 In Proposition~\ref{prop:S-conf_decreasing}, we show that $S$-confluence
 is caracterised in terms of the decreasingness property that we introduce
-in Definition~\ref{def:decreasing}. In this definition, we denote by
-$\overset{=}{\twoheadrightarrow}_S$ the closure of $\parS$ under
+in Definition~\ref{def:decreasing}. The later is stated in terms of the
+relation $\equivR$, since here again we want to take into account
+compatibility with vector space operations. In particular, in the proof
+of Proposition~\ref{prop:S-conf_decreasing}, we apply of
+Corollary~\ref{cor:transS_equivR} instead of Point~\ref{it:rewS_transR}
+of Proposition~\ref{prop:strategies}, as mentioned above. Moreover, in
+Definition~\ref{def:decreasing}, we make use of the following notation: 
+$\overset{=}{\twoheadrightarrow}_S$ is the closure of~$\parS$ under
 reflexivity, that is, $v\overset{=}{\twoheadrightarrow}_Sr_S(v)$ holds 
 for every vector $v$.
 \smallskip
@@ -856,10 +862,10 @@ other comparison). This is a good illustration of the flexibility of the
 characterisation of $S$-confluence given in
 Proposition~\ref{prop:S-conf_decreasing}. 
 
-\section{Differential elimination in rational Weyl algebras}
-\label{sec:differential_elimination_in_rational_Weyl_algebras}
+\section{Rewriting strategies over rational Weyl algebras}
+\label{sec:rewriting_strategies_over_rational_Weyl_algebras}
 
-In this section, we investigate rewriting systems on rational Weyl
+In this section, we investigate rewriting systems over rational Weyl
 algebras and relate involutive divisions to rewriting strategies for such
 systems. In particular, we show that involutive sets in rational Weyl
 algebras induce confluent rewriting systems.
@@ -880,8 +886,8 @@ the set of monomials over $\Delta$:
 In what follows, we keep the terminology monomials only for elements of
 $\Mon(\Delta)$ and not for elements in $\Mon(X)$.
 
-\subsection{Rewriting systems on rational Weyl algebras}
-\label{sec:rewriting_systems_on_Weyl_algebras}
+\subsection{Rewriting systems over rational Weyl algebras}
+\label{sec:rewriting_systems_over_Weyl_algebras}
 
 In this section, we recall the definition of the rational Weyl algebra
 and introduce rewriting systems on the rational Weyl algebra induced by
@@ -903,12 +909,12 @@ monic operators.
 
 Notice that $\Weyl{n}$ is a $\Q(X)$-vector space and that the monomial 
 set $\monBasis$ is a basis of~$\Weyl{n}$. Elements of~$\Weyl{n}$ should 
-be thought of as differential operators with rational functions 
-coefficients and for this reason, a generic element of this algebra is
+be thought of as differential operators whose coefficients are rational
+functions, and for this reason, a generic element of this algebra is
 denoted by $\D$ and is called a differential operator. In the following
 example, we illustrate how these operators provide an algebraic model of
 linear systems of ordinary differential (in the case $n=1$) and partial
-derivative equations (in the case $n\geq 2$) with one unknown function. 
+derivative equations (in the case~$n\geq 2$) with one unknown function. 
 \smallskip
 
 \begin{example}\label{ex:diff_operators_init}
@@ -937,7 +943,7 @@ derivative equations (in the case $n\geq 2$) with one unknown function.
 \end{remark}
 \smallskip
 
-The next step before introducing rewriting systems on rational Weyl
+The next step before introducing rewriting systems over rational Weyl
 algebras is to recall the definition of monic operators. We fix a
 monomial order $\prec$ on $\monBasis$, that is, a terminating total 
 order which is admissible, \ie, $\partial^{\alpha}\prec\partial^{\beta}$
@@ -974,7 +980,7 @@ Indeed, in this case, the left-hand sides of the rewriting rules are of
 the form $\partial^\alpha(\lc(\D)\lm(\D))$ and due to commutation laws,
 these elements are not monomials. In particular, we are not in the
 situation of our general approach developed in  
-Section~\ref{sec:a_weak_version_of_the_diamond_lemma} anymore.
+Section~\ref{sec:parallel_rewriting_relations_over_vector_space} anymore.
 \medskip
 
 We finish this section with some comments on $\rewTheta$. Let us consider 
@@ -1058,7 +1064,7 @@ example.
 \smallskip
 
 \subsection{Involutive divisions and strategies}
-\label{sec:involutive_divisions_ and_strategies}
+\label{sec:involutive_divisions_and_strategies}
 
 In this section, we interpret involutive divisions in terms of strategies
 for the rewriting relation induced by a set of monic differential
@@ -1072,7 +1078,7 @@ multiplicative variables, and autoreducibility. For that, we temporally
 work with monomials instead of operators and denote these monomials with
 Latin letters $u,m$ instead of~$\partial^\alpha$. Then, we will reuse the
 operator notation for monomials when we will consider rewriting systems
-on rational Weyl algebras. An {\em involutive division} $L$ on
+over rational Weyl algebras. An {\em involutive division} $L$ on
 $\Mon(\Delta)$ is defined by a binary relation $\divInv{L}^U$ on
 $U\times\Mon(\Delta)$, for every finite subset $U\subset\Mon(\Delta)$,
 satisfying for every $u,u'\in U$ and every $m,m'\in\Mon(\Delta)$, the
@@ -1367,17 +1373,46 @@ $\partial_i\lm(\D)$ is $S$-divisible by $\lm(\D)$.
   That proves the assertion.
 \end{proof}
 
-\section{Conclusion}
+\section{Conclusion and perspectives}
 
-We introduced a sufficient condition,
-based on deterministic reduction strategies, of confluence for
-rewriting systems on vector spaces. As a particular case,
-we recover the diamond lemma. This work maybe extended in particular
-into two main directions. The first one consists in weakening our assumption
-on the set $\K$ of coefficients, by allowing non invertible coefficients.
-A second extension consists in characterising Janet bases in this framework,
-with the objective to develop constructive methods in the analysis and formal
-resolution of PDE's.
+In this paper, we considered rewriting systems over vector spaces, where
+we proposed an alternative approach to the traditional one, since we used
+parallel rewriting steps. We also established some links with the
+traditional approach, by giving a confluence criterion as well as a proof
+of the diamond's lemma, based on strategies. Finally, we showed that our
+general framework may be adapted to rational Weyl algebras, where
+coefficients do not commute with monomials. In particular, we proved that
+an involutive set in the rational Weyl algebra induces a confluent
+rewriting system on it. We now present some possible extensions of our
+work.
+\medskip
+
+A first research direction is to investigate the so-called
+{\em standardisation properties}~\cite{Mellies05jwklop} associated to a
+rewriting strategy. Indeed, the choice of strategy is nothing but the
+choice for every vector of a preferred rewriting sequence starting at 
+this vector. Moreover, we have shown in Point~\ref{it:rewS_transR} of
+Proposition~\ref{prop:strategies} that each elementary rewriting step for
+a strategy has same source and target points than a rewriting sequence
+involving rules that do not belong to the strategy. The proof of this
+fact is based on complete developments of residuals, that play a central
+role in standardisation results, corresponding to left-hand sides of the
+strategy. As a particular case, we expect to interpret Janet bases in
+terms of standardisation.
+\medskip
+
+A second research direction \todo{réécriture interne à une catégorie}.
+\medskip
+
+A last research direction consists in applying rewriting systems over
+rational Weyl algebras to the formal analysis of systems of partial
+differential equations. As mentioned above, this topic covers many kinds
+of problems and many techniques coming from rewriting theory and algebra
+may be used in this context. We may focus on using rewriting methods
+applied to the {\em Spencer cohomology}~\cite{MR1308976}, which, roughly
+speaking, provides intrinsic properties, namely {\em $2$-acyclicity} and
+{\em formal integrability}, that guarantee existence of normal form power
+series solutions. 
 
 \bibliography{Biblio}
 
