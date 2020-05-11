@@ -487,7 +487,7 @@ $e\ordS e'$ implies $e<_Re'$.
     not terminating. In fact,~$\ordS$ is cyclic since from the rewriting
     sequence $e_2\parS e_1\parS e_2+e_3$, we get $e_2>_Se_3$, so that
     $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice however that $\parS$ is
-    terminating since for every
+    terminating since for every vector 
     $v=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3$, we have
     \[\lambda_1e_1+\lambda_2e_2+\lambda_3e_3\parS(\lambda_2-\lambda_3)e_1
     +\lambda_1e_2+\lambda_1e_3\parS(\lambda_2-\lambda_3)e_2+(\lambda_2-
@@ -772,15 +772,15 @@ for every vector $v$.
 \smallskip
 
 \begin{remark}
-  In the case where the rewriting system comes from a set-theoretic rewriting
-  system (that is, the right-hand sides of the rewriting rules are elements of
-  the basis), the fact that local $S$-confluence implies that $\rewR$ is
-  confluent is a special case of Van Ostroom's decreasing diagrams
-  \cite{van2008confluence}. More precisely, based on
+  In the case where the rewriting system comes from a set-theoretic
+  rewriting system (that is, the right-hand sides of the rewriting rules
+  are elements of the basis), the fact that local $S$-confluence implies
+  that $\rewR$ is confluent is a special case of Van Ostroom's decreasing
+  diagrams \cite{van2008confluence}. More precisely, based on
   Proposition~\ref{prop:S-conf_decreasing}, local $S$-confluence implies
   that the pair of rewriting relations $(\parS,\rewR)$ is decreasing with
   respect to conversions (see~\cite[Definition 3]{van2008confluence}),
-  using the order $<$ on $R$ and the discrete order on $\parS$.
+  using the order~$<$ on $R$ and the discrete order on $\parS$.
   By~\cite[Theorem 3]{van2008confluence}, this implies that the relations
   $(\parS,\rewR)$ commute. Using the fact that $\parS \subseteq \transR$,
   one can then recover that $\rewR$ is confluent.
@@ -828,7 +828,7 @@ particular case of our setup.
   terminating, so that $S$ is a strategy for~$R$. Let us show that
   $\rewR$ is $S$-confluent using the criterion of
   Proposition~\ref{prop:S-conf_decreasing}. For that, we define the
-  terminating order $\prec$ on $R$ by letting
+  terminating order $\prec$ on~$R$ by letting
   $(e\rewR v)\prec(e'\rewR v')$  whenever $e<_Re'$. If $e\rewR v$ is a
   rewriting rule, then $e$ is not an $R$-normal form and
   $e\overset{=}{\parS}r_S(e)$ means $e\parS r_S(e)$. Using the confluence
@@ -864,15 +864,15 @@ algebras induce confluent rewriting systems.
 \medskip
 
 Throughout the section, we fix a set $X=\{x_1,\cdots,x_n\}$ of
-indeterminates and we denote by $\Q(X):=\QXX$ the field of fractions of
-the polynomial algebra $\QX$ over~$\Q$, that is, the set of rational
-functions in the indeterminates $X$. We fix another set of variables
-$\Delta=\{\diff{1},\cdots,\diff{n}\}$ that model partial derivative
-operators, see Example~\ref{ex:diff_operators_init}. We denote by
-$\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$ the
+indeterminates and the field of fractions of the polynomial algebra $\QX$
+over~$\Q$ is denoted by $\Q(X):=\QXX$, it is the set of rational
+functions in the indeterminates $X$. We fix another set of
+variables $\Delta=\{\diff{1},\cdots,\diff{n}\}$ that model partial
+derivative operators, see Example~\ref{ex:diff_operators_init}. We denote
+by $\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$ the
 monomial over $\Delta$ with multi-exponent
 $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$. Finally, let $\monBasis$ be
-the set of monomials over $\Delta$:
+the set of monomials over~$\Delta$:
 \[\monBasis:=\left\{\partial^\alpha:\ \alpha\in\N^n\right\}.
 \smallskip\]
 In what follows, we keep the terminology monomials only for elements of
@@ -955,7 +955,7 @@ is defined w.r.t.\ the basis $\monBasis$.
 \smallskip
 
 Since the monomial order $\prec$ is fixed, me simply say monic instead of
-$\prec$-monic. Given a set~$\Theta\subseteq\Weyl{n}$ of monic operators,
+$\prec$-monic. Given a set of monic operators~$\Theta\subseteq\Weyl{n}$,
 let us consider the rewriting relation on $\Weyl{n}$ induced by the
 following rewriting rules: 
 \begin{equation}\label{equ:rewTheta}
@@ -1019,13 +1019,14 @@ example.
     In terms of the corresponding differential equation $y'(x)=xy(x)$,
     this rewriting sequence has the following meaning. First, notice that
     the space of solutions of this equation is the one-dimensional
-    $\R$-vector space spanned by the function $e^{x^2/2}$. The second
-    order derivative of a solution $y(x)=Ce^{x^2/2}$, for an arbitrary
-    constant $C$, is given by the formula $y''(x)=(x^2+1)Ce^{x^2/2}$,
+    $\R$-vector space spanned by the function $e^{x^2/2}$. Moreover, the
+    second order derivative of a solution $y(x)=Ce^{x^2/2}$, for an
+    arbitrary constant $C$, is given by the formula
+    $y''(x)=(x^2+1)Ce^{x^2/2}$, 
     which reads $(\partial^2y)(x)=(x^2+1)y(x)$ in terms of operators.
-    Notice that if we allow to reduce the left $\partial$ in
-    $\partial^2$, then we get $\partial^2\transTheta x^2$, which is false
-    in terms of operators since $y''(x)$ is not equal to $x^2y(x)$.
+    Notice that if we allow to reduce the left~$\partial$ 
+    in~$\partial^2$, then we get $\partial^2\transTheta x^2$, which is 
+    false in terms of operators since $y''(x)$ is not equal to~$x^2y(x)$.
   \item\label{it:Janet_example_rew} Let $\Theta:=\{\D_1,\D_2\}$, where
     $\D_1:=\partial_3^2-x_2\partial_1^2$ and $\D_2:=\partial_2^2$
     correspond to the two equations of the Janet example. We define
@@ -1034,7 +1035,7 @@ example.
     $\partial_1\prec\partial_2\prec\partial_3$, so that $\rewTheta$ is
     induced by the rewriting rules
     $\partial_3^2\rewTheta x_2\partial_1^2$ and
-    $\partial_2^2\rewTheta 0$. Then, $\rewTheta$ is not confluent since:
+    $\partial_2^2\rewTheta 0$. Then,~$\rewTheta$ is not confluent since:
     \begin{equation}\label{equ:non_conf_Janet_ex}
       \begin{tikzcd}
         \partial_2^2\partial_3^2\ar[d, "_\Theta"']\ar[r, "_\Theta"'] &
@@ -1071,7 +1072,7 @@ work with monomials instead of operators and denote these monomials with
 Latin letters $u,m$ instead of~$\partial^\alpha$. Then, we will reuse the
 operator notation for monomials when we will consider rewriting systems
 over rational Weyl algebras. An {\em involutive division} $L$ on
-$\Mon(\Delta)$ is defined by a binary relation $\divInv{L}^U$ on
+$\Mon(\Delta)$ is defined by a binary relation~$\divInv{L}^U$ on
 $U\times\Mon(\Delta)$, for every finite subset $U\subset\Mon(\Delta)$,
 satisfying for every $u,u'\in U$ and every $m,m'\in\Mon(\Delta)$, the
 following relations:
@@ -1217,7 +1218,7 @@ r(\D_i)$ in order to simplify notations.
   $\rewTheta$, then $\partial^\alpha<_\Theta\partial^\beta$ implies that
   $\partial^\alpha\prec\partial^\beta$, so that $<_\Theta$ is
   terminating. Hence, the rewriting preorder of $\twoheadrightarrow_{\SThetaL}$ is also
-  terminating, and $\SThetaL$ is a strategy for $\RTheta$.
+  terminating, and $\SThetaL$ is a strategy for~$\RTheta$.
 \end{proof}
 \smallskip
 
@@ -1360,7 +1361,7 @@ $\partial_i\lm(\D)$ is $S$-divisible by $\lm(\D)$.
   Let us show the second assertion. By definition of the strategy
   $\SThetaL$ and of the $\SThetaL$-division, $\lm(\D)$ has the same set
   of multiplicative variables for $L$ and for the $\SThetaL$-division.
-  Hence, a monomial $\partial^\alpha$ is $L$-divisible by $\lm(\D)$, with
+  Hence, a monomial~$\partial^\alpha$ is $L$-divisible by $\lm(\D)$, with
   $\D\in\Theta$, if and only if it is $\SThetaL$-divisible by $\lm(\D)$.
   That proves the assertion.
 \end{proof}
@@ -1393,18 +1394,16 @@ strategy. As a particular case, we expect to interpret Janet bases in
 terms of standardisation.
 \medskip
 
-This work is focused on rewriting systems over vector spaces. A second research
-direction is to extend it to other algebraic structures. This looks promising
-since we do away with the notion of well-formed rewriting step, specific to the
-vector space case. More generally, we hope to be able to extend our results to
-an arbitrary category $\mathcal C$ (satisfying some suitable condition),
-recovering abstract rewriting in the case where $\mathcal C$ is the category of
-sets, and linear rewriting as presented in this work in the case where
-$\mathcal C$ is the category of vector spaces. Instead of having a set or a
-vector space of terms to be rewritten, one would then have an object of terms,
-which would be an object of $\mathcal C$. 
-
-
+A second research direction is to extend our work to other algebraic
+structures than vector spaces. This looks promising since we do away with
+the notion of well-formed rewriting step, specific to the vector space
+case. More generally, we hope to be able to extend our results to an
+arbitrary category $\mathcal C$ (satisfying some suitable condition), 
+recovering abstract rewriting in the case where $\mathcal C$ is the
+category of sets, and linear rewriting as presented in this work in the
+case where $\mathcal C$ is the category of vector spaces. Instead of
+having a set or a vector space of terms to be rewritten, one would then
+have an object of terms, which would be an object of $\mathcal C$. 
 \medskip
 
 A last research direction consists in applying rewriting systems over
