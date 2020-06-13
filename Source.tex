@@ -36,7 +36,7 @@
 \newcommand\D{\mathcal{D}}
 \newcommand\basis{\mathscr{B}}
 \newcommand\SigmaTheta{\Sigma_{\Theta}}
-\newcommand\ordS{<_S}
+\newcommand\ordS{\leq_S}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\lm}{lm}
 \DeclareMathOperator{\lc}{lc}
@@ -303,14 +303,13 @@ exists $d$ such that $b\transRew c$ and $c\transRew d$. The confluence
 property is equivalent to the {\em Church-Rosser property} that assterts
 that whenever $a\rewEquiv b$, then~$a$ and $b$ are joinable.
 
-\section{Parallel rewriting relations over vector spaces}
-\label{sec:parallel_rewriting_relations_over_vector_space}
+\section{Rewriting strategies over vector spaces}
+\label{sec:rewriting_strategies_over_vector_space}
 
-In this section, we introduce parallel rewriting relations and rewriting
-strategies over vector spaces. We deduce a confluence criterion in terms
-of strategies as well as a method based on strategies to construct linear
-bases of vector spaces. We also obtain a new proof of the diamond's
-lemma.
+In this section, we introduce rewriting strategies over vector spaces. We
+formulate a confluence criterion in terms of strategies as well as a 
+method based on strategies to construct linear bases of vector spaces. We 
+also obtain a new proof of the diamond's lemma.
 \medskip
 
 Throughout the section, we fix a ground field $\K$, a $\K$-vector space
@@ -329,9 +328,9 @@ written $\supp(v)$.
 \subsection{Rewriting strategies over vector spaces}
 \label{sec:rewriting_strategies_over_vector_space}
 
-In this section, we introduce parallel rewriting relations and rewriting
-strategies over vector spaces, and we construct a normalisation operator
-associated to a strategy. This normalisation operator is used in
+In this section, we introduce rewriting strategies over vector spaces,
+and we construct a normalisation operator associated to a strategy. This
+normalisation operator is used in
 Section~\ref{sec:confluence_relative_to_a_strategy} to formulate our
 confluence criterion and to provide a rewriting method for constructing
 linear bases of vector spaces. 
@@ -339,12 +338,11 @@ linear bases of vector spaces.
 
 We first recall the traditional approach of rewriting over vector spaces,
 which consists in reducing one basis element at each step. We fix a
-subset $R$ of $\basis\times V$, whose elements are called
-{\em rewriting rules}. A rewriting rule is denoted by $e\rewR v$, where
-$e$ and~$v$ are left and right-hand sides of this rule, \ie, its images
-through the natural projections of $R$  on~$\basis$ and $V$,
-respectively. We extend these rules into a rewriting relation on $V$,
-still written $\rewR$, with rewriting steps are of the following form: 
+subset $R$ of $\basis\times V$, such that for every $(e,v)\in R$, we 
+have~$e\notin\supp(v)$. Elements of $R$ are called {\em rewriting rules}
+and are denoted by $e\rewR v$ instead of~$(e,v)$. We extend these rules
+into a rewriting relation on $V$, still written $\rewR$, with rewriting
+steps of the following form:  
 \begin{equation}\label{equ:R_rewriting_step}
   \lambda e+u\rewR\lambda v+u,
   \smallskip
@@ -355,22 +353,21 @@ normal form for $\rewR$ is called an {\em R-normal form}. In the sequel,
 we refer~$\rewR$ as the rewriting relation induced by the rewriting rules
 $R$. The relation~$\rewR$ is not stable under vector space
 operations, that is, $u_1\rewR u_2$, $v_1\rewR v_2$, and $\mu\in\K$
-generally do not imply $\mu u_1+v_1\rewR \mu u_2+v_2$. In contrast, the
-following proposition shows that $\equivR$ is compatible with these
-operations.
+generally do not imply $\mu u_1+v_1\rewR \mu u_2+v_2$. In contrast, 
+Proposition~\ref{prop:vs_structure} shows that $\equivR$ is compatible
+with these operations. In the proof of this proposition, we use the
+following lemma.
 \smallskip
 
-\begin{proposition}\label{prop:vs_structure}
-  The quotient set $V/\equivR$ is a vector space and the projection
-  $V\to V/\equivR$ is a linear map.
-\end{proposition}
+\begin{lemma}\label{lem:butterfly}
+  If we have $u_1\equivR u_2$ and $v_1\equivR v_2$, then,
+  $\mu u_1+v_1\equivR\mu u_2+v_2$ holds for every $\mu\in\K$.
+\end{lemma}
 
 \begin{proof}
   The proof is an adaptation
-  of~\cite[Lemma 3.1.3]{GuiraudHoffbeckMalbos19}. The statement of the
-  proposition precisely means that $u_1\equivR u_2$, $v_1\equivR v_2$,
-  and $\mu\in\K$ imply $\mu u_1+ v_1\equivR\mu u_2+v_2$. Let us first
-  show the following implication
+  of~\cite[Lemma 3.1.3]{GuiraudHoffbeckMalbos19}. We first show the
+  following particular case:
   \begin{equation}\label{equ:sum_rew}
     u_1\rewR u_2\quad\Rightarrow\quad\mu u_1+v_1\equivR\mu u_2+v_1.
   \end{equation}
@@ -379,86 +376,82 @@ operations.
   where $e\rewR v$ is a rewriting rule,~$\lambda$ is a scalar and $e$
   does not belong to $\supp(u)$. Let $\nu$ be the coefficient of $e$ in
   $v_1$, so that we may write $v_1=\nu e+v_1'$, where $e$ does not belong
-  to $\supp(v_1')$. Since $\mu u_1+v_1=(\mu\lambda+\nu)e+\mu u+v_1'$ and
-  $\mu u_2+v_1=\nu e+\mu\lambda v +\mu u+v_1'$, we have $\mu u_1+v_1
-  \transR(\mu\lambda+\nu)v+\mu u+v_1'\overset{*}{\leftarrow}\mu u_2+v_1$,
-  which proves~\eqref{equ:sum_rew}. If $u_1\equivR u_2$,
-  using~\eqref{equ:sum_rew}, an induction on the length of the path
-  $u_1\equivR u_2$ shows that $\mu u_1+v_1\equivR\mu u_2+v_1$, and by an
-  analogous argument, we have $\mu u_2+v_1\equivR\mu u_2+v_2$. Hence, we
-  have $\mu u_1+v_1\equivR\mu u_2+v_2$, which concludes the proof.
+  to $\supp(v_1')$. Since $\mu u_1+v_1=(\mu\lambda+\nu)e+\mu u+v_1'$,
+  $\mu u_2+v_1=\nu e+\mu\lambda v +\mu u+v_1'$, and, $e\notin\supp(v)$,
+  we have $\mu u_1+v_1\transR(\mu\lambda+\nu)v+\mu u+v_1'
+  \overset{*}{\leftarrow}\mu u_2+v_1$, which proves~\eqref{equ:sum_rew}.
+  If $u_1\equivR u_2$, using~\eqref{equ:sum_rew}, an induction on the
+  length of the path $u_1\equivR u_2$ shows that
+  $\mu u_1+v_1\equivR\mu u_2+v_1$, and by an analogous argument, we have
+  $\mu u_2+v_1\equivR\mu u_2+v_2$. Hence, we have
+  $\mu u_1+v_1\equivR\mu u_2+v_2$, which concludes the proof.
 \end{proof}
+
+In the statement of Proposition~\ref{prop:vs_structure}, we denote by
+$V(R)$ the subspace of $V$ spanned by elements of the form~$e-v$, where
+$e\rewR v$ is a rewriting rule.
 \smallskip
 
-In the following definition, we introduce parallel rewriting relations as
-being compatible with vector space operations.
-\smallskip
-
-\begin{definition}
-  A {\em parallel rewriting relation} on $V$ is a rewriting relation
-  $\parRew$ on $V$ such that for every rewriting steps $u\parRew u'$ and
-  $v\parRew v'$ and for every scalar $\lambda\in\K$, there exists a 
-  rewriting step $u+\lambda v\parRew u'+\lambda v'$.
-\end{definition}
-
-The term parallel means that $u$ and $v$ may be reduced at once using
-$\parRew$, and justify the double head arrows. Rewriting strategies that
-we introduce in Definition~\ref{def:strategies} induce parallel rewriting
-relations with pairwise distinct left-hand sides. The following
-proposition provides a characterisation of parallel rewriting relations
-with distinct left-hand sides. 
-\smallskip
-
-\begin{proposition}\label{prop:parRew_function}
-  There is a one-to-one correspondance between parallel rewriting
-  relations with pairwise distinct left-hand sides and functions from
-  $\basis$ to $V$.
+\begin{proposition}\label{prop:vs_structure}
+  There is a bijection between the quotient set $V/\equivR$ and the
+  quotient vector space~$V/V(R)$.
 \end{proposition}
 
 \begin{proof}
-  The parallel rewriting relation with pairwise distinct left-hand sides
-  $\parRew$ is associated to the function $r:\basis\to V$ defined by
-  $r(e)=v$ if there is a rewriting step $e\parRew v$ with left-hand side
-  $e$, and $r(e)=e$, otherwise. The map $r$ is well-defined since
-  $\parRew$ has distinct left-hand sides. Conversely, any function 
-  $r:\basis\to V$ induces a unique linear endomorphism of $V$, that we
-  still denote by $r$. Then, the rewriting steps $v\parRew r(v)$, with
-  $v\neq r(v)$, define a parallel rewriting relation with distinct
-  left-hand sides. The two associations between $\parS$ and $r$ are
-  inverses to each other, which concludes the proof. 
+  The bijection maps every equivalence class $[v]_{\rewEquiv}$ to
+  $v+V(R)$. Hence, the statement of the proposition means that
+  $v_1\equivR v_2$ holds if and only if $v_1-v_2\in V(R)$. The
+  implication from left to right follows from the facts that
+  $v_1\rewR v_2$ implies $v_1-v_2\in V(R)$ and that the binary relation
+  on~$V$ defined  by~$v_1-v_2\in V(R)$ is an equivalence relation. For
+  the converse implication, let us write $v_1-v_2=\sum\mu(e-v)$, where
+  $\mu$ are scalars and $e\rewR v$ are rewriting rules. Since
+  $e\equivR v$ holds for each term of the sum, Lemma~\ref{lem:butterfly}
+  implies that $v_1\equivR v_2$, which concludes the proof.
 \end{proof}
+\smallskip
 
-Notice that if $r$ is the function corresponding to $\parRew$, then we
-have $v\transRew v'$ if and only if and there exists an integer $n$ such
-that $v'=r^n(v)$, where $r^n$ denotes the $n$-th composition of the
-function~$r$, seen as a linear map on $V$. 
-\medskip
+As a consequence of the previous proposition, $V/\equivR$ admits a vector
+structure for the operations
+\[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
+Moreover, Proposition~\ref{prop:vs_structure} is not true if we do not
+assume that $e\notin\supp(v)$ for every rewriting rule~$e\rewR v$: for
+instance, if we have only one rule $e\rewR 2e$, then $e\in V(R)$ but
+$[e]_{\equivR}\neq[0]_{\equivR}$. Notice that we explicit used the
+assumption $e\notin\supp(v)$ in the proof of Lemma~\ref{lem:butterfly}.
+\smallskip
 
-Let us relate parallel rewriting relations to $\rewR$ using strategies.
-Given a subset~$S$ of~$R$ with pairwise distinct left-hand sides, let
-$\parS$ be the parallel rewriting relation that extends~$S$: based on 
-Proposition~\ref{prop:parRew_function}, $\parS$ corresponds to the
-function $r_S:\basis\to V$ defined by~$r_S(e)=v$ if there exists a
-rewriting rule $e\rewR v$ in $S$ and $r_S(e)=e$, otherwise. In the
-sequel, the unique endormorphism of $V$ that extends $r_S$ is also
-written $r_S$. Let us denote by~$\ordS$ the rewriting preorder
-on~$\basis$ induced by~$\parS$, that is, $\ordS$ is the transitive
-closure of the relation: there exists a vector $v$ such that
-$e'\transParS v$ and~$e\in\supp(v)$. In other words, $e\ordS e'$ if and
-only if $e\in\supp(r_S^n(e'))$, for some nonnegative integer~$n$.
+Now, we introduce rewriting strategies. We fix a subset~$S$ of~$R$ with
+pairwise distinct left-hand sides, that is, given two rules $e\rewR v$
+and $e'\rewR v'$ in $S$ such that $e=e'$, we have $e\rewR v=e'\rewR v'$.
+Let us consider the endomorphism $r_S:V\to V$ defined by $r_S(e)=v$ if
+there exists a rule $e\rewR v$ in $S$ with left-hand side $e$, and
+$r_S(e)=e$, otherwise. We consider a new binary relation $\parS$ on $V$
+defined by $v\parS v'$ whenever $v\neq r_S(v)$ and $v'=r_S(v)$. In the
+sequel, we refer this relation as being the parallel rewriting relation
+induced by $S$; the terminology parallel makes explicit that all basis
+vectors in $v$ are reduced at once with rules in $S$ and justifies the
+double head arrows in $\parS$. Notice that by definition, and contrary to
+$\rewR$, the parallel rewriting relation is stable under vector space
+operations. Let us denote by~$\ordS$ the rewriting preorder on~$\basis$
+induced by~$\parS$, that is, $\ordS$ is the transitive closure of the
+relation: there exists a vector~$v$ such that $e'\transParS v$ and
+$e\in\supp(v)$. In other words, $e\ordS e'$ if and only if
+$e\in\supp(r_S^n(e'))$, where $n$ is a nonnegative integer and $r_S^n$ is
+the $n$-th composition of $r_S$. 
 \smallskip
 
 \begin{definition}\label{def:strategies}
   A {\em pre-strategy} for $R$ is a subset $S$ of $R$ with pairwise
   distinct left-hand sides. A {\em strategy} for $R$ is a pre-strategy
-  such that the rewriting preorder $\ordS$ of $\parS$ is terminating. 
+  such that the rewriting preorder $\ordS$ of $\parS$ is Noetherian. 
 \end{definition}
 \smallskip
 
 Notice that by definition of the rewriting preorder, if $S$ is a strategy
 for $R$, then $\parS$ is terminating. Moreover, if the rewriting preorder
-$<_R$ is terminating, then any pre-strategy is a strategy since
-$e\ordS e'$ implies $e<_Re'$.
+$\leq_R$ of $R$ is terminating, then any pre-strategy for $R$ is also a
+strategy since $e\ordS e'$ implies $e\leq_Re'$.
 \smallskip
 
 \begin{example}\label{ex:strategies_step_1}
@@ -473,10 +466,11 @@ $e\ordS e'$ implies $e<_Re'$.
     $e_2\rewR e_3+e_4\rewR(e_2-e_4)+e_4=e_2$. Considering the
     pre-strategy
     \[S=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4\}\subset R,\]
-    the preorder $\ordS$ is terminating since we have
-    $e_1>_Se_2>_Se_3,e_4$. Hence, $S$ is a strategy and $\parS$ is
-    terminating. Notice that any $v=\lambda_1e_1+\cdots+\lambda_4e_4$ 
-    admits a unique normal form for $\parS$ that is computed as follows:
+    the preorder $\ordS$ is Noetherian since we have
+    $e_1>_Se_2>_Se_3,e_4$, and $e_3,e_4$ are minimal. Hence,~$S$ is a
+    strategy and $\parS$ is terminating. Notice that any
+    $v=\lambda_1e_1+\cdots+\lambda_4e_4$ admits a unique normal form for
+    $\parS$ that is computed as follows:
     \[v\parS\lambda_1e_2+(\lambda_2+\lambda_3)e_3+
     (\lambda_2+\lambda_4)e_4\parS(\lambda_1+\lambda_2+\lambda_3)e_3+
     (\lambda_1+\lambda_2+\lambda_4)e_4.\]
@@ -488,7 +482,7 @@ $e\ordS e'$ implies $e<_Re'$.
     space $V$ with basis $\basis=\{e_1,e_2,e_3\}$, let $\rewR$ induced by
     \[R=\{e_1\rewR e_2+e_3,\quad e_2\rewR e_1,\quad e_3\rewR -e_1\},\]
     and $S=R$. Then, $S$ is not a strategy since the preorder $\ordS$ is
-    not terminating. In fact,~$\ordS$ is cyclic since from the rewriting
+    not Noetherian. In fact,~$\ordS$ is cyclic since from the rewriting
     sequence $e_2\parS e_1\parS e_2+e_3$, we get $e_2>_Se_3$, so that
     $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice however that $\parS$ is
     terminating since for every vector 
