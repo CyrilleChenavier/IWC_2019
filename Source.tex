@@ -354,7 +354,7 @@ still written $\rightsquigarrow_R$, with rewriting steps are of the following fo
 where $e\rewR v\in R$ is a rewriting rule, $\lambda$ is a nonzero scalar
 and $u$ is a vector. Finally, we denote by $(R)$ the subspace of $V$ spanned by elements of the form $e - v$, for $(e,v) \in R$. 
 
-\begin{proposition}
+\begin{proposition}\label{prop:squig_to_quotient}
   For any two $u,v \in V$, the following are equivalent:
   \begin{enumerate}
   \item $u \rightsquigarrow^*_R v$
@@ -455,7 +455,7 @@ proposition and corollary, we establish results that we use in
 Section~\ref{sec:confluence_relative_to_a_strategy}.
 \smallskip
 
-\begin{proposition} The following hold:
+\begin{proposition}\label{prop:par_to_squigequiv} The following hold:
   \begin{itemize}
   \item $\SNF$ is a linear projector.
   \item If $u \parS v$, then $u \leftrightsquigarrow^*_S v$.
@@ -512,7 +512,7 @@ diamond's lemma, based on $S$-confluence.
   
   As for the second claim, we need to show that $(R) = \ker(\SNF)$. The inclusion
   $\ker(\SNF) \subseteq (R)$ is immediate. Reciprocally if $u \in (R)$, then
-  $u \rightsquigarrow_R^* 0$ by Proposition \todo{ref}. By the previous result $\SNF(u) = \SNF(0) = 0$ and hence we get the inclusion $(R) \subseteq \ker(\SNF)$. 
+  $u \rightsquigarrow_R^* 0$ by Proposition \ref{prop:squig_to_quotient}. By the previous result $\SNF(u) = \SNF(0) = 0$ and hence we get the inclusion $(R) \subseteq \ker(\SNF)$. 
   
 \end{proof}
 \smallskip
@@ -534,7 +534,7 @@ for every vector $v$.
 \smallskip
 
 \begin{definition}\label{def:decreasing}
-  Given a strategy $S$ for $R$ and a terminating order $\prec$ on $R$ and a rule $f = (e,v) \in R$, we denote by $R_{\prec f}$ the set of  the  we
+  Given a strategy $S$ for $R$ and a terminating order $\prec$ on $R$ and a rule $f = (e,v) \in R$, we denote by $R_{\prec f}$ the set of elements of $R$ stricly smaller than $f$.  We
   say that $R$ is {\em decreasing} w.r.t.\ $(S,\prec)$ if for every
   rewriting rule $f = e\rewR v$, we have a diagram:
   \[\begin{tikzcd}
@@ -564,17 +564,6 @@ for every vector $v$.
   decreasing diagram as in Definition~\ref{def:decreasing}. We
   distinguish three cases.
   \begin{itemize}
-  \item If $e$ is an $S$-normal form, then we have $\SNF(e)=e$ and
-    $e\rewR v$ does not belong to~$S$. Moreover, since $\rewR$ is
-    $S$-confluent, we have $\SNF(e)=\SNF(v)$, and from
-    Corollary~\ref{cor:transS_equivR}, we get the following diagram
-    \[\begin{tikzcd}
-    e\ar[d, "_R"']\ar[r, equal] &
-    e\ar[d, equal]\\
-    v\ar[r, "*", leftrightarrow, squiggly, "_S"'] & e.
-    \end{tikzcd}\]
-  By definition of $\prec$,
-    this diagram is decreasing w.r.t.\ $(S,\prec)$.
   \item If $e\rewR v=e\parS r_S(e)$ belongs to $S$, then we have the 
     following diagram:
     \[\begin{tikzcd}
@@ -584,24 +573,20 @@ for every vector $v$.
     \end{tikzcd}\]
     Since no rewriting step occurs in the right and bottom faces, this
     diagram obviously is decreasing w.r.t.\ $(S,\prec)$.
-  \item In the last case, $e$ is not an $S$-normal form and $e\rewR v$
-    does not belong to $S$. In particular, there exists a rewriting rule
-    of the form $e\parS r_S(e)$ in $S$. By definition of
+  \item Otherwise, by definition of
     the map $\SNF$ and of the $S$-confluence property, we have the
     equalities
     \[\SNF(r_S(e))=\SNF(e)=\SNF(v).
     \smallskip\]
-    By Corollary~\ref{cor:transS_equivR}, we get the following
+    By Proposition~\ref{prop:par_to_squigequiv}, we get the following
     diagram:
     \[\begin{tikzcd}
     e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
     r_S(e) \ar["_{S}", "*"', squiggly, leftrightarrow, d] \\
     v \ar[r, "_{S}"', squiggly, leftrightarrow, "*"] & \SNF (e).
-    \end{tikzcd}\]
-    where the rewriting steps occurring in $v\equivR\SNF(e)$ and
-    $r_S(e)\equivR\SNF(e)$ belong to $S$. Hence, the diagram is
-    decreasing w.r.t.\ $(S,\prec)$.
-  \end{itemize}
+  \end{tikzcd}\] Hence, the diagram is decreasing w.r.t.\ $(S,\prec)$.
+\end{itemize}
+
   $(2)\Rightarrow (1)$: Let $e\rewR v$ be a rewriting rule and let us
   assume by induction that for every rewriting step $e'\rewR v'$ smaller
   than $e\rewR v$ for $\prec$, we have $\SNF(e')=\SNF(v')$. Consider a
