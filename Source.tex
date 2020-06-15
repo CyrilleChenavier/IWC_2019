@@ -695,12 +695,46 @@ Additionally by hypothesis $e \notin \supp(r)$ and so $e \notin \supp(\lambda r 
 Hence we get $\lambda e + u \equivR \lambda r + u$. This proves the inclusion $\rightsquigarrow_R \subseteq \equivR$ and hence $\leftrightsquigarrow_R^* \subseteq \equivR$. 
 \end{proof}
 
+\begin{proposition}
+  If $S$ is a strategy for $R$, then we have the inclusion
+  \[ \parS \subseteq \transR. \]
+\end{proposition}
+\begin{proof}
+ Since $S$ is a strategy, the
+  rewriting preorder $\ordS$ is a terminating order. This preorder
+  induces the following terminating order, still written $\ordS$, on $V$:
+  we let $v\ordS v'$ if $\supp(v)$ is smaller than $\supp(v')$ for the
+  multiset order of $\ordS$. We show the statement by induction along
+  $\ordS$. If $v$ is minimal, then $r_S(v)=v$ and hence
+  $v\transR r_S(v)$. Suppose now that $v$ is not minimal. Then $v$ may be
+  uniquely written in the form
+  \begin{equation}\label{equ:decompo_max}
+    v=\sum_{i=1}^n\lambda_ie_i+v'
+  \end{equation}
+  where the basis elements $e_i$ are the elements of $\supp(v)$ that are
+  maximal for the rewriting preorder~$\ordS$, and the $\lambda_i$'s are
+  their coefficients in $v$. In particular, we have $v'\ordS v$ and by
+  induction, we have $v'\transR r_S(v')$ using rewriting steps of $S$,
+  only. By definition of $<_S$, the rewriting rules that are involved in
+  this rewriting sequence have left-hand sides not greater than $e_i$'s,
+  so that $v\transR\sum\lambda_ie_i+r_S(v')$. Moreover, since the $e_i$'s
+  are not comparable for $\ordS$, for each indices $i$ and $j$, $e_i$
+  does not belong to $\supp(r_S(e_j))$. Hence, we may reduce successively
+  each $e_i$ into $r_S(e_i)$ and finally have
+  \[
+  v \transR
+  \sum \lambda_ie_i+r_S(v') \transR
+  \sum\lambda_ir_S(e_i) + r_S(v')
+  =r_S(v).\]
+    
+\end{proof}
+
 
 \begin{proposition}
 If $R$ is $S$-confluent, then it is confluent.
 \end{proposition}
 \begin{proof}
-\todo{TODO: probablement que celle qui marchait avant marche encore.}
+  We will show the $R$ satisfies the Church-Rosser property. Take $u,v \in V$ such that $u \equivR v$. In particular $u \leftrightsquigarrow_R^* v$, and hence by $S$-confluence $\SNF(u) = \SNF(v)$. Since $u \parS \SNF(u)$ and $v \parS \SNF(v)$, by the previous proposition we get $u \transR \SNF(u)$ and $v \transR \SNF(v)$, which proves the Church Rosser property.
 \end{proof}
 
 
