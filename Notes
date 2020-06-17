@@ -1,25 +1,95 @@
-=== À faire ===
+Plan :
 
-* Chapeau section 2: appeler terminologie utilisée
-* Chapeaux 2 et 3 : écrire une ou deux phrases présentant la section.
+Terminology and conventions :
 
-* Exemples section 3.2 :
-  - étendre 3.6 avec les exemples de la section 3.1
-  - avant 3.10 : rajouter exemple Janet, illustrer lien confluence et involutif
-  - après 3.10 : parler de complétion + faire l'exemple de Janet en renvoyant à Pommaret
+- 1er paragraphe : réécriture
 
-  - TODO: L-involutif, L-autoreduced: citer si ces def viennent d'ailleurs. 
-  A l'opposé: mettre en valeur le fait que stratégie involutif est nouveau. 
+- 2ème paragraphe : given V, K, basis, def support
 
-=== A regarder ===
+2. Titre
+
+On fixe corps, ev, base
+
+2.1. Confluence relative to strategy
+
+- On fixe R\subseteq\basis\times V (sans restriction, utiliser la notation ->_R), on pose u\congr_R v iff u=v+(R)
+
+- Fixer S with pariwise distinct lhs + définir r_S, puis ->>_S, \ordS (version non stricte)
+
+définition : (pre-)strategy
+
+- exemple ?
+
+- définition de SNF à partir de r_S
+
+prop : SNF est un projecteur
+
+définition : S-confluence
+
+thm : thm 2.6 sans la deuxième phrase
+
+- définir décompo majorée : v-u\in (R) a un décompo <-majorée par e->v, si u-v=\sum\lambda_i(e_i-v_i) avec e_i->v_i<e->v
+
+définition de la décroissance : R is decreasing wrt S si pour tout règle e\to v dans R, il existe u tel que v-u et r_S(e)-u ont une décompo <-majorée (rajouter remarque pour expliquer le lien avec la décroissance)
+
+prop : S-confluent ssi décroissant
+
+- remarque 2.9 : ne pas toucher pour le moment
+
+2.2. à voir
+
+Dans cette section on montre que S-confluent implique confluent
+
+- Supposer e\notin\supp(v)
+
+- Définir les réécritures bien formées, la relation d'équivalence
+
+prop : u<->*_R v iff u=v+(R)
+
+lemme : ->>_S\subseteq _>^*_R
+
+thm : S-confluent implique confluent
+
+thm : lemme du diamant
 
 
-* Regarder ce qui se passe lorsque l'ordre sur X est induit par h.
 
-* Voir si on une façon naturelle de choisir l'ordre sur r (par exemple, les réductions standards sont inférieures aux autres).
 
-* Montrer que un vecteur v est une décomposition linéaire de mônomes minimaux ssi v\in im(H).
 
-* Voir les liens avec les bases de Janet et relier algèbres.
 
-* Trouver des exemples (regarder l'exemple dans l'article de Yves et Philippe avec branchement additif non confluent).
+
+
+
+
+Corrections :
+
+1). Vérifier que les hypothèses sur R (e->v implique e\notin\supp(v)) est vrai dans toute la section 2.
+
+2). Rajouter hypothèses e\notin\supp(v) 
+
+3). Proposition 2.1 : reformuler par "Il existe une bijection bla bla bla" (donner contre-exemple e -> 2e tel que <->^* n'induit pas un ev)
+
+4). Après proposition 2.1 :
+    * faire un gros paragraphe : commence avec S\subset R tel que bla bla,
+      définir r_S puis ->>_S, expliquer en quoi c'est parallèle et la notation
+    * définition (pré)-stratégies
+
+5). à la place de <_S : définir \leq_S. Changer terminating par noetherian dès qu'on parle d'ordre.
+
+6). Preuve thm 2.9 : prouver la partie iso avec le corollaire 2.7, faire un retour à la ligne pour la preuve de la confluence (utiliser 2.6 uniquement ici).
+
+7). Preuve corollaire 2.7.
+
+Version Maxime :
+
+- essayer de s'en sortir sans utiliser de nouvelle notation ?
+
+- compléter preuve proposition 1 pour montrer l'importance de e\notin\supp(v)
+
+- définition de ->>_S : il faut imposer r_S(u)\neq u (sinon, pas de terminaison)
+
+- point 2 proposition 2.4 : on peut soit la changer en "u->>_Sv ssi u=v+(S)", soit carrément la virer (dans ce cas, peut-être rajouter un lemme avant 2.8)
+
+-thm 2.6 : je pense qu'il faut changer la formulation (la précédente n'était déjà pas terrible)
+
+- prop 2.13 : passer en théorème
