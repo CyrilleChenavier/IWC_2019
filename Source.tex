@@ -28,6 +28,7 @@
 % Texte
 \newcommand\eg{\emph{e.g.}}
 \newcommand\ie{\emph{i.e.}}
+\newcommand\wrt{w.r.t.}
 \newcommand\G{Gröbner}
 \newcommand\todo[1]{{\bf\textcolor{red}{#1}}}
 
@@ -37,9 +38,11 @@
 \newcommand\basis{\mathscr{B}}
 \newcommand\SigmaTheta{\Sigma_{\Theta}}
 \newcommand\ordS{\leq_S}
+\newcommand\ordR{\leq_R}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\lm}{lm}
 \DeclareMathOperator{\lc}{lc}
+\DeclareMathOperator{\id}{id}
 
 % Structures algébriques
 \newcommand\K{\mathbb{K}}
@@ -50,6 +53,7 @@
 \newcommand\QXX{\mathbb{Q}(x_1,\cdots,x_n)}
 \newcommand\Weyl[1]{B_{#1}(\Q)}
 \newcommand\monBasis{\Mon(\Delta)}
+\newcommand\Span[1]{\langle #1\rangle}
 \DeclareMathOperator{\Mon}{Mon}
 \DeclareMathOperator{\im}{im}
 
@@ -61,9 +65,7 @@
 
 \newcommand\transRew{\overset{*}{\to}}
 \newcommand\transR{\overset{*}{\to}_R}
-\newcommand\transS{\overset{*}{\to}_S}
-\newcommand\transParS{\overset{*}{\twoheadrightarrow}_S}
-\newcommand\transParRew{\overset{*}{\twoheadrightarrow}}
+\newcommand\transS{\overset{*}{\twoheadrightarrow}_S}
 
 \newcommand\rewEquiv{\overset{*}{\leftrightarrow}}
 \newcommand\equivR{\overset{*}{\leftrightarrow}_R}
@@ -282,7 +284,7 @@ and show that involutive divisions define rewriting strategies, and that
 involutive sets $S$-confluent rewriting relations.
 \medskip
 
-\paragraph{Terminology and conventions of rewriting theory.}
+\paragraph{Terminology and conventions.}
 
 Throughout the paper, we use the standard terminology and conventions of
 rewriting theory~\cite{MR1629216}. An {\em abstract rewriting system} is
@@ -302,21 +304,12 @@ and $a\transRew c$, then $b$ and $c$ are {\em joinable}, that is, there
 exists $d$ such that $b\transRew c$ and $c\transRew d$. The confluence
 property is equivalent to the {\em Church-Rosser property} that assterts
 that whenever $a\rewEquiv b$, then~$a$ and $b$ are joinable.
-
-\section{Rewriting strategies over vector spaces}
-\label{sec:rewriting_strategies_over_vector_space}
-
-In this section, we introduce rewriting strategies over vector spaces. We
-formulate a confluence criterion in terms of strategies as well as a 
-method based on strategies to construct linear bases of vector spaces. We 
-also obtain a new proof of the diamond's lemma.
 \medskip
 
-Throughout the section, we fix a ground field $\K$, a $\K$-vector space
-$V$, and a basis $\basis$ of $V$. We say vectors and basis elements for
-elements of $V$ and $\basis$, respectively. Every vector $v$ admits a
-unique finite decomposition with respect to the basis $\basis$ and
-coefficients in the ground field:
+We also recall the notion of support of a vector in a given basis of a
+vector space. Given a vector space $V$ over the ground field $\K$ and a
+$\basis$ of $V$, every vector $v$ admits a unique finite decomposition
+with respect to the basis $\basis$ and coefficients in the ground field:
 
 \begin{equation}\label{equ:vector_decompo}
   v=\sum\lambda_ie_i,\quad\lambda_i\neq 0.
@@ -325,34 +318,219 @@ The set of basis elements which appear in the decomposition
 \eqref{equ:vector_decompo} is called the {\it support} of $v$ and is
 written $\supp(v)$. 
 
-\subsection{Rewriting strategies over vector spaces}
+
+\section{Rewriting strategies over vector spaces}
 \label{sec:rewriting_strategies_over_vector_space}
 
-In this section, we introduce rewriting strategies over vector spaces,
-and we construct a normalisation operator associated to a strategy. This
-normalisation operator is used in
-Section~\ref{sec:confluence_relative_to_a_strategy} to formulate our
-confluence criterion and to provide a rewriting method for constructing
-linear bases of vector spaces. 
+\todo{Presentation section}
 \medskip
 
-We first recall the traditional approach of rewriting over vector spaces,
-which consists in reducing one basis element at each step. We fix a
-subset $R$ of $\basis\times V$, such that for every $(e,v)\in R$, we 
-have~$e\notin\supp(v)$. Elements of $R$ are called {\em rewriting rules}
-and are denoted by $e\rewR v$ instead of~$(e,v)$. We extend these rules
-into a rewriting relation on $V$, still written $\rewR$, with rewriting
-steps of the following form:  
+Throughout the section, we fix a ground field $\K$, a $\K$-vector space
+$V$, and a basis $\basis$ of $V$. We say vectors and basis elements for
+elements of $V$ and $\basis$, respectively. 
+
+\subsection{Confluence relative to a strategy}
+\label{sec:confluence_relative_to_a_strategy}
+
+\todo{Presentation intro, motiver stratégies et fusionner avec le prochain
+parapgraphe}
+\medskip
+
+We fix a subset $R$ of $\basis\times V$. In Section \todo{ref}, the set
+$R$ represents a set of rewriting rules over~$V$, and for this reason, we
+denote its elements by $e\rewR v$ instead of $(e,v)$ and call them
+rewriting rules. Let us denote by $\Span{R}$ the subspace of $V$ spanned
+by elements $e-v$, where $e\rewR v$ is a rewriting rule. The quotient
+vector space of $V$ modulo $\Span{R}$ is written $V/\Span{R}$. 
+\medskip
+
+We fix a subset~$S$ of~$R$ with pairwise distinct left-hand sides, that
+is, given two rules $e\rewR v$ and $e'\rewR v'$ in $S$ such that $e=e'$,
+we have $e\rewR v=e'\rewR v'$. Let us consider the endomorphism
+$r_S:V\to V$ defined by $r_S(e)=v$ if there exists a rule $e\rewR v$ in
+$S$ with left-hand side $e$, and $r_S(e)=e$ if there is no rule in $S$
+with left-hand side $e$. We consider the rewriting relation $\parS$ on
+$V$ defined by $u\parS u'$ whenever $u'=r_S(u)$. In the sequel, we refer
+this relation as being the parallel rewriting relation induced by $S$;
+the terminology parallel makes explicit that all basis vectors in
+$\supp(u)$ are reduced at once with rules in $S$ and justifies the double
+head arrows in $\parS$. Notice that the parallel rewriting relation is
+stable under vector spaces operations, that is, for every rewriting steps
+$u\parS u'$, $v\parS v'$, and for every scalar $\lambda\in\K$, there
+exists a rewriting step $u+\lambda v\parS u'+\lambda v'$. Moreover, also
+notice that $\parS$ is deterministic in the sense that for every vector
+$u$, there is at most one~$u'$ such that $u\parS u'$. Let us denote by
+$\ordS$ the rewriting preorder on~$\basis$ induced by~$\parS$, that is,
+$\ordS$ is the transitive closure of the relation: there exists a vector
+$u$ such that $e'\transS u$ and $e\in\supp(u)$. In other words,
+$e\ordS e'$ if and only if $e\in\supp(r_S^n(e'))$, where $n$ is a
+nonnegative integer and $r_S^n$ is the $n$-th composition of $r_S$. 
+\medskip
+
+\begin{definition}\label{def:strategies}
+  A {\em prestrategy} for $R$ is a subset $S$ of $R$ with pairwise
+  distinct left-hand sides. A {\em strategy} for $R$ is a prestrategy
+  such that the rewriting preorder $\ordS$ of $\parS$ is Noetherian. 
+\end{definition}
+\smallskip
+
+Let $S$ be a strategy for $R$. In the sequel, we denote elements of $S$
+in the form $e\parS r_S(e)$. The rewriting preorder $\ordS$ being
+Noetherian, every vector $u$ admits an {\em S-normal form}, that is
+another vector $u'$ such that $u\transS u'$ and $r_S$ acts trivially 
+on $u'$. Indeed, $u'$ is the limit of the stationnary sequence
+$(r_S^n(u))_n$. Moreover, since $\parS$ is determinitic, this $S$-normal
+form is unique and we denote it by~$\SNF(u)$. 
+\smallskip
+
+\begin{example}\label{ex:strategies_step_1}
+  Let us illustrate (pre)strategies with the following
+  (counter-)examples.
+  \begin{enumerate}
+  \item\label{it:ex_strat_1} Assume that $V$ is $4$-dimensional with
+    basis $\basis=\{e_1,e_2,e_3,e_4\}$ and let us consider the following
+    set of rewriting rules:
+    \[R=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4,\quad e_3\rewR e_2-e_4\}.\]
+    Considering the prestrategy
+    \[S=\{e_1\rewR r_S(e_1)=e_2,\quad e_2\rewR r_S(e_2)=e_3+e_4\}\subset
+    R,\]
+    the preorder $\ordS$ is Noetherian since we have
+    $e_1>_Se_2>_Se_3,e_4$, and $e_3,e_4$ are minimal. Hence,~$S$ is a
+    strategy for $R$. The unique $S$-normal form of
+    $u=\lambda_1e_1+\cdots+\lambda_4e_4$ is computed as follows:
+    \[u\parS\lambda_1e_2+(\lambda_2+\lambda_3)e_3+
+    (\lambda_2+\lambda_4)e_4\parS(\lambda_1+\lambda_2+\lambda_3)e_3+
+    (\lambda_1+\lambda_2+\lambda_4)e_4,\]
+    which yields:
+    \[\SNF(u)=(\lambda_1+\lambda_2+\lambda_3)e_3+
+    (\lambda_1+\lambda_2+\lambda_4)e_4.\]
+  \item\label{it:c-ex_strat_1} Assume that $V$ is $3$-dimensional with
+    basis $\basis=\{e_1,e_2,e_3\}$, let us consider the set of rewriting
+    rules:
+    \[R=\{e_1\rewR e_2+e_3,\quad e_2\rewR e_1,\quad e_3\rewR -e_1\},\]
+    and $S=R$. Then, $S$ is not a strategy since the preorder $\ordS$ is
+    not Noetherian. In fact,~$\ordS$ is cyclic since from the rewriting
+    sequence $e_2\parS e_1\parS e_2+e_3$, we get $e_2>_Se_3$, so that
+    $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice however that each vector
+    $u=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3$ admits a unique $S$-normal
+    form which is $0$:
+    \[u=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3\parS(\lambda_2-\lambda_3)
+    e_1+\lambda_1e_2+\lambda_1e_3\parS(\lambda_2-\lambda_3)e_2+(\lambda_2-
+    \lambda_3)e_3\parS 0.
+    \]
+  \item\label{it:case_N} Let $V$ be the vector space with basis
+    $\basis= \mathbb N$ and consider the set of rewriting rules:
+    \[R=\{n\rewR n+1:\quad n\in\N\}.\]
+    Then, a prestrategy $S$ corresponds to a subset $E$ of $\mathbb N$.
+    Moreover, such a prestrategy is a strategy if and only if for all
+    $n\in E$, there exists $k\in \mathbb N$ such that $n + k \notin E$. 
+  \end{enumerate}
+\end{example}
+\smallskip
+
+In the next proposition, we establish properties of the map
+$\SNF:V\to V,\ v\mapsto\SNF(v)$ that we use in \todo{compélter, et dire
+  qu'à partir de maintenant S est une stratégie}.
+\smallskip
+
+\begin{proposition}\label{prop:SNF_projector}
+  The map $\SNF$ is a linear projector.
+\end{proposition}
+
+\begin{proof}
+  For every vector $u\in V$, we have $r_S(\SNF(u))=\SNF(u)$, which proves 
+  $\SNF\circ\SNF=\SNF$. Moreover, given another vector $v\in V$, let
+  $k\in\N$ be an integer such that $\SNF(u)=r_S^k(u)$ and
+  $\SNF(v)=r_S^k(v)$. For every scalar $\lambda\in\K$, we have 
+  \[r^k_S(u+\lambda v)=r^k_S(u)+\lambda r^k_S(v)=\SNF(u)+\lambda\SNF(v).
+  \]
+  Hence, $\SNF(u+\lambda v)=r^k_S(u+\lambda v)$ is equal to
+  $\SNF(u)+\lambda\SNF(v)$, which proves that $\SNF$ is linear.
+\end{proof}
+
+\smallskip
+
+Now, we introduce the $S$-confluence property. 
+\smallskip
+
+\begin{definition}\label{def:standardisation_property}
+  Given a strategy $S$ for $R$, we say that $R$ is \emph{S-confluent} if
+  for every rewriting rule $e\rewR v$ in $R$, we have $\SNF(e-v)=0$.
+  \todo{rajouter diagramme}
+\end{definition}
+\smallskip
+
+The following theorem illustrates how $S$-confluence provides a method
+for constructing a basis of the vector space $V/\Span{R}$. 
+\medskip
+
+\begin{theorem}\label{thm:S-confluence_criterion}
+  Let $R$ be a set of rewriting rules and let $S$ be a strategy for $R$.
+  If $R$ is $S$-confluent, then we have a vector spaces isomorphism
+  \begin{equation}\label{equ:iso_SNF}
+    V/\Span{R}\quad\simeq\quad\im(\SNF).
+  \end{equation}
+  In particular, $\{e+\Span{R}:\ \SNF(e)=e\}$ is a basis of
+  $V/\Span{R}$.
+\end{theorem}
+
+\begin{proof}
+  For proving~\eqref{equ:iso_SNF}, it is sufficient to show that
+  $\ker(\SNF)$ is equal to $\Span{R}$. Let us show the first inclusion.
+  From Proposition~\ref{prop:SNF_projector}, $\SNF$ is a projector, so
+  that its kernel is equal to the image of the operator $\id_V-\SNF$.
+  Moreover, by definition of the map $r_S$, for every vector $u\in V$, we
+  have $u-r_S(u)\in\Span{R}$, which gives $u-\SNF(u)\in\Span{R}$ by
+  induction. Hence, $\ker(\SNF)=\im(\id_V-\SNF)$ is included in
+  $\Span{R}$. Let us show the converse inclusion. From the $S$-confluence
+  hypothesis, for every rewriting rule $e\rewR v$, we have $\SNF(e-v)=0$. 
+  Since all elements $e-v$, for $e\rewR v$, generate $\Span{R}$, we 
+  deduce that the latter is included in $\ker(\SNF)$, which concludes the
+  proof of~\eqref{equ:iso_SNF}. The second assertion of the theorem is a
+  consequence of the fact that $\im(\SNF)$ has a basis composed by basis
+  elements that are fixed by $\SNF$.
+\end{proof}
+\smallskip
+
+\begin{example}\label{ex:S-conf}
+  Let us continue Point~\ref{it:ex_strat_1} of
+  Example~\ref{ex:strategies_step_1}. The following identities hold:
+  \[\begin{split}
+  \SNF(e_1)=e_3+e_4=\SNF(e_2),&\quad\SNF(e_2)=e_3+e_4=\SNF(e_3+e_4)
+  \\[0.3cm]
+  \SNF(e_3)=& \ e_3=\SNF(e_2-e_4),
+  \end{split}
+  \smallskip\]
+  so that $R$ is $S$-confluent. Notice that if we replace the rule
+  $e_3\rewR e_2-e_4$ in $R$ by $e_3\rewR e_2$, we get $\SNF(e_3)=e_3$ and
+  $\SNF(e_2)=e_3+e_4$, so $\rewR$ is not $S$-confluent anymore. 
+\end{example}
+
+\subsection{Strategies for rewriting relations}
+
+In this section, we relate parallel rewriting to the traditional approach
+of rewriting relations over vector spaces that consist in reducing one
+basis element at each step. In particular, we show that the
+$S$-confluence property implies confluence for traditional rewriting
+relations, and we give a new proof of the diamond's lemma, based on
+$S$-confluence.
+\medskip
+
+As previously, we fix a set $R\subset\basis\times V$ of rewriting rules,
+whose elements are written $e\rewR v$. Moreover, we also impose that for
+every such rule, we have $e\notin\supp(v)$. These rules are extended into
+a rewriting relation on $V$, still written $\rewR$, with rewriting steps
+of the following form:  
 \begin{equation}\label{equ:R_rewriting_step}
   \lambda e+u\rewR\lambda v+u,
   \smallskip
 \end{equation}
 where $e\rewR v\in R$ is a rewriting rule, $\lambda$ is a nonzero scalar
-and $u$ is a vector such that $e$ does not belong to its support. A
-normal form for $\rewR$ is called an {\em R-normal form}. In the sequel, 
-we refer~$\rewR$ as the rewriting relation induced by the rewriting rules
-$R$. The relation~$\rewR$ is not stable under vector space
-operations, that is, $u_1\rewR u_2$, $v_1\rewR v_2$, and $\mu\in\K$
+and $u$ is a vector such that $e$ does not belong to $\supp(u)$. A normal
+form for $\rewR$ is called an {\em R-normal form}. In the sequel, we
+refer~$\rewR$ as the rewriting relation induced by the rewriting rules
+$R$. The relation~$\rewR$ is not stable under vector spaces
+operations, since $u_1\rewR u_2$, $v_1\rewR v_2$, and $\mu\in\K$
 generally do not imply $\mu u_1+v_1\rewR \mu u_2+v_2$. In contrast, 
 Proposition~\ref{prop:vs_structure} shows that $\equivR$ is compatible
 with these operations. In the proof of this proposition, we use the
@@ -386,471 +564,150 @@ following lemma.
   $\mu u_2+v_1\equivR\mu u_2+v_2$. Hence, we have
   $\mu u_1+v_1\equivR\mu u_2+v_2$, which concludes the proof.
 \end{proof}
-
-In the statement of Proposition~\ref{prop:vs_structure}, we denote by
-$V(R)$ the subspace of $V$ spanned by elements of the form~$e-v$, where
-$e\rewR v$ is a rewriting rule.
 \smallskip
 
 \begin{proposition}\label{prop:vs_structure}
-  There is a bijection between the quotient set $V/\equivR$ and the
-  quotient vector space~$V/V(R)$.
+  Given two vectors $u,u'\in V$, we have $u\equivR u'$ if and only if
+  $u=u'+\Span{R}$.
 \end{proposition}
 
 \begin{proof}
-  The bijection maps every equivalence class $[v]_{\rewEquiv}$ to
-  $v+V(R)$. Hence, the statement of the proposition means that
-  $v_1\equivR v_2$ holds if and only if $v_1-v_2\in V(R)$. The
-  implication from left to right follows from the facts that
-  $v_1\rewR v_2$ implies $v_1-v_2\in V(R)$ and that the binary relation
-  on~$V$ defined  by~$v_1-v_2\in V(R)$ is an equivalence relation. For
-  the converse implication, let us write $v_1-v_2=\sum\mu(e-v)$, where
+  By definition of the rewriting relation $\rewR$, if $u\rewR u'$, then
+  $u=u'+\Span{R}$. Since $\equivR$ is the smallest equivalence relation
+  that contains $\rewR$, we deduce that $u\equivR u'$ also implies
+  $u=u'+\Span{R}$. Conversely, let us write $u-u'=\sum\mu(e-v)$, where
   $\mu$ are scalars and $e\rewR v$ are rewriting rules. Since
   $e\equivR v$ holds for each term of the sum, Lemma~\ref{lem:butterfly}
-  implies that $v_1\equivR v_2$, which concludes the proof.
+  implies that $u\equivR u'$, which concludes the proof.
 \end{proof}
 \smallskip
 
 As a consequence of the previous proposition, $V/\equivR$ admits a vector
-structure for the operations
+space structure, isomorphic to $V/\Span{R}$, for the operations
 \[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
-Moreover, Proposition~\ref{prop:vs_structure} is not true if we do not
-assume that $e\notin\supp(v)$ for every rewriting rule~$e\rewR v$: for
-instance, if we have only one rule $e\rewR 2e$, then $e\in V(R)$ but
-$[e]_{\equivR}\neq[0]_{\equivR}$. Notice that we explicit used the
-assumption $e\notin\supp(v)$ in the proof of Lemma~\ref{lem:butterfly}.
+\noindent
+Notice that Proposition~\ref{prop:vs_structure} is not true if we do not
+assume that $e\notin\supp(v)$ holds for every rewriting rule~$e\rewR v$: 
+for instance, if we have only one rule $e\rewR 2e$, then $e\in\Span{R}$ 
+but $[e]_{\equivR}\neq[0]_{\equivR}$. We point out that the assumption
+$e\notin\supp(v)$ was explicitly used in the proof of
+Lemma~\ref{lem:butterfly}.
+\medskip
+
+Now, let us relate strategies for $R$ to the rewriting relation $\rewR$.
 \smallskip
 
-Now, we introduce rewriting strategies. We fix a subset~$S$ of~$R$ with
-pairwise distinct left-hand sides, that is, given two rules $e\rewR v$
-and $e'\rewR v'$ in $S$ such that $e=e'$, we have $e\rewR v=e'\rewR v'$.
-Let us consider the endomorphism $r_S:V\to V$ defined by $r_S(e)=v$ if
-there exists a rule $e\rewR v$ in $S$ with left-hand side $e$, and
-$r_S(e)=e$, otherwise. We consider a new binary relation $\parS$ on $V$
-defined by $v\parS v'$ whenever $v\neq r_S(v)$ and $v'=r_S(v)$. In the
-sequel, we refer this relation as being the parallel rewriting relation
-induced by $S$; the terminology parallel makes explicit that all basis
-vectors in $v$ are reduced at once with rules in $S$ and justifies the
-double head arrows in $\parS$. Notice that by definition, and contrary to
-$\rewR$, the parallel rewriting relation is stable under vector space
-operations. Let us denote by~$\ordS$ the rewriting preorder on~$\basis$
-induced by~$\parS$, that is, $\ordS$ is the transitive closure of the
-relation: there exists a vector~$v$ such that $e'\transParS v$ and
-$e\in\supp(v)$. In other words, $e\ordS e'$ if and only if
-$e\in\supp(r_S^n(e'))$, where $n$ is a nonnegative integer and $r_S^n$ is
-the $n$-th composition of $r_S$. 
-\smallskip
-
-\begin{definition}\label{def:strategies}
-  A {\em pre-strategy} for $R$ is a subset $S$ of $R$ with pairwise
-  distinct left-hand sides. A {\em strategy} for $R$ is a pre-strategy
-  such that the rewriting preorder $\ordS$ of $\parS$ is Noetherian. 
-\end{definition}
-\smallskip
-
-Notice that by definition of the rewriting preorder, if $S$ is a strategy
-for $R$, then $\parS$ is terminating. Moreover, if the rewriting preorder
-$\leq_R$ of $R$ is terminating, then any pre-strategy for $R$ is also a
-strategy since $e\ordS e'$ implies $e\leq_Re'$.
-\smallskip
-
-\begin{example}\label{ex:strategies_step_1}
-  Let us illustrate (pre-)strategies with the following
-  (counter-)examples.
-  \begin{enumerate}
-  \item\label{it:ex_strat_1} Consider the $4$-dimensional vector space
-    $V$ with basis $\basis=\{e_1,e_2,e_3,e_4\}$ and let $\rewR$ be the
-    rewriting relation induced by the set of rewriting rules
-    \[R=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4,\quad e_3\rewR e_2-e_4\}.\]
-    Notice that $\rewR$ is not terminating since
-    $e_2\rewR e_3+e_4\rewR(e_2-e_4)+e_4=e_2$. Considering the
-    pre-strategy
-    \[S=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4\}\subset R,\]
-    the preorder $\ordS$ is Noetherian since we have
-    $e_1>_Se_2>_Se_3,e_4$, and $e_3,e_4$ are minimal. Hence,~$S$ is a
-    strategy and $\parS$ is terminating. Notice that any
-    $v=\lambda_1e_1+\cdots+\lambda_4e_4$ admits a unique normal form for
-    $\parS$ that is computed as follows:
-    \[v\parS\lambda_1e_2+(\lambda_2+\lambda_3)e_3+
-    (\lambda_2+\lambda_4)e_4\parS(\lambda_1+\lambda_2+\lambda_3)e_3+
-    (\lambda_1+\lambda_2+\lambda_4)e_4.\]
-    Anticipating the discussion of the paragraph following the example,
-    this unique normal form is written $\SNF(v)$:
-    \[\SNF(v)=(\lambda_1+\lambda_2+\lambda_3)e_3+
-    (\lambda_1+\lambda_2+\lambda_4)e_4.\]
-  \item\label{it:c-ex_strat_1} Let us consider the $3$-dimensional vector
-    space $V$ with basis $\basis=\{e_1,e_2,e_3\}$, let $\rewR$ induced by
-    \[R=\{e_1\rewR e_2+e_3,\quad e_2\rewR e_1,\quad e_3\rewR -e_1\},\]
-    and $S=R$. Then, $S$ is not a strategy since the preorder $\ordS$ is
-    not Noetherian. In fact,~$\ordS$ is cyclic since from the rewriting
-    sequence $e_2\parS e_1\parS e_2+e_3$, we get $e_2>_Se_3$, so that
-    $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice however that $\parS$ is
-    terminating since for every vector 
-    $v=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3$, we have
-    \[\lambda_1e_1+\lambda_2e_2+\lambda_3e_3\parS(\lambda_2-\lambda_3)e_1
-    +\lambda_1e_2+\lambda_1e_3\parS(\lambda_2-\lambda_3)e_2+(\lambda_2-
-    \lambda_3)e_3\parS 0.
-    \]
-  \item\label{it:case_N} Let $V$ be the vector space with basis
-    $\basis= \mathbb N$, and consider the set of rewriting rules
-    \[R=\{n\rewR n+1:\quad n\in\N\}.\]
-    Then, a pre-strategy $S$ corresponds to a subset $E$ of $\mathbb N$.
-    It is a strategy if and only if for all $n \in E$, there exists
-    $k \in \mathbb N$ such that $n + k \notin E$. 
-  \end{enumerate}
-\end{example}
-\smallskip
-
-Let $S$ be a strategy for $R$. In the sequel, we denote elements of $S$
-in the form $e\parS r_S(e)$ and a normal form for $\parS$ is called an
-{\em S-normal form}. We denote rewriting rules of $S$ with double head
-arrows to emphasize that we will work with the parallel rewriting
-relation induced by $S$ rather than the non-parallel one. Since $S$ is a
-strategy, $\parS$ is terminating and it is deterministic in the sense
-that for every vector $v$, there is at most one~$v'$ such that
-$v\parS v'$. Hence, each $v$ admits exactly one $S$-normal form that we
-denote by~$\SNF(v)$. This defines a map $\SNF:V\to V$. In the following
-proposition and corollary, we establish results that we use in
-Section~\ref{sec:confluence_relative_to_a_strategy}.
-\smallskip
-
-\begin{proposition}\label{prop:strategies}
-  Let $S$ be a strategy for $R$. Then, the following hold.
-  \begin{enumerate}
-  \item\label{it:rewS_transR} For any vector $v$, we have
-    $v \transR r_S(v)$ and this rewriting sequence can be chosen so that
-    each intermediate rewriting step belongs to $S$. In particular, we
-    have the inclusion:
-  \[
-    \parS \subset \transR.
-    \]
-  \item\label{it:linearity_of_SNF} The map $\SNF$ is a linear
-    projector.
-  \end{enumerate}
-\end{proposition}
+\begin{lemma}\label{lem:strategies}
+  Let $S$ be a strategy for $R$. Then, the following inclusion holds:
+  \[\parS\quad\subset\quad\transR.\]
+\end{lemma}
 
 \begin{proof}
-  Let us show Point~\ref{it:rewS_transR}. Since $S$ is a strategy, the
-  rewriting preorder $\ordS$ is a terminating order. This preorder
-  induces the following terminating order, still written $\ordS$, on $V$:
-  we let $v\ordS v'$ if $\supp(v)$ is smaller than $\supp(v')$ for the
-  multiset order of $\ordS$. We show the statement by induction along
-  $\ordS$. If $v$ is minimal, then $r_S(v)=v$ and hence
-  $v\transR r_S(v)$. Suppose now that $v$ is not minimal. Then $v$ may be
-  uniquely written in the form
+  Since $S$ is a strategy, the rewriting preorder $\ordS$ of $\parS$ is
+  Noetherian. This preorder induces the following Noetherian order, still
+  written $\ordS$, on $V$: we let $u'\ordS u$ if $\supp(u')$ is smaller
+  than $\supp(u)$ for the multiset order of $\ordS$. We show the
+  proposition by induction along $\ordS$. If $u$ is minimal, then
+  $r_S(u)=u$ and hence $u\transR r_S(u)$. Suppose now that $u$ is not
+  minimal. Then $u$ may be uniquely written in the form
   \begin{equation}\label{equ:decompo_max}
-    v=\sum_{i=1}^n\lambda_ie_i+v'
+    u=\sum_{i=1}^n\lambda_ie_i+u'
   \end{equation}
-  where the basis elements $e_i$ are the elements of $\supp(v)$ that are
-  maximal for the rewriting preorder~$\ordS$, and the $\lambda_i$'s are
-  their coefficients in $v$. In particular, we have $v'\ordS v$ and by
-  induction, we have $v'\transR r_S(v')$ using rewriting steps of $S$,
-  only. By definition of $<_S$, the rewriting rules that are involved in
-  this rewriting sequence have left-hand sides not greater than $e_i$'s,
-  so that $v\transR\sum\lambda_ie_i+r_S(v')$. Moreover, since the $e_i$'s
-  are not comparable for $\ordS$, for each indices $i$ and $j$, $e_i$
-  does not belong to $\supp(r_S(e_j))$. Hence, we may reduce successively
-  each $e_i$ into $r_S(e_i)$ and finally have
+  where the basis elements $e_i$ are the elements of $\supp(u)$ that are
+  maximal for~$\ordS$, and the $\lambda_i$'s are their coefficients in
+  $u$. In particular, we have $u'<_S u$ and by induction, we have
+  $u'\transR r_S(u')$. Moreover, by definition of $\ordS$, the rewriting
+  rules that are involved in this rewriting sequence have left-hand sides
+  strictly smaller than $e_i$'s, so that
+  $u\transR\sum\lambda_ie_i+r_S(u')$. Moreover, since the $e_i$'s are not
+  comparable for~$\ordS$, for each indices $i$ and $j$, $e_i$ does not
+  belong to $\supp(r_S(e_j))$. Hence, we may reduce successively each
+  $e_i$ into $r_S(e_i)$ and finally have
   \[
-  v \transR
-  \sum \lambda_ie_i+r_S(v') \transR
-  \sum\lambda_ir_S(e_i) + r_S(v')
-  =r_S(v).\]
-    
-  Let us show Point~\ref{it:linearity_of_SNF}. By definition of $\SNF$,
-  for every vector~$v$, there exists an integer $n_v$ such that
-  $\SNF(v)=r_S^n(v)$, for every $n\geq n_v$. Let us consider a linear
-  combination $v_3=\lambda v_1+v_2$ of two vectors and let $n$ be any
-  integer greater than $n_{v_i}$'s. Since a composition of linear maps is
-  a linear map, we have $r_S^n(v_3)=\lambda r_S^n(v_1)+r_S^n(v_2)$, which
-  proves linearity of $\SNF$. Let us show that $\SNF$ is a projector. A
-  linear combination of $S$-normal forms is still an $S$-normal form, and
-  for every vector $v$, $\SNF(v)$ is an $S$-normal form. From these two
-  facts, for every vector $v$, we have $\SNF(\SNF(v))=\SNF(v)$, that is,
-  $\SNF$ is a projector.
+  u \quad\transR\quad
+  \sum \lambda_ie_i+r_S(u')\quad\transR\quad
+  \sum\lambda_ir_S(e_i) + r_S(u')
+  =r_S(u).\]
 \end{proof}
 \smallskip
 
-The conclusion of Point~\ref{it:rewS_transR} of
-Proposition~\ref{prop:strategies} concerns the binary relation $\transR$.
-However, in what follows, we do not use this conclusion since one wishes
-to work as much as possible with relations that are compatible with
-vector space operations, such as $\equivR$, see
-Proposition~\ref{prop:vs_structure}. So, instead of using
-Point~\ref{it:rewS_transR} of Proposition~\ref{prop:strategies}, we work
-with its following consequence, that concerns $\equivR$.
-\smallskip
-
-\begin{corollary}\label{cor:transS_equivR}
-  For any vectors $u,v$, if $u \transParS v$ then $u\equivR v$. In
-  addition, it is possible to choose this equivalence path such that each
-  intermediate rewriting step belongs to $S$.
-\end{corollary}
-
-\subsection{Confluence relative to a strategy}
-\label{sec:confluence_relative_to_a_strategy}
-
-In this section, we introduce the $S$-confluence property for a set of
-rewriting rules $R$. We show that $S$-confluence implies confluence
-of~$\rewR$ and guarantees that $S$-normal forms basis elements form a
-basis of $V/\equivR$. We also show that $S$-confluence is characterised
-in terms of a decreasingness property. We finish by a new proof of the
-diamond's lemma, based on $S$-confluence. 
-\smallskip
-
-\begin{definition}\label{def:standardisation_property}
-  Given a strategy $S$ for $R$, we say that $\rewR$ is \emph{S-confluent}
-  if for every rewriting rule~$e\rewR v$ in $R$, we have $\SNF(e-v)=0$.
-\end{definition}
-\smallskip
-
-The following theorem illustrates how $S$-confluence is related to
-confluence of $\rewR$ and the vector space $V/\equivR$.
+Now, we can show that the $S$-confluence property implies confluence of
+$\rewR$.
 \medskip
 
-\begin{theorem}\label{thm:S-confluence_criterion}
-  Let $R$ be a set of rewriting rules and let $S$ be a strategy for $R$.
-  If the rewriting relation~$\rewR$ is $S$-confluent, then it is
-  confluent and we have a vector spaces isomorphism
-  \begin{equation}\label{equ:iso_SNF}
-    V/\equivR\quad\simeq\quad\im(\SNF).
-  \end{equation}
-  In particular, $\{[e]_{\equivR}:\ \SNF(e)=e\}$ is a basis of
-  $V/\equivR$.
+\begin{theorem}\label{thm-S-conf}
+  Let $S$ be a strategy for $R$. If $R$ is $S$-confluent, then the
+  rewriting relation $\rewR$ is confluent.
 \end{theorem}
 
 \begin{proof}
-  Since the map $\SNF$ is a linear projector, the vector space $V$
-  admits a direct sum decomposition $V=\ker(\SNF)\oplus\im(\SNF)$. Hence,
-  the isomorphism~\eqref{equ:iso_SNF} means that $\equivR$ is the
-  equivalence relation induced by $\ker(\SNF)$, that is, $v_1\equivR v_2$
-  if and only if $v_1-v_2\in\ker(\SNF)$. By
-  Point~\ref{it:rewS_transR} Proposition~\ref{prop:strategies},
-  we have $v_i\transR r_S(v_i)$, which yields $v_i\transR\SNF(v_i)$ by
-  induction. Hence,~$\SNF(v_1-v_2)=0$ implies that $v_1\equivR v_2$. The
-  converse also implies confluence of $\rewR$ since if $v_1\equivR v_2$
-  is equivalent to $\SNF(v_1-v_2)=0$, the previous argument shows
-  that~$\rewR$ has the Church-Rosser property. From the
-  $S$-confluence hypothesis, $v_1\rewR v_2$ implies $\SNF(v_1-v_2)=0$:
-  indeed, with the notations of~\eqref{equ:R_rewriting_step}, for every
-  rewriting step $v_1=\lambda e+u\rewR v_2=\lambda v+u$, we have
-  $\SNF(v_1-v_2)=\lambda\SNF(e-v)=0$. Since the binary relation defined
-  by $\SNF(v_1-v_2)=0$ is closed under transitivity, reflexivity, and
-  symmetry, it contains~$\equivR$, that is, $v_1\equivR v_2$ implies
-  $v_1-v_2\in\ker(\SNF)$. Finally, since $\SNF$ is a projector, its image
-  admits as a basis the set of basis elements $e$ such that $\SNF(e)=e$.
-  That concludes the proof.
+  It is sufficient to show that $\rewR$ has the Church-Rosser property,
+  which can be done using our previous results. Let $u,u'\in V$ be two
+  vectors such that $u\equivR u'$. From
+  Proposition~\ref{prop:vs_structure}, we have $u=u'+\Span{R}$, from
+  Theorem~\ref{thm:S-confluence_criterion}, we have $\SNF(u)=\SNF(u')$,
+  and from Proposition~\ref{lem:strategies} we have $u\transR\SNF(u)$ and
+  $u'\transR\SNF(u')$. All together, $u$ and $u'$ rewrite into
+  $\SNF(u)=\SNF(u')$, so that~$\rewR$ has the Church-Rosser property.
 \end{proof}
 \smallskip
 
 Note that $S$-confluence is a sufficient but not a necessary condition for
-confluence. Indeed, with $\basis$ the set of integers and the rewriting rules
+confluence. Indeed, with~$\basis$ the set of integers and the rewriting rules
 $n\rewR n+1$ as in Point~\ref{it:case_N} of
 Example~\ref{ex:strategies_step_1}, there is no strategy such that
-$\rewR$ is confluent relative to this strategy. 
+$\rewR$ is confluent relative to this strategy.
 \smallskip
 
-\begin{example}\label{ex:S-conf}
-  Let us continue Point~\ref{it:ex_strat_1} of
-  Example~\ref{ex:strategies_step_1}. The following identities hold:
-  \[\begin{split}
-  \SNF(e_1)=e_3+e_4=\SNF(e_2),&\quad\SNF(e_2)=e_3+e_4=\SNF(e_3+e_4)
-  \\[0.3cm]
-  \SNF(e_3)=& \ e_3=\SNF(e_2-e_4),
-  \end{split}
-  \smallskip\]
-  so that $\rewR$ is $S$-confluent, and hence confluent. Notice that if
-  we replace the rule $e_3\rewR e_2-e_4$ by $e_3\rewR e_2$, we get
-  $\SNF(e_3)=e_3$ and $\SNF(e_2)=e_3+e_4$, so $\rewR$ is not
-  $S$-confluent anymore. 
-\end{example}
-\smallskip
-
-In Proposition~\ref{prop:S-conf_decreasing}, we show that $S$-confluence
-is caracterised in terms of the decreasingness property that we introduce
-in Definition~\ref{def:decreasing}. The later is stated in terms of the
-relation $\equivR$, since here again we want to take into account
-compatibility with vector space operations. In particular, in the proof
-of Proposition~\ref{prop:S-conf_decreasing}, we apply of
-Corollary~\ref{cor:transS_equivR} instead of Point~\ref{it:rewS_transR}
-of Proposition~\ref{prop:strategies}, as mentioned above. Moreover, in
-Definition~\ref{def:decreasing}, we make use of the following notation: 
-$\overset{=}{\twoheadrightarrow}_S$ is the closure of~$\parS$ under
-reflexivity, that is, $v\overset{=}{\twoheadrightarrow}_Sr_S(v)$ holds 
-for every vector $v$.
-\smallskip
-
-\begin{definition}\label{def:decreasing}
-  Given a strategy $S$ for $R$ and a terminating order $\prec$ on $R$, we
-  say that $R$ is {\em decreasing} w.r.t.\ $(S,\prec)$ if for every
-  rewriting rule $e\rewR v$, we have a diagram:
-  \[\begin{tikzcd}
-      e\ar[d, "_R"']\ar[r, twoheadrightarrow, "=", "_S"'] &
-      r_S(e)\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
-      v\ar[r, leftrightarrow, dotted, "*", "_R"'] & u
-    \end{tikzcd}\]
-  where each rewriting rule occurring in the dotted arrows is strictly
-  smaller than the rewriting rule $e\rewR v$ relative to $\prec$.
-\end{definition}
-\smallskip
-
-\begin{proposition}\label{prop:S-conf_decreasing}
-  Let $S$ be a strategy for $R$. The following assertions are equivalent.
-  \begin{enumerate}
-  \item The set of rewriting rules $R$ is $S$-confluent.
-  \item There exists a terminating order $\prec$ on $R$ such that $R$ is
-    decreasing w.r.t.\ $(S,\prec)$.
-  \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-  $(1)\Rightarrow (2)$: We define the order $\prec$ on $R$ by
-  $e\rewR r_S(e)<e'\rewR v$ whenever $e'\rewR v\notin S$. This order is
-  terminating since each chain of strictly decreasing elements has length
-  $2$. Let $e\rewR v$ be a rewriting rule and let us construct a
-  decreasing diagram as in Definition~\ref{def:decreasing}. We
-  distinguish three cases.
-  \begin{itemize}
-  \item If $e$ is an $S$-normal form, then we have $\SNF(e)=e$ and
-    $e\rewR v$ does not belong to~$S$. Moreover, since $\rewR$ is
-    $S$-confluent, we have $\SNF(e)=\SNF(v)$, and from
-    Corollary~\ref{cor:transS_equivR}, we get the following diagram
-    \[\begin{tikzcd}
-    e\ar[d, "_R"']\ar[r, equal] &
-    e\ar[d, equal]\\
-    v\ar[r, "*", leftrightarrow, "_R"'] & e
-    \end{tikzcd}\]
-    where the equivalence path $v \equivR e$ is such that each
-    intermediate rewriting step belongs to $S$. By definition of $\prec$,
-    this diagram is decreasing w.r.t.\ $(S,\prec)$.
-  \item If $e\rewR v=e\parS r_S(e)$ belongs to $S$, then we have the 
-    following diagram:
-    \[\begin{tikzcd}
-    e\ar[r, twoheadrightarrow, "_S"']\ar[d, "_R"']
-    & r_S(e) \ar[equal, d]\\
-    r_S(e)\ar[r, equal] & r_S(e)
-    \end{tikzcd}\]
-    Since no rewriting step occurs in the right and bottom faces, this
-    diagram obviously is decreasing w.r.t.\ $(S,\prec)$.
-  \item In the last case, $e$ is not an $S$-normal form and $e\rewR v$
-    does not belong to $S$. In particular, there exists a rewriting rule
-    of the form $e\parS r_S(e)$ in $S$. By definition of
-    the map $\SNF$ and of the $S$-confluence property, we have the
-    equalities
-    \[\SNF(r_S(e))=\SNF(e)=\SNF(v).
-    \smallskip\]
-    By Corollary~\ref{cor:transS_equivR}, we get the following
-    diagram:
-    \[\begin{tikzcd}
-    e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-    r_S(e) \ar["_R", "*"', leftrightarrow, d] \\
-    v \ar[r, "_R"',leftrightarrow, "*"] & \SNF (e).
-    \end{tikzcd}\]
-    where the rewriting steps occurring in $v\equivR\SNF(e)$ and
-    $r_S(e)\equivR\SNF(e)$ belong to $S$. Hence, the diagram is
-    decreasing w.r.t.\ $(S,\prec)$.
-  \end{itemize}
-  $(2)\Rightarrow (1)$: Let $e\rewR v$ be a rewriting rule and let us
-  assume by induction that for every rewriting step $e'\rewR v'$ smaller
-  than $e\rewR v$ for $\prec$, we have $\SNF(e')=\SNF(v')$. Consider a
-  decreasing diagram:
-  \[\begin{tikzcd}
-  e\ar[d, "_R"']\ar[r, twoheadrightarrow, "=", "_S"'] &
-  r_S(e)\ar[d, leftrightarrow, dotted, "*"', "_R"]\\
-  v\ar[r, leftrightarrow, dotted, "*", "_R"'] & u
-  \end{tikzcd}\]
-  Using our induction hypothesis and adapting the argument of the proof
-  of Theorem~\ref{thm:S-confluence_criterion}, we have 
-  $\SNF(v)=\SNF(u)=\SNF(r_S(e))$. Hence, since $\SNF(e)=\SNF(r_S(e))$ by
-  definition of the map $\SNF$, we have $\SNF(e)=\SNF(v)$. The order
-  $\prec$ being terminating, this inductive argument proves that
-  $\SNF(e)=\SNF(v)$ for every rewriting rule $e\rewR v$, that is, $R$ is
-  $S$-confluent.
-\end{proof}
-\smallskip
-
-\begin{remark}
-  In the case where the rewriting system comes from a set-theoretic
-  rewriting system (that is, the right-hand sides of the rewriting rules
-  are elements of the basis), the fact that local $S$-confluence implies
-  that $\rewR$ is confluent is a special case of Van Ostroom's decreasing
-  diagrams \cite{van2008confluence}. More precisely, based on
-  Proposition~\ref{prop:S-conf_decreasing}, local $S$-confluence implies
-  that the pair of rewriting relations $(\parS,\rewR)$ is decreasing with
-  respect to conversions (see~\cite[Definition 3]{van2008confluence}),
-  using the order~$<$ on $R$ and the discrete order on $\parS$.
-  By~\cite[Theorem 3]{van2008confluence}, this implies that the relations
-  $(\parS,\rewR)$ commute. Using the fact that $\parS \subseteq \transR$,
-  one can then recover that $\rewR$ is confluent.
-\end{remark}
-\smallskip
-
-\begin{example}\label{ex:end_to_example}
-  Let us illustrate Proposition~\ref{prop:S-conf_decreasing} with
-  Example~\ref{ex:S-conf}. Let us consider the following order $\prec$ on
-  rewriting rules:
-  \[(e_1\rewR e_2)\prec(e_3\rewR e_2-e_4),\quad(e_2\rewR e_3+e_4)\prec
-  (e_3\rewR e_2-e_4).
-  \smallskip\]
-  This choice is guided by the heuristic that rules advancing towards an
-  $S$-normal form should be favored over rules that do not: here $e_3$ is
-  an $S$-normal form, so the rule that rewrites it should be larger for
-  the order $\prec$. The decreasing diagrams are the following:
-  \[\begin{tikzcd}
-  e_1\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-  e_2\ar[d, equal] & e_2\ar[d, "_R"']
-  \ar[r, twoheadrightarrow, "_S"'] & e_3+e_4\ar[d, equal] &
-  e_3\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] & e_3\ar[d,equal]\\
-  e_2\ar[r, equal] & e_2 & e_3+e_4\ar[r, equal] & e_3+e_4 & e_2-e_4
-  \ar[r,  "_R"'] & e_3
-  \end{tikzcd}\]
+\begin{example}\label{ex:conf}
+  In Example~\ref{ex:S-conf}, we have shown that the following set of
+  rewriting rules
+  \[R=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4,\quad e_3\rewR e_2-e_4\}\]
+  is $S$-confluent for the strategy defined in Point~\ref{it:ex_strat_1}
+  of Example~\ref{ex:strategies_step_1}. Hence, $\rewR$ is confluent.
 \end{example}
 \smallskip
 
 We finish this section by showing how the diamond's lemma fits as a
-particular case of our setup.
+particular case of our setup. In our proof, we use the following
+observation: if $\ordR$ is the rewriting preorder of $\rewR$ and if $S$
+is a prestrategy for $R$, then $e\ordS e'$ implies $e\ordR e'$, for every
+basis vectors $e$ and $e'$. In particular, if $\ordR$ is Noetherian, then
+every prestrategy is a strategy for $R$.
 \medskip
 
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
   Let $R$ be a set of rewriting rules such that the rewriting preorder
-  $<_R$ of~$\rewR$ is terminating and for every $e\in\basis$ such that
-  $e\rewR v$ and $e\rewR v'$, $v$ and $v'$ are joinable. Then,~$\rewR$ is
-  confluent.
+  $\ordR$ of~$\rewR$ is Noetherian. Assume that  for every $e\in\basis$
+  such that $e\rewR v$ and $e\rewR v'$, $v$ and $v'$ are joinable. 
+  Then,~$\rewR$ is confluent.
 \end{theorem}
 
 \begin{proof}
-  For every basis element $e$ that is reducible by $\rewR$, we select
-  exactly one arbitrary rewriting rule with left hand-side
-  $e$. Then, let $S$ be the pre-strategy composed of these selected
-  rewriting rules. Since $<_R$ is terminating, $\ordS$ is also
-  terminating, so that $S$ is a strategy for~$R$. Let us show that
-  $\rewR$ is $S$-confluent using the criterion of
-  Proposition~\ref{prop:S-conf_decreasing}. For that, we define the
-  terminating order $\prec$ on~$R$ by letting
-  $(e\rewR v)\prec(e'\rewR v')$  whenever $e<_Re'$. If $e\rewR v$ is a
-  rewriting rule, then $e$ is not an $R$-normal form and
-  $e\overset{=}{\parS}r_S(e)$ means $e\parS r_S(e)$. Using the confluence
-  hypothesis of the theorem, we have a diagram
+  From Theorem~\ref{thm-S-conf}, it is sufficient to show that $R$ is
+  $S$-confluent for a strategy $S$ for $R$. For every basis element $e$
+  that is reducible by $\rewR$, we select exactly one arbitrary rewriting
+  rule with left hand-side $e$. Then, let $S$ be the prestrategy composed
+  of these selected rewriting rules. Following the discussion preceding
+  the statement of the theorem, $S$ is a strategy for $R$. Then, we only
+  have to show that for every rule $e\rewR v$, we have $\SNF(e-v)=0$. For
+  that, we construct the following diagram:
   \[\begin{tikzcd}
-  e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-  r_S(e)\ar[d, rightarrow, "*"', "_R"]\\
-  v\ar[r, rightarrow, "*", "_R"'] & u
+  e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] & 
+  r_S(e)\ar[r, "*", "_R"'] & \SNF(e)\ar[d, equal]\\
+  v\ar[r, "*", "_R"'] & \SNF(v)\ar[r, equal] & u
   \end{tikzcd}\]
-  Each rewriting rule appearing in the right and bottom faces is strictly
-  smaller than $e\rewR r$ for~$\prec$ by definition of this rewriting
-  preorder. Hence, this diagram is decreasing, so that $R$ is
-  $S$-confluent. From Theorem~\ref{thm:S-confluence_criterion}, $\rewR$
-  is confluent.   
+  By definition of $\SNF$, we have $r_S(e)\transS\SNF(r_S(e))=\SNF(e)$
+  and $v\transS\SNF(v)$, and from Lemma~\ref{lem:strategies}, we have
+  $\parS\subset\transR$. That gives the top right and bottom left arrows
+  of the diagram. Moreover, from the assumption of the theorem, $\SNF(v)$
+  and $\SNF(e)$ have to be joinable, so that there exists $u\in V$ such
+  that $\SNF(v)$ and $\SNF(e)$ rewrite into $u$. But both $\SNF(v)$ and
+  $\SNF(e)$ are normal forms for $\parS$, so that they are also normal
+  forms for $\rewR$ by our choice of $S$. That gives the two equality
+  symbols in the diagram. Hence, we have shown that for our strategy $S$,
+  we have $\SNF(e)=\SNF(v)$, or equivalently $\SNF(e-v)=0$.
 \end{proof}
-\smallskip
-
-Notice that in the proof of the diamond's lemma, we select for $<$
-another order than the one given in the proof of
-Proposition~\ref{prop:S-conf_decreasing} (the latter asserts that each
-rule of $S$ is smaller than each rule which is not in $S$ and there is no
-other comparison). This is a good illustration of the flexibility of the
-characterisation of $S$-confluence given in
-Proposition~\ref{prop:S-conf_decreasing}. 
 
 \section{Rewriting strategies over rational Weyl algebras}
 \label{sec:rewriting_strategies_over_rational_Weyl_algebras}
