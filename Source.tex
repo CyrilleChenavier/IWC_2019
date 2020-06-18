@@ -37,8 +37,8 @@
 \newcommand\D{\mathcal{D}}
 \newcommand\basis{\mathscr{B}}
 \newcommand\SigmaTheta{\Sigma_{\Theta}}
-\newcommand\ordS{\leq_S}
-\newcommand\ordR{\leq_R}
+\newcommand\ordS{<_S}
+\newcommand\ordR{<_R}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\lm}{lm}
 \DeclareMathOperator{\lc}{lc}
@@ -228,7 +228,7 @@ itself. The link with classical rewriting over vector spaces is given by a
 confluence criterion. Indeed, the initial rewriting rules induce a rewriting
 relation~$\rewR$ involving well-formed rewriting steps only, and we say that
 $\rewR$ is {\em S-confluent} if for every rewriting rule $e\to v$, $e$ and~$v$ are
-joinable using $\parRew$. In Theorem~\ref{thm:S-confluence_criterion}, we show
+joinable using $\parRew$. In Theorem~\ref{thm:SNF_decompo}, we show
 that the $S$-confluence property implies confluence of $\rewR$, and we construct
 a basis of the vector space quotiented by the equivalence relation of $\rewR$ in
 terms of normal forms for $\parRew$. Moreover, we also show that the
@@ -322,7 +322,9 @@ written $\supp(v)$.
 \section{Rewriting strategies over vector spaces}
 \label{sec:rewriting_strategies_over_vector_space}
 
-\todo{Presentation section}
+In this section, we introduce rewriting strategies over vector spaces and
+relate them to the traditional approach to rewriting theory over vector
+spaces. 
 \medskip
 
 Throughout the section, we fix a ground field $\K$, a $\K$-vector space
@@ -332,11 +334,14 @@ elements of $V$ and $\basis$, respectively.
 \subsection{Confluence relative to a strategy}
 \label{sec:confluence_relative_to_a_strategy}
 
-\todo{Presentation intro, motiver stratégies et fusionner avec le prochain
-parapgraphe}
-\medskip
+In this section, we define rewriting strategies as well as the
+$S$-confluence property, and show that under $S$-confluence hypothesis, a
+basis of $V$ may be described in terms of normal forms like basis vectors.
+\todo{formulation ok ?}
+\medskip 
 
-We fix a subset $R$ of $\basis\times V$. In Section \todo{ref}, the set
+We fix a subset $R$ of $\basis\times V$. In
+Section~\ref{sec:strategies_for_traditional_rewriting_relations}, the set
 $R$ represents a set of rewriting rules over~$V$, and for this reason, we
 denote its elements by $e\rewR v$ instead of $(e,v)$ and call them
 rewriting rules. Let us denote by $\Span{R}$ the subspace of $V$ spanned
@@ -359,28 +364,27 @@ stable under vector spaces operations, that is, for every rewriting steps
 $u\parS u'$, $v\parS v'$, and for every scalar $\lambda\in\K$, there
 exists a rewriting step $u+\lambda v\parS u'+\lambda v'$. Moreover, also
 notice that $\parS$ is deterministic in the sense that for every vector
-$u$, there is at most one~$u'$ such that $u\parS u'$. Let us denote by
-$\ordS$ the rewriting preorder on~$\basis$ induced by~$\parS$, that is,
-$\ordS$ is the transitive closure of the relation: there exists a vector
-$u$ such that $e'\transS u$ and $e\in\supp(u)$. In other words,
-$e\ordS e'$ if and only if $e\in\supp(r_S^n(e'))$, where $n$ is a
-nonnegative integer and $r_S^n$ is the $n$-th composition of $r_S$. 
+$u$, there is at most one~$u'$ such that $u\parS u'$. Let us define the
+preorder $\ordS$ of $S$ as being the (strict) preorder on~$\basis$
+defined by $e\ordS e'$ if there exists a strictly positive integer $n$
+such that $e\in\supp(r_S^n(e'))$, where $r_S^n$ is the $n$-th composition
+of $r_S$. 
 \medskip
 
 \begin{definition}\label{def:strategies}
   A {\em prestrategy} for $R$ is a subset $S$ of $R$ with pairwise
   distinct left-hand sides. A {\em strategy} for $R$ is a prestrategy
-  such that the rewriting preorder $\ordS$ of $\parS$ is Noetherian. 
+  such that the preorder $\ordS$ of that prestrategy $S$ is well-founded. 
 \end{definition}
 \smallskip
 
-Let $S$ be a strategy for $R$. In the sequel, we denote elements of $S$
-in the form $e\parS r_S(e)$. The rewriting preorder $\ordS$ being
-Noetherian, every vector $u$ admits an {\em S-normal form}, that is
-another vector $u'$ such that $u\transS u'$ and $r_S$ acts trivially 
-on $u'$. Indeed, $u'$ is the limit of the stationnary sequence
-$(r_S^n(u))_n$. Moreover, since $\parS$ is determinitic, this $S$-normal
-form is unique and we denote it by~$\SNF(u)$. 
+Notice that if $S$ is a strategy for $R$, then $\ordS$ is a well-founded
+order. Moreover, every vector $u$ admits an {\em S-normal form}, that is
+a vector $u'$ such that $u\transS u'$ and $r_S$ acts trivially on $u'$.
+Indeed, since $\ordS$ is well-founded, the sequence $(r_S^n(u))_n$ is
+stationnary and $u'$ is the limit of this sequence. Moreover, since
+$\parS$ is deterministic, this $S$-normal form is unique and we denote it
+by~$\SNF(u)$. 
 \smallskip
 
 \begin{example}\label{ex:strategies_step_1}
@@ -392,12 +396,11 @@ form is unique and we denote it by~$\SNF(u)$.
     set of rewriting rules:
     \[R=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4,\quad e_3\rewR e_2-e_4\}.\]
     Considering the prestrategy
-    \[S=\{e_1\rewR r_S(e_1)=e_2,\quad e_2\rewR r_S(e_2)=e_3+e_4\}\subset
-    R,\]
-    the preorder $\ordS$ is Noetherian since we have
-    $e_1>_Se_2>_Se_3,e_4$, and $e_3,e_4$ are minimal. Hence,~$S$ is a
-    strategy for $R$. The unique $S$-normal form of
-    $u=\lambda_1e_1+\cdots+\lambda_4e_4$ is computed as follows:
+    \[S=\{e_1\rewR e_2,\quad e_2\rewR e_3+e_4\}\subset R,\]
+    the preorder $\ordS$ is well-founded since $e_1>_Se_2>_Se_3,e_4$, and
+    $e_3,e_4$ are minimal. Hence,~$S$ is a strategy for $R$. The unique
+    $S$-normal form of $u=\lambda_1e_1+\cdots+\lambda_4e_4$ is computed
+    as follows:
     \[u\parS\lambda_1e_2+(\lambda_2+\lambda_3)e_3+
     (\lambda_2+\lambda_4)e_4\parS(\lambda_1+\lambda_2+\lambda_3)e_3+
     (\lambda_1+\lambda_2+\lambda_4)e_4,\]
@@ -409,11 +412,10 @@ form is unique and we denote it by~$\SNF(u)$.
     rules:
     \[R=\{e_1\rewR e_2+e_3,\quad e_2\rewR e_1,\quad e_3\rewR -e_1\},\]
     and $S=R$. Then, $S$ is not a strategy since the preorder $\ordS$ is
-    not Noetherian. In fact,~$\ordS$ is cyclic since from the rewriting
-    sequence $e_2\parS e_1\parS e_2+e_3$, we get $e_2>_Se_3$, so that
-    $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice however that each vector
-    $u=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3$ admits a unique $S$-normal
-    form which is $0$:
+    cyclic: from the rewriting sequence $e_2\parS e_1\parS e_2+e_3$, we
+    get $e_2>_Se_3$, so that $e_1>_S e_2>_S e_3>_S e_1>_S\cdots$. Notice
+    however that each vector $u=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3$
+    admits a unique $S$-normal form which is $0$:
     \[u=\lambda_1e_1+\lambda_2e_2+\lambda_3e_3\parS(\lambda_2-\lambda_3)
     e_1+\lambda_1e_2+\lambda_1e_3\parS(\lambda_2-\lambda_3)e_2+(\lambda_2-
     \lambda_3)e_3\parS 0.
@@ -428,9 +430,8 @@ form is unique and we denote it by~$\SNF(u)$.
 \end{example}
 \smallskip
 
-In the next proposition, we establish properties of the map
-$\SNF:V\to V,\ v\mapsto\SNF(v)$ that we use in \todo{compélter, et dire
-  qu'à partir de maintenant S est une stratégie}.
+From now on, we fix a strategy $S$ for $R$ and let us denote by $\SNF$
+the map from $V$ to itself that maps any vector $u$ to $\SNF(u)$.
 \smallskip
 
 \begin{proposition}\label{prop:SNF_projector}
@@ -456,15 +457,15 @@ Now, we introduce the $S$-confluence property.
 \begin{definition}\label{def:standardisation_property}
   Given a strategy $S$ for $R$, we say that $R$ is \emph{S-confluent} if
   for every rewriting rule $e\rewR v$ in $R$, we have $\SNF(e-v)=0$.
-  \todo{rajouter diagramme}
 \end{definition}
 \smallskip
 
-The following theorem illustrates how $S$-confluence provides a method
-for constructing a basis of the vector space $V/\Span{R}$. 
+In the following theorem, we show that under $S$-confluence hypothesis,
+the operator $\SNF$ induces the natural projection from $V$ to
+$V/\Span{R}$.
 \medskip
 
-\begin{theorem}\label{thm:S-confluence_criterion}
+\begin{theorem}\label{thm:SNF_decompo}
   Let $R$ be a set of rewriting rules and let $S$ be a strategy for $R$.
   If $R$ is $S$-confluent, then we have a vector spaces isomorphism
   \begin{equation}\label{equ:iso_SNF}
@@ -506,10 +507,11 @@ for constructing a basis of the vector space $V/\Span{R}$.
   $\SNF(e_2)=e_3+e_4$, so $\rewR$ is not $S$-confluent anymore. 
 \end{example}
 
-\subsection{Strategies for rewriting relations}
+\subsection{Strategies for traditional rewriting relations}
+\label{sec:strategies_for_traditional_rewriting_relations}
 
 In this section, we relate parallel rewriting to the traditional approach
-of rewriting relations over vector spaces that consist in reducing one
+to rewriting theory over vector spaces that consists in reducing one
 basis element at each step. In particular, we show that the
 $S$-confluence property implies confluence for traditional rewriting
 relations, and we give a new proof of the diamond's lemma, based on
@@ -520,18 +522,16 @@ As previously, we fix a set $R\subset\basis\times V$ of rewriting rules,
 whose elements are written $e\rewR v$. Moreover, we also impose that for
 every such rule, we have $e\notin\supp(v)$. These rules are extended into
 a rewriting relation on $V$, still written $\rewR$, with rewriting steps
-of the following form:  
-\begin{equation}\label{equ:R_rewriting_step}
+of the form
+\begin{equation*}\label{equ:R_rewriting_step}
   \lambda e+u\rewR\lambda v+u,
   \smallskip
-\end{equation}
+\end{equation*}
 where $e\rewR v\in R$ is a rewriting rule, $\lambda$ is a nonzero scalar
-and $u$ is a vector such that $e$ does not belong to $\supp(u)$. A normal
-form for $\rewR$ is called an {\em R-normal form}. In the sequel, we
-refer~$\rewR$ as the rewriting relation induced by the rewriting rules
-$R$. The relation~$\rewR$ is not stable under vector spaces
-operations, since $u_1\rewR u_2$, $v_1\rewR v_2$, and $\mu\in\K$
-generally do not imply $\mu u_1+v_1\rewR \mu u_2+v_2$. In contrast, 
+and $u$ is a vector such that $e$ does not belong to $\supp(u)$. The
+relation~$\rewR$ is not stable under vector spaces operations, since
+$u_1\rewR u_2$, $v_1\rewR v_2$, and $\mu\in\K$ generally do not imply
+$\mu u_1+v_1\rewR \mu u_2+v_2$. In contrast,
 Proposition~\ref{prop:vs_structure} shows that $\equivR$ is compatible
 with these operations. In the proof of this proposition, we use the
 following lemma.
@@ -594,7 +594,9 @@ $e\notin\supp(v)$ was explicitly used in the proof of
 Lemma~\ref{lem:butterfly}.
 \medskip
 
-Now, let us relate strategies for $R$ to the rewriting relation $\rewR$.
+In Theorem~\ref{thm-S-conf}, we prove a confluence criterion for $\rewR$
+in terms of strategies. Before that, we need the following lemma, that
+relates parallel rewriting to traditional rewriting.
 \smallskip
 
 \begin{lemma}\label{lem:strategies}
@@ -603,26 +605,25 @@ Now, let us relate strategies for $R$ to the rewriting relation $\rewR$.
 \end{lemma}
 
 \begin{proof}
-  Since $S$ is a strategy, the rewriting preorder $\ordS$ of $\parS$ is
-  Noetherian. This preorder induces the following Noetherian order, still
-  written $\ordS$, on $V$: we let $u'\ordS u$ if $\supp(u')$ is smaller
-  than $\supp(u)$ for the multiset order of $\ordS$. We show the
-  proposition by induction along $\ordS$. If $u$ is minimal, then
-  $r_S(u)=u$ and hence $u\transR r_S(u)$. Suppose now that $u$ is not
-  minimal. Then $u$ may be uniquely written in the form
-  \begin{equation}\label{equ:decompo_max}
+  Since $S$ is a strategy, the preorder $\ordS$ of $S$ is a
+  well-founded order. This order extends into a well-founded order on $V$
+  defined by $u'\ordS u$ if $\supp(u')$ is smaller than $\supp(u)$ for
+  the multiset order of $\ordS$. We show the proposition by induction
+  \wrt\ $\ordS$. If $u$ is minimal, then $r_S(u)=u$ so that
+  $u\transR r_S(u)$. Suppose now that $u$ is not minimal. Then $u$ may be
+  uniquely written in the form 
+  \begin{equation*}\label{equ:decompo_max}
     u=\sum_{i=1}^n\lambda_ie_i+u'
-  \end{equation}
+  \end{equation*}
   where the basis elements $e_i$ are the elements of $\supp(u)$ that are
   maximal for~$\ordS$, and the $\lambda_i$'s are their coefficients in
   $u$. In particular, we have $u'<_S u$ and by induction, we have
-  $u'\transR r_S(u')$. Moreover, by definition of $\ordS$, the rewriting
-  rules that are involved in this rewriting sequence have left-hand sides
-  strictly smaller than $e_i$'s, so that
-  $u\transR\sum\lambda_ie_i+r_S(u')$. Moreover, since the $e_i$'s are not
-  comparable for~$\ordS$, for each indices $i$ and $j$, $e_i$ does not
-  belong to $\supp(r_S(e_j))$. Hence, we may reduce successively each
-  $e_i$ into $r_S(e_i)$ and finally have
+  $u'\transR r_S(u')$. By definition of $\ordS$, the rewriting rules that
+  are involved in this rewriting sequence have left-hand sides strictly
+  smaller than $e_i$'s, so that $u\transR\sum\lambda_ie_i+r_S(u')$.
+  Moreover, since the $e_i$'s are not comparable for~$\ordS$, for each
+  indices $i$ and $j$, $e_i$ does not belong to $\supp(r_S(e_j))$. Hence,
+  we may reduce successively each $e_i$ into $r_S(e_i)$ and finally have
   \[
   u \quad\transR\quad
   \sum \lambda_ie_i+r_S(u')\quad\transR\quad
@@ -645,18 +646,19 @@ $\rewR$.
   which can be done using our previous results. Let $u,u'\in V$ be two
   vectors such that $u\equivR u'$. From
   Proposition~\ref{prop:vs_structure}, we have $u=u'+\Span{R}$, from
-  Theorem~\ref{thm:S-confluence_criterion}, we have $\SNF(u)=\SNF(u')$,
-  and from Proposition~\ref{lem:strategies} we have $u\transR\SNF(u)$ and
-  $u'\transR\SNF(u')$. All together, $u$ and $u'$ rewrite into
-  $\SNF(u)=\SNF(u')$, so that~$\rewR$ has the Church-Rosser property.
+  Theorem~\ref{thm:SNF_decompo}, we have $\SNF(u)=\SNF(u')$,
+  and from Lemma~\ref{lem:strategies} we have $u\transR\SNF(u)$ and
+  $u'\transR\SNF(u')$. All together, we get that $u$ and $u'$ rewrite 
+  into $\SNF(u)=\SNF(u')$, so that~$\rewR$ has the Church-Rosser
+  property.
 \end{proof}
 \smallskip
 
 Note that $S$-confluence is a sufficient but not a necessary condition for
 confluence. Indeed, with~$\basis$ the set of integers and the rewriting rules
 $n\rewR n+1$ as in Point~\ref{it:case_N} of
-Example~\ref{ex:strategies_step_1}, there is no strategy such that
-$\rewR$ is confluent relative to this strategy.
+Example~\ref{ex:strategies_step_1}, there is no strategy such that $R$ is
+confluent relative to this strategy.
 \smallskip
 
 \begin{example}\label{ex:conf}
@@ -669,16 +671,33 @@ $\rewR$ is confluent relative to this strategy.
 \smallskip
 
 We finish this section by showing how the diamond's lemma fits as a
-particular case of our setup. In our proof, we use the following
-observation: if $\ordR$ is the rewriting preorder of $\rewR$ and if $S$
-is a prestrategy for $R$, then $e\ordS e'$ implies $e\ordR e'$, for every
-basis vectors $e$ and $e'$. In particular, if $\ordR$ is Noetherian, then
-every prestrategy is a strategy for $R$.
-\medskip
+particular case of our setup. For that, we first recall that the
+rewriting preorder of $\rewR$ is the preorder on $\basis$ defined by
+$e\ordR e'$ if there exists a vector $u\in V$ such that there is a non
+empty rewriting sequence $e'\transR u$ and $e\in\supp(u)$. The notation
+$\ordR$ is the same than the one that we choose for the rewriting
+preorder of a strategy since, even if they refer to different objects,
+they are analogous: in fact $\ordS$ was defined as being the adaptation
+of $\ordR$ to the case of parallel rewriting. Before proving the
+diamond's lemma using strategies, we need the following preliminary
+result.
+\smallskip
+
+\begin{lemma}\label{lem:rew_preorder}
+  Let $S$ be a prestrategy for $R$. If $e\ordS e'$ then, we have
+  $e\ordR e'$. In particular, if $\ordR$ is well-founded, then $S$ is a
+  strategy for $R$.
+\end{lemma}
+
+
+\begin{proof}
+\todo{todo}
+\end{proof}
+\smallskip
 
 \begin{theorem}[\cite{MR506890}]\label{thm:diamond_lemma}
   Let $R$ be a set of rewriting rules such that the rewriting preorder
-  $\ordR$ of~$\rewR$ is Noetherian. Assume that  for every $e\in\basis$
+  $\ordR$ of~$\rewR$ is well-founded. Assume that  for every $e\in\basis$
   such that $e\rewR v$ and $e\rewR v'$, $v$ and $v'$ are joinable. 
   Then,~$\rewR$ is confluent.
 \end{theorem}
@@ -687,9 +706,9 @@ every prestrategy is a strategy for $R$.
   From Theorem~\ref{thm-S-conf}, it is sufficient to show that $R$ is
   $S$-confluent for a strategy $S$ for $R$. For every basis element $e$
   that is reducible by $\rewR$, we select exactly one arbitrary rewriting
-  rule with left hand-side $e$. Then, let $S$ be the prestrategy composed
-  of these selected rewriting rules. Following the discussion preceding
-  the statement of the theorem, $S$ is a strategy for $R$. Then, we only
+  rule with left hand-side $e$ and we define $S$ as being the prestrategy
+  composed of these selected rewriting rules. From
+  Lemma~\ref{lem:rew_preorder}, $S$ is a strategy for $R$. Then, we only
   have to show that for every rule $e\rewR v$, we have $\SNF(e-v)=0$. For
   that, we construct the following diagram:
   \[\begin{tikzcd}
@@ -703,10 +722,10 @@ every prestrategy is a strategy for $R$.
   of the diagram. Moreover, from the assumption of the theorem, $\SNF(v)$
   and $\SNF(e)$ have to be joinable, so that there exists $u\in V$ such
   that $\SNF(v)$ and $\SNF(e)$ rewrite into $u$. But both $\SNF(v)$ and
-  $\SNF(e)$ are normal forms for $\parS$, so that they are also normal
-  forms for $\rewR$ by our choice of $S$. That gives the two equality
-  symbols in the diagram. Hence, we have shown that for our strategy $S$,
-  we have $\SNF(e)=\SNF(v)$, or equivalently $\SNF(e-v)=0$.
+  $\SNF(e)$ are $S$-normal forms, so that they are also normal forms for
+  $\rewR$ by our choice of $S$. That gives the two equality symbols in
+  the diagram. Hence, we have shown that for our strategy $S$, we have
+  $\SNF(e)=\SNF(v)$, or equivalently $\SNF(e-v)=0$.
 \end{proof}
 
 \section{Rewriting strategies over rational Weyl algebras}
@@ -720,15 +739,15 @@ algebras induce confluent rewriting systems.
 
 Throughout the section, we fix a set $X=\{x_1,\cdots,x_n\}$ of
 indeterminates and the field of fractions of the polynomial algebra $\QX$
-over~$\Q$ is denoted by $\Q(X):=\QXX$, it is the set of rational
+over~$\Q$ is denoted by $\Q(X)=\QXX$, it is the set of rational
 functions in the indeterminates $X$. We fix another set of
 variables $\Delta=\{\diff{1},\cdots,\diff{n}\}$ that model partial
 derivative operators, see Example~\ref{ex:diff_operators_init}. We denote
-by $\partial^{\alpha}:=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$ the
+by $\partial^{\alpha}=\diff{1}^{\alpha_1}\cdots\diff{n}^{\alpha_n}$ the
 monomial over $\Delta$ with multi-exponent
 $\alpha=(\alpha_1,\cdots,\alpha_n)\in\N^n$. Finally, let $\monBasis$ be
 the set of monomials over~$\Delta$:
-\[\monBasis:=\left\{\partial^\alpha:\ \alpha\in\N^n\right\}.
+\[\monBasis=\left\{\partial^\alpha:\ \alpha\in\N^n\right\}.
 \smallskip\]
 In what follows, we keep the terminology monomials only for elements of
 $\Mon(\Delta)$ and not for elements in $\Mon(X)$.
@@ -737,8 +756,7 @@ $\Mon(\Delta)$ and not for elements in $\Mon(X)$.
 \label{sec:rewriting_systems_over_Weyl_algebras}
 
 In this section, we recall the definition of the rational Weyl algebra
-and introduce rewriting systems on the rational Weyl algebra induced by
-monic operators.
+and introduce rewriting systems induced by monic operators.
 \medskip
 
 \begin{definition}
@@ -769,7 +787,7 @@ derivative equations (in the case~$n\geq 2$) with one unknown function.
   \begin{enumerate}
   \item\label{it:ODE_init} The linear ordinary differential equation
     $y'(x)=xy(x)$ is written in the form $(\D y)(x)=0$, where the operator
-    $\D:=\partial-x$ belongs to $\Weyl{1}=\Q(x)[\partial]$. 
+    $\D=\partial-x$ belongs to $\Weyl{1}=\Q(x)[\partial]$. 
   \item\label{it:Janet_example_init} Consider Janet's
     example~\cite{MR1308976}, that is, the linear system of partial
     derivative equations with~$3$ variables, one unknown function, and
@@ -778,7 +796,7 @@ derivative equations (in the case~$n\geq 2$) with one unknown function.
     function $y(x)$ with respect to the variables $x_i$ and~$x_j$. Then,
     these equations are written $(\D_1y)(x)=0$ and $(\D_2y)(x)=0$, where
     $\D_1,\D_2\in\Weyl{3}$ are defined as follows:
-    \[\D_1:=\partial_3^2-x_2\partial_1^2,\quad \D_2:=\partial_2^2.
+    \[\D_1=\partial_3^2-x_2\partial_1^2,\quad \D_2=\partial_2^2.
     \smallskip\]
   \end{enumerate}
 \end{example}
@@ -792,20 +810,20 @@ derivative equations (in the case~$n\geq 2$) with one unknown function.
 
 The next step before introducing rewriting systems over rational Weyl
 algebras is to recall the definition of monic operators. We fix a
-monomial order $\prec$ on $\monBasis$, that is, a terminating total 
+monomial order $\prec$ on $\monBasis$, that is, a well-founded total 
 order which is admissible, \ie, $\partial^{\alpha}\prec\partial^{\beta}$
 implies $\partial^{\alpha+\gamma}\prec\partial^{\beta+\gamma}$, for every
 $\alpha,\beta,\gamma\in\N^n$. Given an operator $\D$, we denote by
 $\lm(\D)$ the leading monomial of $\D$ with respect to~$\prec$, that 
 is, $\lm(\D)$ is the greatest element of $\supp(\D)$, where the support 
-is defined w.r.t.\ the basis $\monBasis$. 
+is defined \wrt\ the basis $\monBasis$. 
 \smallskip
 
 \begin{definition}
   Let $\prec$ be a monomial order on $\monBasis$. A differential
   operator $\D\in\Weyl{n}$ is said to be $\prec$-{\em monic} if the
   coefficient of $\lm(\D)$ on $\D$ is equal to $1$. Moreover, given a
-  monic differential operator $\D$, we denote by $r(\D):=\lm(\D)-\D$.
+  monic differential operator $\D$, we denote by $r(\D)=\lm(\D)-\D$.
 \end{definition}
 \smallskip
 
@@ -814,20 +832,20 @@ $\prec$-monic. Given a set of monic operators~$\Theta\subseteq\Weyl{n}$,
 let us consider the rewriting relation on $\Weyl{n}$ induced by the
 following rewriting rules: 
 \begin{equation}\label{equ:rewTheta}
-  \RTheta:=\Big\{\partial^\alpha\lm(\D)\to_{\RTheta}\partial^\alpha
+  \RTheta=\Big\{\partial^\alpha\lm(\D)\to_{\RTheta}\partial^\alpha
   r(\D):\ \D\in\Theta,\ \partial^\alpha\in\Mon(\Delta)\Big\}.
 \end{equation}
 For simplicity, we write $\D\rewTheta\D'$ instead of
 $\D\to_{R_\Theta}\D'$. The rewriting relation $\rewTheta$ is terminating
 since the rewriting rules reduce a monomial into a combination of
-strictly smaller monomials w.r.t.\ the terminating order $\prec$.
+strictly smaller monomials \wrt\ the well-founded order $\prec$.
 Moreover, notice that in the case where the coefficient $\lc(\D)\in\Q(X)$
-of $\lm(\D)$ in $\D$ is not constant, the situation is much harder.
+of~$\lm(\D)$ in $\D$ is not constant, the situation is much harder.
 Indeed, in this case, the left-hand sides of the rewriting rules are of
 the form $\partial^\alpha(\lc(\D)\lm(\D))$ and due to commutation laws,
 these elements are not monomials. In particular, we are not in the
 situation of our general approach developed in  
-Section~\ref{sec:parallel_rewriting_relations_over_vector_space} anymore.
+Section~\ref{sec:rewriting_strategies_over_vector_space} anymore.
 \medskip
 
 We finish this section with some comments on $\rewTheta$. Let us consider 
@@ -840,9 +858,9 @@ Let $y(x)$ be an arbitrary solution to this system. Then, for every
 operator $\partial^\alpha$ and every $\D\in\Theta$, we also have
 $(\partial^\alpha\D y)(x)=0$, or equivalently,
 $(\partial^\alpha\lm(\D)y)(x)=(\partial^\alpha r(\D)y)(x)$. Hence, if
-there is a rewriting path $\D_1\transTheta\D_2$, then the solution $y(x)$
-of~\eqref{equ:PDE_system} satisfies $(\D_1y)(x)=(\D_2y)(x)$. This remark
-has deep applications in the formal theory of partial differential
+there is a rewriting sequence $\D_1\transTheta\D_2$, then the solution
+$y(x)$ of~\eqref{equ:PDE_system} satisfies $(\D_1y)(x)=(\D_2y)(x)$. This
+remark has deep applications in the formal theory of partial differential
 equations, for instance for finding integrability conditions or computing
 dimensions of solution spaces, see~\cite{MR1308976}. Moreover, notice
 that since $\monBasis$ is a commutative set, there is another possible
@@ -863,9 +881,9 @@ example.
 \begin{example}\label{ex:diff_operators_rew}
   We continue Example~\ref{ex:diff_operators_init}.
   \begin{enumerate}
-  \item\label{it:ODE_rew} Let $\Theta:=\{\D\}$ where
-    $\D:=\partial-x\in\Weyl{1}$. Since $\partial$ is greater than $1$ for
-    every monomial order, $\rewTheta$ is induced by the rewriting rules
+  \item\label{it:ODE_rew} Let $\Theta=\{\D\}$ where
+    $\D=\partial-x\in\Weyl{1}$. Since $\partial$ is greater than $1$ for
+    every monomial order,~$\rewTheta$ is induced by the rewriting rules
     $\partial^n\rewTheta \partial^{n-1}x$, where $n$ is a strictly
     positive integer. In particular, we have the following rewriting
     sequence:
@@ -882,8 +900,8 @@ example.
     Notice that if we allow to reduce the left~$\partial$ 
     in~$\partial^2$, then we get $\partial^2\transTheta x^2$, which is 
     false in terms of operators since $y''(x)$ is not equal to~$x^2y(x)$.
-  \item\label{it:Janet_example_rew} Let $\Theta:=\{\D_1,\D_2\}$, where
-    $\D_1:=\partial_3^2-x_2\partial_1^2$ and $\D_2:=\partial_2^2$
+  \item\label{it:Janet_example_rew} Let $\Theta=\{\D_1,\D_2\}$, where
+    $\D_1=\partial_3^2-x_2\partial_1^2$ and $\D_2=\partial_2^2$
     correspond to the two equations of the Janet example. We define
     $\prec$ as being the deg-lex order on
     $\Mon(\partial_1,\partial_2,\partial_3)$ induced by
@@ -946,11 +964,11 @@ following relations:
 In the sequel, we write $\divInv{L}$ instead if $\divInv{L}^U$ when the
 context is clear. We say that $u\in U$ is an {\em L-involutive divisor}
 of a monomial $m$ if $u\divInv{L}m$. The variable~$\partial_i$ is said to be
-{\em L-multiplicative} for $u$ w.r.t.\ $U$ if $u$ is an $L$-involutive
+{\em L-multiplicative} for $u$ \wrt\ $U$ if $u$ is an $L$-involutive
 divisor of $\partial_iu$. Notice that $u\divInv{L}m$ if and only if
 $m=m'u$, where $m'$ contains only $L$-multiplicative variables for $u$
-w.r.t.\ $U$. Notice also that an involutive division is entirely
-determined by the list of multiplicative variables w.r.t.\ each finite
+\wrt\ $U$. Notice also that an involutive division is entirely
+determined by the list of multiplicative variables \wrt\ each finite
 set $U$ such that conditions \ref{it:vertex}, \ref{it:transitivity}, and
 \ref{it:filter} are fulfilled. We say that $U$ is {\em L-autoreduced} if
 every $u\in U$ admits only $u$ as $L$-involutive divisor, \ie,
@@ -959,7 +977,7 @@ then every monomial $m$ admits at most one $L$-involutive divisor. We
 finish this discussion on involutive divisions with three classical
 examples. Before, let us introduce the following notation: given a
 monomial $m=\partial^\alpha\in\monBasis$, let us denote by
-$d_k(m):=\alpha_k$ the degree of $m$ w.r.t. the variable $\partial_k$.
+$d_k(m)=\alpha_k$ the degree of $m$ \wrt the variable $\partial_k$.
 \smallskip
 
 \begin{example}\label{ex:involutive_division}
@@ -968,7 +986,7 @@ $d_k(m):=\alpha_k$ the degree of $m$ w.r.t. the variable $\partial_k$.
   {\em Janet, Thomas} and {\em Pommaret} divisions are the involutive
   divisions $\divInv{J},\divInv{T}$, and $\divInv{P}$ such that the
   variable $\partial_i$, where $1\leq i\leq n$, is
-  $J,L$ or $P$-multiplicative for $u$ w.r.t.\ $U$ if and only if 
+  $J,L$ or $P$-multiplicative for $u$ \wrt\ $U$ if and only if 
   \begin{itemize}
   \item for $\divInv{J}$: $d_i(u)=\max\{d_i(u'):\ u'\in U\ \text{and}\
     d_j(u')=d_j(u),\ \forall i<j\leq n\}$, 
@@ -985,10 +1003,10 @@ $\prec$ on $\monBasis$. Given a finite set $\Theta\subset\Weyl{n}$ of
 $\prec$-monic differential operators, all the theory of monomial sets can
 be applied to the case where $U$ is the set of leading monomials of
 elements of $\Theta$:
-\[\lm(\Theta):=\left\{\lm(\D):\ \D\in\Theta\right\}\subset\monBasis
+\[\lm(\Theta)=\left\{\lm(\D):\ \D\in\Theta\right\}\subset\monBasis
 \smallskip\]
 Hence, we may extend the autoreducibility property for monomial sets
-w.r.t.\ an involutive division to sets of differential operators.
+\wrt\ an involutive division to sets of differential operators.
 \smallskip
 
 \begin{definition}
@@ -1021,7 +1039,7 @@ monomial $\partial^\alpha\in\supp(r(\D'))$.
   \item Take now $\Theta = \{\D_1,\D_2\}$, where
     $\D_1=\partial_3^2 - x_2\partial_1^2$ and $\D_2 = \partial_2^2$. The
     following table gives the multiplicative variables for $\D_1$ and
-    $\D_2$ w.r.t.\ $\Theta$ for all three involutive divisions:
+    $\D_2$ \wrt\ $\Theta$ for all three involutive divisions:
     \begin{center}
     \begin{tabular}{l|ccc}
       & Janet & Thomas & Pommaret \\ \hline
@@ -1041,13 +1059,13 @@ From now on, we fix a set $\Theta$ of monic (the order being fixed, we
 drop it in $\prec$-monic) differential operators. Let $\RTheta$  be the
 set of rewriting rules of the form
 $\partial^\alpha\lm(\D)\rewTheta\partial^\alpha r(\D)$, such as
-in~\eqref{equ:rewTheta}. Since $\lm(\Theta)$ is the only monomial set we
+in~\eqref{equ:rewTheta}. Since~$\lm(\Theta)$ is the only monomial set we
 will work with, we omit it in the symbol of the involutive division: we
 write $\lm(\D)\divInv{L}\partial^\alpha\lm(\D)$ when $\partial^\alpha$
-contains only $L$-multiplicative variables for $\lm(\D)$ w.r.t.\
+contains only $L$-multiplicative variables for $\lm(\D)$ \wrt\
 $\lm(\Theta)$. Finally, we let
 \begin{equation}\label{equ:S-strategy}
-  \SThetaL:=\Big\{\partial^\alpha\lm(\D)\parTheta{L}\partial^\alpha
+  \SThetaL=\Big\{\partial^\alpha\lm(\D)\parTheta{L}\partial^\alpha
   r(\D) : \, \D\in\Theta,\quad\lm(\D)\divInv{L}\partial^\alpha\lm(\D)
   \Big\}.
   \smallskip
@@ -1072,18 +1090,17 @@ r(\D_i)$ in order to simplify notations.
   $\RTheta$. Finally, if $<_\Theta$ denotes the rewriting preorder of
   $\rewTheta$, then $\partial^\alpha<_\Theta\partial^\beta$ implies that
   $\partial^\alpha\prec\partial^\beta$, so that $<_\Theta$ is
-  terminating. Hence, the rewriting preorder of $\twoheadrightarrow_{\SThetaL}$ is also
-  terminating, and $\SThetaL$ is a strategy for~$\RTheta$.
+  well-founded. From Lemma~\ref{lem:rew_preorder}, we get that $\SThetaL$
+  is a strategy for~$\RTheta$. 
 \end{proof}
 \smallskip
 
-
 From Proposition~\ref{prop:involutive_strategy}, any involutive division
-$L$ such that $\Theta$ is left $L$-autoreduced induces a strategy
-$\SThetaL$ for $\RTheta$. Hence, we get a well-defined normalisation
-operator $\SThetaLNF$ corresponding to this strategy. The following
-definition is an adaptation of the notion of involutive bases for
-polynomial ideals~\cite{MR1627129} to the case of sets of monic
+$L$ such that $\Theta$ is left $L$-autoreduced induces a 
+strategy~$\SThetaL$ for $\RTheta$. Hence, we get a well-defined
+normalisation operator $\SThetaLNF$ corresponding to this strategy. The
+following definition is an adaptation of the notion of involutive bases
+for polynomial ideals~\cite{MR1627129} to the case of sets of monic
 differential operators.
 \smallskip
 
@@ -1147,7 +1164,7 @@ following theorem.
 
 \begin{theorem}\label{thm:involutive_conf}
   Let $\Theta\subset\Weyl{n}$ be a finite set of differential operators,
-  let $\prec$ be a monomial order on $\monBasis$ such that each element
+  let $\prec$ be a monomial order on~$\monBasis$ such that each element
   of $\Theta$ is monic, and let L be an involutive division 
   on~$\monBasis$ such that $\Theta$ is left L-autoreduced. If $\Theta$ is
   L-involutive, then the rewriting relation~$\rewTheta$ is confluent.
@@ -1159,8 +1176,8 @@ following theorem.
   the form $\partial^\alpha\lm(\D)\rewTheta\partial^\alpha R(\D)$, where
   $\D\in\Theta$ and $\partial^\alpha\in\monBasis$, the assumption that
   $\Theta$ is $L$-involutive means that $\rewTheta$ is
-  $\SThetaL$-confluent. By Theorem~\ref{thm:S-confluence_criterion},
-  $\rewTheta$ is confluent.
+  $\SThetaL$-confluent. By Theorem~\ref{thm-S-conf}, $\rewTheta$ is
+  confluent.
 \end{proof}
 \smallskip
 
@@ -1239,14 +1256,13 @@ A first research direction is to investigate the so-called
 {\em standardisation properties}~\cite{Mellies05jwklop} associated to a
 rewriting strategy. Indeed, the choice of strategy is nothing but the
 choice for every vector of a preferred rewriting sequence starting at 
-this vector. Moreover, we have shown in Point~\ref{it:rewS_transR} of
-Proposition~\ref{prop:strategies} that each elementary rewriting step for
-a strategy has same source and target points than a rewriting sequence
-involving rules that do not belong to the strategy. The proof of this
-fact is based on complete developments of residuals, that play a central
-role in standardisation results, corresponding to left-hand sides of the
-strategy. As a particular case, we expect to interpret Janet bases in
-terms of standardisation.
+this vector. Moreover, we have shown in Lemma~\ref{lem:strategies} that
+each elementary rewriting step for a strategy has same source and target
+points than a rewriting sequence involving rules that do not belong to
+the strategy. The proof of this fact is based on complete developments of
+residuals, that play a central role in standardisation results,
+corresponding to left-hand sides of the strategy. As a particular case,
+we hope to interpret Janet bases in terms of standardisation.
 \medskip
 
 A second research direction is to extend our work to other algebraic
