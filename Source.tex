@@ -365,10 +365,10 @@ $u\parS u'$, $v\parS v'$, and for every scalar $\lambda\in\K$, there
 exists a rewriting step $u+\lambda v\parS u'+\lambda v'$. Moreover, also
 notice that $\parS$ is deterministic in the sense that for every vector
 $u$, there is at most one~$u'$ such that $u\parS u'$. Let us define the
-preorder $\ordS$ of $S$ as being the (strict) preorder on~$\basis$
-defined by $e\ordS e'$ if there exists a strictly positive integer $n$
-such that $e\in\supp(r_S^n(e'))$, where $r_S^n$ is the $n$-th composition
-of $r_S$. 
+(strict) preorder of $S$ as being the transitive closure of the binary
+relation defined by $e'\ordS e$ if there exists a strictly positive
+integer $n$ such that $e'\in\supp(r_S^n(e))$, where $r_S^n$ is the $n$-th
+composition of $r_S$. The strict preorder of $S$ is also written $\ordS$.
 \medskip
 
 \begin{definition}\label{def:strategies}
@@ -672,26 +672,42 @@ confluent relative to this strategy.
 
 We finish this section by showing how the diamond's lemma fits as a
 particular case of our setup. For that, we first recall that the
-rewriting preorder of $\rewR$ is the preorder on $\basis$ defined by
-$e\ordR e'$ if there exists a vector $u\in V$ such that there is a non
-empty rewriting sequence $e'\transR u$ and $e\in\supp(u)$. The notation
-$\ordR$ is the same than the one that we choose for the rewriting
-preorder of a strategy since, even if they refer to different objects,
-they are analogous: in fact $\ordS$ was defined as being the adaptation
-of $\ordR$ to the case of parallel rewriting. Before proving the
-diamond's lemma using strategies, we need the following preliminary
-result.
+rewriting preorder of $\rewR$ is the preorder on $\basis$ defined as
+being the transitive closure of $e'\ordR e$ if there exists a vector
+$u\in V$ such that there is a non empty rewriting sequence $e\transR u$
+and $e'\in\supp(u)$. The rewriting preorder of $\rewR$ is still written
+$\ordR$. The notation~$\ordR$ is the same than the one that we choose for
+the rewriting preorder of a strategy since, even if they refer to
+different objects, they are analogous: in fact $\ordS$ was defined as
+being the adaptation of $\ordR$ to the case of parallel rewriting. Before
+proving the diamond's lemma using strategies, we need the following
+preliminary result.
 \smallskip
 
 \begin{lemma}\label{lem:rew_preorder}
-  Let $S$ be a prestrategy for $R$. If $e\ordS e'$ then, we have
-  $e\ordR e'$. In particular, if $\ordR$ is well-founded, then $S$ is a
+  Let $S$ be a prestrategy for $R$. If $e'\ordS e$, then we have
+  $e'\ordR e$. In particular, if $\ordR$ is well-founded, then $S$ is a
   strategy for $R$.
 \end{lemma}
 
 
 \begin{proof}
-\todo{todo}
+  Let $e\in\basis$ be a basis element. We first show by induction that
+  for every strictly positive integer~$n\geq 1$ and for every
+  $e'\in\supp(r_S^n(e))$, we have $e'\ordR e$. Assuming that that holds
+  for every strictly positive integer that is smaller or equal to $n-1$,
+  we distinguish two cases. First, if $e'\in\supp(r_S^{n-1}(e))$ and
+  $n\geq 2$, then we have $e'<_Re$ by induction hypothesis. In the other
+  case ($n=1$ or $e'\notin\supp(r_S^{n-1}(e))$), then there exists
+  $e''\in\supp(r_S^{n-1}(e))$, such that $e'\in\supp(r_S(e''))$, so that
+  there is a rewriting rule $e''\rewR r_S(e')$ in $R$. That implies that
+  $e'<_Re''$ and thus $e'<_Re$; the last assertion is due to the facts
+  that if $n=1$, then $e''=e$ and if not, we have $e''<_Re$ by induction
+  hypothesis. Since $\ordS$ is the transitive closure of there exists a
+  strictly positive integer~$n$ such that $e'\in\supp(r_S^n(e))$ and
+  since $\ordR$ is transitive, the first assertion is shown. This
+  assertion implies that if $\ordR$ is well-founded, then $\ordS$ is also
+  well-founded, hence the second assertion.
 \end{proof}
 \smallskip
 
