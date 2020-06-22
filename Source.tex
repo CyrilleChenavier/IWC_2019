@@ -564,24 +564,24 @@ following lemma.
 
 \begin{proposition}\label{prop:vs_structure}
   Given two vectors $u,u'\in V$, we have $u\equivR u'$ if and only if
-  $u=u'+\Span{R}$.
+  $u + \Span{R} = u'+\Span{R}$.
 \end{proposition}
 
 \begin{proof}
   By definition of the rewriting relation $\rewR$, if $u\rewR u'$, then
-  $u=u'+\Span{R}$. Since $\equivR$ is the smallest equivalence relation
+  $u + \Span{R} =u'+\Span{R}$. Since $\equivR$ is the smallest equivalence relation
   that contains $\rewR$, we deduce that $u\equivR u'$ also implies
-  $u=u'+\Span{R}$. Conversely, let us write $u-u'=\sum\mu(e-v)$, where
+  $u+\Span{R}=u'+\Span{R}$. Conversely, let us write $u-u'=\sum\mu(e-v)$, where
   $\mu$ are scalars and $e\rewR v$ are rewriting rules. Since
   $e\equivR v$ holds for each term of the sum, Lemma~\ref{lem:butterfly}
   implies that $u\equivR u'$, which concludes the proof.
 \end{proof}
 \smallskip
 
-As a consequence of the previous proposition, $V/\equivR$ admits a vector
-space structure, isomorphic to $V/\Span{R}$, for the operations
-\[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
-\noindent
+% As a consequence of the previous proposition, $V/\equivR$ admits a vector
+% space structure, isomorphic to $V/\Span{R}$, for the operations
+% \[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
+% \noindent
 Notice that Proposition~\ref{prop:vs_structure} is not true if we do not
 assume that $e\notin\supp(v)$ holds for every rewriting rule~$e\rewR v$: 
 for instance, if we have only one rule $e\rewR 2e$, then $e\in\Span{R}$ 
@@ -716,13 +716,17 @@ preliminary result.
 
 \begin{proof}
   From Theorem~\ref{thm-S-conf}, it is sufficient to show that $R$ is
-  $S$-confluent for a strategy $S$ for $R$. For every basis element $e$
-  that is reducible by $\rewR$, we select exactly one arbitrary rewriting
-  rule with left hand-side $e$ and we define $S$ as being the prestrategy
-  composed of these selected rewriting rules. From
-  Lemma~\ref{lem:rew_preorder}, $S$ is a strategy for $R$. Then, we only
-  have to show that for every rule $e\rewR v$, we have $\SNF(e-v)=0$. For
-  that, we construct the following diagram:
+  $S$-confluent for a strategy $S$ for $R$. For every basis element $e$ that is
+  reducible by $\rewR$, we select exactly one arbitrary rewriting rule with left
+  hand-side $e$ and we define $S$ as being the prestrategy composed of these
+  selected rewriting rules. From Lemma~\ref{lem:rew_preorder}, $S$ is a strategy
+  for $R$. Then, we only have to show that for every rule $e\rewR v$, we have
+  $\SNF(e-v)=0$. We reason by induction on $e$ according to the order $\ordR$.
+
+  
+
+ For that, we construct the
+  following diagram:
   \[\begin{tikzcd}
   e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] & 
   r_S(e)\ar[r, "*", "_R"'] & \SNF(e)\ar[d, equal]\\
@@ -732,7 +736,7 @@ $r_S(e)\transS\SNF(r_S(e))=\SNF(e)$ and $v\transS\SNF(v)$, and from
 Lemma~\ref{lem:strategies}, we have $\parS\subset\transR$. That gives the top right
 and bottom left arrows of the diagram. Moreover, from the assumption of the
 theorem, $\SNF(v)$ and $\SNF(e)$ have to be joinable \todo{(probl\`eme: $r_S(e)$
-  et $v$ sont joinable, pas nécessairement leurs S-NF)}, so that there exists
+  et $v$ sont joignables, pas nécessairement leurs S-NF)}, so that there exists
 $u\in V$ such that $\SNF(v)$ and $\SNF(e)$ rewrite into $u$. But both $\SNF(v)$
 and $\SNF(e)$ are $S$-normal forms, so that they are also normal forms for
 $\rewR$ by our choice of $S$. That gives the two equality symbols in the
