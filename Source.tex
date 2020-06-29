@@ -37,8 +37,8 @@
 \newcommand\D{\mathcal{D}}
 \newcommand\basis{\mathscr{B}}
 \newcommand\SigmaTheta{\Sigma_{\Theta}}
-\newcommand\ordS{\leq_S}
-\newcommand\ordR{\leq_R}
+\newcommand\ordS{<_S}
+\newcommand\ordR{<_R}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\lm}{lm}
 \DeclareMathOperator{\lc}{lc}
@@ -363,9 +363,9 @@ rewriting step $u+\lambda v\parS u'+\lambda v'$. Moreover, also notice that
 $\parS$ is deterministic in the sense that for every vector $u$, there is
 exactly one~$u'$ such that $u\parS u'$. Let us define the preorder of $S$ as
 being the transitive closure of the binary relation defined by $e'\ordS e$ if
-there exists an $n \geq 0$ such that $e'\in\supp(r_S^n(e))$, where
+there exists an $n > 0$ such that $e'\in\supp(r_S^n(e))$ and $r_S^n(e) \neq e$, where
 $r_S^n$ is the $n$-th composition of $r_S$. The preorder of $S$ is also
-written $\ordS$. \todo{Je pense que ça ne va toujours pas}
+written $\ordS$.
 \smallskip
 
 \begin{definition}\label{def:strategies}
@@ -463,16 +463,17 @@ $V/\Span{R}$.
 \medskip
 
 \begin{theorem}\label{thm:SNF_decompo}
-  Let $R$ be a set of rewriting rules and let $S$ be a strategy for $R$.
-  If $R$ is $S$-confluent, then we have a vector spaces isomorphism
+  Let $R$ be a set of rewriting rules and let $S$ be a strategy for $R$.  If $R$
+  is $S$-confluent, then we have the following equality and isomorphism of
+  vector spaces:
   \begin{equation}\label{equ:iso_SNF}
-    V/\Span{R}\quad\simeq\quad\im(\SNF).
+    V/\Span{R} \quad = \quad V/\Span{S} \quad \simeq \quad\im(\SNF).
   \end{equation}
   In particular, $\{e+\Span{R}:\ \SNF(e)=e\}$ is a basis of
   $V/\Span{R}$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof} \todo{adapter à $V/{\Span S}$}
   For proving~\eqref{equ:iso_SNF}, it is sufficient to show that
   $\ker(\SNF)$ is equal to $\Span{R}$. Let us show the first inclusion.
   From Proposition~\ref{prop:SNF_projector}, $\SNF$ is a projector, so
@@ -504,6 +505,25 @@ $V/\Span{R}$.
   $\SNF(e_2)=e_3+e_4$, so $\rewR$ is not $S$-confluent anymore. 
 \end{example}
 
+\begin{definition}
+$S$ is decreasing if there is an order $\prec$ or $R$ such that for any $\rho = (e,v) \in R$,
+\[
+v + \Span{R_{\prec \rho}} = r_S(e) + \Span{R_{\prec \rho}}
+\]
+\end{definition}
+
+\begin{proposition}
+$S$ is decreasing iff $R$ is $S$-confluent.
+\end{proposition}
+\begin{proof}
+  If $R$ is $S$-confluent then we use the order $(e,r_S(e)) \leq (e,v)$. If
+  $(e,v) \notin S$, $R_{<f} = S$, $v + \Span S = r_S(e) + \Span S$.
+
+  If $S$ is decreasing, we proceed by induction on $R$ using $<$. Take $f=(e,v)$
+  such that for ... (HR).  We want to show $e-v \in ker(\SNF)$. By induction,
+  $R_{<f} \subset ker (\SNF)$. By decreasingness,
+  $v - r_S(e) \in R_{<f} \subset ker(\SNF)$, and thus for $v - e$.
+\end{proof}
 \subsection{Strategies for traditional rewriting relations}
 \label{sec:strategies_for_traditional_rewriting_relations}
 
@@ -579,11 +599,10 @@ following lemma.
 \end{proof}
 \smallskip
 
-\todo{On peut se contenter de donner la nouvelle description des opérations.}
-% As a consequence of the previous proposition, $V/\equivR$ admits a vector
-% space structure, isomorphic to $V/\Span{R}$, for the operations
-% \[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
-% \noindent
+As a consequence of the previous proposition, $V/\equivR = V/\Span{R}$ admits a
+vector space structure, given by the operations
+\[[u]_{\equivR}+\lambda[v]_{\equivR}=[u+\lambda v]_{\equivR}.\smallskip\]
+\noindent
 Notice that Proposition~\ref{prop:vs_structure} is not true if we do not
 assume that $e\notin\supp(v)$ holds for every rewriting rule~$e\rewR v$: 
 for instance, if we have only one rule $e\rewR 2e$, then $e\in\Span{R}$ 
@@ -679,7 +698,7 @@ the rewriting preorder of a strategy since, even if they refer to
 different objects, they are analogous: in fact $\ordS$ was defined as
 being the adaptation of $\ordR$ to the case of parallel rewriting. Before
 proving the diamond lemma using strategies, we need the following
-preliminary result. \todo{Vérifier la cohérence avec $\ordS$}
+preliminary result.
 \smallskip
 
 \begin{lemma}\label{lem:rew_preorder}
@@ -745,6 +764,7 @@ $\rewR$ by our choice of $S$. That gives the two equality symbols in the
 diagram. Hence, we have shown that for our strategy $S$, we have
 $\SNF(e)=\SNF(v)$, or equivalently $\SNF(e-v)=0$.
 \end{proof}
+\todo{van Ostroom: diagramme et rq}
 
 \section{Rewriting strategies over rational Weyl algebras}
 \label{sec:rewriting_strategies_over_rational_Weyl_algebras}
