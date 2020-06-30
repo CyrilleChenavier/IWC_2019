@@ -97,19 +97,20 @@
 \maketitle
       
 \begin{abstract}
-  We study rewriting systems whose underlying set of terms is equipped with a
-  vector space structure over a given field. We introduce parallel rewriting
-  relations, which are rewriting relations compatible with the vector space
-  structure, as well as rewriting strategies, which consist in choosing one
-  rewriting step for each reducible basis element of the vector space. Using
-  these notions, we introduce the $S$-confluence property and show that it
-  implies confluence. We deduce a proof of the diamond lemma, based on
-  strategies. We illustrate our general framework with rewriting systems over
-  rational Weyl algebras, that are vector spaces over a field of rational
-  functions. In particular, we show that involutive divisions induce rewriting
-  strategies over rational Weyl algebras, and using the $S$-confluence property,
-  we show that involutive sets induce confluent rewriting systems over rational
-  Weyl algebras.
+  We study rewriting systems whose underlying set of terms is equipped
+  with a vector space structure over a given field. We introduce parallel
+  rewriting relations, which are rewriting relations compatible with the
+  vector space structure, as well as rewriting strategies, which consist
+  in choosing one rewriting step for each reducible basis element of the
+  vector space. Using these notions, we introduce the $S$-confluence
+  property and show that it implies confluence. We deduce a proof of the
+  diamond lemma, based on strategies. We illustrate our general framework
+  with rewriting systems over rational Weyl algebras, that are vector
+  spaces over a field of rational functions. In particular, we show that
+  involutive divisions induce rewriting strategies over rational Weyl
+  algebras, and using the $S$-confluence property, we show that
+  involutive sets induce confluent rewriting systems over rational Weyl
+  algebras.
 \end{abstract}
 \noindent
 \begin{small}\textbf{Keywords:} confluence, parallel rewriting, rewriting
@@ -204,38 +205,51 @@ Newman's lemma and of the diamond lemma.
   {\large\bf Our results}
 \end{center}
 
-In the present paper, we introduce an alternative approach to rewriting theory
-over vector spaces, which does not use the notion of well-formed rewriting
-step. Instead, our rewriting steps only depend on vector spaces operations, and they
-may reduce many basis elements at once, still avoiding pathological
-situations. Moreover, our framework is valid in every vector space and can be
-applied to the case where the coefficients do not commute with basis
-elements. We illustrate this last point with rewriting systems over rational
-Weyl algebras, and from this, we show that so-called {\em involutive
-  bases}~\cite{MR1627129} induce confluent rewriting systems.  \medskip
+In the present paper, we introduce an alternative approach to rewriting
+theory over vector spaces, which does not use the notion of well-formed
+rewriting step. Instead, our rewriting steps only depend on vector spaces
+operations, and they may reduce many basis elements at once, still
+avoiding pathological situations. From this approach, we get a method for
+constructing bases of quotient vector spaces. We also relate our approach
+to the classical one based on well-formed rewriting steps, in particular,
+we get a confluence criterion that extends the diamond lemma. Moreover,
+our framework is valid in every vector space and can be applied to the
+case where the coefficients do not commute with basis elements. We
+illustrate this last point with rewriting systems over rational Weyl
+algebras, and from this, we show that so-called {\em involutive bases}
+\cite{MR1627129} induce confluent rewriting systems.
+\medskip
 
-Given a set of rewriting rules of the form $e\to v$, where $e$ is a basis element
-and $v$ is a vector, we introduce the notion of {\em parallel rewriting
-  relation} with rewriting steps $v_1\parRew v_2$ that consists in replacing
-each left-hand side of a rule $e$ occurring in $v_1$ by the corresponding
-right-hand side $v$ to get~$v_2$. As mentioned above, this definition is purely
-internal to the category of vector spaces and does not require any notion of
-well-formed rewriting step. Our approach is related to the classical one through
-the notion of {\em strategy}, which means that the rewriting preorder induced by
-$\parRew$ is terminating. Following the ideas of~\cite{GuiraudHoffbeckMalbos19},
-and contrary to rewriting with \G\ bases, rewriting with strategies does not
-require any monomial order but uses the order induced by the rewriting process
-itself. The link with classical rewriting over vector spaces is given by a
-confluence criterion. Indeed, the initial rewriting rules induce a rewriting
-relation~$\rewR$ involving well-formed rewriting steps only, and we say that
-$\rewR$ is {\em S-confluent} if for every rewriting rule $e\to v$, $e$ and~$v$ are
-joinable using $\parRew$. In Theorem~\ref{thm:SNF_decompo}, we show
-that the $S$-confluence property implies confluence of $\rewR$, and we construct
-a basis of the vector space quotiented by the equivalence relation of $\rewR$ in
-terms of normal forms for $\parRew$. Moreover, we also show that the
-$S$-confluence property is characterised by a decreasingness property, which
-enables us to provide a new proof of the diamond lemma in
-Theorem~\ref{thm:diamond_lemma}.  \medskip
+Consider a vector space $V$ with a basis $\basis$, and a set $R$ of
+rewriting rules of the form $e\to v$, where $e\in\basis$ and $v\in V$.
+Our approach to rewriting over vector spaces first consists in selecting,
+for each $e\in\basis$, at most one rewriting rule with left-hand side
+$e$. The set of such chosen rules is written $S$. We consider the
+parallel rewriting relation induced by $S$ whose steps are of the form
+$v_1\parS v_2$ and are defined in such  a way that all selected left-hand
+sides of elements of $S$ occurring in $v_1$ are replaced by the
+corresponding right-hand sides to get $v_2$. As mentioned above, the
+definition of parallel rewriting is purely internal to the category of
+vector spaces and does not require any notion of well-formed rewriting
+step. In the case where the rewriting preorder of $\parS$ is
+well-founded, we say that $S$ is a {\em strategy}. Following the ideas
+of~\cite{GuiraudHoffbeckMalbos19}, and contrary to rewriting with \G\
+bases, rewriting with strategies does not require any monomial order but
+uses the order induced by the rewriting process itself. Given a strategy
+$S$, we introduce the $S$-confluence property that asserts that for every
+rule $e\rewR v$ in $S$ and all other rule $e\rewR u$ of $R$ that is not
+in $S$, then $u$ and $v$ are joinable using~$\parS$. In
+Theorem~\ref{thm:SNF_decompo}, we show under $S$-confluence hypothesis,
+a basis of $V$ modulo the subspace generated by elements $e-v$, where
+$e\rewR v\in R$, admits as a basis elements of $\basis$ that are not
+left-hand sides of $S$. We also relate this approach based on strategies
+to the classical one based on well-formed rewriting steps. In particular,
+we show in Theorem~\ref{thm-S-conf} that $S$-confluence implies
+confluence of the rewriting relation defined using only well-formed
+rewriting steps. As a consequence, we give in
+Theorem~\ref{thm:diamond_lemma} a new proof of the diamond lemma based on
+strategies.
+\medskip
 
 Since our approach works for arbitrary vector spaces, it may be declined
 in different classes of algebras over fields, including rational Weyl
@@ -262,19 +276,17 @@ rewriting language using rewriting strategies.
 
 \paragraph{Organisation.}
 
-In Section~\ref{sec:parallel_rewriting_relations_over_vector_space}, we
-present our general framework and general results for rewriting systems
-over vector spaces. In
-Section~\ref{sec:rewriting_strategies_over_vector_space}, we introduce
-parallel rewriting relations, rewriting strategies, and a normalisation
-operator associated to each strategy. In
-Section~\ref{sec:confluence_relative_to_a_strategy}, we introduce the
-$S$-confluence property, and show that it implies confluence property for
-well-formed rewriting relations and that bases of quotient vector spaces
-may be constructed in terms of normal forms for parallel rewriting
-relations. We also show that $S$-confluence is characterised by a
-decreasingness property, from which we deduce a proof of the diamond
-lemma based on strategies. In
+In Section~\ref{sec:rewriting_strategies_over_vector_space}, we present
+our general framework and results for rewriting systems over vector
+spaces. In Section~\ref{sec:confluence_relative_to_a_strategy}, we 
+introduce rewriting strategies and the $S$-confluence property. We show
+that $S$-confluence guarantees that bases of quotient vector spaces are
+induced by normal forms basis elements for the strategy. In
+Section~\ref{sec:strategies_for_traditional_rewriting_relations}, we
+relate rewriting strategies to the classical approach to rewriting theory
+on vector spaces. In particular, we show that $S$-confluence implies
+confluence of the classical rewriting relation, and obtain a new proof of
+the diamond lemma. In
 Section~\ref{sec:rewriting_strategies_over_rational_Weyl_algebras}, we
 illustrate our general framework by rewriting systems over rational 
 Weyl algebras. In Section~\ref{sec:rewriting_systems_over_Weyl_algebras},
@@ -303,7 +315,7 @@ from $a$ to  $b$, we say that $a$ {\em rewrites} into $b$. The rewriting
 relation $\to$ is said to be {\em confluent} if whenever $a\transRew b$
 and $a\transRew c$, then $b$ and $c$ are {\em joinable}, that is, there
 exists $d$ such that $b\transRew c$ and $c\transRew d$. The confluence
-property is equivalent to the {\em Church-Rosser property} that assterts
+property is equivalent to the {\em Church-Rosser property} that asserts
 that whenever $a\rewEquiv b$, then~$a$ and $b$ are joinable.
 \medskip
 
@@ -380,7 +392,7 @@ Notice that if $S$ is a strategy for $R$, then $\ordS$ is a well-founded
 order. Moreover, every vector $u$ admits an {\em S-normal form}, that is
 a vector $u'$ such that $u\transS u'$ and $r_S$ acts trivially on $u'$.
 Indeed, since $\ordS$ is well-founded, the sequence $(r_S^n(u))_n$ is
-stationnary and $u'$ is the limit of this sequence. Moreover, since
+stationary and $u'$ is the limit of this sequence. Moreover, since
 $\parS$ is deterministic, this $S$-normal form is unique and we denote it
 by~$\SNF(u)$. 
 \smallskip
@@ -475,7 +487,7 @@ $V/\Span{R}$.
 \end{theorem}
 
 \begin{proof} 
-  The equality and ismorphism of~\eqref{equ:iso_SNF} are equivalent to 
+  The equality and isomorphism of~\eqref{equ:iso_SNF} are equivalent to 
   the following equalities:
   \begin{equation}\label{equ:R=S=ker_SNF}
     \ker(\SNF)=\Span{S}=\Span{R}.
@@ -562,7 +574,7 @@ $e-v$, where $e\rewR v\in R$ is strictly smaller than $\rho$ for $\prec$.
 \smallskip
 
 The proof of Proposition~\ref{prop:decreasing} indicates that for proving
-$S$-confluence, we can choose the order that seperates rewriting rules in
+$S$-confluence, we can choose the order that separates rewriting rules in
 $S$ from the others. However, it may happen that other natural orders may
 be used, as we will see in our proof of the diamond lemma.
 
