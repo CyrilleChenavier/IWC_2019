@@ -828,12 +828,17 @@ preliminary result.
   can be stated as the fact that for any rule $\rho = e \rewR v \in R$,
   $v \equivRx r_S(e)$, in other words that there exists a rewriting zig-zag
   between $v$ and $r_S(e)$ using only rewriting steps smaller than $\rho$.
-  \todo{figure}
+
+   \[\begin{tikzcd}[sep = large]
+    e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
+    r_S(e)  \\
+    v \ar[ru, "_{R_{\prec \rho}}"', leftrightarrow, "*"] &.
+    \end{tikzcd}\]
 
   This condition is analogous to the decreasingness condition introduced by van
-  Ostroom for abstract rewriting systems \cite{van2008confluence}[Definition 2]. From this point of view, Theorem
-  \ref{thm-S-conf} can be seen as a generalisation of van Ostroom's result [XX]
-  to linear rewriting systems.
+  Ostroom for abstract rewriting systems. From this point of view, Theorem
+  \ref{thm-S-conf} can be seen as an analogue of van Ostroom's result  \cite{van2008confluence}
+  for linear rewriting systems.
 \end{remark}
 
 \section{Rewriting strategies over rational Weyl algebras}
