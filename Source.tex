@@ -206,33 +206,32 @@ Newman's lemma and of the diamond lemma.
   {\large\bf Our results}
 \end{center}
 
-In the present paper, we introduce an alternative approach to rewriting
-theory over vector spaces, which does not use the notion of well-formed
-rewriting step. Instead, our rewriting steps only depend on vector spaces
-operations, and they may reduce many basis elements at once, still
-avoiding pathological situations. From this approach, we get a method for
-constructing bases of quotient vector spaces. We also relate our approach
-to the classical one based on well-formed rewriting steps, in particular,
-we get a confluence criterion that extends the diamond lemma. Moreover,
-our framework is valid in every vector space and can be applied to the
-case where the coefficients do not commute with basis elements. We
-illustrate this last point with rewriting systems over rational Weyl
-algebras, and from this, we show that so-called {\em involutive bases}
-\cite{MR1627129} induce confluent rewriting systems.
-\medskip
+In the present paper, we introduce an alternative approach to rewriting theory
+over vector spaces, which does not use the notion of well-formed rewriting
+step. Instead, our rewriting steps only depend on vector spaces operations. A
+nice feature is that we allow the reduction of many basis elements at once,
+while still avoiding pathological situations. From this approach, we get a
+method for constructing bases of quotient vector spaces. We also relate our
+approach to the classical one based on well-formed rewriting steps. In
+particular, we get a confluence criterion which extends the Diamond
+Lemma. Moreover, our framework is valid in every vector space and can be applied
+to the case where the coefficients do not commute with basis elements. We
+illustrate this last point with rewriting systems over rational Weyl algebras,
+and from this, we show that so-called {\em involutive bases} \cite{MR1627129}
+induce confluent rewriting systems.  \medskip
 
 Consider a vector space $V$ with a basis $\basis$, and a set $R$ of
 rewriting rules of the form $e\to v$, where $e\in\basis$ and $v\in V$.
 Our approach to rewriting over vector spaces first consists in selecting,
 for each $e\in\basis$, at most one rewriting rule with left-hand side
-$e$. The set of such chosen rules is written $S$. We consider the
+$e$. The set of such chosen rules is denoted $S$. We consider the
 parallel rewriting relation induced by $S$ whose steps are of the form
 $v_1\parS v_2$ and are defined in such  a way that all selected left-hand
 sides of elements of $S$ occurring in $v_1$ are replaced by the
 corresponding right-hand sides to get $v_2$. As mentioned above, the
 definition of parallel rewriting is purely internal to the category of
 vector spaces and does not require any notion of well-formed rewriting
-step. In the case where the rewriting preorder of $\parS$ is
+step. We associate to $S$ a preorder, denoted $\ordS$. In the case where $\ordS$ is
 well-founded, we say that $S$ is a {\em strategy}. Following the ideas
 of~\cite{GuiraudHoffbeckMalbos19}, and contrary to rewriting with \G\
 bases, rewriting with strategies does not require any monomial order but
@@ -254,9 +253,8 @@ strategies.
 
 Since our approach works for arbitrary vector spaces, it may be declined
 in different classes of algebras over fields, including rational Weyl
-algebras. The later extend polynomial Weyl algebras presented above,
-since they are composed of differential operators with coefficients in
-the field of rational functions. Unlike polynomial Weyl algebras, that
+algebras. They are composed of differential operators with coefficients in
+the field of rational functions. Unlike polynomial Weyl algebras, which
 are vector spaces over the field of constants and modules over the ring
 of polynomials, rational Weyl algebras are vector spaces over the field
 of rational functions. Notice that because of Leibniz's rule,
@@ -287,7 +285,7 @@ Section~\ref{sec:strategies_for_traditional_rewriting_relations}, we
 relate rewriting strategies to the classical approach to rewriting theory
 on vector spaces. In particular, we show that $S$-confluence implies
 confluence of the classical rewriting relation, and obtain a new proof of
-the diamond lemma. In
+the Diamond Lemma. In
 Section~\ref{sec:rewriting_strategies_over_rational_Weyl_algebras}, we
 illustrate our general framework by rewriting systems over rational 
 Weyl algebras. In Section~\ref{sec:rewriting_systems_over_Weyl_algebras},
@@ -343,13 +341,12 @@ spaces.
 
 Throughout the section, we fix a ground field $\K$, a $\K$-vector space $V$, and
 a basis $\basis$ of $V$. We respectively call elements of $V$ and $\basis$
-vectors and basis elements. We fix a subset $R$ of $\basis\times V$. In
-Section~\ref{sec:strategies_for_traditional_rewriting_relations}, the set $R$
+vectors and basis elements. We fix a subset $R$ of $\basis\times V$. The set $R$
 represents a set of rewriting rules over~$V$, and for this reason, we denote its
 elements by $e\rewR v$ instead of $(e,v)$ and call them \emph{rewriting
   rules}. We denote by $\Span{R}$ the subspace of $V$ spanned by elements $e-v$,
-where $e\rewR v$ is a rewriting rule. The quotient vector space of $V$ modulo
-$\Span{R}$ is written $V/\Span{R}$.
+where $e\rewR v$ is a rewriting rule. We write $V/\Span{R}$ for the quotient of
+$V$ by $\Span{R}$.
 
 \subsection{Confluence relative to a strategy}
 \label{sec:confluence_relative_to_a_strategy}
@@ -744,6 +741,22 @@ confluent relative to this strategy.
 \end{example}
 \smallskip
 
+
+\begin{remark}
+  
+  Putting together Proposition \ref{prop:vs_structure} and Theorem \ref{thm-S-conf}, a sufficent condition for the confluence for $\rewR$ is the existence, for any rule $\rho = e \rewR v \in R$,
+   of a diagram of the following shape:
+   \[\begin{tikzcd}[sep = large]
+    e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
+    r_S(e)  \\
+    v \ar[ru, "_{R_{\prec \rho}}"', leftrightarrow, "*"] &.
+  \end{tikzcd}\]
+The two main features of these results -- using an order on rewriting steps and allowing  zig-zags in confluence diagrams -- are inspired from van Ostroom's work of decreasingness, introduced in \cite{van2008confluence} for abstract rewriting system.
+  
+\end{remark}
+
+\smallskip
+
 We finish this section by showing how the diamond lemma fits as a
 particular case of our setup. For that, we first recall that the
 rewriting preorder of $\rewR$ is the preorder on $\basis$ defined as
@@ -822,24 +835,6 @@ preliminary result.
   decreasing \wrt\ $(S,\prec)$. Hence, $R$ is $S$-confluent, so that
   $\rewR$ is confluent.
 \end{proof}
-
-\begin{remark}
-  By Proposition \ref{prop:vs_structure}, the decreasingness of a strategy $S$
-  can be stated as the fact that for any rule $\rho = e \rewR v \in R$,
-  $v \equivRx r_S(e)$, in other words that there exists a rewriting zig-zag
-  between $v$ and $r_S(e)$ using only rewriting steps smaller than $\rho$.
-
-   \[\begin{tikzcd}[sep = large]
-    e\ar[d, "_R"']\ar[r, twoheadrightarrow, "_S"'] &
-    r_S(e)  \\
-    v \ar[ru, "_{R_{\prec \rho}}"', leftrightarrow, "*"] &.
-    \end{tikzcd}\]
-
-  This condition is analogous to the decreasingness condition introduced by van
-  Ostroom for abstract rewriting systems. From this point of view, Theorem
-  \ref{thm-S-conf} can be seen as an analogue of van Ostroom's result  \cite{van2008confluence}
-  for linear rewriting systems.
-\end{remark}
 
 \section{Rewriting strategies over rational Weyl algebras}
 \label{sec:rewriting_strategies_over_rational_Weyl_algebras}
